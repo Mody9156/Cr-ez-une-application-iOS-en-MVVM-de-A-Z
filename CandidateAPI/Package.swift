@@ -1,11 +1,14 @@
-// swift-tools-version:5.9
+// swift-tools-version:5.7.1
 import PackageDescription
 
 let package = Package(
     name: "CandidateAPI",
     platforms: [
-       .macOS(.v13)
-    ],
+            .macOS(.v10_15),
+            .iOS(.v13),
+            .tvOS(.v13),
+            .watchOS(.v6)
+        ],
     dependencies: [
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor.git", from: "4.83.1"),
