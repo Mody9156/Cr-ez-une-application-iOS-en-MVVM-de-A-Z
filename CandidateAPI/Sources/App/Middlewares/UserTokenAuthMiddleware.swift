@@ -2,6 +2,7 @@ import Vapor
 
 struct UserTokenAuthMiddleware: Middleware {
     
+   
     
     func respond(to request: Request, chainingTo next: Responder) -> EventLoopFuture<Response> {
         // Check and verify JWT token

@@ -81,7 +81,7 @@ Exemple:
 ```
 {
     "email":"test@vitesse.com",
-    "password":"TOTO"
+    "password":"TOTO",
     "firstName": "Toto",
     "lastName": "Henry"
 }
