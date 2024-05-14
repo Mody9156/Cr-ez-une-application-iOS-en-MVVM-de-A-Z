@@ -29,7 +29,7 @@ class LoginModel{
     }
     
     
-    func authentification() throws -> AuthentificationModel {
+    func authentification(usernae :String , password : String ) throws -> AuthentificationModel {
         let (data,response) = try httpService(urlRequest)
         
         guard let json = try JSONDecoder().decode(AuthentificationModel.self, from:data),
