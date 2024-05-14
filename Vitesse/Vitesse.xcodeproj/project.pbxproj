@@ -19,6 +19,7 @@
 		23E2DD122BF3B69E00C28A1F /* Candidats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD112BF3B69E00C28A1F /* Candidats.swift */; };
 		23E2DD142BF3B7A300C28A1F /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD132BF3B7A300C28A1F /* HTTPService.swift */; };
 		23E2DD162BF3B82B00C28A1F /* BasicHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD152BF3B82B00C28A1F /* BasicHTTPClient.swift */; };
+		23E2DD182BF3C88400C28A1F /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD172BF3C88400C28A1F /* LoginModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		23E2DD112BF3B69E00C28A1F /* Candidats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidats.swift; sourceTree = "<group>"; };
 		23E2DD132BF3B7A300C28A1F /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
 		23E2DD152BF3B82B00C28A1F /* BasicHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicHTTPClient.swift; sourceTree = "<group>"; };
+		23E2DD172BF3C88400C28A1F /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginModel.swift; path = "../../../../../../Downloads/vapor-main/LoginModel.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,10 +106,9 @@
 		234BDF872BEFEC7E00C96E42 /* Vitesse */ = {
 			isa = PBXGroup;
 			children = (
-				23E2DD0C2BF39D8C00C28A1F /* Protocols */,
+				23E2DD092BF3603900C28A1F /* Model */,
 				23E2DD0B2BF3604700C28A1F /* View */,
 				23E2DD0A2BF3604000C28A1F /* ViewModel */,
-				23E2DD092BF3603900C28A1F /* Model */,
 				234BDF882BEFEC7E00C96E42 /* VitesseApp.swift */,
 				234BDF8C2BEFEC8500C96E42 /* Assets.xcassets */,
 				234BDF8E2BEFEC8500C96E42 /* Preview Content */,
@@ -143,6 +144,8 @@
 		23E2DD092BF3603900C28A1F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				23E2DD0C2BF39D8C00C28A1F /* Protocols */,
+				23E2DD172BF3C88400C28A1F /* LoginModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				234BDF8B2BEFEC7E00C96E42 /* Login.swift in Sources */,
 				23E2DD142BF3B7A300C28A1F /* HTTPService.swift in Sources */,
 				234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */,
+				23E2DD182BF3C88400C28A1F /* LoginModel.swift in Sources */,
 				23E2DD162BF3B82B00C28A1F /* BasicHTTPClient.swift in Sources */,
 				23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */,
 			);
