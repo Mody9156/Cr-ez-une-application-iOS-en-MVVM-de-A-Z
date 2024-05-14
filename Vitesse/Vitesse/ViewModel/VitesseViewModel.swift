@@ -12,10 +12,11 @@ class VitesseViewModel : ObservableObject {
     
    
     var loginViewModel : LoginViewModel {
-        return LoginViewModel { [weak self] in
+        
+        return LoginViewModel ({ [weak self] in
         
             self?.onLoginSucceed = true
-        }
+        },loginModel:LoginModel(httpService: BasicHTTPClient()))
     }
     
     

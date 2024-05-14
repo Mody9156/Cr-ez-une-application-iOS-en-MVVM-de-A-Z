@@ -19,7 +19,7 @@ class LoginModel{
     case TokenInvalid
     }
     
-    func urlRequest(usernae :String , password : String) -> URLRequest {
+    func urlRequest(usernae :String , password : String)  -> URLRequest {
         let url = URL(string: "http://127.0.0.1:8080/user/auth")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -31,10 +31,10 @@ class LoginModel{
     }
     
     
-    func authentification(usernae :String , password : String ) throws -> (String,String) {
-        let (data,response) = try httpService(urlRequest(usernae: usernae, password: password))
+    func authentification(usernae :String , password : String ) async throws -> (String,String) {
+        let (data,_) = try aait httpService(urlRequest(usernae: usernae, password: password))
         
-        guard let json = try JSONDecoder().decode([String:String]self, from:data),
+        guard let json = try? JSONDecoder().decode([String:String]self, from:data),
         let token = json["token"],
         let isAdmin = json["isAdmin"]
         else {

@@ -19,7 +19,6 @@
 		23E2DD122BF3B69E00C28A1F /* Candidats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD112BF3B69E00C28A1F /* Candidats.swift */; };
 		23E2DD142BF3B7A300C28A1F /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD132BF3B7A300C28A1F /* HTTPService.swift */; };
 		23E2DD162BF3B82B00C28A1F /* BasicHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD152BF3B82B00C28A1F /* BasicHTTPClient.swift */; };
-		23E2DD182BF3C88400C28A1F /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD172BF3C88400C28A1F /* LoginModel.swift */; };
 		23E2DD1D2BF3CB1900C28A1F /* LoginJSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +55,6 @@
 		23E2DD112BF3B69E00C28A1F /* Candidats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidats.swift; sourceTree = "<group>"; };
 		23E2DD132BF3B7A300C28A1F /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
 		23E2DD152BF3B82B00C28A1F /* BasicHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicHTTPClient.swift; sourceTree = "<group>"; };
-		23E2DD172BF3C88400C28A1F /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginModel.swift; path = "../../../../../../Downloads/vapor-main/LoginModel.swift"; sourceTree = "<group>"; };
 		23E2DD1A2BF3CAAF00C28A1F /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJSONModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,7 +147,6 @@
 			children = (
 				23E2DD192BF3CAA000C28A1F /* LoginModel */,
 				23E2DD0C2BF39D8C00C28A1F /* Protocols */,
-				23E2DD172BF3C88400C28A1F /* LoginModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -326,7 +323,6 @@
 				23E2DD1D2BF3CB1900C28A1F /* LoginJSONModel.swift in Sources */,
 				23E2DD142BF3B7A300C28A1F /* HTTPService.swift in Sources */,
 				234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */,
-				23E2DD182BF3C88400C28A1F /* LoginModel.swift in Sources */,
 				23E2DD162BF3B82B00C28A1F /* BasicHTTPClient.swift in Sources */,
 				23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */,
 			);
