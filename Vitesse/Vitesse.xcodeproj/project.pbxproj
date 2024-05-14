@@ -20,6 +20,7 @@
 		23E2DD142BF3B7A300C28A1F /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD132BF3B7A300C28A1F /* HTTPService.swift */; };
 		23E2DD162BF3B82B00C28A1F /* BasicHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD152BF3B82B00C28A1F /* BasicHTTPClient.swift */; };
 		23E2DD1D2BF3CB1900C28A1F /* LoginJSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */; };
+		23E2DD1F2BF3D2D300C28A1F /* RegisterUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD1E2BF3D2D300C28A1F /* RegisterUserModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +56,8 @@
 		23E2DD112BF3B69E00C28A1F /* Candidats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidats.swift; sourceTree = "<group>"; };
 		23E2DD132BF3B7A300C28A1F /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
 		23E2DD152BF3B82B00C28A1F /* BasicHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicHTTPClient.swift; sourceTree = "<group>"; };
-		23E2DD1A2BF3CAAF00C28A1F /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJSONModel.swift; sourceTree = "<group>"; };
+		23E2DD1E2BF3D2D300C28A1F /* RegisterUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,8 +182,8 @@
 		23E2DD192BF3CAA000C28A1F /* LoginModel */ = {
 			isa = PBXGroup;
 			children = (
-				23E2DD1A2BF3CAAF00C28A1F /* LoginModel.swift */,
 				23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */,
+				23E2DD1E2BF3D2D300C28A1F /* RegisterUserModel.swift */,
 			);
 			path = LoginModel;
 			sourceTree = "<group>";
@@ -318,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23E2DD122BF3B69E00C28A1F /* Candidats.swift in Sources */,
+				23E2DD1F2BF3D2D300C28A1F /* RegisterUserModel.swift in Sources */,
 				23E2DD102BF3A8D200C28A1F /* VitesseViewModel.swift in Sources */,
 				234BDF8B2BEFEC7E00C96E42 /* Login.swift in Sources */,
 				23E2DD1D2BF3CB1900C28A1F /* LoginJSONModel.swift in Sources */,

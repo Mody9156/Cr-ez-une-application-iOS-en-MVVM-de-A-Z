@@ -10,16 +10,24 @@ import Foundation
 class LoginViewModel : ObservableObject{
     @Published var username : String = "admin@vitesse.com"
     @Published var password : String = "test123"
-    private let loginModel :  LoginModel
+    private let registerUser : RegisterUserModel
     
     var onLoginSucceed: (() -> ())
 
-    init(_ callback : @escaping () -> (),loginModel: LoginModel) {
+    init(_ callback : @escaping () -> (),registerUser: RegisterUserModel) {
         self.onLoginSucceed = callback
-        self.loginModel = loginModel
+        self.registerUser = registerUser
     }
+   
+    
     @MainActor
     func authentification() async throws {
-        onLoginSucceed()
+      
+    try await registerUser.authentification(username: username, password: password)
+            
+    onLoginSucceed()
+    
+       
+       
     }
 }
