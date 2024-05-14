@@ -23,8 +23,10 @@ class LoginModel{
         let url = URL(string: "http://127.0.0.1:8080/user/auth")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        let data = try JSONEncoder().encode(AuthentificationModel(email: email, password: password))
+        let authentificationModel = AuthentificationModel(email: email, password: password)
+        let data = try JSONEncoder().encode(authentificationModel)
         request.httpBody = data
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
     
