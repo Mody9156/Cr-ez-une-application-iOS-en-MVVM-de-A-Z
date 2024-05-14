@@ -8,14 +8,20 @@
 import Foundation
 
 class VitesseViewModel : ObservableObject {
-    @Published var onLoginSucceed : Bool = false
+    @Published var onLoginSucceed : Bool
+    
+    init() {
+        onLoginSucceed = false
+    }
     
    
     var loginViewModel : LoginViewModel {
-        return LoginViewModel { [weak self] in
+        let reistreUserModel = RegisterUserModel(httpService: BasicHTTPClient())
+        return LoginViewModel ({ [weak self] in
         
             self?.onLoginSucceed = true
-        }
+            
+        },registerUser:reistreUserModel)
     }
     
     
