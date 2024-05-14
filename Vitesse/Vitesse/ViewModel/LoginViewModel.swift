@@ -11,9 +11,13 @@ class LoginViewModel : ObservableObject{
     @Published var username : String = "admin@vitesse.com"
     @Published var password : String = "test123"
     
+    var onLoginSucceed: (() -> ())
+
+    init(_ callback : @escaping () -> ()) {
+        self.onLoginSucceed = callback
+    }
     
-    
-    func authentification(){
-        
+    func authentification() async throws {
+        onLoginSucceed()
     }
 }
