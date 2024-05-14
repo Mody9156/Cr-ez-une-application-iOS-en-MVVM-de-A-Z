@@ -18,14 +18,23 @@ class LoginViewModel : ObservableObject{
         self.onLoginSucceed = callback
         self.registerUser = registerUser
     }
-   
+    enum failure : Error {
+        case invalid
+    }
     
     @MainActor
     func authentification() async throws {
-      
-    try await registerUser.authentification(username: username, password: password)
+        do{
+            try await registerUser.authentification(username: username, password: password)
             
-    onLoginSucceed()
+            onLoginSucceed()
+            print("oui super ")
+
+        }catch{
+            throw failure.invalid
+        }
+  
+ 
     
        
        

@@ -18,6 +18,7 @@ class RegisterUserModel{
     
     enum InvalidRequest : Error {
     case TokenInvalid
+    case httpresponseInvalid
     }
     
     func urlRequest(username :String , password : String)  -> URLRequest {
@@ -34,13 +35,14 @@ class RegisterUserModel{
     
     func authentification(username :String , password : String ) async throws -> (String,String) {
         let (data,_) = try await httpService.request(urlRequest(username: username, password: password))
-        
+      
         guard let json = try? JSONDecoder().decode([String:String].self, from:data),
         let token = json["token"],
         let isAdmin = json["isAdmin"]
         else {
             throw InvalidRequest.TokenInvalid
         }
+        print("voici le token \(token) , isAdmin est : \(isAdmin)")
         return (token,isAdmin)
     }
     
