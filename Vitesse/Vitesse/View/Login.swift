@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Login: View {
     
-    @ObservedObject var loginViewModel = LoginViewModel()
+    @ObservedObject var loginViewModel : LoginViewModel
     
     var body: some View {
         ZStack {
@@ -35,8 +35,10 @@ struct Login: View {
                 }.padding()
                 
                 Button("Sign in") {
-                    
-                   try await loginViewModel.authentification()
+                    Task{
+                        try await loginViewModel.authentification()
+
+                    }
                     
                 }.frame(width: 100,height: 50).foregroundColor(.white)
                     .background(.blue)

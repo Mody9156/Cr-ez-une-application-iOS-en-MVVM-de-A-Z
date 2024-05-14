@@ -16,7 +16,7 @@ class LoginViewModel : ObservableObject{
     init(_ callback : @escaping () -> ()) {
         self.onLoginSucceed = callback
     }
-    
+    @MainActor
     func authentification() async throws {
         onLoginSucceed()
     }
