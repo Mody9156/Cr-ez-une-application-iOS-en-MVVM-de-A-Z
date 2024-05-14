@@ -15,6 +15,7 @@
 		234BDFA42BEFEC8500C96E42 /* VitesseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDFA32BEFEC8500C96E42 /* VitesseUITests.swift */; };
 		234BDFA62BEFEC8500C96E42 /* VitesseUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDFA52BEFEC8500C96E42 /* VitesseUITestsLaunchTests.swift */; };
 		23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */; };
+		23E2DD102BF3A8D200C28A1F /* VitesseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0F2BF3A8D100C28A1F /* VitesseViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		234BDFA32BEFEC8500C96E42 /* VitesseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseUITests.swift; sourceTree = "<group>"; };
 		234BDFA52BEFEC8500C96E42 /* VitesseUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		23E2DD0F2BF3A8D100C28A1F /* VitesseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */,
+				23E2DD0F2BF3A8D100C28A1F /* VitesseViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23E2DD102BF3A8D200C28A1F /* VitesseViewModel.swift in Sources */,
 				234BDF8B2BEFEC7E00C96E42 /* Login.swift in Sources */,
 				234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */,
 				23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */,

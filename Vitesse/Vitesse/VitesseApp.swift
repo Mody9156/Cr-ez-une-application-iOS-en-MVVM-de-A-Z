@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct VitesseApp: App {
+    let vitesseViewModel = VitesseViewModel()
     var body: some Scene {
         WindowGroup {
-            Login()
+            Group {
+                if vitesseViewModel.onLoginSucceed {
+                    
+                }else{
+                    Login(loginViewModel: vitesseViewModel.loginViewModel)
+                }
+            }
+            
         }
     }
 }
