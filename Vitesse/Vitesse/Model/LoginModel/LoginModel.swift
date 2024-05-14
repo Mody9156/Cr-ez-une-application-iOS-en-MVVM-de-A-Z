@@ -19,18 +19,18 @@ class LoginModel{
     case TokenInvalid
     }
     
-    func urlRequest() -> URLRequest {
+    func urlRequest(usernae :String , password : String) -> URLRequest {
         let url = URL(string: "http://127.0.0.1:8080/user/auth")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        let data = try JSONEncoder().encode(AuthentificationModel.self)
+        let data = try JSONEncoder().encode(AuthentificationModel(email: email, password: password))
         request.httpBody = data
         return request
     }
     
     
     func authentification(usernae :String , password : String ) throws -> AuthentificationModel {
-        let (data,response) = try httpService(urlRequest)
+        let (data,response) = try httpService(urlRequest(usernae: usernae, password: password))
         
         guard let json = try JSONDecoder().decode(AuthentificationModel.self, from:data),
         let token = json["token"],
