@@ -16,7 +16,7 @@ struct Login: View {
         ZStack {
             Color.blue.opacity(0.5).ignoresSafeArea()
             VStack {
-                
+                Image(systemName: "hourglass")
                     Text("Login")
                     .font(.largeTitle)
                     .fontWeight(.bold)
