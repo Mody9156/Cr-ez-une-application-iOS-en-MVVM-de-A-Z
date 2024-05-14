@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct Login: View {
    @State private var username = ""
    @State private var password = ""
     
@@ -31,7 +31,20 @@ struct ContentView: View {
                     SecureField("Veuillez entrez un mot de passe vaide", text: $password)
                     .textFieldStyle(.roundedBorder)
                     
-                }
+            }.padding()
+            
+            Button("Sign in") {
+                
+            }.frame(width: 100,height: 50).foregroundColor(.white)
+                .background(.blue)
+                .cornerRadius(15)
+            
+            Button("Registre") {
+                
+            }.frame(width: 100,height: 50)
+                .background(.blue)
+                .foregroundColor(.white)
+                .cornerRadius(15)
 
             
         }
@@ -39,8 +52,3 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
