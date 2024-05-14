@@ -31,15 +31,16 @@ class LoginModel{
     }
     
     
-    func authentification(usernae :String , password : String ) throws -> AuthentificationModel {
+    func authentification(usernae :String , password : String ) throws -> (String,String) {
         let (data,response) = try httpService(urlRequest(usernae: usernae, password: password))
         
-        guard let json = try JSONDecoder().decode(AuthentificationModel.self, from:data),
+        guard let json = try JSONDecoder().decode([String:String]self, from:data),
         let token = json["token"],
         let isAdmin = json["isAdmin"]
         else {
             throw InvalidRequest.TokenInvalid
         }
+        return (token,isAdmin)
     }
     
     
