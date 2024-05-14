@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct Login: View {
-   @State private var username = ""
-   @State private var password = ""
+    @ObservedObject var loginViewModel = LoginViewModel()
     
     var body: some View {
         ZStack {
@@ -23,13 +22,13 @@ struct Login: View {
                 
                 VStack{
                     Text("Email/Username").foregroundColor(.white)
-                        TextField("Entrez un Email ou Username valide", text: $username).disableAutocorrection(true)
+                    TextField("Entrez un Email ou Username valide", text: $loginViewModel.username).disableAutocorrection(true)
                             .textFieldStyle(.roundedBorder)
                     }
                 VStack{
                         Text("Password").foregroundColor(.white)
                         .font(.title3)
-                        SecureField("Veuillez entrez un mot de passe vaide", text: $password)
+                    SecureField("Veuillez entrez un mot de passe vaide", text: $loginViewModel.password)
                         .textFieldStyle(.roundedBorder)
                         
                 }.padding()
