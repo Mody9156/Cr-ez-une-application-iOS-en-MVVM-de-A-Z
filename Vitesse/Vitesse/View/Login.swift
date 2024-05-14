@@ -11,12 +11,11 @@ struct Login: View {
    @State private var username = ""
    @State private var password = ""
     
-    
     var body: some View {
         ZStack {
             Color.blue.opacity(0.5).ignoresSafeArea()
             VStack {
-                Image(systemName: "hourglass")
+     
                     Text("Login")
                     .font(.largeTitle)
                     .fontWeight(.bold)
