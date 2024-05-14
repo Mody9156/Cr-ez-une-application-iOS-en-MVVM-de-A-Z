@@ -94,6 +94,9 @@
 		234BDF872BEFEC7E00C96E42 /* Vitesse */ = {
 			isa = PBXGroup;
 			children = (
+				23E2DD0B2BF3604700C28A1F /* View */,
+				23E2DD0A2BF3604000C28A1F /* ViewModel */,
+				23E2DD092BF3603900C28A1F /* Model */,
 				234BDF882BEFEC7E00C96E42 /* VitesseApp.swift */,
 				234BDF8A2BEFEC7E00C96E42 /* ContentView.swift */,
 				234BDF8C2BEFEC8500C96E42 /* Assets.xcassets */,
@@ -125,6 +128,27 @@
 				234BDFA52BEFEC8500C96E42 /* VitesseUITestsLaunchTests.swift */,
 			);
 			path = VitesseUITests;
+			sourceTree = "<group>";
+		};
+		23E2DD092BF3603900C28A1F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		23E2DD0A2BF3604000C28A1F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		23E2DD0B2BF3604700C28A1F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
