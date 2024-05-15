@@ -15,46 +15,53 @@ struct Registre: View {
     @State private var confirmPassword = ""
    
     var body: some View {
-        VStack {
-            
-            Text("Registre")
-            .font(.largeTitle)
-            .fontWeight(.bold)
-        .foregroundColor(.blue).padding()
-            
-            VStack{
+        ZStack {
+            Color.blue.opacity(0.5).ignoresSafeArea()
+
+            VStack {
                 
-                Text("First Name").foregroundColor(.white)
-                TextField("Use First Name valid", text: $firstName)
-                    .disableAutocorrection(true)
-                    .textFieldStyle(.roundedBorder).padding()
-             
-                Text("Last Name").foregroundColor(.white)
-                TextField("Use Last Name valid", text: $lastName)
-                    .disableAutocorrection(true)
-                    .textFieldStyle(.roundedBorder).padding()
+                Text("Registre")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+            .foregroundColor(.blue).padding()
                 
-                Text("Email").foregroundColor(.white)
-                TextField("Use Email valid ", text: $email)
-                    .disableAutocorrection(true)
-                    .textFieldStyle(.roundedBorder).padding()
+                VStack(alignment: .leading){
+                    
+                    Text("First Name").foregroundColor(.white)
+                    TextField("Use First Name valid", text: $firstName)
+                        .disableAutocorrection(true)
+                        .textFieldStyle(.roundedBorder)
+                 
+                    Text("Last Name").foregroundColor(.white)
+                    TextField("Use Last Name valid", text: $lastName)
+                        .disableAutocorrection(true)
+                        .textFieldStyle(.roundedBorder)
+                    
+                    Text("Email").foregroundColor(.white)
+                    TextField("Use Email valid ", text: $email)
+                        .disableAutocorrection(true)
+                        .textFieldStyle(.roundedBorder)
+                    
+                    Text("Password").foregroundColor(.white)
+                    .font(.title3)
+                    SecureField("Use Password valid", text: $password)
+                        .textFieldStyle(.roundedBorder)
+                    
+                    Text("Confirm Password").foregroundColor(.white)
+                    .font(.title3)
+                    SecureField("Use Password valid", text: $confirmPassword)
+                    .textFieldStyle(.roundedBorder)
+                    
+                    }
                 
-                Text("Password").foregroundColor(.white)
-                .font(.title3)
-                SecureField("Use Password valid", text: $password)
-                    .textFieldStyle(.roundedBorder).padding()
-                
-                Text("Confirm Password").foregroundColor(.white)
-                .font(.title3)
-                SecureField("Use Password valid", text: $confirmPassword)
-                .textFieldStyle(.roundedBorder).padding()
-                
-                }
-            
-            Button("Create") {
-                
+                Button("Create") {
+                    
+                }.frame(width: 100,height: 50)
+                    .background(.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+               
             }
-           
         }
     }
 }

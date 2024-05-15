@@ -44,7 +44,7 @@ struct Login: View {
                         
                     }.frame(width: 100,height: 50).foregroundColor(.white)
                         .background(.blue)
-                        .cornerRadius(10)
+                        .cornerRadius(10).padding()
                     
                     NavigationLink(destination: Registre(), isActive: $registre) {
                         EmptyView()
