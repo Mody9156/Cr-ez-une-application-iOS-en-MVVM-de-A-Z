@@ -14,7 +14,13 @@ struct VitesseApp: App {
         WindowGroup {
             Group {
                 if vitesseViewModel.onLoginSucceed {
-                    
+                    TabView {
+                        Candidats().tabItem {
+                            Image(systemName: "person.crop.circle")
+                            Text("Account")
+                        }
+                    }
+                
                 }else{
                     Login(loginViewModel: vitesseViewModel.loginViewModel)
                 }

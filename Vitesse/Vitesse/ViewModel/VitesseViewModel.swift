@@ -16,12 +16,16 @@ class VitesseViewModel : ObservableObject {
     
    
     var loginViewModel : LoginViewModel {
-        let reistreUserModel = RegisterUserModel(httpService: BasicHTTPClient())
+        let reistreUserModel = RegisterUserModel()
         return LoginViewModel ({ [weak self] in
         
             self?.onLoginSucceed = true
             
         },registerUser:reistreUserModel)
+    }
+    
+    var candidats: Candidats {
+        return Candidats()
     }
     
     

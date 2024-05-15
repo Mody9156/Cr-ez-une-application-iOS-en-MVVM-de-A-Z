@@ -35,14 +35,11 @@ class RegisterUserModel{
     
     func authentification(username :String , password : String ) async throws -> JsonAuthentification {
         let (data,_) = try await httpService.request(urlRequest(username: username, password: password))
-      
-         let json = try JSONDecoder().decode(JsonAuthentification.self, from: data)
-       
-       
+
+       let json = try JSONDecoder().decode(JsonAuthentification.self, from: data)
+        
         return json
   
     }
-    
-    
     
 }

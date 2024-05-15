@@ -10,6 +10,7 @@ import SwiftUI
 struct Candidats: View {
     var body: some View {
         Text("Candidats")
+        Image(systemName: "moon")
     }
 }
 
