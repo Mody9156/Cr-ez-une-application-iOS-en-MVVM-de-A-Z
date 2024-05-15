@@ -21,18 +21,19 @@ struct Candidats: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                         
-                        Text("Candidats")  .font(.largeTitle)
+                        Text("Candidats")
+                            .font(.title3)
                             .fontWeight(.bold)
-                        .foregroundColor(.blue).padding()
+                            .foregroundColor(.blue).padding()
                         
                         Button("Delete") {
-                            <#code#>
+                            
                         }.frame(width: 100,height: 50)
                             .background(.blue)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                
+                Spacer()
             }
         }
     }
