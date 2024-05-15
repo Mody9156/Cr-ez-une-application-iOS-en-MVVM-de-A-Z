@@ -14,7 +14,7 @@ class LoginViewModel : ObservableObject{
     
     var onLoginSucceed: (() -> ())
 
-    init(_ callback : @escaping () -> (),registerUser: RegisterUserModel) {
+    init(_ callback : @escaping () -> (),registerUser: RegisterUserModel = RegisterUserModel()) {
         self.onLoginSucceed = callback
         self.registerUser = registerUser
     }
@@ -28,9 +28,10 @@ class LoginViewModel : ObservableObject{
         do {
               let token =   try await registerUser.authentification(username: username, password: password)
             print("Authentification réussie!")
+            print("\(token)")
                 onLoginSucceed()
                
-            print("voici le resultat : \(token)")
+        
             } catch {
                 print("Échec de l'authentification: \(error)")
             }
