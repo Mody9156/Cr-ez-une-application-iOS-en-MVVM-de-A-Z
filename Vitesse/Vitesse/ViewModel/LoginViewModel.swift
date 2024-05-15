@@ -10,7 +10,7 @@ import Foundation
 class LoginViewModel : ObservableObject{
     @Published var username : String = "admin@vitesse.com"
     @Published var password : String = "test123"
-    private let registerUser : RegisterUserModel
+     let registerUser : RegisterUserModel
     
     var onLoginSucceed: (() -> ())
 
@@ -23,18 +23,13 @@ class LoginViewModel : ObservableObject{
     }
     
     @MainActor
-    func authentification() async {
+    func authentification() async throws -> (String,Bool) {
      
-        do {
-              let token =   try await registerUser.authentification(username: username, password: password)
+            let token =  try await registerUser.authentification(username: username, password: password)
             print("Authentification réussie!")
             print("\(token)")
                 onLoginSucceed()
-               
-        
-            } catch {
-                print("Échec de l'authentification: \(error)")
-            }
-       
+            return (token.token,token.isAdmin)
+
     }
 }
