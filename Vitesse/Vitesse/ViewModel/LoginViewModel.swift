@@ -27,8 +27,9 @@ class LoginViewModel : ObservableObject{
      
         do {
               let token =   try await registerUser.authentification(username: username, password: password)
+            print("Authentification réussie!")
                 onLoginSucceed()
-                print("Authentification réussie!")
+               
             print("voici le resultat : \(token)")
             } catch {
                 print("Échec de l'authentification: \(error)")
