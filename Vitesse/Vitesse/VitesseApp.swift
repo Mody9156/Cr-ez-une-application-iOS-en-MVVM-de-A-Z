@@ -17,7 +17,7 @@ struct VitesseApp: App {
                     TabView {
                         Candidats().tabItem {
                             Image(systemName: "person.crop.circle")
-                            Text("Account")
+                            Text("Candidats")
                         }
                     }
                 
