@@ -35,8 +35,8 @@ struct Login: View {
                 }.padding()
                 
                 Button("Sign in") {
-                    Task{
-                        try await loginViewModel.authentification()
+                    Task{@MainActor in
+                        try? await loginViewModel.authentification()
 
                     }
                     

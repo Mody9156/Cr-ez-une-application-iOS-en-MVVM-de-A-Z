@@ -10,9 +10,9 @@ import Foundation
 class LoginViewModel : ObservableObject{
     @Published var username : String = "admin@vitesse.com"
     @Published var password : String = "test123"
-     let registerUser : RegisterUserModel
     
-    var onLoginSucceed: (() -> ())
+     let registerUser : RegisterUserModel
+     var onLoginSucceed : (() -> ())
 
     init(_ callback : @escaping () -> (),registerUser: RegisterUserModel = RegisterUserModel()) {
         self.onLoginSucceed = callback
@@ -28,8 +28,8 @@ class LoginViewModel : ObservableObject{
             let token =  try await registerUser.authentification(username: username, password: password)
             print("Authentification réussie!")
             print("\(token)")
-                onLoginSucceed()
+            onLoginSucceed()
             return (token.token,token.isAdmin)
-
+          
     }
 }

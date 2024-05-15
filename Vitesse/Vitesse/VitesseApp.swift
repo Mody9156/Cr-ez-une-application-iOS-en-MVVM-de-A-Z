@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct VitesseApp: App {
-    let vitesseViewModel = VitesseViewModel()
+   @StateObject var vitesseViewModel = VitesseViewModel()
     var body: some Scene {
         WindowGroup {
             Group {
@@ -23,6 +23,7 @@ struct VitesseApp: App {
                 
                 }else{
                     Login(loginViewModel: vitesseViewModel.loginViewModel)
+                   
                 }
             }
             

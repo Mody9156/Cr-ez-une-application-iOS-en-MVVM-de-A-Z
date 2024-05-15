@@ -15,10 +15,8 @@ class VitesseViewModel : ObservableObject {
     }
    
     var loginViewModel: LoginViewModel {
-        return LoginViewModel({[weak self] in
-            
-                   self?.onLoginSucceed = true
-          
+        return LoginViewModel({
+            self.onLoginSucceed = true
            }, registerUser: RegisterUserModel())
        }
     
