@@ -36,7 +36,7 @@ struct Login: View {
                 
                 Button("Sign in") {
                     Task{
-                        try? await loginViewModel.authentification()
+                         await loginViewModel.authentification()
 
                     }
                     

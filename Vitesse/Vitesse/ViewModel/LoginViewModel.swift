@@ -23,20 +23,16 @@ class LoginViewModel : ObservableObject{
     }
     
     @MainActor
-    func authentification() async throws {
-        do{
-            try await registerUser.authentification(username: username, password: password)
-            
-            onLoginSucceed()
-            print("oui super ")
-
-        }catch{
-            throw failure.invalid
-        }
-  
- 
-    
-       
+    func authentification() async {
+     
+        do {
+              let token =   try await registerUser.authentification(username: username, password: password)
+                onLoginSucceed()
+                print("Authentification réussie!")
+            print("voici le resultat : \(token)")
+            } catch {
+                print("Échec de l'authentification: \(error)")
+            }
        
     }
 }
