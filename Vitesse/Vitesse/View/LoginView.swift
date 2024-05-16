@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Login: View {
+struct LoginView: View {
     
     @ObservedObject var AuthenticationView: LoginViewModel
     @State private var registre: Bool = false

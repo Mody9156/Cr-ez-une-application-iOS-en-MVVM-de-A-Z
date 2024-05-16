@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF882BEFEC7E00C96E42 /* VitesseApp.swift */; };
-		234BDF8B2BEFEC7E00C96E42 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF8A2BEFEC7E00C96E42 /* Login.swift */; };
+		234BDF8B2BEFEC7E00C96E42 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF8A2BEFEC7E00C96E42 /* LoginView.swift */; };
 		234BDF8D2BEFEC8500C96E42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8C2BEFEC8500C96E42 /* Assets.xcassets */; };
 		234BDF902BEFEC8500C96E42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */; };
 		234BDF9A2BEFEC8500C96E42 /* VitesseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF992BEFEC8500C96E42 /* VitesseTests.swift */; };
@@ -39,7 +39,7 @@
 /* Begin PBXFileReference section */
 		234BDF852BEFEC7E00C96E42 /* Vitesse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vitesse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		234BDF882BEFEC7E00C96E42 /* VitesseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseApp.swift; sourceTree = "<group>"; };
-		234BDF8A2BEFEC7E00C96E42 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		234BDF8A2BEFEC7E00C96E42 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		234BDF8C2BEFEC8500C96E42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		234BDF952BEFEC8500C96E42 /* VitesseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,7 +147,7 @@
 		23E2DD0B2BF3604700C28A1F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				234BDF8A2BEFEC7E00C96E42 /* Login.swift */,
+				234BDF8A2BEFEC7E00C96E42 /* LoginView.swift */,
 				23E2DD112BF3B69E00C28A1F /* CandidatesListView.swift */,
 				23D8A2982BF509B1006FC31E /* RegistrationView.swift */,
 			);
@@ -293,7 +293,7 @@
 				23ED07542BF641AA006FECD3 /* RegistreViewModel.swift in Sources */,
 				23E2DD1F2BF3D2D300C28A1F /* AuthenticationManager.swift in Sources */,
 				23E2DD102BF3A8D200C28A1F /* VitesseViewModel.swift in Sources */,
-				234BDF8B2BEFEC7E00C96E42 /* Login.swift in Sources */,
+				234BDF8B2BEFEC7E00C96E42 /* LoginView.swift in Sources */,
 				23E2DD1D2BF3CB1900C28A1F /* LoginJSONModel.swift in Sources */,
 				23E2DD142BF3B7A300C28A1F /* HTTPService.swift in Sources */,
 				23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */,
