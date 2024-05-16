@@ -9,5 +9,5 @@ import Foundation
 
 // MARK: - Welcome
 struct RegistrationRequestBody: Encodable {
-    let email, password, firstName, lastName: String
+    var email, password, firstName, lastName: String
 }
