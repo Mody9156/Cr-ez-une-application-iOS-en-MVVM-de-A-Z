@@ -9,9 +9,24 @@ import SwiftUI
 
 @main
 struct VitesseApp: App {
+   @StateObject var vitesseViewModel = VitesseViewModel()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Group {
+                if vitesseViewModel.onLoginSucceed {
+                    TabView {
+                        Candidats().tabItem {
+                            Image(systemName: "person.crop.circle")
+                            Text("Candidats")
+                        }
+                    }
+                
+                }else{
+                    Login(loginViewModel: vitesseViewModel.loginViewModel)
+                   
+                }
+            }
+            
         }
     }
 }

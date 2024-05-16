@@ -4,11 +4,14 @@ import Vapor
 func routes(_ app: Application) throws {
     
     app.get { req async in
+        
         "It works!"
     }
     
     app.post("/user/auth") { Request  async throws -> TokenResponse in
-        return try await UserController().login(req:Request)
+
+            return try await UserController().login(req:Request)
+ 
     }
 
     app.post("/user/register") { Request -> EventLoopFuture<HTTPStatus> in

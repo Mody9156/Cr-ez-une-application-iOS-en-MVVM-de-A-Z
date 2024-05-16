@@ -53,7 +53,7 @@ Exemple:
 Body Response:
 
 - `token`: `String`
-- `isAdmin`: `Bool`
+- ` `: `Bool`
 
 Exemple:
 
