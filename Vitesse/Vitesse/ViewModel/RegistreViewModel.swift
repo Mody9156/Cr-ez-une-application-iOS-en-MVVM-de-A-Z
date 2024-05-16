@@ -8,7 +8,7 @@
 import Foundation
 
 class RegistreViewModel : ObservableObject {
-    @Published var email : String = ""
+    @Published var email : String = "exemple1@gmail.com"
     @Published var password : String = "test123"
     @Published var firstName: String = "Jeffersone"
     @Published var lastName: String = "James"
@@ -24,7 +24,7 @@ class RegistreViewModel : ObservableObject {
         do{
             let buildRegistrationRequest = try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
                 print("authentification réussie!")
-           
+            
             return buildRegistrationRequest
         }catch{
           throw  error

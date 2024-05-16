@@ -53,9 +53,13 @@ struct LoginView: View {
                     .cornerRadius(10)
                     .padding()
                     
-                    NavigationLink(destination: RegistrationView(registreViewModel: vitesseViewModel.registreViewModel), isActive: $registre) {
-                        EmptyView()
-                    }
+                    NavigationLink(
+                        destination: RegistrationView(registreViewModel: vitesseViewModel.registreViewModel),
+                        isActive: $registre,
+                        label: {
+                            EmptyView()
+                        }
+                    )
                     
                     Button("Registrer") {
                         registre = true
