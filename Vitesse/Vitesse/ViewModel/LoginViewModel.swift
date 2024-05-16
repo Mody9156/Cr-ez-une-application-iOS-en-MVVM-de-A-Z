@@ -7,29 +7,24 @@
 
 import Foundation
 
-class LoginViewModel : ObservableObject{
-    @Published var username : String = "admin@vitesse.com"
-    @Published var password : String = "test123"
+class LoginViewModel: ObservableObject {
+    @Published var username: String = "admin@vitesse.com"
+    @Published var password: String = "test123"
     
-     let registerUser : RegisterUserModel
-     var onLoginSucceed : (() -> ())
-
-    init(_ callback : @escaping () -> (),registerUser: RegisterUserModel = RegisterUserModel()) {
+    let authenticationManager: AuthenticationManager
+    var onLoginSucceed: (() -> ())
+    
+    init(_ callback: @escaping () -> (), authenticationManager: AuthenticationManager = AuthenticationManager()) {
         self.onLoginSucceed = callback
-        self.registerUser = registerUser
-    }
-    enum failure : Error {
-        case invalid
+        self.authenticationManager = authenticationManager
     }
     
     @MainActor
-    func authentification() async throws -> (String,Bool) {
-     
-            let token =  try await registerUser.authentification(username: username, password: password)
-            print("Authentification réussie!")
-            print("\(token)")
-            onLoginSucceed()
-            return (token.token,token.isAdmin)
-          
+    func authenticateUserAndProceed() async throws -> JSONResponseDecodingModel {
+        let authenticationResult = try await authenticationManager.authenticate(username: username, password: password)
+        print("Authentification réussie!")
+        print("\(authenticationResult)")
+        onLoginSucceed()
+        return authenticationResult
     }
 }

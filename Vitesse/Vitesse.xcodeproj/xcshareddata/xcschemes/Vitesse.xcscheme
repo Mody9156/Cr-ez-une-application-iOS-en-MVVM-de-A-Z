@@ -39,17 +39,6 @@
                ReferencedContainer = "container:Vitesse.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "234BDF9E2BEFEC8500C96E42"
-               BuildableName = "VitesseUITests.xctest"
-               BlueprintName = "VitesseUITests"
-               ReferencedContainer = "container:Vitesse.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

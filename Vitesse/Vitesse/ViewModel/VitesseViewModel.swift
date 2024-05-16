@@ -7,8 +7,8 @@
 
 import Foundation
 
-class VitesseViewModel : ObservableObject {
-    @Published var onLoginSucceed : Bool
+class VitesseViewModel: ObservableObject {
+    @Published var onLoginSucceed: Bool
     
     init() {
         onLoginSucceed = false
@@ -17,12 +17,15 @@ class VitesseViewModel : ObservableObject {
     var loginViewModel: LoginViewModel {
         return LoginViewModel({
             self.onLoginSucceed = true
-           }, registerUser: RegisterUserModel())
-       }
-    
-    var candidats: Candidats {
-        return Candidats()
+           }, authenticationManager: AuthenticationManager())
     }
     
+    var registreViewModel : RegistreViewModel {
+        let registrationRequestBuilder = RegistrationRequestBuilder(httpService: BasicHTTPClient())
+        return RegistreViewModel(registrationRequestBuilder: registrationRequestBuilder)
+    }
+    
+    var candidats: CandidatesListView {
+        return CandidatesListView()
+    }
 }
-
