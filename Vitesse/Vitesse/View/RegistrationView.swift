@@ -39,6 +39,9 @@ struct RegistrationView: View {
                     TextField("Use Email valid ", text: $registreViewModel.email)
                         .disableAutocorrection(true)
                         .textFieldStyle(.roundedBorder)
+                        .keyboardType(.emailAddress)
+                        .textContentType(.emailAddress)
+                        .autocapitalization(.none)
                     
                     Text("Password").foregroundColor(.white)
                         .font(.title3)
