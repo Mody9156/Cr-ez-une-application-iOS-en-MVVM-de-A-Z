@@ -37,11 +37,11 @@ class RegistrationRequestBuilder {
     func buildRegistrationRequest(email: String, password: String, firstName: String, lastName: String) async throws -> HTTPURLResponse {
         let (_,response) = try await httpService.request(buildRegistrationURLRequest(email: email, password: password, firstName: firstName, lastName: lastName))
         
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 201 else {
+        guard response.statusCode == 201  else {
             throw HTTPResponseError.invalidResponse(statusCode: response.statusCode)
             
         }
-        return httpResponse
+        return response
     }
     
 }
