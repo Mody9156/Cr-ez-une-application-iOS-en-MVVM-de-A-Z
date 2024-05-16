@@ -8,7 +8,7 @@
 import Foundation
 
 class RegistreViewModel : ObservableObject {
-    @Published var email : String = "o@gmail.com"
+    @Published var email : String = ""
     @Published var password : String = "test123"
     @Published var firstName: String = "Jeffersone"
     @Published var lastName: String = "James"

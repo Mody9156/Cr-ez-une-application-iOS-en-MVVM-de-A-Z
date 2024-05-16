@@ -29,11 +29,15 @@ struct RegistrationView: View {
                     TextField("Use First Name valid", text: $registreViewModel.firstName)
                         .disableAutocorrection(true)
                         .textFieldStyle(.roundedBorder)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                  
                     Text("Last Name").foregroundColor(.white)
                     TextField("Use Last Name valid", text: $registreViewModel.lastName)
                         .disableAutocorrection(true)
                         .textFieldStyle(.roundedBorder)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                     
                     Text("Email").foregroundColor(.white)
                     TextField("Use Email valid ", text: $registreViewModel.email)
@@ -42,16 +46,22 @@ struct RegistrationView: View {
                         .keyboardType(.emailAddress)
                         .textContentType(.emailAddress)
                         .autocapitalization(.none)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                     
                     Text("Password").foregroundColor(.white)
                         .font(.title3)
                     SecureField("Use Password valid", text: $registreViewModel.password)
                         .textFieldStyle(.roundedBorder)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                     
                     Text("Confirm Password").foregroundColor(.white)
                         .font(.title3)
                     SecureField("Use Password valid", text: $registreViewModel.password)
                         .textFieldStyle(.roundedBorder)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                 }
                 
                 Button("Create") {
