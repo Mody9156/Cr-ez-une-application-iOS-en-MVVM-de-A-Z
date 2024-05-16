@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    @State private var firstName = ""
-    @State private var lastName = ""
-    @State private var email = ""
-    @State private var password = ""
-    @State private var confirmPassword = ""
+
+    @StateObject private var registreViewModel : RegistreViewModel
    
     var body: some View {
         ZStack {
@@ -29,33 +26,35 @@ struct RegistrationView: View {
                 VStack(alignment: .leading){
                     
                     Text("First Name").foregroundColor(.white)
-                    TextField("Use First Name valid", text: $firstName)
+                    TextField("Use First Name valid", text: $registreViewModel.firstName)
                         .disableAutocorrection(true)
                         .textFieldStyle(.roundedBorder)
                  
                     Text("Last Name").foregroundColor(.white)
-                    TextField("Use Last Name valid", text: $lastName)
+                    TextField("Use Last Name valid", text: $registreViewModel.lastName)
                         .disableAutocorrection(true)
                         .textFieldStyle(.roundedBorder)
                     
                     Text("Email").foregroundColor(.white)
-                    TextField("Use Email valid ", text: $email)
+                    TextField("Use Email valid ", text: $registreViewModel.email)
                         .disableAutocorrection(true)
                         .textFieldStyle(.roundedBorder)
                     
                     Text("Password").foregroundColor(.white)
                         .font(.title3)
-                    SecureField("Use Password valid", text: $password)
+                    SecureField("Use Password valid", text: $registreViewModel.password)
                         .textFieldStyle(.roundedBorder)
                     
                     Text("Confirm Password").foregroundColor(.white)
                         .font(.title3)
-                    SecureField("Use Password valid", text: $confirmPassword)
+                    SecureField("Use Password valid", text: $registreViewModel.password)
                         .textFieldStyle(.roundedBorder)
                 }
                 
                 Button("Create") {
-                    
+                    Task{
+                        try await registreViewModel.handleRegistrationViewModel()
+                    }
                 }
                 .frame(width: 100, height: 50)
                 .background(Color.blue)
