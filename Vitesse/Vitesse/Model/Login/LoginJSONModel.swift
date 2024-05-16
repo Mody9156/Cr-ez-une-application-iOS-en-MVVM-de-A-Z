@@ -8,6 +8,6 @@
 import Foundation
 
 // MARK: - AuthentificationModel
-struct AuthentificationModel: Encodable {
+struct URLRequestEncodingModel: Encodable {
     let email, password: String
 }

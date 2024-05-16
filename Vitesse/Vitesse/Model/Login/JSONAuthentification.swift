@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct JsonAuthentification : Decodable {
+struct JSONResponseDecodingModel : Decodable {
     var token : String
     var isAdmin : Bool
 }

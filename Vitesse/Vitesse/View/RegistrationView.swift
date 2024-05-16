@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Registre: View {
+struct RegistrationView: View {
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var email = ""
@@ -21,9 +21,10 @@ struct Registre: View {
             VStack {
                 
                 Text("Registre")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            .foregroundColor(.blue).padding()
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.blue)
+                    .padding()
                 
                 VStack(alignment: .leading){
                     
@@ -43,26 +44,25 @@ struct Registre: View {
                         .textFieldStyle(.roundedBorder)
                     
                     Text("Password").foregroundColor(.white)
-                    .font(.title3)
+                        .font(.title3)
                     SecureField("Use Password valid", text: $password)
                         .textFieldStyle(.roundedBorder)
                     
                     Text("Confirm Password").foregroundColor(.white)
-                    .font(.title3)
+                        .font(.title3)
                     SecureField("Use Password valid", text: $confirmPassword)
-                    .textFieldStyle(.roundedBorder)
-                    
-                    }
+                        .textFieldStyle(.roundedBorder)
+                }
                 
                 Button("Create") {
                     
-                }.frame(width: 100,height: 50)
-                    .background(.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                }
+                .frame(width: 100, height: 50)
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
                
             }
         }
     }
 }
-

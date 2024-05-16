@@ -7,28 +7,26 @@
 
 import Foundation
 
-final class BasicHTTPClient : HTTPService  {
-   
+final class BasicHTTPClient: HTTPService {
     
-   private  let session : URLSession
+    private let session: URLSession
     
     init(session: URLSession = URLSession.shared) {
         self.session = session
     }
-   private enum Failure : Swift.Error{
-        case requestInvalid
+    
+    private enum AuthenticationFailure: Swift.Error {
+        case invalidRequest
     }
     
     func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
         
-        let (data,response) = try await session.data(for: request)
+        let (data, response) = try await session.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse else {
-            throw Failure.requestInvalid
+            throw AuthenticationFailure.invalidRequest
         }
         
-        return (data,httpResponse)
+        return (data, httpResponse)
     }
-    
-    
 }

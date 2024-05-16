@@ -12,28 +12,19 @@
 		234BDF8D2BEFEC8500C96E42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8C2BEFEC8500C96E42 /* Assets.xcassets */; };
 		234BDF902BEFEC8500C96E42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */; };
 		234BDF9A2BEFEC8500C96E42 /* VitesseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF992BEFEC8500C96E42 /* VitesseTests.swift */; };
-		234BDFA42BEFEC8500C96E42 /* VitesseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDFA32BEFEC8500C96E42 /* VitesseUITests.swift */; };
-		234BDFA62BEFEC8500C96E42 /* VitesseUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDFA52BEFEC8500C96E42 /* VitesseUITestsLaunchTests.swift */; };
 		23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */; };
-		23D8A2992BF509B1006FC31E /* Registre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2982BF509B1006FC31E /* Registre.swift */; };
+		23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2982BF509B1006FC31E /* RegistrationView.swift */; };
 		23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */; };
 		23E2DD102BF3A8D200C28A1F /* VitesseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0F2BF3A8D100C28A1F /* VitesseViewModel.swift */; };
-		23E2DD122BF3B69E00C28A1F /* Candidats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD112BF3B69E00C28A1F /* Candidats.swift */; };
+		23E2DD122BF3B69E00C28A1F /* CandidatesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD112BF3B69E00C28A1F /* CandidatesListView.swift */; };
 		23E2DD142BF3B7A300C28A1F /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD132BF3B7A300C28A1F /* HTTPService.swift */; };
 		23E2DD162BF3B82B00C28A1F /* BasicHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD152BF3B82B00C28A1F /* BasicHTTPClient.swift */; };
 		23E2DD1D2BF3CB1900C28A1F /* LoginJSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */; };
-		23E2DD1F2BF3D2D300C28A1F /* RegisterUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD1E2BF3D2D300C28A1F /* RegisterUserModel.swift */; };
+		23E2DD1F2BF3D2D300C28A1F /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD1E2BF3D2D300C28A1F /* AuthenticationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		234BDF962BEFEC8500C96E42 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 234BDF7D2BEFEC7E00C96E42 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 234BDF842BEFEC7E00C96E42;
-			remoteInfo = Vitesse;
-		};
-		234BDFA02BEFEC8500C96E42 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 234BDF7D2BEFEC7E00C96E42 /* Project object */;
 			proxyType = 1;
@@ -50,18 +41,15 @@
 		234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		234BDF952BEFEC8500C96E42 /* VitesseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		234BDF992BEFEC8500C96E42 /* VitesseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseTests.swift; sourceTree = "<group>"; };
-		234BDF9F2BEFEC8500C96E42 /* VitesseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		234BDFA32BEFEC8500C96E42 /* VitesseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseUITests.swift; sourceTree = "<group>"; };
-		234BDFA52BEFEC8500C96E42 /* VitesseUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONAuthentification.swift; sourceTree = "<group>"; };
-		23D8A2982BF509B1006FC31E /* Registre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registre.swift; sourceTree = "<group>"; };
+		23D8A2982BF509B1006FC31E /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		23E2DD0F2BF3A8D100C28A1F /* VitesseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseViewModel.swift; sourceTree = "<group>"; };
-		23E2DD112BF3B69E00C28A1F /* Candidats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidats.swift; sourceTree = "<group>"; };
+		23E2DD112BF3B69E00C28A1F /* CandidatesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidatesListView.swift; sourceTree = "<group>"; };
 		23E2DD132BF3B7A300C28A1F /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
 		23E2DD152BF3B82B00C28A1F /* BasicHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicHTTPClient.swift; sourceTree = "<group>"; };
 		23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJSONModel.swift; sourceTree = "<group>"; };
-		23E2DD1E2BF3D2D300C28A1F /* RegisterUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserModel.swift; sourceTree = "<group>"; };
+		23E2DD1E2BF3D2D300C28A1F /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,13 +67,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		234BDF9C2BEFEC8500C96E42 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -94,7 +75,6 @@
 			children = (
 				234BDF872BEFEC7E00C96E42 /* Vitesse */,
 				234BDF982BEFEC8500C96E42 /* VitesseTests */,
-				234BDFA22BEFEC8500C96E42 /* VitesseUITests */,
 				234BDF862BEFEC7E00C96E42 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -104,7 +84,6 @@
 			children = (
 				234BDF852BEFEC7E00C96E42 /* Vitesse.app */,
 				234BDF952BEFEC8500C96E42 /* VitesseTests.xctest */,
-				234BDF9F2BEFEC8500C96E42 /* VitesseUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,19 +117,12 @@
 			path = VitesseTests;
 			sourceTree = "<group>";
 		};
-		234BDFA22BEFEC8500C96E42 /* VitesseUITests */ = {
-			isa = PBXGroup;
-			children = (
-				234BDFA32BEFEC8500C96E42 /* VitesseUITests.swift */,
-				234BDFA52BEFEC8500C96E42 /* VitesseUITestsLaunchTests.swift */,
-			);
-			path = VitesseUITests;
-			sourceTree = "<group>";
-		};
 		23E2DD092BF3603900C28A1F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				23E2DD192BF3CAA000C28A1F /* LoginModel */,
+				23ED074E2BF61A61006FECD3 /* Candidats */,
+				23ED074D2BF61A4B006FECD3 /* Registre */,
+				23E2DD192BF3CAA000C28A1F /* Login */,
 				23E2DD0C2BF39D8C00C28A1F /* Protocols */,
 			);
 			path = Model;
@@ -169,8 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				234BDF8A2BEFEC7E00C96E42 /* Login.swift */,
-				23E2DD112BF3B69E00C28A1F /* Candidats.swift */,
-				23D8A2982BF509B1006FC31E /* Registre.swift */,
+				23E2DD112BF3B69E00C28A1F /* CandidatesListView.swift */,
+				23D8A2982BF509B1006FC31E /* RegistrationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -184,14 +156,28 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		23E2DD192BF3CAA000C28A1F /* LoginModel */ = {
+		23E2DD192BF3CAA000C28A1F /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */,
-				23E2DD1E2BF3D2D300C28A1F /* RegisterUserModel.swift */,
+				23E2DD1E2BF3D2D300C28A1F /* AuthenticationManager.swift */,
 				23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */,
 			);
-			path = LoginModel;
+			path = Login;
+			sourceTree = "<group>";
+		};
+		23ED074D2BF61A4B006FECD3 /* Registre */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Registre;
+			sourceTree = "<group>";
+		};
+		23ED074E2BF61A61006FECD3 /* Candidats */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Candidats;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,24 +218,6 @@
 			productReference = 234BDF952BEFEC8500C96E42 /* VitesseTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		234BDF9E2BEFEC8500C96E42 /* VitesseUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 234BDFAF2BEFEC8500C96E42 /* Build configuration list for PBXNativeTarget "VitesseUITests" */;
-			buildPhases = (
-				234BDF9B2BEFEC8500C96E42 /* Sources */,
-				234BDF9C2BEFEC8500C96E42 /* Frameworks */,
-				234BDF9D2BEFEC8500C96E42 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				234BDFA12BEFEC8500C96E42 /* PBXTargetDependency */,
-			);
-			name = VitesseUITests;
-			productName = VitesseUITests;
-			productReference = 234BDF9F2BEFEC8500C96E42 /* VitesseUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -264,10 +232,6 @@
 						CreatedOnToolsVersion = 14.2;
 					};
 					234BDF942BEFEC8500C96E42 = {
-						CreatedOnToolsVersion = 14.2;
-						TestTargetID = 234BDF842BEFEC7E00C96E42;
-					};
-					234BDF9E2BEFEC8500C96E42 = {
 						CreatedOnToolsVersion = 14.2;
 						TestTargetID = 234BDF842BEFEC7E00C96E42;
 					};
@@ -288,7 +252,6 @@
 			targets = (
 				234BDF842BEFEC7E00C96E42 /* Vitesse */,
 				234BDF942BEFEC8500C96E42 /* VitesseTests */,
-				234BDF9E2BEFEC8500C96E42 /* VitesseUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -310,13 +273,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		234BDF9D2BEFEC8500C96E42 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -324,8 +280,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23E2DD122BF3B69E00C28A1F /* Candidats.swift in Sources */,
-				23E2DD1F2BF3D2D300C28A1F /* RegisterUserModel.swift in Sources */,
+				23E2DD122BF3B69E00C28A1F /* CandidatesListView.swift in Sources */,
+				23E2DD1F2BF3D2D300C28A1F /* AuthenticationManager.swift in Sources */,
 				23E2DD102BF3A8D200C28A1F /* VitesseViewModel.swift in Sources */,
 				234BDF8B2BEFEC7E00C96E42 /* Login.swift in Sources */,
 				23E2DD1D2BF3CB1900C28A1F /* LoginJSONModel.swift in Sources */,
@@ -333,7 +289,7 @@
 				23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */,
 				234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */,
 				23E2DD162BF3B82B00C28A1F /* BasicHTTPClient.swift in Sources */,
-				23D8A2992BF509B1006FC31E /* Registre.swift in Sources */,
+				23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */,
 				23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,15 +302,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		234BDF9B2BEFEC8500C96E42 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				234BDFA62BEFEC8500C96E42 /* VitesseUITestsLaunchTests.swift in Sources */,
-				234BDFA42BEFEC8500C96E42 /* VitesseUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -362,11 +309,6 @@
 			isa = PBXTargetDependency;
 			target = 234BDF842BEFEC7E00C96E42 /* Vitesse */;
 			targetProxy = 234BDF962BEFEC8500C96E42 /* PBXContainerItemProxy */;
-		};
-		234BDFA12BEFEC8500C96E42 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 234BDF842BEFEC7E00C96E42 /* Vitesse */;
-			targetProxy = 234BDFA02BEFEC8500C96E42 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -583,42 +525,6 @@
 			};
 			name = Release;
 		};
-		234BDFB02BEFEC8500C96E42 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 99UMC25BBL;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Aimants-d-Animaux.VitesseUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Vitesse;
-			};
-			name = Debug;
-		};
-		234BDFB12BEFEC8500C96E42 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 99UMC25BBL;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Aimants-d-Animaux.VitesseUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Vitesse;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -645,15 +551,6 @@
 			buildConfigurations = (
 				234BDFAD2BEFEC8500C96E42 /* Debug */,
 				234BDFAE2BEFEC8500C96E42 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		234BDFAF2BEFEC8500C96E42 /* Build configuration list for PBXNativeTarget "VitesseUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				234BDFB02BEFEC8500C96E42 /* Debug */,
-				234BDFB12BEFEC8500C96E42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
