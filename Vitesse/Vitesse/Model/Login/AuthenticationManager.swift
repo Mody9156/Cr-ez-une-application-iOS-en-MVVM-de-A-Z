@@ -9,7 +9,7 @@ import Foundation
 
 class AuthenticationManager {
     
-    let httpService: BasicHTTPClient
+    let httpService: HTTPService
     
     init(httpService: BasicHTTPClient = BasicHTTPClient()) {
         self.httpService = httpService
