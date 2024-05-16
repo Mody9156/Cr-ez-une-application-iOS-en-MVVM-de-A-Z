@@ -11,7 +11,7 @@ struct Login: View {
     
     @ObservedObject var AuthenticationView: LoginViewModel
     @State private var registre: Bool = false
-    
+    let vitesseViewModel : VitesseViewModel
     var body: some View {
         NavigationStack {
             ZStack {
@@ -53,7 +53,7 @@ struct Login: View {
                     .cornerRadius(10)
                     .padding()
                     
-                    NavigationLink(destination: RegistrationView(), isActive: $registre) {
+                    NavigationLink(destination: RegistrationView(registreViewModel: vitesseViewModel.registreViewModel), isActive: $registre) {
                         EmptyView()
                     }
                     

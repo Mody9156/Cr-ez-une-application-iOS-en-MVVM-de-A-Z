@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegistrationView: View {
 
-    @StateObject private var registreViewModel : RegistreViewModel
+    @StateObject var registreViewModel : RegistreViewModel
    
     var body: some View {
         ZStack {

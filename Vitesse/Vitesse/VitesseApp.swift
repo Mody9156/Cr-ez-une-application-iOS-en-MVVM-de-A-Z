@@ -23,7 +23,7 @@ struct VitesseApp: App {
                             }
                     }
                 } else {
-                    Login(AuthenticationView: vitesseViewModel.loginViewModel)
+                    Login(AuthenticationView: vitesseViewModel.loginViewModel, vitesseViewModel: vitesseViewModel)
                 }
             }
         }

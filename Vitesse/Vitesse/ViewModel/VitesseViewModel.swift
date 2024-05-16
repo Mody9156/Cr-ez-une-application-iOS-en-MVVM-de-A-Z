@@ -20,6 +20,11 @@ class VitesseViewModel: ObservableObject {
            }, authenticationManager: AuthenticationManager())
     }
     
+    var registreViewModel : RegistreViewModel {
+        let registrationRequestBuilder = RegistrationRequestBuilder(httpService: BasicHTTPClient())
+        return RegistreViewModel(registrationRequestBuilder: registrationRequestBuilder)
+    }
+    
     var candidats: CandidatesListView {
         return CandidatesListView()
     }
