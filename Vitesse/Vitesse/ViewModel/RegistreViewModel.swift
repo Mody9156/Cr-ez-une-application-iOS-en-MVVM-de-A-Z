@@ -16,16 +16,17 @@ class RegistreViewModel : ObservableObject {
     let registrationRequestBuilder : RegistrationRequestBuilder
     
     init(registrationRequestBuilder: RegistrationRequestBuilder) {
-        self.email = email
-        self.password = password
-        self.firstName = firstName
-        self.lastName = lastName
         self.registrationRequestBuilder = registrationRequestBuilder
     }
     
     
-    func handleRegistrationViewModel() -> HTTPURLResponse {
-        let 
+    func handleRegistrationViewModel() async throws  -> HTTPURLResponse {
+        
+        let buildRegistrationRequest = try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
+            print("authentification réussie!")
+       
+        return buildRegistrationRequest
+
     }
     
 }
