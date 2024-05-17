@@ -18,7 +18,7 @@ class Keychain : TokenStore{
     
     func get(_ element : String ) throws -> String {
          
-        
+        return ""
     }
     
     func delete(_ element : String ) throws {
@@ -27,7 +27,7 @@ class Keychain : TokenStore{
     
     func add(_ element : String ) throws {
         var array : [String:String] = [:]
-        array.
+        array[element] = element
     }
     
     
