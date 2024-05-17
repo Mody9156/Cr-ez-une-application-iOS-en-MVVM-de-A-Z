@@ -23,13 +23,17 @@ class LoginViewModel: ObservableObject {
     }
     @MainActor
     func authenticateUserAndProceed() async throws -> JSONResponseDecodingModel {
+        
+        
         let authenticationResult = try await authenticationManager.authenticate(username: username, password: password)
         
-        try keychain.add(authenticationResult.token, forKey: "token")
-        
-        let token =  try keychain.get(forKey: "token")
-        let tokenString = String(data: token, encoding: .utf8) ?? "Token non valide"
-        print("Token récupéré depuis le trousseau : \(tokenString)")
+        let keychain = keychain
+        let token = authenticationResult.token
+        try keychain.add(token, forKey: "token")
+
+        let getToken = try keychain.get(forKey: "token")
+        let data = String(data: getToken, encoding: .utf8)!
+        print("Token récupéré : \(data )")
         
         print("Authentification réussie!")
         print("\(authenticationResult)")

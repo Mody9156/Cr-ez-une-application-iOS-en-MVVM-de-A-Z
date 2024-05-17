@@ -1,78 +1,63 @@
-//
-//  Keychain.swift
-//  Vitesse
-//
-//  Created by KEITA on 17/05/2024.
-//
-
 import Foundation
 
-class Keychain : TokenStore{
-  
-    
-    
+class Keychain: TokenStore {
     enum KeychainError: Error, LocalizedError {
-        case insertFailed, deleteFailed,getFailed
+        case insertFailed, deleteFailed, getFailed
         
         var errorDescription: String? {
             switch self {
             case .insertFailed:
                 return "Failed to insert item into keychain."
             case .deleteFailed:
-                return "Failed to delete item into keychain."
+                return "Failed to delete item from keychain."
             case .getFailed:
-                return "Failed to get item into keychain."
+                return "Failed to get item from keychain."
             }
         }
     }
     
-  
-    
-    func add(_ data : String, forKey key: String) throws {
-        
+    func add(_ data: String, forKey key: String) throws {
         let recudata = data.data(using: .utf8)!
         
         let array = [
-            kSecClass : kSecClassGenericPassword,//spécifie que l'élément est un mot de passe générique
-            kSecAttrAccount : key as Any,//spécifie l'attribut de compte (la clé associée aux données).
-            kSecValueData : recudata// spécifie les données à insérer
-        
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrAccount: key,
+            kSecValueData: recudata
         ] as CFDictionary
         
-        
-        let status = SecItemAdd(array,nil)//est utilisé pour tenter d'ajouter l'élément au trousseau.
+        let status = SecItemAdd(array, nil)
         
         guard status == errSecSuccess else {
             throw KeychainError.insertFailed
         }
-        print("Password retrieved from Keychain successfully.")
-
         
+        print("Password added to Keychain successfully.")
     }
+    
     func get(forKey key: String) throws -> Data {
-        
-        let array : [String : Any] = ([
+        let array: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount : key,
-            kSecReturnData : kCFBooleanTrue as Any,
-            kSecMatchLimit : kSecMatchLimitOne,
-        ] as CFDictionary) as! [String : Any]
+            kSecAttrAccount as String: key,
+            kSecReturnData as String: kCFBooleanTrue as Any,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
         
         var anyObject: AnyObject?
-        let status = SecItemCopyMatching(array as CFDictionary , &anyObject)
+        let status = SecItemCopyMatching(array as CFDictionary, &anyObject)
         
         guard status == errSecSuccess, let data = anyObject as? Data else {
-            throw KeychainError.insertFailed
+            throw KeychainError.getFailed
         }
+        
         print("Password retrieved from Keychain successfully.")
         return data
     }
     
     func delete(forKey key: String) throws {
-        let array : [String : Any] = ([
-            kSecClass : kSecClassGenericPassword,
-            kSecAttrAccount : key
-        ]  as CFDictionary) as! [String : Any]
+        let array: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key
+        ]
         
         guard SecItemDelete(array as CFDictionary) == errSecSuccess else {
             throw KeychainError.deleteFailed
@@ -80,8 +65,27 @@ class Keychain : TokenStore{
         
         print("Password deleted from Keychain successfully.")
     }
-    
-  
-    
-    
+    func testKeychain() {
+        let keychain = Keychain()
+        let testToken = "sampleToken123"
+        
+        do {
+            // Ajouter le token
+            try keychain.add(testToken, forKey: "testTokenKey")
+            print("Token ajouté au trousseau.")
+            
+            // Récupérer le token
+            let retrievedData = try keychain.get(forKey: "testTokenKey")
+            let retrievedToken = String(data: retrievedData, encoding: .utf8)
+            print("Token récupéré : \(retrievedToken ?? "N/A")")
+            
+            // Supprimer le token
+            try keychain.delete(forKey: "testTokenKey")
+            print("Token supprimé du trousseau.")
+        } catch {
+            print("Erreur Keychain: \(error)")
+        }
+    }
 }
+
+
