@@ -39,7 +39,6 @@ struct CandidatesListView: View {
                 Spacer()
                 
                 
-                
             }
         }
     }
