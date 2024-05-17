@@ -24,20 +24,37 @@ class LoginViewModel: ObservableObject {
     @MainActor
     func authenticateUserAndProceed() async throws -> JSONResponseDecodingModel {
         
+  
+            let authenticationResult = try await authenticationManager.authenticate(username: username, password: password)
+           try await testToken()
+            print("Authentification réussie!")
+            print("\(authenticationResult)")
+            onLoginSucceed()
+            return authenticationResult
+       
+       
+    }
+    
+    func testToken() async throws {
+        let token = try await authenticationManager.authenticate(username: username, password: password).token
         
-        let authenticationResult = try await authenticationManager.authenticate(username: username, password: password)
+        //add new token
+       
+        do{
+            let add = try keychain.add(token, forKey: "token")
+            print("Vous venez d'ajouter une nouveau token:\(add)")
+            
+            let get = try keychain.get(forKey: "token")
+            let data = String(data: get, encoding: .utf8)!
+            print("Voici votre token sauvegardé \(data) ")
+            
+            let delete = try keychain.delete(forKey: "token")
+            print("Vous venez de supprimer votre token")
+            
+        }catch{
+            print("erreur")
+        }
         
-        let keychain = keychain
-        let token = authenticationResult.token
-        try keychain.add(token, forKey: "token")
-
-        let getToken = try keychain.get(forKey: "token")
-        let data = String(data: getToken, encoding: .utf8)!
-        print("Token récupéré : \(data )")
         
-        print("Authentification réussie!")
-        print("\(authenticationResult)")
-        onLoginSucceed()
-        return authenticationResult
     }
 }
