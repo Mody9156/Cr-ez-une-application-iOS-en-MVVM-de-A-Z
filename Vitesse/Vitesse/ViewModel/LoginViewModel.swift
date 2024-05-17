@@ -28,9 +28,8 @@ class LoginViewModel: ObservableObject {
             let authenticationResult = try await authenticationManager.authenticate(username: username, password: password)
                 print("Authentification réussie!")
                 print("\(authenticationResult.isAdmin)")
-            
+                
                 try keychain.add(authenticationResult.token, forKey: "token")
-            
                 onLoginSucceed()
             
                 return authenticationResult
