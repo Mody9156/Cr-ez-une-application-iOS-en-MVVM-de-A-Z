@@ -6,8 +6,10 @@
 //
 
 import Foundation
-import Security
+
 class Keychain : TokenStore{
+  
+    
     
     enum KeychainError: Error, LocalizedError {
         case insertFailed, deleteFailed,getFailed
@@ -26,48 +28,53 @@ class Keychain : TokenStore{
     
   
     
-    func add(_ data : Data, forKey key: String) throws {
-        var array = [
+    func add(_ data : String, forKey key: String) throws {
+        
+        let recudata = data.data(using: .utf8)!
+        
+        let array = [
             kSecClass : kSecClassGenericPassword,//spécifie que l'élément est un mot de passe générique
-            kSecAttrAccount : key as Any,//pécifie l'attribut de compte (la clé associée aux données).
-            kSecValueData : data// spécifie les données à insérer
+            kSecAttrAccount : key as Any,//spécifie l'attribut de compte (la clé associée aux données).
+            kSecValueData : recudata// spécifie les données à insérer
         
         ] as CFDictionary
+        
         
         let status = SecItemAdd(array,nil)//est utilisé pour tenter d'ajouter l'élément au trousseau.
         
         guard status == errSecSuccess else {
             throw KeychainError.insertFailed
         }
-        
+        print("Password retrieved from Keychain successfully.")
+
         
     }
     func get(forKey key: String) throws -> Data {
-        let array = [
+        
+        let array : [String : Any] = ([
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: key,
-            kSecReturnData as String: kCFBooleanTrue as Any,
-            kSecMatchLimit as String: kSecMatchLimitOne
-        ] as CFDictionary
+            kSecAttrAccount : key,
+            kSecReturnData : kCFBooleanTrue as Any,
+            kSecMatchLimit : kSecMatchLimitOne,
+        ] as CFDictionary) as! [String : Any]
         
         var anyObject: AnyObject?
-        let status = SecItemCopyMatching(array , &anyObject)
+        let status = SecItemCopyMatching(array as CFDictionary , &anyObject)
         
         guard status == errSecSuccess, let data = anyObject as? Data else {
             throw KeychainError.insertFailed
         }
-        
         print("Password retrieved from Keychain successfully.")
         return data
     }
     
     func delete(forKey key: String) throws {
-        let array = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: key
-        ]  as CFDictionary
+        let array : [String : Any] = ([
+            kSecClass : kSecClassGenericPassword,
+            kSecAttrAccount : key
+        ]  as CFDictionary) as! [String : Any]
         
-        guard SecItemDelete(array) == errSecSuccess else {
+        guard SecItemDelete(array as CFDictionary) == errSecSuccess else {
             throw KeychainError.deleteFailed
         }
         
