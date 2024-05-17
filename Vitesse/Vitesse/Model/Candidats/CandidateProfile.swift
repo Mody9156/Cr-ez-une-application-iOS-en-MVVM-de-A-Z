@@ -15,9 +15,27 @@ class CandidateProfile {
         self.httpService = httpService
     }
     
+    enum URLRequestError: Error {
+        case invalidRequest
+        case invalidMethod
+        case invalidBody
+    }
     
-    func fetchURLRequest() -> URLRequest{
+    func fetchURLRequest(token:String) -> URLRequest{
+        let url = URL(string: "http://127.0.0.1:8080/candidate")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "Get"
+        let stock = "Bearer " + token
+        request.setValue( stock , forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func fetchCandidateSubmission(token:String) async throws ->  RecruitTech {
+        let request = fetchURLRequest(token: token)
+        let (data,_) = try await httpService.request(request)
         
+        let candidats = try JSONDecoder().decode(RecruitTech.self, from: data)
+        return candidats
     }
     
     
