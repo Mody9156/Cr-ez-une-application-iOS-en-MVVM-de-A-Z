@@ -12,6 +12,8 @@
 		234BDF8D2BEFEC8500C96E42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8C2BEFEC8500C96E42 /* Assets.xcassets */; };
 		234BDF902BEFEC8500C96E42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */; };
 		234BDF9A2BEFEC8500C96E42 /* VitesseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF992BEFEC8500C96E42 /* VitesseTests.swift */; };
+		23D1FE852BF74C2500F3FA1E /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE842BF74C2500F3FA1E /* Keychain.swift */; };
+		23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE862BF74CB700F3FA1E /* TokenStore.swift */; };
 		23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */; };
 		23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2982BF509B1006FC31E /* RegistrationView.swift */; };
 		23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */; };
@@ -44,6 +46,8 @@
 		234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		234BDF952BEFEC8500C96E42 /* VitesseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		234BDF992BEFEC8500C96E42 /* VitesseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseTests.swift; sourceTree = "<group>"; };
+		23D1FE842BF74C2500F3FA1E /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		23D1FE862BF74CB700F3FA1E /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
 		23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONAuthentification.swift; sourceTree = "<group>"; };
 		23D8A2982BF509B1006FC31E /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -123,9 +127,19 @@
 			path = VitesseTests;
 			sourceTree = "<group>";
 		};
+		23D1FE832BF7485900F3FA1E /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				23D1FE842BF74C2500F3FA1E /* Keychain.swift */,
+				23D1FE862BF74CB700F3FA1E /* TokenStore.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
 		23E2DD092BF3603900C28A1F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				23D1FE832BF7485900F3FA1E /* Keychain */,
 				23ED074E2BF61A61006FECD3 /* Candidats */,
 				23ED074D2BF61A4B006FECD3 /* Registre */,
 				23E2DD192BF3CAA000C28A1F /* Login */,
@@ -298,11 +312,13 @@
 				23E2DD142BF3B7A300C28A1F /* HTTPService.swift in Sources */,
 				23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */,
 				234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */,
+				23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */,
 				23ED07522BF61E85006FECD3 /* RegistrationRequestBody.swift in Sources */,
 				23ED07502BF61C61006FECD3 /* RegistrationRequestBuilder.swift in Sources */,
 				23E2DD162BF3B82B00C28A1F /* BasicHTTPClient.swift in Sources */,
 				23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */,
 				23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */,
+				23D1FE852BF74C2500F3FA1E /* Keychain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
