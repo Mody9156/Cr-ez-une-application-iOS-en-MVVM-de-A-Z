@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CandidatesListView: View {
+    let candidateViewModel : CandidateViewModel
     var body: some View {
         ZStack {
             Color.blue.opacity(0.5).ignoresSafeArea()
@@ -36,6 +37,9 @@ struct CandidatesListView: View {
                     .cornerRadius(10)
                 }
                 Spacer()
+                
+                
+                
             }
         }
     }
