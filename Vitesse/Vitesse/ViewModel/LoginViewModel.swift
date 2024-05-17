@@ -21,14 +21,20 @@ class LoginViewModel: ObservableObject {
     enum AuthViewModelFailure: Error {
         case tokenInvalide
     }
+    
     @MainActor
     func authenticateUserAndProceed() async throws -> JSONResponseDecodingModel {
         do{
             let authenticationResult = try await authenticationManager.authenticate(username: username, password: password)
                 print("Authentification réussie!")
-                print("\(authenticationResult)")
-
+                print("\(authenticationResult.isAdmin)")
+            
+                try keychain.add(authenticationResult.token, forKey: "token")
+            
+                onLoginSucceed()
+            
                 return authenticationResult
+               
         }catch{
             throw AuthViewModelFailure.tokenInvalide
         }
