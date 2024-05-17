@@ -6,25 +6,25 @@
 //
 
 import Foundation
-
+import Security
 class Keychain : TokenStore{
-    
-    private var token : String
-    
-    init(token: String) {
-        self.token = token
-    }
-    
-    enum KeychainError :Error , LocalizedError{
-        case insertFailed
+   
+    enum KeychainError: Error, LocalizedError {
+        case insertFailed, deleteFailed,getFailed
         
-        var errorDescription : String? {
+        var errorDescription: String? {
             switch self {
-            case .insertFailed :
+            case .insertFailed:
                 return "Failed to insert item into keychain."
+            case .deleteFailed:
+                return "Failed to delete item into keychain."
+            case .getFailed:
+                return "Failed to get item into keychain."
             }
         }
     }
+    
+  
     
     func add(_ data : Data, forkey key : String) throws {
         var array = [
@@ -42,15 +42,36 @@ class Keychain : TokenStore{
         
         
     }
-    
-    func delete(_ element : String ) throws {
+    func get(keychain token : String) throws -> Data {
+        let array = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: token,
+            kSecReturnData as String: kCFBooleanTrue as Any,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ] as CFDictionary
         
+        var anyObject: AnyObject?
+        let status = SecItemCopyMatching(array , &anyObject)
+        
+        guard status == noErr, let data = anyObject as? Data else {
+            throw KeychainError.insertFailed
+        }
+        
+        print("Password retrieved from Keychain successfully.")
+        return data
     }
     
-    func add(_ element : String ) throws {
-        var array : [String:String] = [:]
-        array[element] = element
+    func delete(keychain token : String) throws {
+        let array = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: token
+        ]  as CFDictionary
+        
+        guard SecItemDelete(array) == noErr else {
+            throw KeychainError.deleteFailed
+        }
+        
+        print("Password deleted from Keychain successfully.")
     }
-    
     
 }
