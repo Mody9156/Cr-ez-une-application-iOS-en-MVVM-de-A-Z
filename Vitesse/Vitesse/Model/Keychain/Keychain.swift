@@ -9,11 +9,6 @@ import Foundation
 import Security
 class Keychain : TokenStore{
     
-    private let key: String
-
-    init(key: String = "com.aura.authtoken") {
-        self.key = key
-    }
     enum KeychainError: Error, LocalizedError {
         case insertFailed, deleteFailed,getFailed
         
@@ -31,7 +26,7 @@ class Keychain : TokenStore{
     
   
     
-    func add(_ data : Data) throws {
+    func add(_ data : Data, forKey key: String) throws {
         var array = [
             kSecClass : kSecClassGenericPassword,//spécifie que l'élément est un mot de passe générique
             kSecAttrAccount : key as Any,//pécifie l'attribut de compte (la clé associée aux données).
@@ -47,7 +42,7 @@ class Keychain : TokenStore{
         
         
     }
-    func get() throws -> Data {
+    func get(forKey key: String) throws -> Data {
         let array = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key,
@@ -58,7 +53,7 @@ class Keychain : TokenStore{
         var anyObject: AnyObject?
         let status = SecItemCopyMatching(array , &anyObject)
         
-        guard status == noErr, let data = anyObject as? Data else {
+        guard status == errSecSuccess, let data = anyObject as? Data else {
             throw KeychainError.insertFailed
         }
         
@@ -66,13 +61,13 @@ class Keychain : TokenStore{
         return data
     }
     
-    func delete() throws {
+    func delete(forKey key: String) throws {
         let array = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key
         ]  as CFDictionary
         
-        guard SecItemDelete(array) == noErr else {
+        guard SecItemDelete(array) == errSecSuccess else {
             throw KeychainError.deleteFailed
         }
         

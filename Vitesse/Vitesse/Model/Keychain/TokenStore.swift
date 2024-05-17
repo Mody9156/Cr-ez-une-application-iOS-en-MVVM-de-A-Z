@@ -8,8 +8,8 @@
 import Foundation
 
 protocol TokenStore {
-    func add(_ data : Data) throws
-    func get() throws -> Data
-    func delete() throws
+    func add(_ data : Data,forKey key: String) throws
+    func get(forKey key: String) throws -> Data
+    func delete(forKey key: String) throws
     
 }
