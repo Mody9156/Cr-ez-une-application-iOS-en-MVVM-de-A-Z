@@ -65,27 +65,27 @@ class Keychain: TokenStore {
         
         print("Password deleted from Keychain successfully.")
     }
-    func testKeychain() {
-        let keychain = Keychain()
-        let testToken = "sampleToken123"
-        
-        do {
-            // Ajouter le token
-            try keychain.add(testToken, forKey: "testTokenKey")
-            print("Token ajouté au trousseau.")
-            
-            // Récupérer le token
-            let retrievedData = try keychain.get(forKey: "testTokenKey")
-            let retrievedToken = String(data: retrievedData, encoding: .utf8)
-            print("Token récupéré : \(retrievedToken ?? "N/A")")
-            
-            // Supprimer le token
-            try keychain.delete(forKey: "testTokenKey")
-            print("Token supprimé du trousseau.")
-        } catch {
-            print("Erreur Keychain: \(error)")
-        }
-    }
+//    func testKeychain() {
+//        let keychain = Keychain()
+//        let testToken = "token"
+//        
+//        do {
+//            // Ajouter le token
+//            try keychain.add(testToken, forKey: "testTokenKey")
+//            print("Token ajouté au trousseau.")
+//            
+//            // Récupérer le token
+//            let retrievedData = try keychain.get(forKey: "testTokenKey")
+//            let retrievedToken = String(data: retrievedData, encoding: .utf8)
+//            print("Token récupéré : \(retrievedToken ?? "N/A")")
+//            
+//            // Supprimer le token
+//            try keychain.delete(forKey: "testTokenKey")
+//            print("Token supprimé du trousseau.")
+//        } catch {
+//            print("Erreur Keychain: \(error)")
+//        }
+//    }
 }
 
 
