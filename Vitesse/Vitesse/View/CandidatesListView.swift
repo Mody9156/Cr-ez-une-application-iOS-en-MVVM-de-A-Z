@@ -17,13 +17,7 @@ struct CandidatesListView: View {
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
                     HStack {
-                        Button("Edit") {
-                            
-                        }
-                        .frame(width: 100, height: 50)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                       
                         Text("Candidats")
                             .font(.title3)
                             .fontWeight(.bold)
