@@ -8,37 +8,67 @@
 import SwiftUI
 
 struct CandidatesListView: View {
-    let candidateViewModel : CandidateViewModel
+    @StateObject var candidateViewModel : CandidateViewModel
+    @State private var search = ""
+    
     var body: some View {
-        ZStack {
-            Color.blue.opacity(0.5).ignoresSafeArea()
-            VStack {
-                HStack {
-                    Button("Cancel") {
+        NavigationStack {
+            ZStack {
+                Color.blue.opacity(0.5).ignoresSafeArea()
+                VStack {
+                    HStack {
+                       
+                        Text("Candidats")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .foregroundColor(.blue)
+                            .padding()
                         
+                        Button {
+                            // Logique pour le bouton étoile
+                        } label: {
+                            Image(systemName: "star.fill")
+                        }
+                        .frame(width: 100, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
-                    .frame(width: 100, height: 50)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    
-                    Text("Candidats")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .foregroundColor(.blue)
-                        .padding()
-                    
-                    Button("Delete") {
-                        
+                    Spacer()
+                    VStack {
+                        List {
+                            ForEach(searchResult, id: \.id) { element in
+                                HStack {
+                                    Text(element.lastName)
+                                    Text(element.firstName)
+                                    Spacer()
+                                    Image(systemName: "star.fill").foregroundColor(element.isFavorite ? .yellow : .black)
+                                }
+                            }
+                            .onDelete(perform: candidateViewModel.deleteCandidate)
+                        }
+                        .toolbar {
+                            EditButton()
+                        }
+                        .searchable(text: $search)
+                        .navigationTitle("Candidats")
                     }
-                    .frame(width: 100, height: 50)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
                 }
-                Spacer()
-                
-                
+            }
+            .searchable(text: $search)
+            .listStyle(.plain)
+            .listRowBackground(Color.clear)
+            .listSectionSeparator(.hidden, edges: .bottom)
+        }
+    }
+
+    var searchResult: [RecruitTech] {
+        if search.isEmpty {
+            return candidateViewModel.candidats
+        } else {
+            return candidateViewModel.candidats.filter { candidat in
+                candidat.lastName.lowercased().contains(search.lowercased()) ||
+                candidat.firstName.lowercased().contains(search.lowercased())
             }
         }
     }

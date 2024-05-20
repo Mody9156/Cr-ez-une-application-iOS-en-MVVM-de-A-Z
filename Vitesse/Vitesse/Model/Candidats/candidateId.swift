@@ -1,47 +1,47 @@
 //
-//  Candidats.swift
+//  candidateId.swift
 //  Vitesse
 //
-//  Created by KEITA on 17/05/2024.
+//  Created by KEITA on 20/05/2024.
 //
 
 import Foundation
 
-class CandidateProfile {
-    
+class candidateId {
+
     let httpService : HTTPService
-    
+
     init(httpService: HTTPService = BasicHTTPClient()) {
         self.httpService = httpService
     }
-    
+
     enum URLRequestError: Error {
         case invalidGeToken
-       
+
     }
-    
-    func fetchURLRequest(token:String) -> URLRequest{
-            let url = URL(string: "http://127.0.0.1:8080/candidate")!
+
+    func fetchURLRequest(token:String,candidate : String) -> URLRequest{
+            var url = URL(string: "http://127.0.0.1:8080/candidate/\(candidate)")!
+
             var request = URLRequest(url: url)
             request.httpMethod = "Get"
             let stock = "Bearer " + token
             request.setValue( stock , forHTTPHeaderField: "Authorization")
             return request
-       
-       
+
+
     }
-    
-    func fetchCandidateSubmission(token:String) async throws ->  [RecruitTech] {
+
+    func fetchCandidateSubmission(token:String,candidate : String) async throws ->  [RecruitTech] {
         do{
-            let request = fetchURLRequest(token: token)
+            let request = fetchURLRequest(token: token, candidate: candidate)
             let (data,_) = try await httpService.request(request)
                    let candidats = try JSONDecoder().decode([RecruitTech].self, from: data)
             return candidats
         }catch{
             throw URLRequestError.invalidGeToken
         }
-      
+
     }
-    
-    
+
 }
