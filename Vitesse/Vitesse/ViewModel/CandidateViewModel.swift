@@ -35,8 +35,8 @@ class CandidateViewModel : ObservableObject{
             return data
        
     }
-   let candidats =  fetchtoken()
-    
-    let candidats = RecruitTech(phone: candidats.phone, note: candidats.note, id: candidats.id, firstName: candidats.firstName, linkedinURL: candidats.linkedinURL, isFavorite: candidats.isFavorite, email: candidats.email, lastName: candidats.lastName)
+//   let candidats =  fetchtoken()
+//    
+//    let candidats = RecruitTech(phone: candidats.phone, note: candidats.note, id: candidats.id, firstName: candidats.firstName, linkedinURL: candidats.linkedinURL, isFavorite: candidats.isFavorite, email: candidats.email, lastName: candidats.lastName)
     
 }
