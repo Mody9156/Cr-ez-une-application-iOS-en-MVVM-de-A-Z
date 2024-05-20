@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CandidatesListView: View {
    @StateObject var candidateViewModel : CandidateViewModel
+    @State private var search = ""
     
     var body: some View {
         ZStack {
@@ -38,7 +39,7 @@ struct CandidatesListView: View {
                     .cornerRadius(10)
                 }
                 Spacer()
-                
+                Text("Searching for \(search)").searchable(text: $search, placement: /*@START_MENU_TOKEN@*/.automatic/*@END_MENU_TOKEN@*/)
                 VStack{
                         
                     List(candidateViewModel.candidats) { element in
