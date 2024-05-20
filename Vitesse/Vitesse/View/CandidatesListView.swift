@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CandidatesListView: View {
     let candidateViewModel : CandidateViewModel
+    let candidats = [RecruitTech(phone: candidateViewModel.fetchtoken().phone, note: candidateViewModel.fetchtoken().note, id: candidateViewModel.fetchtoken().id, firstName: candidateViewModel.fetchtoken().firstName, linkedinURL: candidateViewModel.fetchtoken().linkedinURL, isFavorite: candidateViewModel.fetchtoken().isFavorite, email: candidateViewModel.fetchtoken().email, lastName: candidateViewModel.fetchtoken().lastName)]
     var body: some View {
         ZStack {
             Color.blue.opacity(0.5).ignoresSafeArea()
@@ -37,7 +38,7 @@ struct CandidatesListView: View {
                     .cornerRadius(10)
                 }
                 Spacer()
-                
+               
                 
             }
         }

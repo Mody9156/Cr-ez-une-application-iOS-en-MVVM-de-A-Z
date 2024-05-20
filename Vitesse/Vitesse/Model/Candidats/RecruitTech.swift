@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RecruitTech: Codable {
+struct RecruitTech: Codable{
     let phone, note: JSONNull?
     let id, firstName: String
     let linkedinURL: JSONNull?
