@@ -12,51 +12,53 @@ struct CandidatesListView: View {
     @State private var search = ""
     
     var body: some View {
-        ZStack {
-            Color.blue.opacity(0.5).ignoresSafeArea()
-            VStack {
-                HStack {
-                    Button("Cancel") {
-                        
-                    }
-                    .frame(width: 100, height: 50)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    
-                    Text("Candidats")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .foregroundColor(.blue)
-                        .padding()
-                    
-                    Button("Delete") {
-                        
-                    }
-                    .frame(width: 100, height: 50)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-                Spacer()
-                Text("Searching for \(search)").searchable(text: $search, placement: /*@START_MENU_TOKEN@*/.automatic/*@END_MENU_TOKEN@*/)
-                VStack{
-                        
-                    List(candidateViewModel.candidats) { element in
-                        
-                        HStack {
-                            Text(element.lastName)
-                            Text(element.firstName)
+        NavigationStack {
+            ZStack {
+                Color.blue.opacity(0.5).ignoresSafeArea()
+                VStack {
+                    HStack {
+                        Button("Cancel") {
+                            
                         }
+                        .frame(width: 100, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        
+                        Text("Candidats")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .foregroundColor(.blue)
+                            .padding()
+                        
+                        Button("Delete") {
+                            
+                        }
+                        .frame(width: 100, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
-                    
-                    
-                }.onAppear{
-                    Task{@MainActor in
-                        try await candidateViewModel.fetchtoken()
+                    Spacer()
+                    Text("Searching for \(search)").navigationTitle("Searchable Example")
+                    VStack{
+                            
+                        List(candidateViewModel.candidats) { element in
+                            
+                            HStack {
+                                Text(element.lastName)
+                                Text(element.firstName)
+                            }
+                        }
+                        
+                        
+                    }.onAppear{
+                        Task{@MainActor in
+                            try await candidateViewModel.fetchtoken()
+                        }
                     }
                 }
             }
-        }
+        }.searchable(text: $search, prompt: "Look for something")
     }
 }
