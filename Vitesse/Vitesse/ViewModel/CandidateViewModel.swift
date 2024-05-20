@@ -13,7 +13,6 @@ class CandidateViewModel : ObservableObject{
     let keychain = Keychain()
     @Published var candidats : [RecruitTech] = []
     
-    
     init(candidateProfile : CandidateProfile,candidateDelete : CandidateDelete) {
         
         self.candidateProfile = candidateProfile
@@ -52,29 +51,29 @@ class CandidateViewModel : ObservableObject{
        
     }
     
-    func fetchdelete(_ deleteCandidate : IndexSet) async throws  {
-       
-        do{
-         
-        let token = try keychain.get(forKey: "token")
-        let getToken = String(data: token, encoding: .utf8)!
-            
-            
-            for candidat in candidats {
+    func fetchdelete() async throws  {
+        Task{
+            do{
+                
+                let token = try keychain.get(forKey: "token")
+                let getToken = String(data: token, encoding: .utf8)!
+                
+                
+                for offset in candidats {
+                    try await candidateDelete.deleteCandidate(token: getToken, CandidateId: offset.id)
+                    DispatchQueue.main.async {
+                        self.candidats.remove(atOffsets: offset.id)
+                    }
+                    }
                
-              let delete =  try await candidateDelete.deleteCandidate(token: getToken, CandidateId: candidat.id)
+                
+                
+            }catch{
+                print("erreur fetchdelete() n'est pas passé ")
+                throw FetchTokenResult.failure
             }
-            DispatchQueue.main.async {
-                self.candidats.remove(atOffsets: deleteCandidate)
-            }
-            
-            
-    }catch{
-        print("erreur fetchdelete() n'est pas passé ")
-        throw FetchTokenResult.failure
+        }
     }
-    }
-    
   
    
     
