@@ -26,15 +26,23 @@ class CandidateViewModel : ObservableObject{
     
     func fetchtoken () async throws -> RecruitTech {
        
+        do{
             let token = try keychain.get(forKey: "token")
             let getToken = String(data: token, encoding: .utf8)!
             
-            try candidateProfile.fetchURLRequest(token: getToken)
+            let fetchURLRequest =  candidateProfile.fetchURLRequest(token: getToken)
             let data = try await candidateProfile.fetchCandidateSubmission(token: getToken)
             print("voici les elements \(data)")
+            print("fetchURLRequest : \(String(describing: fetchURLRequest))")
             return data
+        }catch{
+            print("erreur fetchtoken() n'est pas passé ")
+            throw FetchTokenResult.failure
+        }
+          
        
     }
+    
     func fetchData(){
         Task{
             do{
