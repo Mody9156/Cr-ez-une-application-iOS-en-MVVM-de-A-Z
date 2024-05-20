@@ -67,7 +67,11 @@ struct CandidatesListView: View {
         if search.isEmpty {
             return candidateViewModel.candidats
         }else {
-            return candidateViewModel.candidats.filter{$0.lastName}
+            return candidateViewModel.candidats.filter{ candidat in
+                candidat.lastName.lowercased().contains(search.lowercased()) ||
+                candidat.firstName.lowercased().contains(search.lowercased())
+                
+            }
         }
     }
 }
