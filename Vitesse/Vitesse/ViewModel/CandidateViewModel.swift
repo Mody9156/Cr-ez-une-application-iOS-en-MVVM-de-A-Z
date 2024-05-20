@@ -9,9 +9,9 @@ import Foundation
 
 class CandidateViewModel : ObservableObject{
    
-    let candidateProfile : CandidateProfile
+    var candidateProfile : CandidateProfile
     let keychain = Keychain()
-
+    @Published var candidats : RecruitTech?
     
     
     init(candidateProfile : CandidateProfile) {
@@ -35,8 +35,18 @@ class CandidateViewModel : ObservableObject{
             return data
        
     }
-//   let candidats =  fetchtoken()
-//    
-//    let candidats = RecruitTech(phone: candidats.phone, note: candidats.note, id: candidats.id, firstName: candidats.firstName, linkedinURL: candidats.linkedinURL, isFavorite: candidats.isFavorite, email: candidats.email, lastName: candidats.lastName)
+    func fetchData(){
+        Task{
+            do{
+                let data = try await fetchtoken()
+                DispatchQueue.main.async {
+                    self.candidats = data
+                }
+            }catch{
+                print("error ")
+            }
+        }
+    }
+   
     
 }
