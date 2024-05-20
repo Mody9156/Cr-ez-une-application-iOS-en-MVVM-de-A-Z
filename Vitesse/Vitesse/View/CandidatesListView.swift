@@ -38,8 +38,16 @@ struct CandidatesListView: View {
                     .cornerRadius(10)
                 }
                 Spacer()
-               
                 
+                VStack{
+                    if let candidats = candidateViewModel.candidats {
+                        Text("voici le nom : \(candidats.lastName)")
+                    }else {
+                        Text("loading")
+                    }
+                }.onAppear{
+                    candidateViewModel.fetchData()
+                }
             }
         }
     }
