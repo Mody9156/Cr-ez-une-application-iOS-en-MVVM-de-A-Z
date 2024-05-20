@@ -17,7 +17,7 @@ struct CandidatesListView: View {
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
                     HStack {
-                        Button("Cancel") {
+                        Button("Edit") {
                             
                         }
                         .frame(width: 100, height: 50)
