@@ -48,7 +48,6 @@ class CandidateViewModel : ObservableObject{
     }
     
     func fetchdelete() async throws -> [HTTPURLResponse] {
-        
        
         do{
          
