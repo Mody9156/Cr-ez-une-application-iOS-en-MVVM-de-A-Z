@@ -32,13 +32,13 @@ class CandidateProfile {
         return request
     }
     
-    func fetchCandidateSubmission(token:String) async throws ->  RecruitTech {
+    func fetchCandidateSubmission(token:String) async throws ->  [RecruitTech] {
         let request = fetchURLRequest(token: token)
         let (data,_) = try await httpService.request(request)
         print("data : \(data)")
         print("request : \(request)")
 
-        let candidats = try JSONDecoder().decode(RecruitTech.self, from: data)
+        let candidats = try JSONDecoder().decode([RecruitTech].self, from: data)
         print("candidats : \(candidats)")
 
         return candidats
