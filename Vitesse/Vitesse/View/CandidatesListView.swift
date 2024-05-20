@@ -41,7 +41,7 @@ struct CandidatesListView: View {
                     }
                     Spacer()
                     VStack{
-                        Text("Searching for \(search)").searchSuggestions(/*@START_MENU_TOKEN@*/.hidden/*@END_MENU_TOKEN@*/, in: .content)
+                        Text("Searching for \(search)").searchSuggestions(.hidden, for: .content)
 
                         List(candidateViewModel.candidats) { element in
                             
