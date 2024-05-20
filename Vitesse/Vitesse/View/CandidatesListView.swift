@@ -24,7 +24,6 @@ struct CandidatesListView: View {
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
-                        
                         Text("Candidats")
                             .font(.title3)
                             .fontWeight(.bold)
@@ -32,62 +31,51 @@ struct CandidatesListView: View {
                             .padding()
                         
                         Button {
-                            
+                            // Logique pour le bouton étoile
                         } label: {
                             Image(systemName: "star.fill")
-                        }  .frame(width: 100, height: 50)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-
-                       
-                      
+                        }
+                        .frame(width: 100, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
                     Spacer()
-                    VStack{
-                        
-                        
-                        List{
-                            ForEach(searchResult,id: \.self){ element in
+                    VStack {
+                        List {
+                            ForEach(searchResult, id: \.id) { element in
                                 HStack {
                                     Text(element.lastName)
                                     Text(element.firstName)
                                     Spacer()
                                     Image(systemName: "star.fill").foregroundColor(element.isFavorite ? .yellow : .black)
                                 }
-                            }.onDelete(perform: candidateViewModel.deleteCandidate(at: 3))
-
-                            
-                            
-                        }.toolbar {
+                            }
+                            .onDelete(perform: candidateViewModel.deleteCandidate)
+                        }
+                        .toolbar {
                             EditButton()
                         }
                         .searchable(text: $search)
                         .navigationTitle("Candidats")
-                        }
                     }
                 }
-            }.searchable(text: $search).listStyle(.plain)
-                .listRowBackground(Color.clear)
-                .listSectionSeparator(.hidden, edges: .bottom)//gerer l'affichage de la list
+            }
+            .searchable(text: $search)
+            .listStyle(.plain)
+            .listRowBackground(Color.clear)
+            .listSectionSeparator(.hidden, edges: .bottom)
         }
-    
-    var searchResult : [RecruitTech] {
+    }
+
+    var searchResult: [RecruitTech] {
         if search.isEmpty {
             return candidateViewModel.candidats
-        }else {
-            return candidateViewModel.candidats.filter{ candidat in
+        } else {
+            return candidateViewModel.candidats.filter { candidat in
                 candidat.lastName.lowercased().contains(search.lowercased()) ||
                 candidat.firstName.lowercased().contains(search.lowercased())
-                
             }
         }
     }
-    }
-
-
-    
-   
-
-
-
+}

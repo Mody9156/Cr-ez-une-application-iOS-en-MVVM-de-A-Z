@@ -51,7 +51,7 @@ class CandidateViewModel : ObservableObject{
        
     }
     
-    func fetchdelete() async throws  {
+    func fetchdelete(at offsets: IndexSet) async throws  {
         Task{
             do{
                 
@@ -59,13 +59,14 @@ class CandidateViewModel : ObservableObject{
                 let getToken = String(data: token, encoding: .utf8)!
                 
                 
-                for offset in candidats {
-                    try await candidateDelete.deleteCandidate(token: getToken, CandidateId: offset.id)
-                    DispatchQueue.main.async {
-                        self.candidats.remove(atOffsets: offset.id)
+                for offset in offsets {
+                    let id = candidats[offset].id
+                    try await candidateDelete.deleteCandidate(token: getToken, CandidateId: id)
                     }
-                    }
-               
+                DispatchQueue.main.async {
+                    self.candidats.remove(atOffsets: offsets)
+                }
+
                 
                 
             }catch{
@@ -74,7 +75,15 @@ class CandidateViewModel : ObservableObject{
             }
         }
     }
-  
+    func deleteCandidate(at offsets: IndexSet) {
+         Task {
+             do {
+                 try await fetchdelete(at: offsets)
+             } catch {
+                 print("Failed to delete candidate: \(error)")
+             }
+         }
+     }
    
     
 }
