@@ -43,6 +43,7 @@ struct CandidatesListView: View {
                        
                       
                     }
+                    Spacer()
                     VStack{
                         
                         
@@ -51,7 +52,7 @@ struct CandidatesListView: View {
                                 HStack {
                                     Text(element.lastName)
                                     Text(element.firstName)
-                                    Image(systemName: "star.fill").foregroundColor(element.isFavorite ? .yellow : .white)
+                                    Image(systemName: "star.fill").foregroundColor(element.isFavorite ? .yellow : .black)
                                 }
                             }
                             
