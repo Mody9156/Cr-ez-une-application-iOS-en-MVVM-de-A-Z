@@ -16,7 +16,7 @@ struct VitesseApp: App {
             Group {
                 if vitesseViewModel.onLoginSucceed {
                     TabView {
-                        CandidatesListView()
+                        CandidatesListView(candidateViewModel: vitesseViewModel.candidats.candidateViewModel)
                             .tabItem {
                                 Image(systemName: "person.crop.circle")
                                 Text("Candidats")
