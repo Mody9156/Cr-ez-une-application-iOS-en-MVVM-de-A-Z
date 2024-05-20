@@ -16,9 +16,8 @@ class CandidateProfile {
     }
     
     enum URLRequestError: Error {
-        case invalidRequest
-        case invalidMethod
-        case invalidBody
+        case invalidGeToken
+       
     }
     
     func fetchURLRequest(token:String) -> URLRequest{
@@ -37,11 +36,9 @@ class CandidateProfile {
             let request = fetchURLRequest(token: token)
             let (data,_) = try await httpService.request(request)
                    let candidats = try JSONDecoder().decode([RecruitTech].self, from: data)
-            print("fécilicatio  fetchCandidateSubmissionest passé ")
             return candidats
         }catch{
-            print("erreur de la function  fetchCandidateSubmission")
-            throw URLRequestError.invalidRequest
+            throw URLRequestError.invalidGeToken
         }
       
     }

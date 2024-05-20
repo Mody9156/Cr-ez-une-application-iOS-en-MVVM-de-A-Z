@@ -23,7 +23,7 @@ class CandidateViewModel : ObservableObject{
         case failure
     }
     
-    
+    @MainActor
     func fetchtoken () async throws -> [RecruitTech] {
        
         do{
@@ -32,7 +32,11 @@ class CandidateViewModel : ObservableObject{
             
             let fetchURLRequest =  candidateProfile.fetchURLRequest(token: getToken)
             let data = try await candidateProfile.fetchCandidateSubmission(token: getToken)
-             candidats = data
+            DispatchQueue.main.async {
+                self.candidats = data
+
+            }
+            print("Candidats : \(fetchURLRequest)")
             return data
         }catch{
             print("erreur fetchtoken() n'est pas passé ")
@@ -42,18 +46,7 @@ class CandidateViewModel : ObservableObject{
        
     }
     
-//    func fetchData(){
-//        Task{
-//            do{
-//                let data = try await fetchtoken()
-//                DispatchQueue.main.async {
-//                    self.candidats = data
-//                }
-//            }catch{
-//                print("fetchData n'st pas pass  ")
-//            }
-//        }
-//    }
+  
    
     
 }
