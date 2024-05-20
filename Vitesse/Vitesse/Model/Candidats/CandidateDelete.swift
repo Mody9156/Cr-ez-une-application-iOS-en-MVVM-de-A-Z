@@ -22,8 +22,8 @@ class CandidateDelete {
         
     }
     
-    func fetchURLRequest(token:String) -> URLRequest{
-        var url = URL(string: "http://127.0.0.1:8080/candidate/:candidateId")!
+    func fetchURLRequest(token:String,CandidateId:String) -> URLRequest{
+        var url = URL(string: "http://127.0.0.1:8080/candidate/:candidateId/\(CandidateId)")!
         
         var request = URLRequest(url: url)
         request.httpMethod = "Get"
@@ -34,9 +34,9 @@ class CandidateDelete {
         
     }
     
-    func fetchCandidateSubmission(token:String) async throws -> HTTPURLResponse {
+    func deleteCandidate(token:String,CandidateId:String) async throws -> HTTPURLResponse {
         
-            let request = fetchURLRequest(token: token)
+            let request = fetchURLRequest(token: token,CandidateId: CandidateId)
             let (_,response) = try await httpService.request(request)
             
             guard let httpreponse = response as? HTTPURLResponse, response.statusCode == 200 else {
