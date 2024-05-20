@@ -18,6 +18,7 @@ class CandidateDelete {
     
     enum URLRequestError: Error {
         case invalidGeToken
+        case httpresponseInvalid
         
     }
     
@@ -36,9 +37,12 @@ class CandidateDelete {
     func fetchCandidateSubmission(token:String) async throws -> HTTPURLResponse {
         do{
             let request = fetchURLRequest(token: token)
-            let (response,_) = try await httpService.request(request)
-            guard let httpreponse = try JSONDecoder().decode([RecruitTech].self, from: data)
-            return candidats
+            let (_,response) = try await httpService.request(request)
+            
+            guard let httpreponse = response as? HTTPURLResponse, response.statusCode == 200 else {
+                throw URLRequestError.httpresponseInvalid
+            }
+            return httpreponse
         }catch{
             throw URLRequestError.invalidGeToken
         }
