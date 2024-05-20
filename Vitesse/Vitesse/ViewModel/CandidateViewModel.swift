@@ -14,9 +14,10 @@ class CandidateViewModel : ObservableObject{
     @Published var candidats : [RecruitTech]
     
     
-    init(candidateProfile : CandidateProfile) {
+    init(candidateProfile : CandidateProfile,candidats : [RecruitTech]) {
         
         self.candidateProfile = candidateProfile
+        self.candidats  = candidats
     }
     
     enum FetchTokenResult : Error{
