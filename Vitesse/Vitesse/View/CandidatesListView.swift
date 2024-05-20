@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CandidatesListView: View {
-   @StateObject var candidateViewModel : CandidateViewModel
+    @StateObject var candidateViewModel : CandidateViewModel
     @State private var search = ""
     
     var body: some View {
@@ -40,25 +40,27 @@ struct CandidatesListView: View {
                         .cornerRadius(10)
                     }
                     Spacer()
+                    Text("Searching for \(search)")
                     VStack{
-                        Text("Searching for \(search)").searchSuggestions(.hidden, for: .content)
-
-                        List(candidateViewModel.candidats) { element in
-                            
-                            HStack {
-                                Text(element.lastName)
-                                Text(element.firstName)
+                        
+                        
+                        List{
+                            ForEach(candidateViewModel.candidats,id: \.self){ element in
+                                HStack {
+                                    Text(element.lastName)
+                                    Text(element.firstName)
+                                }
                             }
-                        }
-                        
-                        
-                    }.onAppear{
-                        Task{@MainActor in
-                            try await candidateViewModel.fetchtoken()
+                            
+                            
+                        }.onAppear{
+                            Task{@MainActor in
+                                try await candidateViewModel.fetchtoken()
+                            }
                         }
                     }
                 }
-            }
+            }.searchable(text: $search)
         }
     }
 }

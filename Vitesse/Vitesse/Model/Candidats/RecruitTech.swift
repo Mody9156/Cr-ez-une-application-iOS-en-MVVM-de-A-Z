@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RecruitTech: Identifiable, Codable{
+struct RecruitTech: Identifiable, Codable,Hashable{
     let phone, note: String?
     let id, firstName: String
     let linkedinURL: String?
