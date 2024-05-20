@@ -8,15 +8,16 @@
 import Foundation
 
 class CandidateViewModel : ObservableObject{
-   
+    var candidateDelete : CandidateDelete
     var candidateProfile : CandidateProfile
     let keychain = Keychain()
     @Published var candidats : [RecruitTech] = []
     
     
-    init(candidateProfile : CandidateProfile) {
+    init(candidateProfile : CandidateProfile,candidateDelete : CandidateDelete) {
         
         self.candidateProfile = candidateProfile
+        self.candidateDelete = candidateDelete
     }
     
     enum FetchTokenResult : Error{
@@ -31,11 +32,14 @@ class CandidateViewModel : ObservableObject{
             let getToken = String(data: token, encoding: .utf8)!
             
             let _ =  candidateProfile.fetchURLRequest(token: getToken)
+          
             let data = try await candidateProfile.fetchCandidateSubmission(token: getToken)
             DispatchQueue.main.async {
                 self.candidats = data
 
             }
+            let _ = try await candidateDelete.deleteCandidate(token: getToken, CandidateId: "" )
+            let _ = candidateDelete.fetchURLRequest(token: getToken, CandidateId: "")
             return data
         }catch{
             print("erreur fetchtoken() n'est pas passé ")
