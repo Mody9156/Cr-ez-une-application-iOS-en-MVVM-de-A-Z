@@ -42,8 +42,12 @@ struct CandidatesListView: View {
                 VStack{
                         
                     List(candidateViewModel.candidats) { element in
-                                Text(element.lastName)
-                            }
+                        
+                        HStack {
+                            Text(element.lastName)
+                            Text(element.firstName)
+                        }
+                    }
                     
                     
                 }.onAppear{

@@ -30,13 +30,12 @@ class CandidateViewModel : ObservableObject{
             let token = try keychain.get(forKey: "token")
             let getToken = String(data: token, encoding: .utf8)!
             
-            let fetchURLRequest =  candidateProfile.fetchURLRequest(token: getToken)
+            let _ =  candidateProfile.fetchURLRequest(token: getToken)
             let data = try await candidateProfile.fetchCandidateSubmission(token: getToken)
             DispatchQueue.main.async {
                 self.candidats = data
 
             }
-            print("Candidats : \(fetchURLRequest)")
             return data
         }catch{
             print("erreur fetchtoken() n'est pas passé ")
