@@ -18,6 +18,11 @@ class CandidateViewModel : ObservableObject{
         
         self.candidateProfile = candidateProfile
         self.candidateDelete = candidateDelete
+        
+        Task{
+          try await fetchtoken()
+        }
+        
     }
     
     enum FetchTokenResult : Error{
@@ -47,22 +52,22 @@ class CandidateViewModel : ObservableObject{
        
     }
     
-    func fetchdelete() async throws -> [HTTPURLResponse] {
+    func fetchdelete(_ deleteCandidate : IndexSet) async throws  {
        
         do{
          
         let token = try keychain.get(forKey: "token")
         let getToken = String(data: token, encoding: .utf8)!
             
-            var httpresponse : [HTTPURLResponse] = []
             
             for candidat in candidats {
                
               let delete =  try await candidateDelete.deleteCandidate(token: getToken, CandidateId: candidat.id)
-                httpresponse.append(delete)
+            }
+            DispatchQueue.main.async {
+                self.candidats.remove(atOffsets: deleteCandidate)
             }
             
-        return httpresponse
             
     }catch{
         print("erreur fetchdelete() n'est pas passé ")
