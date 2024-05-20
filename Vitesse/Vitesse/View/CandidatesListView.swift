@@ -12,7 +12,6 @@ struct CandidatesListView: View {
     @State private var search = ""
     
     var body: some View {
-        NavigationStack {
             ZStack {
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
@@ -40,7 +39,12 @@ struct CandidatesListView: View {
                         .cornerRadius(10)
                     }
                     Spacer()
+                    NavigationStack {
+
                     Text("Searching for \(search)")
+                        
+                    }.searchable(text: $search, prompt: "Look for something")
+
                     VStack{
                             
                         List(candidateViewModel.candidats) { element in
@@ -59,6 +63,5 @@ struct CandidatesListView: View {
                     }
                 }
             }
-        }.searchable(text: $search, prompt: "Look for something")
     }
 }
