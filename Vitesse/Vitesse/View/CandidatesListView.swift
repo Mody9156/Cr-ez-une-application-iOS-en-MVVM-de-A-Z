@@ -18,7 +18,9 @@ struct CandidatesListView: View {
                 VStack {
                     HStack {
                         Button("Edit") {
-                            
+                            Task{@MainActor in
+                                try await candidateViewModel.fetchdelete()
+                            }
                         }
                         .frame(width: 100, height: 50)
                         .background(Color.blue)
