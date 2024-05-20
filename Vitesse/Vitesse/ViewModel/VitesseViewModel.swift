@@ -26,6 +26,8 @@ class VitesseViewModel: ObservableObject {
     }
     
     var candidats: CandidatesListView {
-        return CandidatesListView(candidateViewModel: CandidateViewModel(candidateProfile: CandidateProfile(), candidats: [RecruitTech]))
+        let candidateViewModel = CandidateViewModel(candidateProfile: CandidateProfile())
+        
+        return CandidatesListView(candidateViewModel:candidateViewModel)
     }
 }

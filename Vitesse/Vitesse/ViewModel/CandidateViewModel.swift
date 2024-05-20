@@ -11,13 +11,12 @@ class CandidateViewModel : ObservableObject{
    
     var candidateProfile : CandidateProfile
     let keychain = Keychain()
-    @Published var candidats : [RecruitTech]
+    @Published var candidats = [RecruitTech].self
     
     
-    init(candidateProfile : CandidateProfile,candidats : [RecruitTech]) {
+    init(candidateProfile : CandidateProfile) {
         
         self.candidateProfile = candidateProfile
-        self.candidats  = candidats
     }
     
     enum FetchTokenResult : Error{

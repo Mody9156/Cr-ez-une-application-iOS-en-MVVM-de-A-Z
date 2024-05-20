@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CandidatesListView: View {
-    let candidateViewModel : CandidateViewModel
+   @StateObject var candidateViewModel : CandidateViewModel
     
     var body: some View {
         ZStack {
