@@ -40,7 +40,7 @@ struct CandidatesListView: View {
                         .cornerRadius(10)
                     }
                     Spacer()
-                    Text("Searching for \(search)").navigationTitle("Searchable Example")
+                    Text("Searching for \(search)")
                     VStack{
                             
                         List(candidateViewModel.candidats) { element in
