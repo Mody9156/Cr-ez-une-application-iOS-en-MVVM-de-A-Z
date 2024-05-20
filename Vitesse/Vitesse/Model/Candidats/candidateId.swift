@@ -20,8 +20,8 @@ class candidateId {
 
     }
 
-    func fetchURLRequest(token:String) -> URLRequest{
-            var url = URL(string: "http://127.0.0.1:8080/candidate/:candidateId")!
+    func fetchURLRequest(token:String,candidate : String) -> URLRequest{
+            var url = URL(string: "http://127.0.0.1:8080/candidate/\(candidate)")!
 
             var request = URLRequest(url: url)
             request.httpMethod = "Get"
@@ -32,9 +32,9 @@ class candidateId {
 
     }
 
-    func fetchCandidateSubmission(token:String) async throws ->  [RecruitTech] {
+    func fetchCandidateSubmission(token:String,candidate : String) async throws ->  [RecruitTech] {
         do{
-            let request = fetchURLRequest(token: token)
+            let request = fetchURLRequest(token: token, candidate: candidate)
             let (data,_) = try await httpService.request(request)
                    let candidats = try JSONDecoder().decode([RecruitTech].self, from: data)
             return candidats

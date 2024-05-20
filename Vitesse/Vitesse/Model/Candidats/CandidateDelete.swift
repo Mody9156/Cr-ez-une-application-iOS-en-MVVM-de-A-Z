@@ -23,7 +23,7 @@ class CandidateDelete {
     }
     
     func fetchURLRequest(token:String,CandidateId:String) -> URLRequest{
-        var url = URL(string: "http://127.0.0.1:8080/candidate/:candidateId/\(CandidateId)")!
+        var url = URL(string: "http://127.0.0.1:8080/candidate/\(CandidateId)")!
         
         var request = URLRequest(url: url)
         request.httpMethod = "Get"
