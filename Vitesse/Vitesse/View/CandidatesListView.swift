@@ -43,7 +43,6 @@ struct CandidatesListView: View {
                        
                       
                     }
-                    Spacer()
                     VStack{
                         
                         
@@ -64,7 +63,9 @@ struct CandidatesListView: View {
                         }
                     }
                 }
-            }.searchable(text: $search)
+            }.searchable(text: $search).listStyle(.plain)
+                .listRowBackground(Color.clear)
+                .listSectionSeparator(.hidden, edges: .bottom)//gerer l'affichage de la list
         }
     }
     
