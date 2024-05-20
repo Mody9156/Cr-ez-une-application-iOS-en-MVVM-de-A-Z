@@ -22,26 +22,28 @@ class CandidateProfile {
     }
     
     func fetchURLRequest(token:String) -> URLRequest{
-        let url = URL(string: "http://127.0.0.1:8080/candidate")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "Get"
-        print("request httpMethod : \(String(describing: request.httpMethod))")
-        let stock = "Bearer " + token
-        print("stock\(stock)")
-        request.setValue( stock , forHTTPHeaderField: "Authorization")
-        return request
+            let url = URL(string: "http://127.0.0.1:8080/candidate")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "Get"
+            let stock = "Bearer " + token
+            request.setValue( stock , forHTTPHeaderField: "Authorization")
+            return request
+       
+       
     }
     
     func fetchCandidateSubmission(token:String) async throws ->  [RecruitTech] {
-        let request = fetchURLRequest(token: token)
-        let (data,_) = try await httpService.request(request)
-        print("data : \(data)")
-        print("request : \(request)")
-
-        let candidats = try JSONDecoder().decode([RecruitTech].self, from: data)
-        print("candidats : \(candidats)")
-
-        return candidats
+        do{
+            let request = fetchURLRequest(token: token)
+            let (data,_) = try await httpService.request(request)
+                   let candidats = try JSONDecoder().decode([RecruitTech].self, from: data)
+            print("fécilicatio  fetchCandidateSubmissionest passé ")
+            return candidats
+        }catch{
+            print("erreur de la function  fetchCandidateSubmission")
+            throw URLRequestError.invalidRequest
+        }
+      
     }
     
     

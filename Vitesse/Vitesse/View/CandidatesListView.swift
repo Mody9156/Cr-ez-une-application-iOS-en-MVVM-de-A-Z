@@ -40,15 +40,16 @@ struct CandidatesListView: View {
                 Spacer()
                 
                 VStack{
-                    
-                            List(candidateViewModel.candidats) { element in
+                        
+                    List(candidateViewModel.candidats) { element in
                                 Text(element.lastName)
                             }
-                
-                        
+                    
                     
                 }.onAppear{
-                    candidateViewModel.fetchData()
+                    Task{@MainActor in
+                        try await candidateViewModel.fetchtoken()
+                    }
                 }
             }
         }
