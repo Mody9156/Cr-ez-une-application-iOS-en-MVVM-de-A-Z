@@ -52,6 +52,7 @@ struct CandidatesListView: View {
                                 HStack {
                                     Text(element.lastName)
                                     Text(element.firstName)
+                                    Image(systemName: "star.fill").foregroundColor(element.isFavorite ? .yellow : .white)
                                 }
                             }
                             
