@@ -40,11 +40,13 @@ struct CandidatesListView: View {
                 Spacer()
                 
                 VStack{
-                    if let candidats = candidateViewModel.candidats {
-                        Text("voici le nom : \(candidats.lastName)")
-                    }else {
-                        Text("loading")
-                    }
+                    
+                            List(candidateViewModel.candidats) { element in
+                                Text(element.lastName)
+                            }
+                
+                        
+                    
                 }.onAppear{
                     candidateViewModel.fetchData()
                 }

@@ -11,7 +11,7 @@ class CandidateViewModel : ObservableObject{
    
     var candidateProfile : CandidateProfile
     let keychain = Keychain()
-    @Published var candidats : RecruitTech?
+    @Published var candidats : [RecruitTech]
     
     
     init(candidateProfile : CandidateProfile) {
