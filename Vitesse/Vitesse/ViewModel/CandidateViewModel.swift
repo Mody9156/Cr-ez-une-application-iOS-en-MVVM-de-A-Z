@@ -47,19 +47,27 @@ class CandidateViewModel : ObservableObject{
        
     }
     
-    func fetchdelete() async throws -> HTTPURLResponse {
+    func fetchdelete() async throws -> [HTTPURLResponse] {
         
+       
         do{
-            
+         
         let token = try keychain.get(forKey: "token")
         let getToken = String(data: token, encoding: .utf8)!
             
-        let deleteCandidate = try await candidateDelete.deleteCandidate(token: getToken, CandidateId: "id_del_candidato" )
-            let _ = candidateDelete.fetchURLRequest(token: getToken, CandidateId: "id_del_candidato" )
-        return deleteCandidate
+            var httpresponse : [HTTPURLResponse] = []
+            
+            for candidat in candidats {
+               
+              let delete =  try await candidateDelete.deleteCandidate(token: getToken, CandidateId: candidat.id)
+                httpresponse.append(delete)
+            }
+            
+            
+        return httpresponse
             
     }catch{
-        print("erreur fetchtoken() n'est pas passé ")
+        print("erreur fetchdelete() n'est pas passé ")
         throw FetchTokenResult.failure
     }
     }
