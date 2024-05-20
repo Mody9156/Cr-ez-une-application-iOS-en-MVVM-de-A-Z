@@ -35,7 +35,7 @@ class CandidateDelete {
     }
     
     func fetchCandidateSubmission(token:String) async throws -> HTTPURLResponse {
-        do{
+        
             let request = fetchURLRequest(token: token)
             let (_,response) = try await httpService.request(request)
             
@@ -43,9 +43,7 @@ class CandidateDelete {
                 throw URLRequestError.httpresponseInvalid
             }
             return httpreponse
-        }catch{
-            throw URLRequestError.invalidGeToken
-        }
+      
         
     }
 }
