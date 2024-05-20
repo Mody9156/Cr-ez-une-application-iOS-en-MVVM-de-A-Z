@@ -24,7 +24,7 @@ class CandidateViewModel : ObservableObject{
     }
     
     
-    func fetchtoken () async throws -> RecruitTech {
+    func fetchtoken () async throws -> [RecruitTech] {
        
         do{
             let token = try keychain.get(forKey: "token")
