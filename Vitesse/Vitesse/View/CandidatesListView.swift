@@ -40,12 +40,11 @@ struct CandidatesListView: View {
                         .cornerRadius(10)
                     }
                     Spacer()
-                    Text("Searching for \(search)")
                     VStack{
                         
                         
                         List{
-                            ForEach(candidateViewModel.candidats,id: \.self){ element in
+                            ForEach(searchResult,id: \.self){ element in
                                 HStack {
                                     Text(element.lastName)
                                     Text(element.firstName)
@@ -63,4 +62,14 @@ struct CandidatesListView: View {
             }.searchable(text: $search)
         }
     }
+    
+    var searchResult : [RecruitTech] {
+        if search.isEmpty {
+            return candidateViewModel.candidats
+        }else {
+            return candidateViewModel.candidats.filter{$0.lastName}
+        }
+    }
 }
+
+
