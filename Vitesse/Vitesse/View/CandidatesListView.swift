@@ -57,6 +57,10 @@ struct CandidatesListView: View {
                                     Spacer()
                                     Image(systemName: "star.fill").foregroundColor(element.isFavorite ? .yellow : .black)
                                 }
+                            }.onDelete{ indexOf in
+                                
+                                candidateViewModel.candidats.remove(at: 0)
+                                
                             }
                             
                             
@@ -64,6 +68,8 @@ struct CandidatesListView: View {
                             Task{@MainActor in
                                 try await candidateViewModel.fetchtoken()
                             }
+                        }.toolbar{
+                            
                         }
                     }
                 }

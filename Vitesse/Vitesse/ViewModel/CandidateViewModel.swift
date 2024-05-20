@@ -62,7 +62,6 @@ class CandidateViewModel : ObservableObject{
                 httpresponse.append(delete)
             }
             
-            
         return httpresponse
             
     }catch{
