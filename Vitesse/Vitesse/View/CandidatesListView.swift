@@ -13,13 +13,25 @@ struct CandidatesListView: View {
                     VStack {
                         List {
                             ForEach(searchResult, id: \.id) { element in
-                                NavigationLink(destination: CandidateDetailView(candidate: element)) {
+                                NavigationLink(destination: CandidateDetailView(candidate: element)
+                                
+                                
+                                ) {
                                     HStack {
                                         Text(element.lastName)
                                         Text(element.firstName)
                                         Spacer()
                                         Image(systemName: element.isFavorite ? "star.slash" : "star")
                                             .foregroundColor(element.isFavorite ? .yellow : .black)
+                                    }
+                                }.task {
+                                    if let index = candidateViewModel.candidats.firstIndex(where: { $0.id == element.id }) {
+                                        do {
+                                            let result = try await candidateViewModel.fetchcandidateIDFetcher(at: IndexSet(integer: index))
+                                            print("Fetched candidate details: \(result)")
+                                        } catch {
+                                            print("Failed to fetch candidate details: \(error)")
+                                        }
                                     }
                                 }
                                 
@@ -89,14 +101,11 @@ struct CandidatesListView: View {
 
 struct CandidateDetailView: View {
     var candidate: RecruitTech
-
     var body: some View {
         VStack {
             Text(candidate.lastName)
             Text(candidate.firstName)
-            Text(candidate.linkedinURL ?? "")
-            Text(candidate.phone ?? "")
-            Text(candidate.note ?? "")
+           
         }
         .navigationTitle("Candidate Detail")
     }
