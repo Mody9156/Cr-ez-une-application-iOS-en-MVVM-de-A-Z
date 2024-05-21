@@ -108,9 +108,11 @@ class CandidateViewModel: ObservableObject {
             }
             
             let candidate = try await candidateFavoritesManager.fetchFavoritesURLRequest(token: getToken, candidate: id)
+            print("cool")
             return candidate
             
         }catch{
+            print("nooo processCandidateElements fail")
             throw FetchTokenResult.processCandidateElementsError
         }
     }

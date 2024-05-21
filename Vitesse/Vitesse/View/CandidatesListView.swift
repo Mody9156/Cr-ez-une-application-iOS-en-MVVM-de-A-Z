@@ -17,17 +17,7 @@ struct CandidatesListView: View {
             ZStack {
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
-                    HStack {
-                     
-                        Text("Candidats")
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .foregroundColor(.blue)
-                            .padding()
-                        
-                       
-                    }
-                    Spacer()
+                   
                     VStack {
                         List {
                             ForEach(searchResult, id: \.id) { element in
@@ -36,7 +26,7 @@ struct CandidatesListView: View {
                                         Text(element.lastName)
                                         Text(element.firstName)
                                         Spacer()
-                                        Image(systemName: "star.fill").foregroundColor(element.isFavorite ? .yellow : .black)
+//                                        Image(systemName: "star.fill").foregroundColor(element.isFavorite ? .yellow : .black)
                                     }
                                 }
                                 
@@ -56,7 +46,10 @@ struct CandidatesListView: View {
                         }.toolbar {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button {
-                                    // Logique pour le bouton étoile
+                                    Task{@MainActor in
+                                        try? await candidateViewModel.processCandidateElements
+
+                                    }
                                 } label: {
                                     Image(systemName: "star.fill")
                                 }
@@ -69,7 +62,19 @@ struct CandidatesListView: View {
                                 
                             }
                         
-                    }
+                    }.toolbar {
+                        ToolbarItem(placement: .navigation) {
+                            
+                               Text("Candidats")
+                                   .font(.title3)
+                                   .fontWeight(.bold)
+                                   .foregroundColor(.blue)
+                                   .padding()
+                            
+                            
+                        }
+                    
+                }
                        
                        
                     }
