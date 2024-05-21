@@ -10,6 +10,7 @@ import SwiftUI
 struct CandidatesListView: View {
     @StateObject var candidateViewModel : CandidateViewModel
     @State private var search = ""
+    @State var test : Bool = false
     
     var body: some View {
         NavigationStack {
@@ -17,7 +18,17 @@ struct CandidatesListView: View {
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
                     HStack {
-                       
+                        
+                        Button {
+                            test = true
+                        } label: {
+                            Text("Edit")
+                        }
+                        .frame(width: 100, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        
                         Text("Candidats")
                             .font(.title3)
                             .fontWeight(.bold)
@@ -38,7 +49,7 @@ struct CandidatesListView: View {
                     VStack {
                         List {
                             ForEach(searchResult, id: \.id) { element in
-                                NavigationLink(destination: CandidateDetailsView()){
+                                NavigationLink(destination: CandidateDetailsView(candidateViewModel: CandidateViewModel(candidateProfile: CandidateProfile(), candidateDelete: CandidateDelete(), candidateIDFetcher: CandidateIDFetcher()))){
                                     HStack {
                                         Text(element.lastName)
                                         Text(element.firstName)
@@ -51,7 +62,9 @@ struct CandidatesListView: View {
                             .onDelete(perform: candidateViewModel.deleteCandidate)
                         }
                         .toolbar {
-                            EditButton()
+                            if test{
+                                EditButton()
+                            }
                         }
                         .searchable(text: $search)
                        
