@@ -66,17 +66,20 @@ struct RegistrationView: View {
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
                     }
-                   
-                    Button("Create") {
-                        Task{
-                            try await  registreViewModel.handleRegistrationViewModel()
+                    NavigationLink( destination: LoginView(AuthenticationView: LoginViewModel({}), vitesseViewModel: VitesseViewModel())){
+                        Button("Create") {
+                            Task{
+                                try await  registreViewModel.handleRegistrationViewModel()
+                            }
+                            
+                          
                         }
-                      
+                        .frame(width: 100, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
-                    .frame(width: 100, height: 50)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                   
                    
                 }
             }
