@@ -3,7 +3,6 @@ import SwiftUI
 struct CandidatesListView: View {
     @StateObject var candidateViewModel: CandidateViewModel
     @State private var search = ""
-    @State var test: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -14,18 +13,23 @@ struct CandidatesListView: View {
                     VStack {
                         List {
                             ForEach(searchResult, id: \.id) { element in
-                                NavigationLink(destination:
-                                    HStack {
-                                        Text(element.lastName)
-                                        Text(element.firstName)
-                                    }
-                                ) {
+                                NavigationLink(destination: CandidateDetailView(candidate: element)) {
                                     HStack {
                                         Text(element.lastName)
                                         Text(element.firstName)
                                         Spacer()
                                         Image(systemName: element.isFavorite ? "star.slash" : "star")
                                             .foregroundColor(element.isFavorite ? .yellow : .black)
+                                    }
+                                }
+                                .task {
+                                    if let index = candidateViewModel.candidats.firstIndex(where: { $0.id == element.id }) {
+                                        do {
+                                            let result = try await candidateViewModel.fetchcandidateIDFetcher(at: IndexSet(integer: index))
+                                            print("Fetched candidate details: \(result)")
+                                        } catch {
+                                            print("Failed to fetch candidate details: \(error)")
+                                        }
                                     }
                                 }
                             }
@@ -45,9 +49,8 @@ struct CandidatesListView: View {
                                 Button {
                                     Task {
                                         do {
-                                            // Pass an example IndexSet
                                             let result = try await candidateViewModel.fetchAndProcessCandidateFavorites(at: IndexSet(integer: 0))
-                                            print("Favorites Processed: \(result)")
+                                            print("Favorites Processed: \(String(describing: result))")
                                         } catch {
                                             print("Failed to process candidate favorites: \(error)")
                                         }
@@ -90,5 +93,17 @@ struct CandidatesListView: View {
                 candidat.firstName.lowercased().contains(search.lowercased())
             }
         }
+    }
+}
+
+struct CandidateDetailView: View {
+    var candidate: RecruitTech
+
+    var body: some View {
+        VStack {
+            Text(candidate.lastName)
+            Text(candidate.firstName)
+        }
+        .navigationTitle("Candidate Detail")
     }
 }

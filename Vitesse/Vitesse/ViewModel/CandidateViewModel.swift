@@ -26,7 +26,7 @@ class CandidateViewModel: ObservableObject {
         case processCandidateElementsError
         case fetchcandidateIDFetcherError
     }
-
+//Liste
     @MainActor
     func fetchCandidateProfile() async throws -> [RecruitTech] {
         do {
@@ -47,7 +47,7 @@ class CandidateViewModel: ObservableObject {
         }
         return getToken
     }
-    
+    // detaille
     func fetchcandidateIDFetcher(at offsets: IndexSet) async throws -> [RecruitTech] {
         do{
             let getToken = try fetchToken()
@@ -64,8 +64,7 @@ class CandidateViewModel: ObservableObject {
     }
     
     
-    //ici
-
+    //supprimer
     func fetchDelete(at offsets: IndexSet) async throws {
         do {
             let getToken = try fetchToken()
@@ -84,7 +83,7 @@ class CandidateViewModel: ObservableObject {
             throw FetchTokenResult.deleteCandidateError
         }
     }
-
+//supprimer
     func deleteCandidate(at offsets: IndexSet) {
         Task {
             do {
@@ -94,7 +93,7 @@ class CandidateViewModel: ObservableObject {
             }
         }
     }
-
+//
     func searchCandidate(at offsets: IndexSet) async throws -> [RecruitTech] {
         do {
             let getToken = try fetchToken()
@@ -107,7 +106,7 @@ class CandidateViewModel: ObservableObject {
             throw FetchTokenResult.searchCandidateError
         }
     }
-
+//Favoris
     @MainActor
     func fetchAndProcessCandidateFavorites(at offsets: IndexSet) async throws -> [RecruitTech]? {
         do {
