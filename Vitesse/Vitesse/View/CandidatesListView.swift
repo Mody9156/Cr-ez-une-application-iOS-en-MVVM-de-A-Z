@@ -45,7 +45,9 @@ struct CandidatesListView: View {
                                 Button {
                                     Task {
                                         do {
-                                            try await candidateViewModel.fetchAndProcessCandidateFavorites(at: IndexSet(integer: 0)) // Change the offset as needed
+                                            // Pass an example IndexSet
+                                            let result = try await candidateViewModel.fetchAndProcessCandidateFavorites(at: IndexSet(integer: 0))
+                                            print("Favorites Processed: \(result)")
                                         } catch {
                                             print("Failed to process candidate favorites: \(error)")
                                         }

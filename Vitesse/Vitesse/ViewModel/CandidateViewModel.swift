@@ -86,7 +86,7 @@ class CandidateViewModel: ObservableObject {
     }
 
     @MainActor
-    func fetchAndProcessCandidateFavorites(at offsets: IndexSet) async throws -> [RecruitTech] {
+    func fetchAndProcessCandidateFavorites(at offsets: IndexSet) async throws -> [RecruitTech]? {
         do {
             let getToken = try fetchToken()
             var id = ""
@@ -98,7 +98,7 @@ class CandidateViewModel: ObservableObject {
             
             let data = try await candidateFavoritesManager.fetchFavoritesURLRequest(token: getToken, candidate: id)
 
-            print("Fetched Data: \(data)")
+            print("Fetched Data: \(String(describing: data))")
 
             return data
         } catch {

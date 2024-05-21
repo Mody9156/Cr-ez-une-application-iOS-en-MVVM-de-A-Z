@@ -23,7 +23,7 @@ class CandidateFavoritesManager {
         return request
     }
 
-    func fetchFavoritesURLRequest(token: String, candidate: String) async throws -> [RecruitTech] {
+    func fetchFavoritesURLRequest(token: String, candidate: String) async throws -> [RecruitTech]? {
         do {
             let request = favoritesURLRequest(token: token, candidate: candidate)
             let (data, response) = try await httpService.request(request)
@@ -32,7 +32,7 @@ class CandidateFavoritesManager {
                 print("HTTP Response Status Code: \(httpResponse.statusCode)")
             }
 
-            let candidates = try JSONDecoder().decode([RecruitTech].self, from: data)
+            let candidates = try? JSONDecoder().decode([RecruitTech].self, from: data)
 
             return candidates
         } catch {
