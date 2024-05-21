@@ -92,7 +92,8 @@ class CandidateViewModel: ObservableObject {
             for offset in offsets {
                 id = candidats[offset].id
             }
-            return try await candidateFavoritesManager.fetchFavoritesURLRequest(token: getToken, candidate: id)
+            let data =  try await candidateFavoritesManager.fetchFavoritesURLRequest(token: getToken, candidate: id)
+            return data
         } catch {
             throw FetchTokenResult.processCandidateElementsError
         }

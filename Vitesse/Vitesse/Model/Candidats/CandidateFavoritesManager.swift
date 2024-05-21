@@ -24,6 +24,7 @@ class CandidateFavoritesManager {
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
         let authHeader = "Bearer " + token
+        print("authHeader")
         request.setValue(authHeader, forHTTPHeaderField: "Authorization")
         return request
     }
