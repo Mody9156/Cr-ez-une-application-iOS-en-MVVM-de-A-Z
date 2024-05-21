@@ -94,6 +94,9 @@ struct CandidateDetailView: View {
         VStack {
             Text(candidate.lastName)
             Text(candidate.firstName)
+            Text(candidate.linkedinURL ?? "")
+            Text(candidate.phone ?? "")
+            Text(candidate.note ?? "")
         }
         .navigationTitle("Candidate Detail")
     }
