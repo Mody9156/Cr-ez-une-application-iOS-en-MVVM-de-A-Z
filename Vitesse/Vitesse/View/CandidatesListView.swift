@@ -38,12 +38,15 @@ struct CandidatesListView: View {
                     VStack {
                         List {
                             ForEach(searchResult, id: \.id) { element in
-                                HStack {
-                                    Text(element.lastName)
-                                    Text(element.firstName)
-                                    Spacer()
-                                    Image(systemName: "star.fill").foregroundColor(element.isFavorite ? .yellow : .black)
+                                NavigationLink(destination: CandidateDetailsView()){
+                                    HStack {
+                                        Text(element.lastName)
+                                        Text(element.firstName)
+                                        Spacer()
+                                        Image(systemName: "star.fill").foregroundColor(element.isFavorite ? .yellow : .black)
+                                    }
                                 }
+                                
                             }
                             .onDelete(perform: candidateViewModel.deleteCandidate)
                         }
