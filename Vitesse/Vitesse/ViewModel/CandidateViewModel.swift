@@ -1,64 +1,55 @@
-//
-//  CandidateViewModel.swift
-//  Vitesse
-//
-//  Created by KEITA on 17/05/2024.
-//
-
 import Foundation
 
 class CandidateViewModel: ObservableObject {
     let candidateDelete: CandidateDelete
     let candidateProfile: CandidateProfile
-    let candidateFavoritesManager : CandidateFavoritesManager
+    let candidateFavoritesManager: CandidateFavoritesManager
     let keychain = Keychain()
-    let candidateIDFetcher : CandidateIDFetcher
+    let candidateIDFetcher: CandidateIDFetcher
     @Published var candidats: [RecruitTech] = []
-    
-    init(candidateProfile: CandidateProfile, candidateDelete: CandidateDelete,candidateIDFetcher : CandidateIDFetcher,candidateFavoritesManager : CandidateFavoritesManager) {
+
+    init(candidateProfile: CandidateProfile, candidateDelete: CandidateDelete, candidateIDFetcher: CandidateIDFetcher, candidateFavoritesManager: CandidateFavoritesManager) {
         self.candidateProfile = candidateProfile
         self.candidateDelete = candidateDelete
         self.candidateIDFetcher = candidateIDFetcher
         self.candidateFavoritesManager = candidateFavoritesManager
         
         Task {
-            try await self.candidateProfile()
+            try await fetchCandidateProfile()
         }
-       
     }
-    
+
     enum FetchTokenResult: Error, LocalizedError {
         case searchCandidateError
         case candidateProfileError
         case deleteCandidateError
         case processCandidateElementsError
     }
-    
+
     @MainActor
-    func candidateProfile() async throws -> [RecruitTech] {
+    func fetchCandidateProfile() async throws -> [RecruitTech] {
         do {
-            let token = try keychain.get(forKey: "token")
-            let getToken = String(data: token, encoding: .utf8)!
-            
-            let _ = candidateProfile.fetchURLRequest(token: getToken)
-            
+            let getToken = try fetchToken()
+            _ = candidateProfile.fetchURLRequest(token: getToken)
             let data = try await candidateProfile.fetchCandidateSubmission(token: getToken)
-            DispatchQueue.main.async {
-                self.candidats = data
-            }
-            
+            self.candidats = data
             return data
         } catch {
             throw FetchTokenResult.candidateProfileError
-
         }
     }
-    
+
+    private func fetchToken() throws -> String {
+        let token = try keychain.get(forKey: "token")
+        guard let getToken = String(data: token, encoding: .utf8) else {
+            throw FetchTokenResult.candidateProfileError
+        }
+        return getToken
+    }
+
     func fetchDelete(at offsets: IndexSet) async throws {
         do {
-            let token = try self.keychain.get(forKey: "token")
-            let getToken = String(data: token, encoding: .utf8)!
-            
+            let getToken = try fetchToken()
             for offset in offsets {
                 let id = candidats[offset].id
                 try await candidateDelete.deleteCandidate(token: getToken, candidateId: id)
@@ -70,7 +61,7 @@ class CandidateViewModel: ObservableObject {
             throw FetchTokenResult.deleteCandidateError
         }
     }
-    
+
     func deleteCandidate(at offsets: IndexSet) {
         Task {
             do {
@@ -80,39 +71,29 @@ class CandidateViewModel: ObservableObject {
             }
         }
     }
-  //terminer ceci après
-    func searchCandidate(at offsets: IndexSet) async throws -> [RecruitTech]{
-        do{
-            let token = try self.keychain.get(forKey: "token")
-            let getToken = String(data: token, encoding: .utf8)!
-            var id = ""
-            for offset in offsets {
-              id = candidats[offset].id
-            }
-            let candidate = try await candidateIDFetcher.fetchCandidates(token: getToken, candidate: id)
-            return candidate
-            
-        }catch{
-            throw FetchTokenResult.searchCandidateError
-        }
-    }
-    
-    func processCandidateElements(at offsets : IndexSet) async throws ->  [RecruitTech] {
-       
-        do{
-            let token = try self.keychain.get(forKey: "token")
-            let getToken = String(data: token, encoding: .utf8)!
+
+    func searchCandidate(at offsets: IndexSet) async throws -> [RecruitTech] {
+        do {
+            let getToken = try fetchToken()
             var id = ""
             for offset in offsets {
                 id = candidats[offset].id
             }
-            
-            let candidate = try await candidateFavoritesManager.fetchFavoritesURLRequest(token: getToken, candidate: id)
-            print("cool")
-            return candidate
-            
-        }catch{
-            print("nooo processCandidateElements fail")
+            return try await candidateIDFetcher.fetchCandidates(token: getToken, candidate: id)
+        } catch {
+            throw FetchTokenResult.searchCandidateError
+        }
+    }
+
+    func fetchAndProcessCandidateFavorites(at offsets: IndexSet) async throws -> [RecruitTech] {
+        do {
+            let getToken = try fetchToken()
+            var id = ""
+            for offset in offsets {
+                id = candidats[offset].id
+            }
+            return try await candidateFavoritesManager.fetchFavoritesURLRequest(token: getToken, candidate: id)
+        } catch {
             throw FetchTokenResult.processCandidateElementsError
         }
     }

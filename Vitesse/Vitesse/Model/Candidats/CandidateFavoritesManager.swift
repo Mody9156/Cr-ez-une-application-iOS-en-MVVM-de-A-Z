@@ -33,6 +33,8 @@ class CandidateFavoritesManager {
             let request = favoritesURLRequest(token: token, candidate: candidate)
             let (data, _) = try await httpService.request(request)
             let candidates = try JSONDecoder().decode([RecruitTech].self, from: data)
+            print("candidates")
+            print("\(candidates)")
             return candidates
         } catch {
             throw CandidateFetchError.networkError

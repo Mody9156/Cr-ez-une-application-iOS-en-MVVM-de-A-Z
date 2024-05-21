@@ -1,91 +1,74 @@
-//
-//  Candidats.swift
-//  Vitesse
-//
-//  Created by KEITA on 14/05/2024.
-//
-
 import SwiftUI
 
 struct CandidatesListView: View {
-    @StateObject var candidateViewModel : CandidateViewModel
+    @StateObject var candidateViewModel: CandidateViewModel
     @State private var search = ""
-    @State var test : Bool = false
-    
+    @State var test: Bool = false
+
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
-                   Spacer()
+                    Spacer()
                     VStack {
                         List {
                             ForEach(searchResult, id: \.id) { element in
                                 NavigationLink(destination:
-                                
-                                        HStack {
+                                    HStack {
                                         Text(element.lastName)
                                         Text(element.firstName)
-                                                   
-                                        }
-                                
-                                
-                                ){
+                                    }
+                                ) {
                                     HStack {
                                         Text(element.lastName)
                                         Text(element.firstName)
                                         Spacer()
-                                        Image(systemName: element.isFavorite ? "star.slash":"star").foregroundColor(element.isFavorite ? .yellow : .black)
+                                        Image(systemName: element.isFavorite ? "star.slash" : "star")
+                                            .foregroundColor(element.isFavorite ? .yellow : .black)
                                     }
                                 }
-                                
                             }
                             .onDelete(perform: candidateViewModel.deleteCandidate)
-                        }.toolbar {
-                                ToolbarItem(placement: .navigationBarLeading) {
-                                   
-                                        EditButton().frame(width: 100, height: 50)
-                                        .background(Color.blue)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(10)
-                                    
-                                    
-                                }
-                            
-                        }.toolbar {
+                        }
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                EditButton()
+                                    .frame(width: 100, height: 50)
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        .toolbar {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button {
-                                    Task{@MainActor in
-                                       candidateViewModel.processCandidateElements
-
+                                    Task {
+                                        do {
+                                            try await candidateViewModel.fetchAndProcessCandidateFavorites(at: IndexSet(integer: 0)) // Change the offset as needed
+                                        } catch {
+                                            print("Failed to process candidate favorites: \(error)")
+                                        }
                                     }
                                 } label: {
                                     Image(systemName: "star.fill")
                                 }
-                                
-                                
-                                
-                            }.frame(width: 100, height: 50)
+                                .frame(width: 100, height: 50)
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
-                                .searchable(text: $search)
-                        
-                    }.toolbar {
-                        ToolbarItem(placement: .navigation) {
-                            
-                               Text("Candidats")
-                                   .font(.title3)
-                                   .fontWeight(.bold)
-                                   .foregroundColor(.blue)
-                                   .padding()
-                            
-                            
+                            }
                         }
-                    
-                }
-                       
-                       
+                        .toolbar {
+                            ToolbarItem(placement: .navigation) {
+                                Text("Candidats")
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.blue)
+                                    .padding()
+                            }
+                        }
+                        .searchable(text: $search)
                     }
                 }
             }
