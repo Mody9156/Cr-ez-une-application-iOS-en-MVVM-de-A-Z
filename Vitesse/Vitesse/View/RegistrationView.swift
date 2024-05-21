@@ -66,7 +66,7 @@ struct RegistrationView: View {
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
                     }
-                    NavigationLink( destination: LoginView(AuthenticationView: LoginViewModel({}), vitesseViewModel: VitesseViewModel())){
+                   
                         Button("Create") {
                             Task{
                                 try await  registreViewModel.handleRegistrationViewModel()
@@ -78,7 +78,6 @@ struct RegistrationView: View {
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
-                    }
                    
                    
                 }
