@@ -20,16 +20,22 @@ class CandidateViewModel: ObservableObject {
         self.candidateIDFetcher = candidateIDFetcher
         
         Task {
-            try await fetchToken()
+             candidateProfile
         }
+       
     }
     
-    enum FetchTokenResult: Error {
-        case failure
+    enum FetchTokenResult: Error, LocalizedError {
+        case searchCandidateError
+        case keychainError
+        case tokenDecodingError
+        case candidateProfileRequestError
+        case candidateProfileFetchError
+        case deleteCandidateError
     }
     
     @MainActor
-    func fetchToken() async throws -> [RecruitTech] {
+    func candidateProfile() async throws -> [RecruitTech] {
         do {
             let token = try keychain.get(forKey: "token")
             let getToken = String(data: token, encoding: .utf8)!
@@ -44,7 +50,9 @@ class CandidateViewModel: ObservableObject {
             return data
         } catch {
             print("Erreur fetchToken() n'est pas passé")
-            throw FetchTokenResult.failure
+            throw FetchTokenResult.candidateProfileRequestError
+            throw FetchTokenResult.candidateProfileFetchError
+
         }
     }
     
@@ -61,8 +69,7 @@ class CandidateViewModel: ObservableObject {
                 self.candidats.remove(atOffsets: offsets)
             }
         } catch {
-            print("Erreur fetchDelete() n'est pas passé")
-            throw FetchTokenResult.failure
+            throw FetchTokenResult.deleteCandidateError
         }
     }
     
@@ -71,7 +78,7 @@ class CandidateViewModel: ObservableObject {
             do {
                 try await fetchDelete(at: offsets)
             } catch {
-                print("Failed to delete candidate: \(error)")
+                throw FetchTokenResult.deleteCandidateError
             }
         }
     }
@@ -80,16 +87,17 @@ class CandidateViewModel: ObservableObject {
         do{
             let token = try self.keychain.get(forKey: "token")
             let getToken = String(data: token, encoding: .utf8)!
-            
+            var id : String = ""
             for offset in offsets {
-                let id = candidats[offset].id
-                
-               let candidate = try await candidateIDFetcher.fetchCandidates(token: getToken, candidate: id)
-                
+                 id = candidats[offset].id
             }
-            return candidate
-        }catch{
             
+            let candidate = try await candidateIDFetcher.fetchCandidates(token: getToken, candidate: id)
+            print("id : \(id)")
+            return candidate
+            
+        }catch{
+            throw FetchTokenResult.searchCandidateError
         }
        
       
