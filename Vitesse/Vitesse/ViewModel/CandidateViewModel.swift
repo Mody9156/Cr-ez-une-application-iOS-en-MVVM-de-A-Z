@@ -85,6 +85,7 @@ class CandidateViewModel: ObservableObject {
         }
     }
 
+    @MainActor
     func fetchAndProcessCandidateFavorites(at offsets: IndexSet) async throws -> [RecruitTech] {
         do {
             let getToken = try fetchToken()
@@ -92,10 +93,16 @@ class CandidateViewModel: ObservableObject {
             for offset in offsets {
                 id = candidats[offset].id
             }
-            let _ = candidateFavoritesManager.favoritesURLRequest(token: getToken, candidate: id)
-            let data =  try await candidateFavoritesManager.fetchFavoritesURLRequest(token: getToken, candidate: id)
+            
+            print("Token: \(getToken), Candidate ID: \(id)")
+            
+            let data = try await candidateFavoritesManager.fetchFavoritesURLRequest(token: getToken, candidate: id)
+
+            print("Fetched Data: \(data)")
+
             return data
         } catch {
+            print("Erreur dans fetchAndProcessCandidateFavorites: \(error)")
             throw FetchTokenResult.processCandidateElementsError
         }
     }
