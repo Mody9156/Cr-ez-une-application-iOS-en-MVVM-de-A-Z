@@ -39,22 +39,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D25FA14B-4729-4D6B-AEF6-312F05F3D4E1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vitesse/Model/Candidats/CandidateFavoritesManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "favoritesURLRequest(token:candidate:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "865ABBA4-67C4-4CA6-BC17-072BD8B2D529"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -205,8 +189,40 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "44"
             endingLineNumber = "44"
-            landmarkName = "CandidateFavoritesManager"
-            landmarkType = "3">
+            landmarkName = "fetchFavoritesURLRequest(token:candidate:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6F869B97-5268-4049-84FF-8B223A727DE0 - 2bd8cd4a832de63b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Vitesse.CandidateFavoritesManager.fetchFavoritesURLRequest(token: Swift.String, candidate: Swift.String) async throws -&gt; Swift.Array&lt;Vitesse.RecruitTech&gt;"
+                  moduleName = "Vitesse"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet6/Cr-ez-une-application-iOS-en-MVVM-de-A-Z/Vitesse/Vitesse/Model/Candidats/CandidateFavoritesManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "2005">
+               </Location>
+               <Location
+                  uuid = "6F869B97-5268-4049-84FF-8B223A727DE0 - e74e4701886bc83e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Vitesse.CandidateFavoritesManager.fetchFavoritesURLRequest(token: Swift.String, candidate: Swift.String) async throws -&gt; Swift.Array&lt;Vitesse.RecruitTech&gt;"
+                  moduleName = "Vitesse"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet6/Cr-ez-une-application-iOS-en-MVVM-de-A-Z/Vitesse/Vitesse/Model/Candidats/CandidateFavoritesManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "204">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

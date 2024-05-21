@@ -24,8 +24,8 @@ class CandidateFavoritesManager {
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
         let authHeader = "Bearer " + token
-        print("authHeader")
         request.setValue(authHeader, forHTTPHeaderField: "Authorization")
+       
         return request
     }
     
@@ -34,8 +34,8 @@ class CandidateFavoritesManager {
             let request = favoritesURLRequest(token: token, candidate: candidate)
             let (data, _) = try await httpService.request(request)
             let candidates = try JSONDecoder().decode([RecruitTech].self, from: data)
-            print("candidates")
-            print("\(candidates)")
+            print("candidates est good")
+          
             return candidates
         } catch {
             throw CandidateFetchError.networkError
