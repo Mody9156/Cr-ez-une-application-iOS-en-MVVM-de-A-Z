@@ -12,7 +12,9 @@
 		234BDF8D2BEFEC8500C96E42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8C2BEFEC8500C96E42 /* Assets.xcassets */; };
 		234BDF902BEFEC8500C96E42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */; };
 		234BDF9A2BEFEC8500C96E42 /* VitesseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF992BEFEC8500C96E42 /* VitesseTests.swift */; };
+		238B002F2BFCB7B500EF388A /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 238B002E2BFCB7B500EF388A /* Storyboard.storyboard */; };
 		238F89BD2BFC9F60009DD983 /* CandidateDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238F89BC2BFC9F60009DD983 /* CandidateDetailsView.swift */; };
+		238F89BF2BFCAFFB009DD983 /* CandidateFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238F89BE2BFCAFFB009DD983 /* CandidateFavoritesManager.swift */; };
 		23D1FE852BF74C2500F3FA1E /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE842BF74C2500F3FA1E /* Keychain.swift */; };
 		23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE862BF74CB700F3FA1E /* TokenStore.swift */; };
 		23D1FE892BF7BA3F00F3FA1E /* CandidateProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE882BF7BA3F00F3FA1E /* CandidateProfile.swift */; };
@@ -52,7 +54,9 @@
 		234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		234BDF952BEFEC8500C96E42 /* VitesseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		234BDF992BEFEC8500C96E42 /* VitesseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseTests.swift; sourceTree = "<group>"; };
+		238B002E2BFCB7B500EF388A /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		238F89BC2BFC9F60009DD983 /* CandidateDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDetailsView.swift; sourceTree = "<group>"; };
+		238F89BE2BFCAFFB009DD983 /* CandidateFavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateFavoritesManager.swift; sourceTree = "<group>"; };
 		23D1FE842BF74C2500F3FA1E /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		23D1FE862BF74CB700F3FA1E /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
 		23D1FE882BF7BA3F00F3FA1E /* CandidateProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateProfile.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */,
+				238B002E2BFCB7B500EF388A /* Storyboard.storyboard */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -217,6 +222,7 @@
 				23D1FE8A2BF7BDAD00F3FA1E /* RecruitTech.swift */,
 				23D2BB972BFB782F00CE9B72 /* CandidateIDFetcher.swift */,
 				23D2BB992BFB7A8300CE9B72 /* CandidateDelete.swift */,
+				238F89BE2BFCAFFB009DD983 /* CandidateFavoritesManager.swift */,
 			);
 			path = Candidats;
 			sourceTree = "<group>";
@@ -304,6 +310,7 @@
 			files = (
 				234BDF902BEFEC8500C96E42 /* Preview Assets.xcassets in Resources */,
 				234BDF8D2BEFEC8500C96E42 /* Assets.xcassets in Resources */,
+				238B002F2BFCB7B500EF388A /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +339,7 @@
 				23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */,
 				23D2BB9A2BFB7A8300CE9B72 /* CandidateDelete.swift in Sources */,
 				234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */,
+				238F89BF2BFCAFFB009DD983 /* CandidateFavoritesManager.swift in Sources */,
 				23D2BB982BFB782F00CE9B72 /* CandidateIDFetcher.swift in Sources */,
 				23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */,
 				23ED07522BF61E85006FECD3 /* RegistrationRequestBody.swift in Sources */,

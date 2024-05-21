@@ -77,7 +77,7 @@ class CandidateViewModel: ObservableObject {
             }
         }
     }
-    
+  //terminer ceci après
     func searchCandidate(at offsets: IndexSet) async throws -> [RecruitTech]{
         do{
             let token = try self.keychain.get(forKey: "token")
