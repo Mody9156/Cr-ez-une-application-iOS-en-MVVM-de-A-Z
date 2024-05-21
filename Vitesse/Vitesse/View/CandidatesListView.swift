@@ -54,7 +54,7 @@ struct CandidatesListView: View {
                             EditButton()
                         }
                         .searchable(text: $search)
-                        .navigationTitle("Candidats")
+                       
                     }
                 }
             }
