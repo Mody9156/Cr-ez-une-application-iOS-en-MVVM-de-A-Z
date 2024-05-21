@@ -18,17 +18,7 @@ struct CandidatesListView: View {
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
                     HStack {
-                        
-                        Button {
-                            test = true
-                        } label: {
-                            Text("Edit")
-                        }
-                        .frame(width: 100, height: 50)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                        
+                     
                         Text("Candidats")
                             .font(.title3)
                             .fontWeight(.bold)
@@ -60,12 +50,18 @@ struct CandidatesListView: View {
                                 
                             }
                             .onDelete(perform: candidateViewModel.deleteCandidate)
+                        }.toolbar {
+                                ToolbarItem(placement: .navigationBarLeading) {
+                                   
+                                        EditButton().frame(width: 100, height: 50)
+                                        .background(Color.blue)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                   
+                                }
                         }
-                        .toolbar {
-                            if test{
-                                EditButton()
-                            }
-                        }
+                        
+                        
                         .searchable(text: $search)
                        
                     }
