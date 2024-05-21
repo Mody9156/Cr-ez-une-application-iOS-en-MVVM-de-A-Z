@@ -17,11 +17,20 @@ struct CandidatesListView: View {
             ZStack {
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
-                   
+                   Spacer()
                     VStack {
                         List {
                             ForEach(searchResult, id: \.id) { element in
-                                NavigationLink(destination: CandidateDetailsView(candidateViewModel: CandidateViewModel(candidateProfile: CandidateProfile(), candidateDelete: CandidateDelete(), candidateIDFetcher: CandidateIDFetcher(), candidateFavoritesManager: CandidateFavoritesManager()))){
+                                NavigationLink(destination:
+                                
+                                        HStack {
+                                        Text(element.lastName)
+                                        Text(element.firstName)
+                                                   
+                                        }
+                                
+                                
+                                ){
                                     HStack {
                                         Text(element.lastName)
                                         Text(element.firstName)
@@ -53,14 +62,14 @@ struct CandidatesListView: View {
                                 } label: {
                                     Image(systemName: "star.fill")
                                 }
-                                .frame(width: 100, height: 50)
+                                
+                                
+                                
+                            }.frame(width: 100, height: 50)
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                                 .searchable(text: $search)
-                                
-                                
-                            }
                         
                     }.toolbar {
                         ToolbarItem(placement: .navigation) {
