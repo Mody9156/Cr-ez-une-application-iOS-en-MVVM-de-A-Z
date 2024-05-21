@@ -31,6 +31,17 @@ class CandidateCreationManager {
     }
     
     
+    func accessCandidateCreationRequest(token: String, id: String,phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String) async throws -> [RecruitTech] {
+        
+        let (data,_) = try await httpService.request(buildCandidateCreationRequest(token: token, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName))
+        
+       guard let jsonDecode = try? JSONDecoder().decode([RecruitTech].self, from: data)
+        else {
+            throw CandidateFetchError.networkError
+        }
+        return jsonDecode
+    }
+    
     
     
 }
