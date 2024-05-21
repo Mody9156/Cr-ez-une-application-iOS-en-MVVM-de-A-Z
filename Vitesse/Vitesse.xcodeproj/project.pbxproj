@@ -12,12 +12,16 @@
 		234BDF8D2BEFEC8500C96E42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8C2BEFEC8500C96E42 /* Assets.xcassets */; };
 		234BDF902BEFEC8500C96E42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */; };
 		234BDF9A2BEFEC8500C96E42 /* VitesseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF992BEFEC8500C96E42 /* VitesseTests.swift */; };
+		238B002F2BFCB7B500EF388A /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 238B002E2BFCB7B500EF388A /* Storyboard.storyboard */; };
+		238B00312BFCBBA000EF388A /* CandidateCreationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238B00302BFCBB9F00EF388A /* CandidateCreationManager.swift */; };
+		238B00332BFCBFF200EF388A /* CandidateUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238B00322BFCBFF200EF388A /* CandidateUpdater.swift */; };
+		238F89BF2BFCAFFB009DD983 /* CandidateFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238F89BE2BFCAFFB009DD983 /* CandidateFavoritesManager.swift */; };
 		23D1FE852BF74C2500F3FA1E /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE842BF74C2500F3FA1E /* Keychain.swift */; };
 		23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE862BF74CB700F3FA1E /* TokenStore.swift */; };
 		23D1FE892BF7BA3F00F3FA1E /* CandidateProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE882BF7BA3F00F3FA1E /* CandidateProfile.swift */; };
 		23D1FE8B2BF7BDAD00F3FA1E /* RecruitTech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE8A2BF7BDAD00F3FA1E /* RecruitTech.swift */; };
 		23D1FE8D2BF7C63000F3FA1E /* CandidateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE8C2BF7C63000F3FA1E /* CandidateViewModel.swift */; };
-		23D2BB982BFB782F00CE9B72 /* candidateId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D2BB972BFB782F00CE9B72 /* candidateId.swift */; };
+		23D2BB982BFB782F00CE9B72 /* CandidateIDFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D2BB972BFB782F00CE9B72 /* CandidateIDFetcher.swift */; };
 		23D2BB9A2BFB7A8300CE9B72 /* CandidateDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D2BB992BFB7A8300CE9B72 /* CandidateDelete.swift */; };
 		23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */; };
 		23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2982BF509B1006FC31E /* RegistrationView.swift */; };
@@ -51,12 +55,16 @@
 		234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		234BDF952BEFEC8500C96E42 /* VitesseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		234BDF992BEFEC8500C96E42 /* VitesseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseTests.swift; sourceTree = "<group>"; };
+		238B002E2BFCB7B500EF388A /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		238B00302BFCBB9F00EF388A /* CandidateCreationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateCreationManager.swift; sourceTree = "<group>"; };
+		238B00322BFCBFF200EF388A /* CandidateUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateUpdater.swift; sourceTree = "<group>"; };
+		238F89BE2BFCAFFB009DD983 /* CandidateFavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateFavoritesManager.swift; sourceTree = "<group>"; };
 		23D1FE842BF74C2500F3FA1E /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		23D1FE862BF74CB700F3FA1E /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
 		23D1FE882BF7BA3F00F3FA1E /* CandidateProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateProfile.swift; sourceTree = "<group>"; };
 		23D1FE8A2BF7BDAD00F3FA1E /* RecruitTech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitTech.swift; sourceTree = "<group>"; };
 		23D1FE8C2BF7C63000F3FA1E /* CandidateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateViewModel.swift; sourceTree = "<group>"; };
-		23D2BB972BFB782F00CE9B72 /* candidateId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = candidateId.swift; sourceTree = "<group>"; };
+		23D2BB972BFB782F00CE9B72 /* CandidateIDFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateIDFetcher.swift; sourceTree = "<group>"; };
 		23D2BB992BFB7A8300CE9B72 /* CandidateDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDelete.swift; sourceTree = "<group>"; };
 		23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONAuthentification.swift; sourceTree = "<group>"; };
 		23D8A2982BF509B1006FC31E /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
@@ -125,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */,
+				238B002E2BFCB7B500EF388A /* Storyboard.storyboard */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -212,8 +221,11 @@
 			children = (
 				23D1FE882BF7BA3F00F3FA1E /* CandidateProfile.swift */,
 				23D1FE8A2BF7BDAD00F3FA1E /* RecruitTech.swift */,
-				23D2BB972BFB782F00CE9B72 /* candidateId.swift */,
+				23D2BB972BFB782F00CE9B72 /* CandidateIDFetcher.swift */,
 				23D2BB992BFB7A8300CE9B72 /* CandidateDelete.swift */,
+				238F89BE2BFCAFFB009DD983 /* CandidateFavoritesManager.swift */,
+				238B00302BFCBB9F00EF388A /* CandidateCreationManager.swift */,
+				238B00322BFCBFF200EF388A /* CandidateUpdater.swift */,
 			);
 			path = Candidats;
 			sourceTree = "<group>";
@@ -301,6 +313,7 @@
 			files = (
 				234BDF902BEFEC8500C96E42 /* Preview Assets.xcassets in Resources */,
 				234BDF8D2BEFEC8500C96E42 /* Assets.xcassets in Resources */,
+				238B002F2BFCB7B500EF388A /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,7 +342,9 @@
 				23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */,
 				23D2BB9A2BFB7A8300CE9B72 /* CandidateDelete.swift in Sources */,
 				234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */,
-				23D2BB982BFB782F00CE9B72 /* candidateId.swift in Sources */,
+				238B00332BFCBFF200EF388A /* CandidateUpdater.swift in Sources */,
+				238F89BF2BFCAFFB009DD983 /* CandidateFavoritesManager.swift in Sources */,
+				23D2BB982BFB782F00CE9B72 /* CandidateIDFetcher.swift in Sources */,
 				23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */,
 				23ED07522BF61E85006FECD3 /* RegistrationRequestBody.swift in Sources */,
 				23ED07502BF61C61006FECD3 /* RegistrationRequestBuilder.swift in Sources */,
@@ -338,6 +353,7 @@
 				23D1FE892BF7BA3F00F3FA1E /* CandidateProfile.swift in Sources */,
 				23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */,
 				23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */,
+				238B00312BFCBBA000EF388A /* CandidateCreationManager.swift in Sources */,
 				23D1FE852BF74C2500F3FA1E /* Keychain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,7 +9,7 @@ import Foundation
 
 class CandidateProfile {
     
-    let httpService : HTTPService
+    let httpService: HTTPService
     
     init(httpService: HTTPService = BasicHTTPClient()) {
         self.httpService = httpService
@@ -17,31 +17,25 @@ class CandidateProfile {
     
     enum URLRequestError: Error {
         case invalidGeToken
-       
     }
     
-    func fetchURLRequest(token:String) -> URLRequest{
-            let url = URL(string: "http://127.0.0.1:8080/candidate")!
-            var request = URLRequest(url: url)
-            request.httpMethod = "Get"
-            let stock = "Bearer " + token
-            request.setValue( stock , forHTTPHeaderField: "Authorization")
-            return request
-       
-       
+    func fetchURLRequest(token: String) -> URLRequest {
+        let url = URL(string: "http://127.0.0.1:8080/candidate")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        let authHeader = "Bearer " + token
+        request.setValue(authHeader, forHTTPHeaderField: "Authorization")
+        return request
     }
     
-    func fetchCandidateSubmission(token:String) async throws ->  [RecruitTech] {
-        do{
+    func fetchCandidateSubmission(token: String) async throws -> [RecruitTech] {
+        do {
             let request = fetchURLRequest(token: token)
-            let (data,_) = try await httpService.request(request)
-                   let candidats = try JSONDecoder().decode([RecruitTech].self, from: data)
-            return candidats
-        }catch{
+            let (data, _) = try await httpService.request(request)
+            let candidates = try JSONDecoder().decode([RecruitTech].self, from: data)
+            return candidates
+        } catch {
             throw URLRequestError.invalidGeToken
         }
-      
     }
-    
-    
 }

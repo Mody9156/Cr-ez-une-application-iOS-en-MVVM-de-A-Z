@@ -9,41 +9,33 @@ import Foundation
 
 class CandidateDelete {
     
-    let httpService : HTTPService
+    let httpService: HTTPService
     
     init(httpService: HTTPService = BasicHTTPClient()) {
         self.httpService = httpService
     }
     
-    
     enum URLRequestError: Error {
         case invalidGeToken
-        case httpresponseInvalid
-        
+        case httpResponseInvalid
     }
     
-    func fetchURLRequest(token:String,CandidateId:String) -> URLRequest{
-        var url = URL(string: "http://127.0.0.1:8080/candidate/\(CandidateId)")!
-        
+    func fetchURLRequest(token: String, candidateId: String) -> URLRequest {
+        let url = URL(string: "http://127.0.0.1:8080/candidate/\(candidateId)")!
         var request = URLRequest(url: url)
-        request.httpMethod = "Get"
-        let stock = "Bearer " + token
-        request.setValue( stock , forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        let authHeader = "Bearer " + token
+        request.setValue(authHeader, forHTTPHeaderField: "Authorization")
         return request
-        
-        
     }
     
-    func deleteCandidate(token:String,CandidateId:String) async throws -> HTTPURLResponse {
+    func deleteCandidate(token: String, candidateId: String) async throws -> HTTPURLResponse {
+        let request = fetchURLRequest(token: token, candidateId: candidateId)
+        let (_, response) = try await httpService.request(request)
         
-            let request = fetchURLRequest(token: token,CandidateId: CandidateId)
-            let (_,response) = try await httpService.request(request)
-            
-            guard let httpreponse = response as? HTTPURLResponse, response.statusCode == 200 else {
-                throw URLRequestError.httpresponseInvalid
-            }
-            return httpreponse
-      
-        
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw URLRequestError.httpResponseInvalid
+        }
+        return httpResponse
     }
 }
