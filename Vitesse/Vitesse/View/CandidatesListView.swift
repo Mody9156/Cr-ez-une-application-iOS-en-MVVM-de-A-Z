@@ -47,7 +47,7 @@ struct CandidatesListView: View {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button {
                                     Task{@MainActor in
-                                        try? await candidateViewModel.processCandidateElements
+                                       candidateViewModel.processCandidateElements
 
                                     }
                                 } label: {
