@@ -25,21 +25,13 @@ struct CandidatesListView: View {
                             .foregroundColor(.blue)
                             .padding()
                         
-                        Button {
-                            // Logique pour le bouton étoile
-                        } label: {
-                            Image(systemName: "star.fill")
-                        }
-                        .frame(width: 100, height: 50)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                       
                     }
                     Spacer()
                     VStack {
                         List {
                             ForEach(searchResult, id: \.id) { element in
-                                NavigationLink(destination: CandidateDetailsView(candidateViewModel: CandidateViewModel(candidateProfile: CandidateProfile(), candidateDelete: CandidateDelete(), candidateIDFetcher: CandidateIDFetcher()))){
+                                NavigationLink(destination: CandidateDetailsView(candidateViewModel: CandidateViewModel(candidateProfile: CandidateProfile(), candidateDelete: CandidateDelete(), candidateIDFetcher: CandidateIDFetcher(), candidateFavoritesManager: CandidateFavoritesManager()))){
                                     HStack {
                                         Text(element.lastName)
                                         Text(element.firstName)
@@ -57,12 +49,28 @@ struct CandidatesListView: View {
                                         .background(Color.blue)
                                         .foregroundColor(.white)
                                         .cornerRadius(10)
-                                   
+                                    
+                                    
                                 }
-                        }
+                            
+                        }.toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button {
+                                    // Logique pour le bouton étoile
+                                } label: {
+                                    Image(systemName: "star.fill")
+                                }
+                                .frame(width: 100, height: 50)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                                .searchable(text: $search)
+                                
+                                
+                            }
                         
-                        
-                        .searchable(text: $search)
+                    }
+                       
                        
                     }
                 }
