@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    @StateObject var registreViewModel: RegistreViewModel
+    @State var registreViewModel = RegistreViewModel(registrationRequestBuilder: RegistrationRequestBuilder(httpService: BasicHTTPClient()))
     @State private var password: String = "test123"
     @State private var registre: Bool = false
+    @State var infos : String = ""
 
     var body: some View {
         NavigationStack {
@@ -17,7 +18,9 @@ struct RegistrationView: View {
                         .padding()
 
                     VStack(alignment: .leading) {
-                        ExtractedView()
+                        FetchRegistre(registreViewModel: $registreViewModel, infos: "First Name",text:registreViewModel.firstName,textField: "Use First Name valid")
+                        FetchRegistre(registreViewModel: $registreViewModel, infos: "Last Name",text:registreViewModel.lastName,textField: "Use Last Name valid")
+                        FetchRegistre(registreViewModel: $registreViewModel, infos: "Email",text:registreViewModel.email,textField: "Use Email valid ")
 
                         Group {
                             Text("Password").foregroundColor(.white)
@@ -53,28 +56,20 @@ struct RegistrationView: View {
     }
 }
 
-struct ExtractedView: View {
+struct FetchRegistre: View {
+    @Binding var registreViewModel : RegistreViewModel
+    @State var infos : String = ""
+    @State var text : String = ""
+    @State var textField : String = ""
+    
     var body: some View {
         Group {
-            Text("First Name").foregroundColor(.white)
-            TextField("Use First Name valid", text: $registreViewModel.firstName)
+            Text(infos).foregroundColor(.white)
+            TextField(textField, text: $text)
                 .disableAutocorrection(true)
                 .textFieldStyle(.roundedBorder)
                 .autocapitalization(.none)
-//
-//            Text("Last Name").foregroundColor(.white)
-//            TextField("Use Last Name valid", text: $registreViewModel.lastName)
-//                .disableAutocorrection(true)
-//                .textFieldStyle(.roundedBorder)
-//                .autocapitalization(.none)
-//
-//            Text("Email").foregroundColor(.white)
-//            TextField("Use Email valid ", text: $registreViewModel.email)
-//                .disableAutocorrection(true)
-//                .textFieldStyle(.roundedBorder)
-//                .keyboardType(.emailAddress)
-//                .textContentType(.emailAddress)
-//                .autocapitalization(.none)
+
         }
     }
 }
