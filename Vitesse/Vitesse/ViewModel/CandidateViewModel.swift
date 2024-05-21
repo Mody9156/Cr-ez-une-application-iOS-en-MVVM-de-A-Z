@@ -10,14 +10,16 @@ import Foundation
 class CandidateViewModel: ObservableObject {
     let candidateDelete: CandidateDelete
     let candidateProfile: CandidateProfile
+    let candidateFavoritesManager : CandidateFavoritesManager
     let keychain = Keychain()
     let candidateIDFetcher : CandidateIDFetcher
     @Published var candidats: [RecruitTech] = []
     
-    init(candidateProfile: CandidateProfile, candidateDelete: CandidateDelete,candidateIDFetcher : CandidateIDFetcher) {
+    init(candidateProfile: CandidateProfile, candidateDelete: CandidateDelete,candidateIDFetcher : CandidateIDFetcher,candidateFavoritesManager : CandidateFavoritesManager) {
         self.candidateProfile = candidateProfile
         self.candidateDelete = candidateDelete
         self.candidateIDFetcher = candidateIDFetcher
+        self.candidateFavoritesManager = candidateFavoritesManager
         
         Task {
             try await self.candidateProfile()
@@ -29,6 +31,7 @@ class CandidateViewModel: ObservableObject {
         case searchCandidateError
         case candidateProfileError
         case deleteCandidateError
+        case processCandidateElementsError
     }
     
     @MainActor
@@ -92,7 +95,23 @@ class CandidateViewModel: ObservableObject {
         }catch{
             throw FetchTokenResult.searchCandidateError
         }
+    }
+    
+    func processCandidateElements(at offsets : IndexSet) async throws ->  [RecruitTech] {
        
-      
+        do{
+            let token = try self.keychain.get(forKey: "token")
+            let getToken = String(data: token, encoding: .utf8)!
+            var id = ""
+            for offset in offsets {
+                id = candidats[offset].id
+            }
+            
+            let candidate = try await candidateFavoritesManager.fetchFavoritesURLRequest(token: getToken, candidate: id)
+            return candidate
+            
+        }catch{
+            throw FetchTokenResult.processCandidateElementsError
+        }
     }
 }
