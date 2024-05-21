@@ -56,6 +56,7 @@ class CandidateViewModel: ObservableObject {
               id = candidats[offset].id
               
             }
+            let _ = candidateIDFetcher.getCandidateURLRequest(token: getToken, candidate: id)
          let data = try await candidateIDFetcher.fetchCandidates(token: getToken, candidate: id)
             return data
         }catch{

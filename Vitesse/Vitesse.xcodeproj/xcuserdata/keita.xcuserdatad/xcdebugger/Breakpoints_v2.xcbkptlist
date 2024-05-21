@@ -36,5 +36,83 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1D546714-EC1F-489D-8E28-682157971A86"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vitesse/Model/Candidats/CandidateIDFetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "getCandidateURLRequest(token:candidate:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5713B6A4-AFD2-4CB1-91A4-3BE27E16159A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vitesse/Model/Candidats/CandidateIDFetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "fetchCandidates(token:candidate:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5713B6A4-AFD2-4CB1-91A4-3BE27E16159A - 3680aa0c8c3bfece"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Vitesse.CandidateIDFetcher.fetchCandidates(token: Swift.String, candidate: Swift.String) async throws -&gt; Swift.Array&lt;Vitesse.RecruitTech&gt;"
+                  moduleName = "Vitesse"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet6/Cr-ez-une-application-iOS-en-MVVM-de-A-Z/Vitesse/Vitesse/Model/Candidats/CandidateIDFetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "2303">
+               </Location>
+               <Location
+                  uuid = "5713B6A4-AFD2-4CB1-91A4-3BE27E16159A - 738c237252440cd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Vitesse.CandidateIDFetcher.fetchCandidates(token: Swift.String, candidate: Swift.String) async throws -&gt; Swift.Array&lt;Vitesse.RecruitTech&gt;"
+                  moduleName = "Vitesse"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet6/Cr-ez-une-application-iOS-en-MVVM-de-A-Z/Vitesse/Vitesse/Model/Candidats/CandidateIDFetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "216">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F132F01D-7382-4AA0-B086-D0378A981D82"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vitesse/Model/Candidats/CandidateIDFetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
