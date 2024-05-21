@@ -20,17 +20,14 @@ class CandidateViewModel: ObservableObject {
         self.candidateIDFetcher = candidateIDFetcher
         
         Task {
-             candidateProfile
+            try await self.candidateProfile()
         }
        
     }
     
     enum FetchTokenResult: Error, LocalizedError {
         case searchCandidateError
-        case keychainError
-        case tokenDecodingError
-        case candidateProfileRequestError
-        case candidateProfileFetchError
+        case candidateProfileError
         case deleteCandidateError
     }
     
@@ -49,9 +46,7 @@ class CandidateViewModel: ObservableObject {
             
             return data
         } catch {
-            print("Erreur fetchToken() n'est pas passé")
-            throw FetchTokenResult.candidateProfileRequestError
-            throw FetchTokenResult.candidateProfileFetchError
+            throw FetchTokenResult.candidateProfileError
 
         }
     }
@@ -87,13 +82,11 @@ class CandidateViewModel: ObservableObject {
         do{
             let token = try self.keychain.get(forKey: "token")
             let getToken = String(data: token, encoding: .utf8)!
-            var id : String = ""
+            var id = ""
             for offset in offsets {
-                 id = candidats[offset].id
+              id = candidats[offset].id
             }
-            
             let candidate = try await candidateIDFetcher.fetchCandidates(token: getToken, candidate: id)
-            print("id : \(id)")
             return candidate
             
         }catch{
