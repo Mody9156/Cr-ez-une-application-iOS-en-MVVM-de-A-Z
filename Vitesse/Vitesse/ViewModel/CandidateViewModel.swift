@@ -24,6 +24,7 @@ class CandidateViewModel: ObservableObject {
         case candidateProfileError
         case deleteCandidateError
         case processCandidateElementsError
+        case fetchcandidateIDFetcherError
     }
 
     @MainActor
@@ -46,15 +47,37 @@ class CandidateViewModel: ObservableObject {
         }
         return getToken
     }
+    
+    func fetchcandidateIDFetcher(at offsets: IndexSet) async throws -> [RecruitTech] {
+        do{
+            let getToken = try fetchToken()
+            var id = ""
+            for offset in offsets {
+              id = candidats[offset].id
+              
+            }
+         let data = try await candidateIDFetcher.fetchCandidates(token: getToken, candidate: id)
+            return data
+        }catch{
+            throw FetchTokenResult.fetchcandidateIDFetcherError
+        }
+    }
+    
+    
+    //ici
 
     func fetchDelete(at offsets: IndexSet) async throws {
         do {
             let getToken = try fetchToken()
+            var id = ""
             for offset in offsets {
-                let id = candidats[offset].id
-                try await candidateDelete.deleteCandidate(token: getToken, candidateId: id)
+                 id = candidats[offset].id
+               
             }
+            try await candidateDelete.deleteCandidate(token: getToken, candidateId: id)
+            
             DispatchQueue.main.async {
+               
                 self.candidats.remove(atOffsets: offsets)
             }
         } catch {
