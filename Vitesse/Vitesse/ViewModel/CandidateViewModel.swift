@@ -55,13 +55,13 @@ class CandidateViewModel : ObservableObject{
         Task{
             do{
                 
-                let token = try keychain.get(forKey: "token")
+                let token = try self.keychain.get(forKey: "token")
                 let getToken = String(data: token, encoding: .utf8)!
                 
                 
                 for offset in offsets {
                     let id = candidats[offset].id
-                    try await candidateDelete.deleteCandidate(token: getToken, CandidateId: id)
+                    try await candidateDelete.deleteCandidate(token: getToken, candidateId: id)
                     }
                 DispatchQueue.main.async {
                     self.candidats.remove(atOffsets: offsets)
