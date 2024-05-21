@@ -26,7 +26,7 @@ struct CandidatesListView: View {
                                         Text(element.lastName)
                                         Text(element.firstName)
                                         Spacer()
-                                        Image(systemName: "star.fill").backgroundStyle(element.isFavorite ? .yellow : .black)
+                                        Image(systemName: "star.fill").backgroundStyle(element.isFavorite ? .yellow : .blue)
                                     }
                                 }
                                 
