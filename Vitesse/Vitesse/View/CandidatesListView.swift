@@ -22,16 +22,7 @@ struct CandidatesListView: View {
                                             .foregroundColor(element.isFavorite ? .yellow : .black)
                                     }
                                 }
-                                .task {
-                                    if let index = candidateViewModel.candidats.firstIndex(where: { $0.id == element.id }) {
-                                        do {
-                                            let result = try await candidateViewModel.fetchcandidateIDFetcher(at: IndexSet(integer: index))
-                                            print("Fetched candidate details: \(result)")
-                                        } catch {
-                                            print("Failed to fetch candidate details: \(error)")
-                                        }
-                                    }
-                                }
+                                
                             }
                             .onDelete(perform: candidateViewModel.deleteCandidate)
                         }
