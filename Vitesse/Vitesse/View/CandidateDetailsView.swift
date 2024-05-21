@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CandidateDetailsView: View {
+    @StateObject var candidateViewModel : CandidateViewModel
+
     var body: some View {
         Text("oui cool mec")
     }
