@@ -7,83 +7,91 @@
 
 import Foundation
 
-class CandidateViewModel : ObservableObject{
-    var candidateDelete : CandidateDelete
-    var candidateProfile : CandidateProfile
+class CandidateViewModel: ObservableObject {
+    let candidateDelete: CandidateDelete
+    let candidateProfile: CandidateProfile
     let keychain = Keychain()
-    @Published var candidats : [RecruitTech] = []
+    let candidateIDFetcher : CandidateIDFetcher
+    @Published var candidats: [RecruitTech] = []
     
-    init(candidateProfile : CandidateProfile,candidateDelete : CandidateDelete) {
-        
+    init(candidateProfile: CandidateProfile, candidateDelete: CandidateDelete,candidateIDFetcher : CandidateIDFetcher) {
         self.candidateProfile = candidateProfile
         self.candidateDelete = candidateDelete
+        self.candidateIDFetcher = candidateIDFetcher
         
-        Task{
-          try await fetchtoken()
+        Task {
+            try await fetchToken()
         }
-        
     }
     
-    enum FetchTokenResult : Error{
+    enum FetchTokenResult: Error {
         case failure
     }
     
     @MainActor
-    func fetchtoken () async throws -> [RecruitTech] {
-       
-        do{
+    func fetchToken() async throws -> [RecruitTech] {
+        do {
             let token = try keychain.get(forKey: "token")
             let getToken = String(data: token, encoding: .utf8)!
             
-            let _ =  candidateProfile.fetchURLRequest(token: getToken)
-          
+            let _ = candidateProfile.fetchURLRequest(token: getToken)
+            
             let data = try await candidateProfile.fetchCandidateSubmission(token: getToken)
             DispatchQueue.main.async {
                 self.candidats = data
-
             }
-           
+            
             return data
-        }catch{
-            print("erreur fetchtoken() n'est pas passé ")
+        } catch {
+            print("Erreur fetchToken() n'est pas passé")
             throw FetchTokenResult.failure
         }
-       
     }
     
-    func fetchdelete(at offsets: IndexSet) async throws  {
-        Task{
-            do{
-                
-                let token = try self.keychain.get(forKey: "token")
-                let getToken = String(data: token, encoding: .utf8)!
-                
-                
-                for offset in offsets {
-                    let id = candidats[offset].id
-                    try await candidateDelete.deleteCandidate(token: getToken, candidateId: id)
-                    }
-                DispatchQueue.main.async {
-                    self.candidats.remove(atOffsets: offsets)
-                }
-
-                
-                
-            }catch{
-                print("erreur fetchdelete() n'est pas passé ")
-                throw FetchTokenResult.failure
+    func fetchDelete(at offsets: IndexSet) async throws {
+        do {
+            let token = try self.keychain.get(forKey: "token")
+            let getToken = String(data: token, encoding: .utf8)!
+            
+            for offset in offsets {
+                let id = candidats[offset].id
+                try await candidateDelete.deleteCandidate(token: getToken, candidateId: id)
+            }
+            DispatchQueue.main.async {
+                self.candidats.remove(atOffsets: offsets)
+            }
+        } catch {
+            print("Erreur fetchDelete() n'est pas passé")
+            throw FetchTokenResult.failure
+        }
+    }
+    
+    func deleteCandidate(at offsets: IndexSet) {
+        Task {
+            do {
+                try await fetchDelete(at: offsets)
+            } catch {
+                print("Failed to delete candidate: \(error)")
             }
         }
     }
-    func deleteCandidate(at offsets: IndexSet) {
-         Task {
-             do {
-                 try await fetchdelete(at: offsets)
-             } catch {
-                 print("Failed to delete candidate: \(error)")
-             }
-         }
-     }
-   
     
+    func searchCandidate(at offsets: IndexSet) async throws -> [RecruitTech]{
+        do{
+            let token = try self.keychain.get(forKey: "token")
+            let getToken = String(data: token, encoding: .utf8)!
+            
+            for offset in offsets {
+                let id = candidats[offset].id
+                
+               let candidate = try await candidateIDFetcher.fetchCandidates(token: getToken, candidate: id)
+                
+            }
+            return candidate
+        }catch{
+            
+        }
+       
+      
+    }
 }
