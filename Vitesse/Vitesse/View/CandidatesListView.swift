@@ -15,7 +15,14 @@ struct CandidatesListView: View {
                         List {
                             //foreach sur RecruitTech pour afficher les candidats
                             ForEach(searchResult, id: \.id) { element in
-                                NavigationLink(destination: CandidateDetailView(candidate: element, candidateViewModel: CandidateViewModel(candidateProfile: CandidateProfile(), candidateDelete: CandidateDelete(), candidateIDFetcher: CandidateIDFetcher(), candidateFavoritesManager: CandidateFavoritesManager()))) {
+                                NavigationLink(destination:
+                                
+                                    Task {
+                                    try await candidateViewModel.fetchcandidateIDFetcher()
+                                }
+                                
+                                
+                                ) {
                                     HStack {
                                         Text(element.lastName)
                                         Text(element.firstName)
