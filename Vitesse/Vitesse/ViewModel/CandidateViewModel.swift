@@ -48,12 +48,12 @@ class CandidateViewModel: ObservableObject {
         return getToken
     }
     // detaille
-    func fetchcandidateIDFetcher(at offsets: IndexSet) async throws -> [RecruitTech] {
+    func fetchcandidateIDFetcher() async throws -> [RecruitTech] {
         do{
             let getToken = try fetchToken()
             var id = ""
-            for offset in offsets {
-              id = candidats[offset].id
+            for candidat in candidats {
+               id = candidat.id
               
             }
             let _ = candidateIDFetcher.getCandidateURLRequest(token: getToken, candidate: id)
@@ -110,13 +110,12 @@ class CandidateViewModel: ObservableObject {
     }
 //Favoris
     @MainActor
-    func fetchAndProcessCandidateFavorites(at offsets: IndexSet) async throws -> [RecruitTech]? {
+    func fetchAndProcessCandidateFavorites() async throws -> [RecruitTech]? {
         do {
             let getToken = try fetchToken()
             var id = ""
-            for offset in offsets {
-                id = candidats[offset].id
-            }
+            for candidat in candidats {
+                id = candidat.id
             
             print("Token: \(getToken), Candidate ID: \(id)")
             
