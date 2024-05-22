@@ -1,18 +1,37 @@
-//
-//  CandidateDetailsView.swift
-//  Vitesse
-//
-//  Created by KEITA on 21/05/2024.
-//
-
 import SwiftUI
 
-struct CandidateDetailsView: View {
-    @StateObject var candidateViewModel : CandidateViewModel
+struct CandidateDetailView: View {
+    @StateObject var candidateViewModel: CandidateViewModel
+    let candidate: RecruitTech
+    @State private var isLoading = false
 
     var body: some View {
-        Text("oui cool mec")
+        VStack {
+            if isLoading {
+                ProgressView("Loading...")
+            } else if let info = candidate {
+                Text(info.lastName)
+                Text(info.firstName)
+                
+            } else {
+                Text("No details available.")
+            }
+        }
+        .onAppear {
+            loadCandidateDetails()
+        }
+    }
+
+    func loadCandidateDetails() {
+        Task {
+            do {
+                isLoading = true
+                let details = try await candidateViewModel.fetchDetails(for: candidate.id)
+                detailedInfo = details
+            } catch {
+                print("Failed to load candidate details: \(error)")
+            }
+            isLoading = false
+        }
     }
 }
-
-

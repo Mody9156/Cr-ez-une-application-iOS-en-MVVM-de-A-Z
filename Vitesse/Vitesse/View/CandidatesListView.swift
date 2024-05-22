@@ -15,7 +15,7 @@ struct CandidatesListView: View {
                         List {
                             //foreach sur RecruitTech pour afficher les candidats
                             ForEach(searchResult, id: \.id) { element in
-                                NavigationLink(destination: Text(element.lastName)) {
+                                NavigationLink(destination:CandidateDetailsView(candidateViewModel: CandidateViewModel(candidateProfile: CandidateProfile(), candidateDelete: CandidateDelete(), candidateIDFetcher: CandidateIDFetcher(), candidateFavoritesManager: CandidateFavoritesManager()))) {
                                     HStack {
                                         Text(element.lastName)
                                         Text(element.firstName)
@@ -65,11 +65,7 @@ struct CandidatesListView: View {
                     }
                 }
             }
-            .onAppear {
-                Task {
-                    await cadandidats()
-                }
-            }
+            
         }
     }
 
@@ -85,13 +81,4 @@ struct CandidatesListView: View {
         }
     }
 
-    func cadandidats() async {
-        do {
-            let candidat = try await candidateViewModel.fetchcandidateIDFetcher()
-            print("Succès pour cadandidats")
-            candidateViewModel.candidats = candidat
-        } catch {
-            print("Erreur dans la variable cadandidats")
-        }
-    }
 }
