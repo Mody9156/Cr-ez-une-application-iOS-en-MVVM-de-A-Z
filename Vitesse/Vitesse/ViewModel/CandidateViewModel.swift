@@ -118,11 +118,9 @@ class CandidateViewModel: ObservableObject {
             for candidat in candidats {
                 id = candidat.id
             }
-            print("Token: \(getToken), Candidate ID: \(id)")
             
             let data = try await candidateFavoritesManager.fetchFavoritesURLRequest(token: getToken, candidate: id)
 
-            print("Fetched Data: \(String(describing: data))")
 
             return data
         } catch {

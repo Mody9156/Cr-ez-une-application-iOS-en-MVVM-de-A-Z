@@ -15,9 +15,7 @@ struct CandidatesListView: View {
                         List {
                             //foreach sur RecruitTech pour afficher les candidats
                             ForEach(searchResult, id: \.id) { element in
-                                NavigationLink(destination:
-                                Text(element.lastName)
-                                ) {
+                                NavigationLink(destination: Text(element.lastName)) {
                                     HStack {
                                         Text(element.lastName)
                                         Text(element.firstName)
@@ -26,7 +24,6 @@ struct CandidatesListView: View {
                                             .foregroundColor(element.isFavorite ? .yellow : .black)
                                     }
                                 }
-                                
                             }
                             .onDelete(perform: candidateViewModel.deleteCandidate)
                         }
@@ -38,14 +35,12 @@ struct CandidatesListView: View {
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
                             }
-                        }
-                        .toolbar {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button {
                                     Task {
                                         do {
                                             let result = try await candidateViewModel.fetchAndProcessCandidateFavorites()
-                                        print("fécilicatin vous venez d'afficher les favoris")
+                                            print("Félicitations, vous venez d'afficher les favoris")
                                         } catch {
                                             print("Failed to process candidate favorites: \(error)")
                                         }
@@ -58,8 +53,6 @@ struct CandidatesListView: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                             }
-                        }
-                        .toolbar {
                             ToolbarItem(placement: .navigation) {
                                 Text("Candidats")
                                     .font(.title3)
@@ -70,20 +63,17 @@ struct CandidatesListView: View {
                         }
                         .searchable(text: $search)
                     }
-                }.onAppear{
-                    Task{
-                        await  cadandidats()
-                            
-                            }
                 }
             }
-            .searchable(text: $search)
-            .listStyle(.plain)
-            .listRowBackground(Color.clear)
-            .listSectionSeparator(.hidden, edges: .bottom)
+            .onAppear {
+                Task {
+                    await cadandidats()
+                }
+            }
         }
     }
-// initialisation de la barre de recherche
+
+    // initialisation de la barre de recherche
     var searchResult: [RecruitTech] {
         if search.isEmpty {
             return candidateViewModel.candidats
@@ -94,17 +84,14 @@ struct CandidatesListView: View {
             }
         }
     }
-    
-    
-    func cadandidats () async {
-        
-        do{
-           let candidat =  try await candidateViewModel.fetchcandidateIDFetcher()
-            print("succes for cadandidats")
+
+    func cadandidats() async {
+        do {
+            let candidat = try await candidateViewModel.fetchcandidateIDFetcher()
+            print("Succès pour cadandidats")
             candidateViewModel.candidats = candidat
-        }catch{
-            print("variable cadandidats has error ")
+        } catch {
+            print("Erreur dans la variable cadandidats")
         }
-        
     }
 }

@@ -25,9 +25,7 @@ class CandidateIDFetcher {
         request.httpMethod = "GET"
         let authHeader = "Bearer " + token
         request.setValue(authHeader, forHTTPHeaderField: "Authorization")
-        print("\(authHeader)")
-        print("\(request)")
-        print("\(url)")
+       
 
 
         return request
@@ -38,9 +36,7 @@ class CandidateIDFetcher {
             let request = getCandidateURLRequest(token: token, candidate: candidate)
             let (data, _) = try await httpService.request(request)
             let candidates = try JSONDecoder().decode([RecruitTech].self, from: data)
-            print("\(candidates)")
-            print("\(request)")
-            print("\(data)")
+           
             return candidates
             
         } catch {
