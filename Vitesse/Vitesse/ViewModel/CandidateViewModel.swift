@@ -116,7 +116,7 @@ class CandidateViewModel: ObservableObject {
             var id = ""
             for candidat in candidats {
                 id = candidat.id
-            
+            }
             print("Token: \(getToken), Candidate ID: \(id)")
             
             let data = try await candidateFavoritesManager.fetchFavoritesURLRequest(token: getToken, candidate: id)
