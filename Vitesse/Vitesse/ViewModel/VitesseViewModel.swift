@@ -24,7 +24,7 @@ class VitesseViewModel: ObservableObject {
     }
     
     var fetchcandidateIDFetcherViewModel : FetchcandidateIDFetcherViewModel{
-        return FetchcandidateIDFetcherViewModel(candidateIDFetcher: CandidateIDFetcher())
+        return FetchcandidateIDFetcherViewModel(candidateIDFetcher: CandidateIDFetcher(), candidats: self.fetchcandidateIDFetcherViewModel.candidats)
     }
     
     var fetchDeleteCandidateViewModel : FetchDeleteCandidateViewModel {
