@@ -1,5 +1,4 @@
 import Foundation
-import SwiftUI
 
 class VitesseViewModel: ObservableObject {
     @Published var onLoginSucceed: Bool
@@ -20,13 +19,15 @@ class VitesseViewModel: ObservableObject {
     }
     
     var candidats: CandidatesListView {
+        let candidateProfile = CandidateProfile()
         let candidateDelete = CandidateDelete()
         let candidateIDFetcher = CandidateIDFetcher()
         let candidateFavoritesManager = CandidateFavoritesManager()
         
-        let candidateViewModel = CandidateViewModel( candidateDelete: candidateDelete, candidateIDFetcher: candidateIDFetcher, candidateFavoritesManager: candidateFavoritesManager)
-        let fetchCandidateProfileViewModel = FetchCandidateProfileViewModel(candidateProfile: CandidateProfile())
+        let candidateViewModel = CandidateViewModel( candidateDelete: candidateDelete, candidateFavoritesManager: candidateFavoritesManager)
+        let fetchCandidateProfileViewModel = FetchCandidateProfileViewModel(candidateProfile: candidateProfile)
+        let fetchcandidateIDFetcherViewModel = FetchcandidateIDFetcherViewModel(candidateIDFetcher: candidateIDFetcher)
         
-        return CandidatesListView(candidateViewModel: candidateViewModel, fetchCandidateProfileViewModel: fetchCandidateProfileViewModel)
+        return CandidatesListView(candidateViewModel: candidateViewModel, fetchCandidateProfileViewModel: fetchCandidateProfileViewModel, fetchcandidateIDFetcherViewModel: fetchcandidateIDFetcherViewModel)
     }
 }

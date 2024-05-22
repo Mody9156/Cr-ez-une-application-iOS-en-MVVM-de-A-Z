@@ -1,6 +1,7 @@
 import SwiftUI
 struct CandidateDetailView: View {
     @ObservedObject var candidateViewModel: CandidateViewModel
+    @ObservedObject var fetchcandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel
     @State var recruitTech: [RecruitTech]
 
     var body: some View {
@@ -75,7 +76,7 @@ struct CandidateDetailView: View {
 
     func loadCandidateProfile() async {
         do {
-            let data = try await candidateViewModel.fetchCandidateProfile()
+            let data = try await fetchcandidateIDFetcherViewModel.fetchcandidateIDFetcher(at: IndexSet(integer: 3))
             print("Félicitations ")
         } catch {
             print("Dommage, le candidat n'est pas passé")

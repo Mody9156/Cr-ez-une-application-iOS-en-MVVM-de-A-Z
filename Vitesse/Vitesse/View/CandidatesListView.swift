@@ -1,8 +1,11 @@
 import SwiftUI
+
 struct CandidatesListView: View {
-    @StateObject var candidateViewModel : CandidateViewModel
-    @State private var search = ""
+    @StateObject var candidateViewModel: CandidateViewModel
     @StateObject var fetchCandidateProfileViewModel: FetchCandidateProfileViewModel
+    @StateObject var fetchcandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel
+    @State private var search = ""
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -10,7 +13,7 @@ struct CandidatesListView: View {
                 VStack {
                     List {
                         ForEach(searchResult, id: \.id) { element in
-                            NavigationLink(destination: CandidateDetailView(candidateViewModel: candidateViewModel, recruitTech: [element])) {
+                            NavigationLink( destination: CandidateDetailView(candidateViewModel: candidateViewModel, recruitTech: [element])){
                                 HStack {
                                     Text(element.lastName)
                                     Text(element.firstName)
