@@ -7,11 +7,13 @@ struct CandidatesListView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                // fond bleu
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
                     Spacer()
                     VStack {
                         List {
+                            //foreach sur RecruitTech pour afficher les candidats
                             ForEach(searchResult, id: \.id) { element in
                                 NavigationLink(destination: CandidateDetailView(candidate: element, candidateViewModel: CandidateViewModel(candidateProfile: CandidateProfile(), candidateDelete: CandidateDelete(), candidateIDFetcher: CandidateIDFetcher(), candidateFavoritesManager: CandidateFavoritesManager()))) {
                                     HStack {
