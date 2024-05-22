@@ -95,15 +95,6 @@ struct CandidateDetailView: View {
         VStack {
             Text(candidate.lastName)
             Text(candidate.firstName)
-        }.task {
-            if let index = candidateViewModel.candidats.firstIndex(where: { $0.id == candidate.id }) {
-                do {
-                    let result = try await candidateViewModel.fetchcandidateIDFetcher()
-                    print("Fetched candidate details: \(result)")
-                } catch {
-                    print("Failed to fetch candidate details: \(error)")
-                }
-            }
         }
     }
 }
