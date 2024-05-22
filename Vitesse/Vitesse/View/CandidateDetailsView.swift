@@ -6,7 +6,30 @@ struct CandidateDetailView: View {
 
     var body: some View {
         VStack {
-            
+            ForEach(recruitTech) { tech in
+                VStack {
+                    HStack {
+                        Text(tech.lastName)
+                        Text(tech.firstName)
+                        Spacer()
+                        Image(systemName: tech.isFavorite ? "star.slash" : "star")
+                            .foregroundColor(tech.isFavorite ? .yellow : .black)
+                    }
+                    HStack {
+                        Text("Phone")
+                        Text("\(tech.phone)")
+                    }
+                    HStack {
+                        Text("LinkedIne")
+                        Text("\(tech.linkedinURL)")
+                    }
+                        Text("Note")
+                    Text("\(tech.note)")
+                   
+                }
+                
+               
+            }
             
             
         }.onAppear{
