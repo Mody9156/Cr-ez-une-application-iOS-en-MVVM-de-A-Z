@@ -2,7 +2,7 @@ import SwiftUI
 struct CandidatesListView: View {
     @StateObject var candidateViewModel : CandidateViewModel
     @State private var search = ""
-
+    @StateObject var fetchCandidateProfileViewModel: FetchCandidateProfileViewModel
     var body: some View {
         NavigationStack {
             ZStack {
@@ -78,7 +78,7 @@ struct CandidatesListView: View {
 
     func loadCandidates() async {
         do {
-            let candidats = try await candidateViewModel.fetchCandidateProfile()
+            let candidats = try await fetchCandidateProfileViewModel.fetchCandidateProfile()
             candidateViewModel.candidats = candidats
         } catch {
             print("Erreur lors de la récupération des candidats")

@@ -1,34 +1,32 @@
-//
-//  VitesseViewModel.swift
-//  Vitesse
-//
-//  Created by KEITA on 14/05/2024.
-//
-
 import Foundation
+import SwiftUI
 
 class VitesseViewModel: ObservableObject {
     @Published var onLoginSucceed: Bool
     
     init() {
-        onLoginSucceed = false
+        self.onLoginSucceed = false
     }
    
     var loginViewModel: LoginViewModel {
         return LoginViewModel({
             self.onLoginSucceed = true
-           }, authenticationManager: AuthenticationManager())
+        }, authenticationManager: AuthenticationManager())
     }
     
-    var registreViewModel : RegistreViewModel {
+    var registreViewModel: RegistreViewModel {
         let registrationRequestBuilder = RegistrationRequestBuilder(httpService: BasicHTTPClient())
         return RegistreViewModel(registrationRequestBuilder: registrationRequestBuilder)
     }
     
     var candidats: CandidatesListView {
-      
-        let candidateViewModel = CandidateViewModel(candidateProfile: CandidateProfile(), candidateDelete: CandidateDelete(), candidateIDFetcher: CandidateIDFetcher(), candidateFavoritesManager: CandidateFavoritesManager())
+        let candidateDelete = CandidateDelete()
+        let candidateIDFetcher = CandidateIDFetcher()
+        let candidateFavoritesManager = CandidateFavoritesManager()
         
-        return CandidatesListView(candidateViewModel:candidateViewModel)
+        let candidateViewModel = CandidateViewModel( candidateDelete: candidateDelete, candidateIDFetcher: candidateIDFetcher, candidateFavoritesManager: candidateFavoritesManager)
+        let fetchCandidateProfileViewModel = FetchCandidateProfileViewModel(candidateProfile: CandidateProfile())
+        
+        return CandidatesListView(candidateViewModel: candidateViewModel, fetchCandidateProfileViewModel: fetchCandidateProfileViewModel)
     }
 }

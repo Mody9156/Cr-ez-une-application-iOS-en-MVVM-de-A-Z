@@ -2,14 +2,12 @@ import Foundation
 
 class CandidateViewModel: ObservableObject {
     let candidateDelete: CandidateDelete
-    let candidateProfile: CandidateProfile
     let candidateFavoritesManager: CandidateFavoritesManager
     let keychain = Keychain()
     let candidateIDFetcher: CandidateIDFetcher
     @Published var candidats: [RecruitTech] = []
 
-    init(candidateProfile: CandidateProfile, candidateDelete: CandidateDelete, candidateIDFetcher: CandidateIDFetcher, candidateFavoritesManager: CandidateFavoritesManager) {
-        self.candidateProfile = candidateProfile
+    init( candidateDelete: CandidateDelete, candidateIDFetcher: CandidateIDFetcher, candidateFavoritesManager: CandidateFavoritesManager) {
         self.candidateDelete = candidateDelete
         self.candidateIDFetcher = candidateIDFetcher
         self.candidateFavoritesManager = candidateFavoritesManager
@@ -25,18 +23,7 @@ class CandidateViewModel: ObservableObject {
         case fetchcandidateIDFetcherError
     }
 //Afficher la liste des candidats
-    @MainActor
-    func fetchCandidateProfile() async throws -> [RecruitTech] {
-        do {
-            let getToken = try fetchToken()
-            _ = candidateProfile.fetchURLRequest(token: getToken)
-            let data = try await candidateProfile.fetchCandidateSubmission(token: getToken)
-            self.candidats = data
-            return data
-        } catch {
-            throw FetchTokenResult.candidateProfileError
-        }
-    }
+   
 // recuperation du token
     private func fetchToken() throws -> String {
         let token = try keychain.get(forKey: "token")
@@ -109,7 +96,7 @@ class CandidateViewModel: ObservableObject {
     }
 //Afficher les Favoris
     @MainActor
-    func fetchAndProcessCandidateFavorites() async throws -> [RecruitTech]? {
+    func fetchAndProcessCandidateFavorites() async throws -> [RecruitTech]?   {
         do {
             let getToken = try fetchToken()
             var id = ""
