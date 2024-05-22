@@ -18,7 +18,7 @@ struct CandidateDetailView: View {
     func candidat() async {
         do{
             let data = try await candidateViewModel.fetchcandidateIDFetcher()
-            print("felicitation")
+            print("felicitation \(data)")
         }catch{
             print("dommage  candidat n'est pas passé ")
         }
