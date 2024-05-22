@@ -31,11 +31,11 @@ class CandidateIDFetcher {
         return request
     }
 
-    func fetchCandidates(token: String, candidate: String) async throws -> [RecruitTech] {
+    func fetchCandidates(token: String, candidate: String) async throws -> [candidateIDFetcher] {
         do {
             let request = getCandidateURLRequest(token: token, candidate: candidate)
             let (data, _) = try await httpService.request(request)
-            let candidates = try JSONDecoder().decode([RecruitTech].self, from: data)
+            let candidates = try JSONDecoder().decode([candidateIDFetcher].self, from: data)
            
             return candidates
             

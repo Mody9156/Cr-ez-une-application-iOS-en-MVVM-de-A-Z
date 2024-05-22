@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CandidateDetailView: View {
     @StateObject var candidateViewModel: CandidateViewModel
-    @State var recruitTech : [RecruitTech] = []
+    @State var recruitTech : [candidateIDFetcher] = []
 
     var body: some View {
         VStack {
@@ -15,17 +15,7 @@ struct CandidateDetailView: View {
                         Image(systemName: tech.isFavorite ? "star.slash" : "star")
                             .foregroundColor(tech.isFavorite ? .yellow : .black)
                     }
-                    HStack {
-                        Text("Phone")
-                        Text("\(tech.phone)")
-                    }
-                    HStack {
-                        Text("LinkedIne")
-                        Text("\(tech.linkedinURL)")
-                    }
-                        Text("Note")
-                    Text("\(tech.note)")
-                   
+                    
                 }
                 
                

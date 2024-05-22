@@ -33,6 +33,7 @@
 		23E2DD1D2BF3CB1900C28A1F /* LoginJSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */; };
 		23E2DD1F2BF3D2D300C28A1F /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD1E2BF3D2D300C28A1F /* AuthenticationManager.swift */; };
 		23E9EB962BFDFD09004B0366 /* CandidateDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9EB952BFDFD09004B0366 /* CandidateDetailsView.swift */; };
+		23E9EB982BFE16DF004B0366 /* candidateIDFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9EB972BFE16DF004B0366 /* candidateIDFetcher.swift */; };
 		23ED07502BF61C61006FECD3 /* RegistrationRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED074F2BF61C61006FECD3 /* RegistrationRequestBuilder.swift */; };
 		23ED07522BF61E85006FECD3 /* RegistrationRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED07512BF61E85006FECD3 /* RegistrationRequestBody.swift */; };
 		23ED07542BF641AA006FECD3 /* RegistreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED07532BF641AA006FECD3 /* RegistreViewModel.swift */; };
@@ -77,6 +78,7 @@
 		23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJSONModel.swift; sourceTree = "<group>"; };
 		23E2DD1E2BF3D2D300C28A1F /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		23E9EB952BFDFD09004B0366 /* CandidateDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandidateDetailsView.swift; sourceTree = "<group>"; };
+		23E9EB972BFE16DF004B0366 /* candidateIDFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = candidateIDFetcher.swift; path = ../candidateIDFetcher.swift; sourceTree = "<group>"; };
 		23ED074F2BF61C61006FECD3 /* RegistrationRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationRequestBuilder.swift; sourceTree = "<group>"; };
 		23ED07512BF61E85006FECD3 /* RegistrationRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationRequestBody.swift; sourceTree = "<group>"; };
 		23ED07532BF641AA006FECD3 /* RegistreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistreViewModel.swift; sourceTree = "<group>"; };
@@ -210,6 +212,24 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		23E9EB992BFE182F004B0366 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				23D1FE8A2BF7BDAD00F3FA1E /* RecruitTech.swift */,
+				23D1FE882BF7BA3F00F3FA1E /* CandidateProfile.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		23E9EB9A2BFE183C004B0366 /* Detaille */ = {
+			isa = PBXGroup;
+			children = (
+				23E9EB972BFE16DF004B0366 /* candidateIDFetcher.swift */,
+				23D2BB972BFB782F00CE9B72 /* CandidateIDFetcher.swift */,
+			);
+			path = Detaille;
+			sourceTree = "<group>";
+		};
 		23ED074D2BF61A4B006FECD3 /* Registre */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,9 +242,8 @@
 		23ED074E2BF61A61006FECD3 /* Candidats */ = {
 			isa = PBXGroup;
 			children = (
-				23D1FE882BF7BA3F00F3FA1E /* CandidateProfile.swift */,
-				23D1FE8A2BF7BDAD00F3FA1E /* RecruitTech.swift */,
-				23D2BB972BFB782F00CE9B72 /* CandidateIDFetcher.swift */,
+				23E9EB9A2BFE183C004B0366 /* Detaille */,
+				23E9EB992BFE182F004B0366 /* List */,
 				23D2BB992BFB7A8300CE9B72 /* CandidateDelete.swift */,
 				238F89BE2BFCAFFB009DD983 /* CandidateFavoritesManager.swift */,
 				238B00302BFCBB9F00EF388A /* CandidateCreationManager.swift */,
@@ -357,6 +376,7 @@
 				23D1FE892BF7BA3F00F3FA1E /* CandidateProfile.swift in Sources */,
 				23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */,
 				23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */,
+				23E9EB982BFE16DF004B0366 /* candidateIDFetcher.swift in Sources */,
 				238B00312BFCBBA000EF388A /* CandidateCreationManager.swift in Sources */,
 				23D1FE852BF74C2500F3FA1E /* Keychain.swift in Sources */,
 			);
