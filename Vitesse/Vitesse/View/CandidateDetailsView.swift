@@ -16,11 +16,25 @@ struct CandidateDetailView: View {
                     }
                     HStack {
                         Text("Phone")
-                        Text(tech.phone)
+                        if let phone = tech.phone {
+                            Text(phone)
+                        } else {
+                            Text("No note available")
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    HStack {
+                        Text("Email")
+                        Text(tech.email)
                     }
                     HStack {
                         Text("LinkedIn")
-                        Text(tech.linkedinURL)
+                        if let LinkedIn = tech.linkedinURL {
+                            Text(LinkedIn)
+                        } else {
+                            Text("No note available")
+                                .foregroundColor(.gray)
+                        }
                     }
                     Text("Note")
                     if let note = tech.note {
