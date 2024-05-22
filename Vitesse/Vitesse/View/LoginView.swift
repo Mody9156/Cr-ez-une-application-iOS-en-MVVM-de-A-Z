@@ -63,7 +63,7 @@ struct LoginView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .sheet(isPresented: $registre ) {
-                        RegistrationView(registreViewModel: vitesseViewModel.registreViewModel)
+                        RegistrationView(registreViewModel: vitesseViewModel.registreViewModel, login: LoginViewModel({}))
                     }
                 }
                 .padding()

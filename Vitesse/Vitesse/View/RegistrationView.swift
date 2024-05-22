@@ -5,6 +5,7 @@ struct RegistrationView: View {
     @State private var password: String = "test123"
     @State private var registre: Bool = false
     @State var infos : String = ""
+    @State var login : LoginViewModel
 
     var body: some View {
         NavigationStack {
@@ -43,6 +44,7 @@ struct RegistrationView: View {
                     Button("Create") {
                         Task {
                             try await registreViewModel.handleRegistrationViewModel()
+                            login.username = registreViewModel.email
                         }
                     }
                     .frame(width: 100, height: 50)
