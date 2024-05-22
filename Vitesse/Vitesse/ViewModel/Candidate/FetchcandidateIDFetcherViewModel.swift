@@ -9,12 +9,11 @@ import Foundation
 
 class FetchcandidateIDFetcherViewModel : ObservableObject{
     let candidateIDFetcher: CandidateIDFetcher
-    @Published var candidats: [RecruitTech] = []
     let keychain = Keychain()
+    @Published var candidats: [RecruitTech] = []
 
     init(candidateIDFetcher: CandidateIDFetcher, candidats: [RecruitTech]) {
         self.candidateIDFetcher = candidateIDFetcher
-        self.candidats = candidats
     }
     enum FetchTokenResult: Error, LocalizedError {
         case candidateProfileError,fetchcandidateIDFetcherError

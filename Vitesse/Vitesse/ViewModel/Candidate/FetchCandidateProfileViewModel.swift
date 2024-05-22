@@ -7,6 +7,9 @@ class FetchCandidateProfileViewModel: ObservableObject {
     init(candidateProfile: CandidateProfile) {
         self.candidateProfile = candidateProfile
     }
+    enum FetchTokenResult: Error, LocalizedError {
+        case candidateProfileError,fetchTokenError
+    }
 //affiche la liste
     func fetchCandidateProfile() async throws -> [RecruitTech] {
         do {
@@ -15,14 +18,14 @@ class FetchCandidateProfileViewModel: ObservableObject {
             self.candidats = data
             return data
         } catch {
-            throw CandidateViewModel.FetchTokenResult.candidateProfileError
+            throw FetchTokenResult.candidateProfileError
         }
     }
 
     private func fetchToken() throws -> String {
         let token = try Keychain().get(forKey: "token")
         guard let getToken = String(data: token, encoding: .utf8) else {
-            throw CandidateViewModel.FetchTokenResult.candidateProfileError
+            throw FetchTokenResult.fetchTokenError
         }
         return getToken
     }

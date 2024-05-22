@@ -17,21 +17,21 @@ class VitesseViewModel: ObservableObject {
         let registrationRequestBuilder = RegistrationRequestBuilder(httpService: BasicHTTPClient())
         return RegistreViewModel(registrationRequestBuilder: registrationRequestBuilder)
     }
-    
-    var candidats: CandidatesListView {
-        let candidateProfile = CandidateProfile()
-        let candidateDelete = CandidateDelete()
-        let candidateIDFetcher = CandidateIDFetcher()
-        let candidateFavoritesManager = CandidateFavoritesManager()
-        
-        let candidateViewModel = CandidateViewModel( candidateDelete: candidateDelete, candidateFavoritesManager: candidateFavoritesManager)
-        let fetchCandidateProfileViewModel = FetchCandidateProfileViewModel(candidateProfile: candidateProfile)
-        let fetchcandidateIDFetcherViewModel = FetchcandidateIDFetcherViewModel(candidateIDFetcher: candidateIDFetcher, candidats: [RecruitTech])
-        
-        return CandidatesListView(candidateViewModel: candidateViewModel, fetchCandidateProfileViewModel: fetchCandidateProfileViewModel, fetchcandidateIDFetcherViewModel: fetchcandidateIDFetcherViewModel)
-    }
+//Candidate
     
     var fetchCandidateProfileViewModel : FetchCandidateProfileViewModel {
         return FetchCandidateProfileViewModel(candidateProfile: CandidateProfile())
+    }
+    
+    var fetchcandidateIDFetcherViewModel : FetchcandidateIDFetcherViewModel{
+        return FetchcandidateIDFetcherViewModel(candidateIDFetcher: CandidateIDFetcher())
+    }
+    
+    var fetchDeleteCandidateViewModel : FetchDeleteCandidateViewModel {
+        return FetchDeleteCandidateViewModel(candidateDelete: CandidateDelete())
+    }
+    
+    var fetchAndProcessCandidateFavoritesViewModel : FetchAndProcessCandidateFavoritesViewModel {
+        return FetchAndProcessCandidateFavoritesViewModel(candidateFavoritesManager: CandidateFavoritesManager())
     }
 }
