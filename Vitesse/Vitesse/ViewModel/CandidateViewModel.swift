@@ -26,7 +26,7 @@ class CandidateViewModel: ObservableObject {
         case processCandidateElementsError
         case fetchcandidateIDFetcherError
     }
-//Liste
+//Afficher la liste des candidats
     @MainActor
     func fetchCandidateProfile() async throws -> [RecruitTech] {
         do {
@@ -47,7 +47,7 @@ class CandidateViewModel: ObservableObject {
         }
         return getToken
     }
-    // detaille
+    // afficher les detailles du candidat
     func fetchcandidateIDFetcher() async throws -> [RecruitTech] {
         do{
             let getToken = try fetchToken()
