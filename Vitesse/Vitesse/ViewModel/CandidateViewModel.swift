@@ -118,7 +118,7 @@ class CandidateViewModel: ObservableObject {
             }
             
             let data = try await candidateFavoritesManager.fetchFavoritesURLRequest(token: getToken, candidate: id)
-
+                
 
             return data
         } catch {
