@@ -19,7 +19,7 @@ struct CandidateDetailView: View {
                         if let phone = tech.phone {
                             Text(phone)
                         } else {
-                            Text("No note available")
+                            Text("No phone available")
                                 .foregroundColor(.gray)
                         }
                     }
@@ -32,7 +32,7 @@ struct CandidateDetailView: View {
                         if let LinkedIn = tech.linkedinURL {
                             Text(LinkedIn)
                         } else {
-                            Text("No note available")
+                            Text("No LinkedIn available")
                                 .foregroundColor(.gray)
                         }
                     }
