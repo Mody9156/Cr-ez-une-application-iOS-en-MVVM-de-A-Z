@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CandidateDetailView: View {
-    @ObservedObject var candidateViewModel: CandidateViewModel
+    @StateObject var candidateViewModel: CandidateViewModel
     @State var recruitTech : [RecruitTech] = []
 
     var body: some View {
@@ -22,6 +22,7 @@ struct CandidateDetailView: View {
             print("felicitation \(data)")
             recruitTech = data
         }catch{
+            print("\(recruitTech)")
             print("dommage  candidat n'est pas passé ")
         }
     }
