@@ -14,9 +14,7 @@ class CandidateViewModel: ObservableObject {
         self.candidateIDFetcher = candidateIDFetcher
         self.candidateFavoritesManager = candidateFavoritesManager
         
-        Task {
-            try await fetchCandidateProfile()
-        }
+        
     }
 
     enum FetchTokenResult: Error, LocalizedError {

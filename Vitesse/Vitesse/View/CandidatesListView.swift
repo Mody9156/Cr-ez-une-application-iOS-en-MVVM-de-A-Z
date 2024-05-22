@@ -1,75 +1,70 @@
 import SwiftUI
-
 struct CandidatesListView: View {
-    @StateObject var candidateViewModel: CandidateViewModel
+    @StateObject var candidateViewModel : CandidateViewModel
     @State private var search = ""
 
     var body: some View {
         NavigationStack {
             ZStack {
-                // fond bleu
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
-                    Spacer()
-                    VStack {
-                        List {
-                            //foreach sur RecruitTech pour afficher les candidats
-                            ForEach(searchResult, id: \.id) { element in
-                                NavigationLink(destination: CandidateDetailView(candidateViewModel: CandidateViewModel(candidateProfile: CandidateProfile(), candidateDelete: CandidateDelete(), candidateIDFetcher: CandidateIDFetcher(), candidateFavoritesManager: CandidateFavoritesManager()))) {
-                                    HStack {
-                                        Text(element.lastName)
-                                        Text(element.firstName)
-                                        Spacer()
-                                        Image(systemName: element.isFavorite ? "star.slash" : "star")
-                                            .foregroundColor(element.isFavorite ? .yellow : .black)
-                                    }
+                    List {
+                        ForEach(searchResult, id: \.id) { element in
+                            NavigationLink(destination: CandidateDetailView(candidateViewModel: candidateViewModel, recruitTech: [element])) {
+                                HStack {
+                                    Text(element.lastName)
+                                    Text(element.firstName)
+                                    Spacer()
+                                    Image(systemName: element.isFavorite ? "star.slash" : "star")
+                                        .foregroundColor(element.isFavorite ? .yellow : .black)
                                 }
                             }
-                            .onDelete(perform: candidateViewModel.deleteCandidate)
                         }
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                EditButton()
-                                    .frame(width: 100, height: 50)
-                                    .background(Color.blue)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(10)
-                            }
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                Button {
-                                    Task {
-                                        do {
-                                            let result = try await candidateViewModel.fetchAndProcessCandidateFavorites()
-                                            print("Félicitations, vous venez d'afficher les favoris")
-                                        } catch {
-                                            print("Failed to process candidate favorites: \(error)")
-                                        }
-                                    }
-                                } label: {
-                                    Image(systemName: "star.fill")
-                                }
+                        .onDelete(perform: candidateViewModel.deleteCandidate)
+                    }
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            EditButton()
                                 .frame(width: 100, height: 50)
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
-                            }
-                            ToolbarItem(placement: .navigation) {
-                                Text("Candidats")
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.blue)
-                                    .padding()
-                            }
                         }
-                        .searchable(text: $search)
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                Task {
+                                    do {
+                                        let result = try await candidateViewModel.fetchAndProcessCandidateFavorites()
+                                        print("Félicitations, vous venez d'afficher les favoris")
+                                    } catch {
+                                        print("Failed to process candidate favorites: \(error)")
+                                    }
+                                }
+                            } label: {
+                                Image(systemName: "star.fill")
+                            }
+                            .frame(width: 100, height: 50)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                        ToolbarItem(placement: .navigation) {
+                            Text("Candidats")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(.blue)
+                                .padding()
+                        }
                     }
+                    .searchable(text: $search)
                 }
             }
-            
+        }
+        .task {
+            await loadCandidates()
         }
     }
 
-    // initialisation de la barre de recherche
     var searchResult: [RecruitTech] {
         if search.isEmpty {
             return candidateViewModel.candidats
@@ -81,4 +76,12 @@ struct CandidatesListView: View {
         }
     }
 
+    func loadCandidates() async {
+        do {
+            let candidats = try await candidateViewModel.fetchCandidateProfile()
+            candidateViewModel.candidats = candidats
+        } catch {
+            print("Erreur lors de la récupération des candidats")
+        }
+    }
 }
