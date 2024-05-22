@@ -1,7 +1,7 @@
 import SwiftUI
 struct CandidateDetailView: View {
     @ObservedObject var candidateViewModel: CandidateViewModel
-    var recruitTech: [RecruitTech]
+    @State var recruitTech: [RecruitTech]
 
     var body: some View {
         VStack {
@@ -43,13 +43,20 @@ struct CandidateDetailView: View {
                         Text("No note available")
                             .foregroundColor(.gray)
                     }
-                }
+                }.toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        EditButton()
+                            .frame(width: 100, height: 50)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                 .padding()
                 .background(Color.white)
                 .cornerRadius(10)
                 .shadow(radius: 5)
                 .padding(.bottom, 10)
-            }
+            }.onDelete(perform: candidateViewModel.deleteCandidate)
         }
         .onAppear {
             Task {
