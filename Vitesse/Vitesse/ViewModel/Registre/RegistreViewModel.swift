@@ -8,10 +8,10 @@
 import Foundation
 
 class RegistreViewModel : ObservableObject {
-    @Published var email : String = "exemple22@gmail.com"
+    @Published var email : String = "exemple45@gmail.com"
     @Published var password : String = "test123"
-    @Published var firstName: String = "Seul"
-    @Published var lastName: String = "Banc"
+    @Published var firstName: String = "jaune"
+    @Published var lastName: String = "Pierre"
     
     let registrationRequestBuilder : RegistrationRequestBuilder
     
@@ -23,8 +23,8 @@ class RegistreViewModel : ObservableObject {
     func handleRegistrationViewModel() async throws   {
         do{
             let buildRegistrationRequest = try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
-                print("authentification réussie!")
-            
+                print("Vous venez denregistrer : \(buildRegistrationRequest)")
+           
         }catch{
           throw  error
         }

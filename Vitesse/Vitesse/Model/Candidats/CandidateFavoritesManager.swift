@@ -18,7 +18,6 @@ class CandidateFavoritesManager {
         let authHeader = "Bearer " + token
         request.setValue(authHeader, forHTTPHeaderField: "Authorization")
 
-        print("URLRequest: \(request)")
 
         return request
     }

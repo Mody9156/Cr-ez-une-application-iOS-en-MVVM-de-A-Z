@@ -46,10 +46,8 @@
             filePath = "Vitesse/Model/Candidats/CandidateIDFetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "getCandidateURLRequest(token:candidate:)"
-            landmarkType = "7">
+            startingLineNumber = "30"
+            endingLineNumber = "30">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -62,10 +60,8 @@
             filePath = "Vitesse/Model/Candidats/CandidateIDFetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "fetchCandidates(token:candidate:)"
-            landmarkType = "7">
+            startingLineNumber = "41"
+            endingLineNumber = "41">
             <Locations>
                <Location
                   uuid = "5713B6A4-AFD2-4CB1-91A4-3BE27E16159A - 3680aa0c8c3bfece"
@@ -104,14 +100,76 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "F132F01D-7382-4AA0-B086-D0378A981D82"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Vitesse/Model/Candidats/CandidateIDFetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51">
+            startingLineNumber = "47"
+            endingLineNumber = "47">
+            <Locations>
+               <Location
+                  uuid = "F132F01D-7382-4AA0-B086-D0378A981D82 - 3680aa0c8c3bfead"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Vitesse.CandidateIDFetcher.fetchCandidates(token: Swift.String, candidate: Swift.String) async throws -&gt; Swift.Array&lt;Vitesse.RecruitTech&gt;"
+                  moduleName = "Vitesse"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet6/Cr-ez-une-application-iOS-en-MVVM-de-A-Z/Vitesse/Vitesse/Model/Candidats/CandidateIDFetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "2322">
+               </Location>
+               <Location
+                  uuid = "F132F01D-7382-4AA0-B086-D0378A981D82 - 3680aa0c8c3bfead"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Vitesse.CandidateIDFetcher.fetchCandidates(token: Swift.String, candidate: Swift.String) async throws -&gt; Swift.Array&lt;Vitesse.RecruitTech&gt;"
+                  moduleName = "Vitesse"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet6/Cr-ez-une-application-iOS-en-MVVM-de-A-Z/Vitesse/Vitesse/Model/Candidats/CandidateIDFetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "2372">
+               </Location>
+               <Location
+                  uuid = "F132F01D-7382-4AA0-B086-D0378A981D82 - 738c237252440ae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Vitesse.CandidateIDFetcher.fetchCandidates(token: Swift.String, candidate: Swift.String) async throws -&gt; Swift.Array&lt;Vitesse.RecruitTech&gt;"
+                  moduleName = "Vitesse"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet6/Cr-ez-une-application-iOS-en-MVVM-de-A-Z/Vitesse/Vitesse/Model/Candidats/CandidateIDFetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "236">
+               </Location>
+               <Location
+                  uuid = "F132F01D-7382-4AA0-B086-D0378A981D82 - 738c237252440ae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Vitesse.CandidateIDFetcher.fetchCandidates(token: Swift.String, candidate: Swift.String) async throws -&gt; Swift.Array&lt;Vitesse.RecruitTech&gt;"
+                  moduleName = "Vitesse"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet6/Cr-ez-une-application-iOS-en-MVVM-de-A-Z/Vitesse/Vitesse/Model/Candidats/CandidateIDFetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "280">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

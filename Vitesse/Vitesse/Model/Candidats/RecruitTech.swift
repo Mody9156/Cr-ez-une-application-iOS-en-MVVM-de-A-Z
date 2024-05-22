@@ -8,10 +8,10 @@
 import Foundation
 
 struct RecruitTech: Identifiable, Codable,Hashable{
-    let phone, note: String?
-    let id, firstName: String
-    let linkedinURL: String?
-    let isFavorite: Bool
-    let email, lastName: String
+    var phone, note: String?
+    var id, firstName: String
+    var linkedinURL: String?
+    var isFavorite: Bool
+    var email, lastName: String
 }
 

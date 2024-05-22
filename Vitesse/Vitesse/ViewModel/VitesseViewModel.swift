@@ -1,34 +1,38 @@
-//
-//  VitesseViewModel.swift
-//  Vitesse
-//
-//  Created by KEITA on 14/05/2024.
-//
-
 import Foundation
 
 class VitesseViewModel: ObservableObject {
     @Published var onLoginSucceed: Bool
     
     init() {
-        onLoginSucceed = false
+        self.onLoginSucceed = false
     }
    
     var loginViewModel: LoginViewModel {
         return LoginViewModel({
             self.onLoginSucceed = true
-           }, authenticationManager: AuthenticationManager())
+        }, authenticationManager: AuthenticationManager())
     }
     
-    var registreViewModel : RegistreViewModel {
+    // Registre
+    var registreViewModel: RegistreViewModel {
         let registrationRequestBuilder = RegistrationRequestBuilder(httpService: BasicHTTPClient())
         return RegistreViewModel(registrationRequestBuilder: registrationRequestBuilder)
     }
     
-    var candidats: CandidatesListView {
-      
-        let candidateViewModel = CandidateViewModel(candidateProfile: CandidateProfile(), candidateDelete: CandidateDelete(), candidateIDFetcher: CandidateIDFetcher(), candidateFavoritesManager: CandidateFavoritesManager())
-        
-        return CandidatesListView(candidateViewModel:candidateViewModel)
+    // Candidate
+    var fetchCandidateProfileViewModel: FetchCandidateProfileViewModel {
+        return FetchCandidateProfileViewModel(candidateProfile: CandidateProfile())
+    }
+    
+    var fetchCandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel {
+        return FetchcandidateIDFetcherViewModel(candidateIDFetcher: CandidateIDFetcher(), candidats: [])
+    }
+    
+    var fetchDeleteCandidateViewModel: FetchDeleteCandidateViewModel {
+        return FetchDeleteCandidateViewModel(candidateDelete: CandidateDelete())
+    }
+    
+    var fetchAndProcessCandidateFavoritesViewModel: FetchAndProcessCandidateFavoritesViewModel {
+        return FetchAndProcessCandidateFavoritesViewModel(candidateFavoritesManager: CandidateFavoritesManager())
     }
 }
