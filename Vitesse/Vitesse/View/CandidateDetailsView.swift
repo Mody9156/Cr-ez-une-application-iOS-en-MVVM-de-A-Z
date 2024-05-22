@@ -1,7 +1,7 @@
 import SwiftUI
 struct CandidateDetailView: View {
-    @ObservedObject var candidateViewModel: CandidateViewModel
     @ObservedObject var fetchcandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel
+    @ObservedObject var fetchDeleteCandidateViewModel : FetchDeleteCandidateViewModel
     @State var recruitTech: [RecruitTech]
 
     var body: some View {
@@ -53,7 +53,7 @@ struct CandidateDetailView: View {
                         .padding()
                         
                         
-                    }.onDelete(perform: candidateViewModel.deleteCandidate)
+                    }.onDelete(perform: fetchDeleteCandidateViewModel.deleteCandidate)
             }.toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()

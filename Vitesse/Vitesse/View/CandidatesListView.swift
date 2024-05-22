@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct CandidatesListView: View {
-    @StateObject var candidateViewModel: CandidateViewModel
     @StateObject var fetchCandidateProfileViewModel: FetchCandidateProfileViewModel
     @StateObject var fetchcandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel
     @State private var search = ""
-
+    @ObservedObject var fetchDeleteCandidateViewModel : FetchDeleteCandidateViewModel
+    @ObservedObject var fetchAndProcessCandidateFavoritesViewModel : FetchAndProcessCandidateFavoritesViewModel
     var body: some View {
         NavigationStack {
             ZStack {
@@ -13,7 +13,9 @@ struct CandidatesListView: View {
                 VStack {
                     List {
                         ForEach(searchResult, id: \.id) { element in
-                            NavigationLink( destination: CandidateDetailView(candidateViewModel: candidateViewModel, recruitTech: [element])){
+                            NavigationLink(destination:
+                                Text(element.lastName)
+                            ){
                                 HStack {
                                     Text(element.lastName)
                                     Text(element.firstName)
@@ -23,7 +25,7 @@ struct CandidatesListView: View {
                                 }
                             }
                         }
-                        .onDelete(perform: candidateViewModel.deleteCandidate)
+                        .onDelete(perform: fetchDeleteCandidateViewModel.deleteCandidate)
                     }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
@@ -37,7 +39,7 @@ struct CandidatesListView: View {
                             Button {
                                 Task {
                                     do {
-                                        let result = try await candidateViewModel.fetchAndProcessCandidateFavorites()
+                                        let result = try await fetchAndProcessCandidateFavoritesViewModel.fetchAndProcessCandidateFavorites()
                                         print("Félicitations, vous venez d'afficher les favoris")
                                     } catch {
                                         print("Failed to process candidate favorites: \(error)")
@@ -70,9 +72,9 @@ struct CandidatesListView: View {
 
     var searchResult: [RecruitTech] {
         if search.isEmpty {
-            return candidateViewModel.candidats
+            return fetchCandidateProfileViewModel.candidats
         } else {
-            return candidateViewModel.candidats.filter { candidat in
+            return fetchCandidateProfileViewModel.candidats.filter { candidat in
                 candidat.lastName.lowercased().contains(search.lowercased()) ||
                 candidat.firstName.lowercased().contains(search.lowercased())
             }
@@ -82,7 +84,7 @@ struct CandidatesListView: View {
     func loadCandidates() async {
         do {
             let candidats = try await fetchCandidateProfileViewModel.fetchCandidateProfile()
-            candidateViewModel.candidats = candidats
+            fetchCandidateProfileViewModel.candidats = candidats
         } catch {
             print("Erreur lors de la récupération des candidats")
         }

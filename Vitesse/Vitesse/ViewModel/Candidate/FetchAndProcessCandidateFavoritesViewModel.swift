@@ -1,53 +1,40 @@
+//
+//  fetchAndProcessCandidateFavoritesViewModel.swift
+//  Vitesse
+//
+//  Created by KEITA on 22/05/2024.
+//
+
 import Foundation
 
-class CandidateViewModel: ObservableObject {
+class FetchAndProcessCandidateFavoritesViewModel : ObservableObject {
+    
     let candidateFavoritesManager: CandidateFavoritesManager
     let keychain = Keychain()
     @Published var candidats: [RecruitTech] = []
-
-    init( candidateFavoritesManager: CandidateFavoritesManager) {
+    
+    init(candidateFavoritesManager: CandidateFavoritesManager){
         self.candidateFavoritesManager = candidateFavoritesManager
-        
-        
     }
-
+    
     enum FetchTokenResult: Error, LocalizedError {
-        case searchCandidateError
-        case candidateProfileError
-        case deleteCandidateError
+        case fetchTokenError
         case processCandidateElementsError
-        case fetchcandidateIDFetcherError
     }
-//Afficher la liste des candidats
    
 // recuperation du token
     private func fetchToken() throws -> String {
         let token = try keychain.get(forKey: "token")
         guard let getToken = String(data: token, encoding: .utf8) else {
-            throw FetchTokenResult.candidateProfileError
+            throw FetchTokenResult.fetchTokenError
         }
         return getToken
     }
     
-    // afficher les detailles du candidat
-
     
+  
     
-   
-////
-//    func searchCandidate(at offsets: IndexSet) async throws -> [RecruitTech] {
-//        do {
-//            let getToken = try fetchToken()
-//            var id = ""
-//            for offset in offsets {
-//                id = candidats[offset].id
-//            }
-//            return try await candidateIDFetcher.fetchCandidates(token: getToken, candidate: id)
-//        } catch {
-//            throw FetchTokenResult.searchCandidateError
-//        }
-//    }
-//Afficher les Favoris
+    //Afficher les Favoris
     @MainActor
     func fetchAndProcessCandidateFavorites() async throws -> [RecruitTech]?   {
         do {
