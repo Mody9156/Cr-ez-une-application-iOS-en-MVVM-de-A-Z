@@ -1,17 +1,15 @@
 import SwiftUI
+
 struct CandidateDetailView: View {
-    @ObservedObject var fetchcandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel
-    @ObservedObject var fetchDeleteCandidateViewModel : FetchDeleteCandidateViewModel
-    @State var recruitTech: [RecruitTech]
+    @ObservedObject var fetchCandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel
+    @ObservedObject var fetchDeleteCandidateViewModel: FetchDeleteCandidateViewModel
 
     var body: some View {
         ZStack {
-          Color.blue.opacity(0.5).ignoresSafeArea()
+            Color.blue.opacity(0.5).ignoresSafeArea()
             VStack {
                 List {
-                   
-               
-                    ForEach(recruitTech, id: \.id) { tech in
+                    ForEach(fetchCandidateIDFetcherViewModel.candidats, id: \.id) { tech in
                         VStack {
                             HStack {
                                 Text(tech.lastName)
@@ -35,8 +33,8 @@ struct CandidateDetailView: View {
                             }
                             HStack {
                                 Text("LinkedIn")
-                                if let LinkedIn = tech.linkedinURL {
-                                    Text(LinkedIn)
+                                if let linkedIn = tech.linkedinURL {
+                                    Text(linkedIn)
                                 } else {
                                     Text("No LinkedIn available")
                                         .foregroundColor(.gray)
@@ -51,33 +49,33 @@ struct CandidateDetailView: View {
                             }
                         }
                         .padding()
-                        
-                        
-                    }.onDelete(perform: fetchDeleteCandidateViewModel.deleteCandidate)
-            }.toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                        .frame(width: 100, height: 50)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                    }
+                    .onDelete(perform: fetchDeleteCandidateViewModel.deleteCandidate)
                 }
-            }
-            .onAppear {
-                Task {
-                    await loadCandidateProfile()
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        EditButton()
+                            .frame(width: 100, height: 50)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                 }
+                .onAppear {
+                    Task {
+                        await loadCandidateProfile()
+                    }
+                }
+                .padding()
             }
-            .padding()
-            
-        }
         }
     }
 
     func loadCandidateProfile() async {
         do {
-            let data = try await fetchcandidateIDFetcherViewModel.fetchcandidateIDFetcher(at: IndexSet(integer: 3))
-            print("Félicitations ")
+            let data = try await fetchCandidateIDFetcherViewModel.fetchCandidateIDFetcher(at: IndexSet())
+            fetchCandidateIDFetcherViewModel.candidats = data
+            print("Félicitations")
         } catch {
             print("Dommage, le candidat n'est pas passé")
         }

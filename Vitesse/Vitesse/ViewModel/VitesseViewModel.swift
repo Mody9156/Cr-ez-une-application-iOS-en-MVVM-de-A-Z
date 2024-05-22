@@ -13,25 +13,26 @@ class VitesseViewModel: ObservableObject {
         }, authenticationManager: AuthenticationManager())
     }
     
+    // Registre
     var registreViewModel: RegistreViewModel {
         let registrationRequestBuilder = RegistrationRequestBuilder(httpService: BasicHTTPClient())
         return RegistreViewModel(registrationRequestBuilder: registrationRequestBuilder)
     }
-//Candidate
     
-    var fetchCandidateProfileViewModel : FetchCandidateProfileViewModel {
+    // Candidate
+    var fetchCandidateProfileViewModel: FetchCandidateProfileViewModel {
         return FetchCandidateProfileViewModel(candidateProfile: CandidateProfile())
     }
     
-    var fetchcandidateIDFetcherViewModel : FetchcandidateIDFetcherViewModel{
-        return FetchcandidateIDFetcherViewModel(candidateIDFetcher: CandidateIDFetcher(), candidats: self.fetchcandidateIDFetcherViewModel.candidats)
+    var fetchCandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel {
+        return FetchcandidateIDFetcherViewModel(candidateIDFetcher: CandidateIDFetcher(), candidats: [])
     }
     
-    var fetchDeleteCandidateViewModel : FetchDeleteCandidateViewModel {
+    var fetchDeleteCandidateViewModel: FetchDeleteCandidateViewModel {
         return FetchDeleteCandidateViewModel(candidateDelete: CandidateDelete())
     }
     
-    var fetchAndProcessCandidateFavoritesViewModel : FetchAndProcessCandidateFavoritesViewModel {
+    var fetchAndProcessCandidateFavoritesViewModel: FetchAndProcessCandidateFavoritesViewModel {
         return FetchAndProcessCandidateFavoritesViewModel(candidateFavoritesManager: CandidateFavoritesManager())
     }
 }

@@ -2,10 +2,10 @@ import SwiftUI
 
 struct CandidatesListView: View {
     @StateObject var fetchCandidateProfileViewModel: FetchCandidateProfileViewModel
-    @StateObject var fetchcandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel
+    @StateObject  var fetchcandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel
     @State private var search = ""
-    @ObservedObject var fetchDeleteCandidateViewModel : FetchDeleteCandidateViewModel
-    @ObservedObject var fetchAndProcessCandidateFavoritesViewModel : FetchAndProcessCandidateFavoritesViewModel
+    @StateObject  var fetchDeleteCandidateViewModel : FetchDeleteCandidateViewModel
+    @StateObject  var fetchAndProcessCandidateFavoritesViewModel : FetchAndProcessCandidateFavoritesViewModel
     var body: some View {
         NavigationStack {
             ZStack {

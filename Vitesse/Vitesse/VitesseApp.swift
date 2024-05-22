@@ -1,10 +1,3 @@
-//
-//  VitesseApp.swift
-//  Vitesse
-//
-//  Created by KEITA on 11/05/2024.
-//
-
 import SwiftUI
 
 @main
@@ -13,18 +6,24 @@ struct VitesseApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Group {
-                if vitesseViewModel.onLoginSucceed {
-                    TabView {
-                        CandidatesListView(fetchCandidateProfileViewModel: vitesseViewModel.fetchCandidateProfileViewModel, fetchcandidateIDFetcherViewModel: vitesseViewModel.fetchcandidateIDFetcherViewModel, fetchDeleteCandidateViewModel: vitesseViewModel.fetchDeleteCandidateViewModel, fetchAndProcessCandidateFavoritesViewModel: vitesseViewModel.fetchAndProcessCandidateFavoritesViewModel)
-                            .tabItem {
-                                Image(systemName: "person.crop.circle")
-                                Text("Candidats")
-                            }
+            if vitesseViewModel.onLoginSucceed {
+                TabView {
+                    CandidatesListView(
+                        fetchCandidateProfileViewModel: vitesseViewModel.fetchCandidateProfileViewModel,
+                        fetchcandidateIDFetcherViewModel: vitesseViewModel.fetchCandidateIDFetcherViewModel,
+                        fetchDeleteCandidateViewModel: vitesseViewModel.fetchDeleteCandidateViewModel,
+                        fetchAndProcessCandidateFavoritesViewModel: vitesseViewModel.fetchAndProcessCandidateFavoritesViewModel
+                    )
+                    .tabItem {
+                        Image(systemName: "person.crop.circle")
+                        Text("Candidats")
                     }
-                } else {
-                    LoginView(AuthenticationView: vitesseViewModel.loginViewModel, vitesseViewModel: vitesseViewModel)
                 }
+            } else {
+                LoginView(
+                    AuthenticationView: vitesseViewModel.loginViewModel,
+                    vitesseViewModel: vitesseViewModel
+                )
             }
         }
     }

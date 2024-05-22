@@ -4,21 +4,23 @@
 //
 //  Created by KEITA on 22/05/2024.
 //
-
 import Foundation
 
-class FetchcandidateIDFetcherViewModel : ObservableObject{
-    let candidateIDFetcher: CandidateIDFetcher
-    let keychain = Keychain()
+class FetchcandidateIDFetcherViewModel: ObservableObject {
     @Published var candidats: [RecruitTech] = []
 
-    init(candidateIDFetcher: CandidateIDFetcher, candidats: [RecruitTech]) {
+    let candidateIDFetcher: CandidateIDFetcher
+    let keychain = Keychain()
+
+    init(candidateIDFetcher: CandidateIDFetcher, candidats: [RecruitTech] = []) {
         self.candidateIDFetcher = candidateIDFetcher
+        self.candidats = candidats
     }
+
     enum FetchTokenResult: Error, LocalizedError {
-        case candidateProfileError,fetchcandidateIDFetcherError
+        case candidateProfileError, fetchcandidateIDFetcherError
     }
-    
+
     private func fetchToken() throws -> String {
         let token = try keychain.get(forKey: "token")
         guard let getToken = String(data: token, encoding: .utf8) else {
@@ -26,22 +28,20 @@ class FetchcandidateIDFetcherViewModel : ObservableObject{
         }
         return getToken
     }
-    // afficher les detailles du candidat
-    func fetchcandidateIDFetcher(at offsets: IndexSet) async throws -> [RecruitTech] {
-        do{
-            let getToken = try fetchToken()
+
+    // Afficher les détails du candidat
+    func fetchCandidateIDFetcher(at offsets: IndexSet) async throws -> [RecruitTech] {
+        do {
+            let token = try fetchToken()
             var id = ""
             for offset in offsets {
                 id = candidats[offset].id
-              
             }
-            let _ = candidateIDFetcher.getCandidateURLRequest(token: getToken, candidate: id)
-         let data = try await candidateIDFetcher.fetchCandidates(token: getToken, candidate: id)
+            let _ = candidateIDFetcher.getCandidateURLRequest(token: token, candidate: id)
+            let data = try await candidateIDFetcher.fetchCandidates(token: token, candidate: id)
             return data
-        }catch{
+        } catch {
             throw FetchTokenResult.fetchcandidateIDFetcherError
         }
     }
 }
-
-
