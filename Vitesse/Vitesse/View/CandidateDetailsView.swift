@@ -44,13 +44,14 @@ struct CandidateDetailView: View {
                             .foregroundColor(.gray)
                     }
                 }.toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
+                    ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
                             .frame(width: 100, height: 50)
                             .background(Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
+                }
                 .padding()
                 .background(Color.white)
                 .cornerRadius(10)
