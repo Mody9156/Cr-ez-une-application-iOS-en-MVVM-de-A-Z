@@ -39,7 +39,7 @@ class CandidateViewModel: ObservableObject {
             throw FetchTokenResult.candidateProfileError
         }
     }
-
+// recuperation du token
     private func fetchToken() throws -> String {
         let token = try keychain.get(forKey: "token")
         guard let getToken = String(data: token, encoding: .utf8) else {
@@ -47,6 +47,7 @@ class CandidateViewModel: ObservableObject {
         }
         return getToken
     }
+    
     // afficher les detailles du candidat
     func fetchcandidateIDFetcher() async throws -> [RecruitTech] {
         do{
@@ -66,7 +67,7 @@ class CandidateViewModel: ObservableObject {
 
     
     
-    //supprimer
+    //supprimer les candidats
     func fetchDelete(at offsets: IndexSet) async throws {
         do {
             let getToken = try fetchToken()
@@ -85,7 +86,7 @@ class CandidateViewModel: ObservableObject {
             throw FetchTokenResult.deleteCandidateError
         }
     }
-//supprimer
+//supprimer les candidats
     func deleteCandidate(at offsets: IndexSet) {
         Task {
             do {
@@ -108,7 +109,7 @@ class CandidateViewModel: ObservableObject {
             throw FetchTokenResult.searchCandidateError
         }
     }
-//Favoris
+//Afficher les Favoris
     @MainActor
     func fetchAndProcessCandidateFavorites() async throws -> [RecruitTech]? {
         do {
