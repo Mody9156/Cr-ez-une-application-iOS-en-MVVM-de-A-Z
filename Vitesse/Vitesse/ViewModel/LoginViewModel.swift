@@ -8,7 +8,7 @@
 import Foundation
 
 class LoginViewModel: ObservableObject {
-    @Published var username: String = ""
+    @Published var username: String = "admin@vitesse.com"
     @Published var password: String = "test123"
     let keychain = Keychain()
     let authenticationManager: AuthenticationManager
