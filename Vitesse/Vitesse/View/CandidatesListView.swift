@@ -74,7 +74,7 @@ struct CandidatesListView: View {
             .listSectionSeparator(.hidden, edges: .bottom)
         }
     }
-
+// initialisation de la barre de recherche
     var searchResult: [RecruitTech] {
         if search.isEmpty {
             return candidateViewModel.candidats
@@ -86,7 +86,7 @@ struct CandidatesListView: View {
         }
     }
 }
-
+//initialisatiob de la liste des candidats
 struct CandidateDetailView: View {
     var candidate: RecruitTech
     @StateObject var candidateViewModel: CandidateViewModel
