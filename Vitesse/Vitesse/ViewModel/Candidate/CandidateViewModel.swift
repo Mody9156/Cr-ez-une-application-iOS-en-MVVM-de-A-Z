@@ -1,13 +1,11 @@
 import Foundation
 
 class CandidateViewModel: ObservableObject {
-    let candidateDelete: CandidateDelete
     let candidateFavoritesManager: CandidateFavoritesManager
     let keychain = Keychain()
     @Published var candidats: [RecruitTech] = []
 
-    init( candidateDelete: CandidateDelete, candidateFavoritesManager: CandidateFavoritesManager) {
-        self.candidateDelete = candidateDelete
+    init( candidateFavoritesManager: CandidateFavoritesManager) {
         self.candidateFavoritesManager = candidateFavoritesManager
         
         
@@ -35,35 +33,7 @@ class CandidateViewModel: ObservableObject {
 
     
     
-    //supprimer les candidats
-    func fetchDelete(at offsets: IndexSet) async throws {
-        do {
-            let getToken = try fetchToken()
-            var id = ""
-            for offset in offsets {
-                 id = candidats[offset].id
-               
-            }
-            try await candidateDelete.deleteCandidate(token: getToken, candidateId: id)
-            
-            DispatchQueue.main.async {
-               
-                self.candidats.remove(atOffsets: offsets)
-            }
-        } catch {
-            throw FetchTokenResult.deleteCandidateError
-        }
-    }
-//supprimer les candidats
-    func deleteCandidate(at offsets: IndexSet) {
-        Task {
-            do {
-                try await fetchDelete(at: offsets)
-            } catch {
-                throw FetchTokenResult.deleteCandidateError
-            }
-        }
-    }
+   
 ////
 //    func searchCandidate(at offsets: IndexSet) async throws -> [RecruitTech] {
 //        do {

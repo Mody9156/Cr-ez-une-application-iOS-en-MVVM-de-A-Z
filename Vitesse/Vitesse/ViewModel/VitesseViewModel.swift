@@ -26,8 +26,12 @@ class VitesseViewModel: ObservableObject {
         
         let candidateViewModel = CandidateViewModel( candidateDelete: candidateDelete, candidateFavoritesManager: candidateFavoritesManager)
         let fetchCandidateProfileViewModel = FetchCandidateProfileViewModel(candidateProfile: candidateProfile)
-        let fetchcandidateIDFetcherViewModel = FetchcandidateIDFetcherViewModel(candidateIDFetcher: candidateIDFetcher)
+        let fetchcandidateIDFetcherViewModel = FetchcandidateIDFetcherViewModel(candidateIDFetcher: candidateIDFetcher, candidats: [RecruitTech])
         
         return CandidatesListView(candidateViewModel: candidateViewModel, fetchCandidateProfileViewModel: fetchCandidateProfileViewModel, fetchcandidateIDFetcherViewModel: fetchcandidateIDFetcherViewModel)
+    }
+    
+    var fetchCandidateProfileViewModel : FetchCandidateProfileViewModel {
+        return FetchCandidateProfileViewModel(candidateProfile: CandidateProfile())
     }
 }

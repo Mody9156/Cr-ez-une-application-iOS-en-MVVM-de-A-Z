@@ -35,6 +35,7 @@
 		23E9EB962BFDFD09004B0366 /* CandidateDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9EB952BFDFD09004B0366 /* CandidateDetailsView.swift */; };
 		23E9EB9D2BFE35B1004B0366 /* FetchCandidateProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9EB9C2BFE35B1004B0366 /* FetchCandidateProfileViewModel.swift */; };
 		23E9EB9F2BFE3E1E004B0366 /* FetchcandidateIDFetcherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9EB9E2BFE3E1E004B0366 /* FetchcandidateIDFetcherViewModel.swift */; };
+		23E9EBA32BFE45D9004B0366 /* FetchDeleteCandidateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9EBA22BFE45D9004B0366 /* FetchDeleteCandidateViewModel.swift */; };
 		23ED07502BF61C61006FECD3 /* RegistrationRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED074F2BF61C61006FECD3 /* RegistrationRequestBuilder.swift */; };
 		23ED07522BF61E85006FECD3 /* RegistrationRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED07512BF61E85006FECD3 /* RegistrationRequestBody.swift */; };
 		23ED07542BF641AA006FECD3 /* RegistreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED07532BF641AA006FECD3 /* RegistreViewModel.swift */; };
@@ -81,6 +82,7 @@
 		23E9EB952BFDFD09004B0366 /* CandidateDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandidateDetailsView.swift; sourceTree = "<group>"; };
 		23E9EB9C2BFE35B1004B0366 /* FetchCandidateProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchCandidateProfileViewModel.swift; sourceTree = "<group>"; };
 		23E9EB9E2BFE3E1E004B0366 /* FetchcandidateIDFetcherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchcandidateIDFetcherViewModel.swift; sourceTree = "<group>"; };
+		23E9EBA22BFE45D9004B0366 /* FetchDeleteCandidateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDeleteCandidateViewModel.swift; sourceTree = "<group>"; };
 		23ED074F2BF61C61006FECD3 /* RegistrationRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationRequestBuilder.swift; sourceTree = "<group>"; };
 		23ED07512BF61E85006FECD3 /* RegistrationRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationRequestBody.swift; sourceTree = "<group>"; };
 		23ED07532BF641AA006FECD3 /* RegistreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistreViewModel.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				23D1FE8C2BF7C63000F3FA1E /* CandidateViewModel.swift */,
 				23E9EB9C2BFE35B1004B0366 /* FetchCandidateProfileViewModel.swift */,
 				23E9EB9E2BFE3E1E004B0366 /* FetchcandidateIDFetcherViewModel.swift */,
+				23E9EBA22BFE45D9004B0366 /* FetchDeleteCandidateViewModel.swift */,
 			);
 			path = Candidate;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				23E9EB962BFDFD09004B0366 /* CandidateDetailsView.swift in Sources */,
 				23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */,
 				23D2BB9A2BFB7A8300CE9B72 /* CandidateDelete.swift in Sources */,
+				23E9EBA32BFE45D9004B0366 /* FetchDeleteCandidateViewModel.swift in Sources */,
 				234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */,
 				238B00332BFCBFF200EF388A /* CandidateUpdater.swift in Sources */,
 				238F89BF2BFCAFFB009DD983 /* CandidateFavoritesManager.swift in Sources */,
