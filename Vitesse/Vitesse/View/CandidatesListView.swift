@@ -41,7 +41,7 @@ struct CandidatesListView: View {
                                     Task {
                                         do {
                                             let result = try await candidateViewModel.fetchAndProcessCandidateFavorites()
-                                        print("fécilicatin vous venez d'ajouter les favoris")
+                                        print("fécilicatin vous venez d'afficher les favoris")
                                         } catch {
                                             print("Failed to process candidate favorites: \(error)")
                                         }
