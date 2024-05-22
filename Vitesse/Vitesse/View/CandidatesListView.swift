@@ -16,10 +16,7 @@ struct CandidatesListView: View {
                             //foreach sur RecruitTech pour afficher les candidats
                             ForEach(searchResult, id: \.id) { element in
                                 NavigationLink(destination:
-                                
-                                    Task {
-                                    try await candidateViewModel.fetchcandidateIDFetcher()
-                                }
+                                 
                                 
                                 
                                 ) {
@@ -92,18 +89,6 @@ struct CandidatesListView: View {
                 candidat.lastName.lowercased().contains(search.lowercased()) ||
                 candidat.firstName.lowercased().contains(search.lowercased())
             }
-        }
-    }
-}
-//initialisatiob de la liste des candidats
-struct CandidateDetailView: View {
-    var candidate: RecruitTech
-    @StateObject var candidateViewModel: CandidateViewModel
-
-    var body: some View {
-        VStack {
-            Text(candidate.lastName)
-            Text(candidate.firstName)
         }
     }
 }
