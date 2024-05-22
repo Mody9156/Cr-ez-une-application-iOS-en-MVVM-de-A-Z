@@ -63,6 +63,7 @@ class CandidateViewModel: ObservableObject {
             throw FetchTokenResult.fetchcandidateIDFetcherError
         }
     }
+
     
     
     //supprimer
