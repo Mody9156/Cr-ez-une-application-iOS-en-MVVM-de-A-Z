@@ -40,7 +40,7 @@ struct CandidatesListView: View {
                                 Button {
                                     Task {
                                         do {
-                                            let result = try await candidateViewModel.fetchAndProcessCandidateFavorites(at: <#T##IndexSet#>)
+                                            let result = try await candidateViewModel.fetchAndProcessCandidateFavorites()
                                         print("fécilicatin vous venez d'ajouter les favoris")
                                         } catch {
                                             print("Failed to process candidate favorites: \(error)")
@@ -98,7 +98,7 @@ struct CandidateDetailView: View {
         }.task {
             if let index = candidateViewModel.candidats.firstIndex(where: { $0.id == candidate.id }) {
                 do {
-                    let result = try await candidateViewModel.fetchcandidateIDFetcher(at: IndexSet(integer: index))
+                    let result = try await candidateViewModel.fetchcandidateIDFetcher()
                     print("Fetched candidate details: \(result)")
                 } catch {
                     print("Failed to fetch candidate details: \(error)")
