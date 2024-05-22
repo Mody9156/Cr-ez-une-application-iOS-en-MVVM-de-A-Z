@@ -49,7 +49,7 @@ class CandidateViewModel: ObservableObject {
     }
     
     // afficher les detailles du candidat
-    func fetchcandidateIDFetcher() async throws -> [candidateIDFetcher] {
+    func fetchcandidateIDFetcher() async throws -> [RecruitTech] {
         do{
             let getToken = try fetchToken()
             var id = ""
@@ -97,7 +97,7 @@ class CandidateViewModel: ObservableObject {
         }
     }
 //
-    func searchCandidate(at offsets: IndexSet) async throws -> [candidateIDFetcher] {
+    func searchCandidate(at offsets: IndexSet) async throws -> [RecruitTech] {
         do {
             let getToken = try fetchToken()
             var id = ""

@@ -24,7 +24,7 @@ class RegistreViewModel : ObservableObject {
         do{
             let buildRegistrationRequest = try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
                 print("Vous venez denregistrer : \(buildRegistrationRequest)")
-            
+           
         }catch{
           throw  error
         }
