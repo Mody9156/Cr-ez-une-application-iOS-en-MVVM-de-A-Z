@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct CandidatesListView: View {
-    @StateObject var fetchCandidateProfileViewModel: FetchCandidateProfileViewModel
+    @StateObject var candidateListViewModel : CandidateListViewModel
+
     @StateObject  var fetchcandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel
     @State private var search = ""
     @StateObject  var fetchDeleteCandidateViewModel : FetchDeleteCandidateViewModel
@@ -77,9 +78,9 @@ struct CandidatesListView: View {
 
     var searchResult: [CandidateInformation] {
         if search.isEmpty {
-            return fetchCandidateProfileViewModel.candidats
+            return candidateListViewModel.candidats
         } else {
-            return fetchCandidateProfileViewModel.candidats.filter { candidat in
+            return candidateListViewModel.candidats.filter { candidat in
                 candidat.lastName.lowercased().contains(search.lowercased()) ||
                 candidat.firstName.lowercased().contains(search.lowercased())
             }
@@ -90,8 +91,8 @@ struct CandidatesListView: View {
 
     func loadCandidates() async {
         do {
-            let candidats = try await fetchCandidateProfileViewModel.fetchCandidateProfile()
-            fetchCandidateProfileViewModel.candidats = candidats
+            let candidats = try await candidateListViewModel.fetchCandidateProfile()
+            candidateListViewModel.candidats = candidats
         } catch {
             print("Erreur lors de la récupération des candidats")
         }

@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum CandidateManagement {
+struct CandidateManagement {
     
-    func createURLRequest(url:String,method:String,token:String,id:String) -> URLRequest{
-        var url = URL(string: url)!
+    static func createURLRequest(url:String,method:String,token:String,id:String) throws -> URLRequest{
+        let url = URL(string: url)!
         var request  = URLRequest(url: url)
         request.httpMethod = method
         let authHeader = "Bearer " + token
@@ -18,11 +18,12 @@ enum CandidateManagement {
         return request
     }
     
-    func createURLRequesttt(url:String,method:String,token:String) -> URLRequest{
-        var url = URL(string: url)!
+   static func createURLRequesttt(url:String,method:String,token:String) throws -> URLRequest{
+       let url = URL(string: url)!
         var request  = URLRequest(url: url)
         request.httpMethod = method
-       
+        let authHeader = "Bearer " + token
+        request.setValue(authHeader, forHTTPHeaderField: "Authorization")
         return request
     }
    

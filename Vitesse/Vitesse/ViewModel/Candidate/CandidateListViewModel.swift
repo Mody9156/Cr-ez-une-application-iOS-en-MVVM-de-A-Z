@@ -32,7 +32,9 @@ class CandidateListViewModel : ObservableObject {
     func fetchCandidateProfile() async throws -> [CandidateInformation] {
         do {
             let getToken = try  await fetchToken()
-            let request =  CandidateManagement.createURLRequesttt(url:"http://127.0.0.1:8080/candidate",method:"GET",token:getToken)
+            let request = try
+            
+            CandidateManagement.createURLRequesttt(url:"http://127.0.0.1:8080/candidate",method:"GET",token:getToken)
             let data = try await retrieveCandidateData.fetchCandidateDetailsById(request: request)
             
             self.candidats = data

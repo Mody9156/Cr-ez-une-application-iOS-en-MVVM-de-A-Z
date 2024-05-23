@@ -20,7 +20,6 @@
 		23C0FC062BFF87D7004A5D9C /* CandidateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */; };
 		23D1FE852BF74C2500F3FA1E /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE842BF74C2500F3FA1E /* Keychain.swift */; };
 		23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE862BF74CB700F3FA1E /* TokenStore.swift */; };
-		23D1FE892BF7BA3F00F3FA1E /* CandidateAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE882BF7BA3F00F3FA1E /* CandidateAuthentication.swift */; };
 		23D1FE8B2BF7BDAD00F3FA1E /* CandidateInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */; };
 		23D2BB982BFB782F00CE9B72 /* CandidateIDFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D2BB972BFB782F00CE9B72 /* CandidateIDFetcher.swift */; };
 		23D2BB9A2BFB7A8300CE9B72 /* CandidateDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D2BB992BFB7A8300CE9B72 /* CandidateDelete.swift */; };
@@ -34,7 +33,6 @@
 		23E2DD1D2BF3CB1900C28A1F /* LoginJSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */; };
 		23E2DD1F2BF3D2D300C28A1F /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD1E2BF3D2D300C28A1F /* AuthenticationManager.swift */; };
 		23E9EB962BFDFD09004B0366 /* CandidateDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9EB952BFDFD09004B0366 /* CandidateDetailsView.swift */; };
-		23E9EB9D2BFE35B1004B0366 /* FetchCandidateProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9EB9C2BFE35B1004B0366 /* FetchCandidateProfileViewModel.swift */; };
 		23E9EB9F2BFE3E1E004B0366 /* FetchcandidateIDFetcherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9EB9E2BFE3E1E004B0366 /* FetchcandidateIDFetcherViewModel.swift */; };
 		23E9EBA32BFE45D9004B0366 /* FetchDeleteCandidateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9EBA22BFE45D9004B0366 /* FetchDeleteCandidateViewModel.swift */; };
 		23E9EBA52BFE4731004B0366 /* FetchAndProcessCandidateFavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9EBA42BFE4731004B0366 /* FetchAndProcessCandidateFavoritesViewModel.swift */; };
@@ -69,7 +67,6 @@
 		23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateListViewModel.swift; sourceTree = "<group>"; };
 		23D1FE842BF74C2500F3FA1E /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		23D1FE862BF74CB700F3FA1E /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
-		23D1FE882BF7BA3F00F3FA1E /* CandidateAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateAuthentication.swift; sourceTree = "<group>"; };
 		23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateInformation.swift; sourceTree = "<group>"; };
 		23D2BB972BFB782F00CE9B72 /* CandidateIDFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateIDFetcher.swift; sourceTree = "<group>"; };
 		23D2BB992BFB7A8300CE9B72 /* CandidateDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDelete.swift; sourceTree = "<group>"; };
@@ -83,7 +80,6 @@
 		23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJSONModel.swift; sourceTree = "<group>"; };
 		23E2DD1E2BF3D2D300C28A1F /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		23E9EB952BFDFD09004B0366 /* CandidateDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandidateDetailsView.swift; sourceTree = "<group>"; };
-		23E9EB9C2BFE35B1004B0366 /* FetchCandidateProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchCandidateProfileViewModel.swift; sourceTree = "<group>"; };
 		23E9EB9E2BFE3E1E004B0366 /* FetchcandidateIDFetcherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchcandidateIDFetcherViewModel.swift; sourceTree = "<group>"; };
 		23E9EBA22BFE45D9004B0366 /* FetchDeleteCandidateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDeleteCandidateViewModel.swift; sourceTree = "<group>"; };
 		23E9EBA42BFE4731004B0366 /* FetchAndProcessCandidateFavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAndProcessCandidateFavoritesViewModel.swift; sourceTree = "<group>"; };
@@ -161,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */,
-				23D1FE882BF7BA3F00F3FA1E /* CandidateAuthentication.swift */,
 			);
 			path = liste;
 			sourceTree = "<group>";
@@ -232,7 +227,6 @@
 		23E9EB9B2BFE3569004B0366 /* Candidate */ = {
 			isa = PBXGroup;
 			children = (
-				23E9EB9C2BFE35B1004B0366 /* FetchCandidateProfileViewModel.swift */,
 				23E9EB9E2BFE3E1E004B0366 /* FetchcandidateIDFetcherViewModel.swift */,
 				23E9EBA22BFE45D9004B0366 /* FetchDeleteCandidateViewModel.swift */,
 				23E9EBA42BFE4731004B0366 /* FetchAndProcessCandidateFavoritesViewModel.swift */,
@@ -385,7 +379,6 @@
 				23ED07542BF641AA006FECD3 /* RegistreViewModel.swift in Sources */,
 				23E2DD1F2BF3D2D300C28A1F /* AuthenticationManager.swift in Sources */,
 				23E2DD102BF3A8D200C28A1F /* VitesseViewModel.swift in Sources */,
-				23E9EB9D2BFE35B1004B0366 /* FetchCandidateProfileViewModel.swift in Sources */,
 				234BDF8B2BEFEC7E00C96E42 /* LoginView.swift in Sources */,
 				23E2DD1D2BF3CB1900C28A1F /* LoginJSONModel.swift in Sources */,
 				23E2DD142BF3B7A300C28A1F /* HTTPService.swift in Sources */,
@@ -402,7 +395,6 @@
 				23ED07522BF61E85006FECD3 /* RegistrationRequestBody.swift in Sources */,
 				23ED07502BF61C61006FECD3 /* RegistrationRequestBuilder.swift in Sources */,
 				23E2DD162BF3B82B00C28A1F /* BasicHTTPClient.swift in Sources */,
-				23D1FE892BF7BA3F00F3FA1E /* CandidateAuthentication.swift in Sources */,
 				23E9EB9F2BFE3E1E004B0366 /* FetchcandidateIDFetcherViewModel.swift in Sources */,
 				23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */,
 				23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */,
