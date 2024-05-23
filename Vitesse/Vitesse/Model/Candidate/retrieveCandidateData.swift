@@ -13,15 +13,15 @@ import Foundation
 class retrieveCandidateData{
     
     let httpService: HTTPService
-
+    
     init(httpService: HTTPService = BasicHTTPClient()) {
         self.httpService = httpService
     }
-
+    
     enum CandidateFetchError: Error {
-        case networkError
+        case networkError,httpResponseInvalid
     }
-
+    
     func fetchCandidateDetailsById(request : URLRequest) async throws -> [CandidateInformation] {
         do {
             let request =  request
@@ -31,18 +31,20 @@ class retrieveCandidateData{
         }catch{
             throw CandidateFetchError.networkError
         }
+        
     }
     
-    func fetchresponse(request : URLRequest) async throws -> HTTPURLResponse
-    
-    let request = request
-    let (_, response) = try await httpService.request(request)
-    
-    guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-        throw URLRequestError.httpResponseInvalid
+    func fetchresponse(request : URLRequest) async throws -> HTTPURLResponse {
+        
+        let request = request
+        let (_, response) = try await httpService.request(request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw CandidateFetchError.httpResponseInvalid
+        }
+        return httpResponse
+        
+        
     }
-    return httpResponse
-   
-
+    
 }
-
