@@ -63,6 +63,7 @@ class CandidateListViewModel : ObservableObject {
                
                 self.candidats.remove(atOffsets: offsets)
             }
+            return data
         } catch {
             throw FetchTokenResult.deleteCandidateError
         }
