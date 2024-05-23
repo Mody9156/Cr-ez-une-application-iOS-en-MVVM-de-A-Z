@@ -29,18 +29,17 @@ class CandidateListViewModel : ObservableObject {
         return getToken
     }
     
-    //////////////////////////////////////////
-    ///
+    @MainActor
     func displayCandidatesList() async throws -> [CandidateInformation] {
         do {
-            let getToken = try  await getToken()
+            let getToken = try   getToken()
             let request = try
             
             CandidateManagement.createURLRequesttt(url:"http://127.0.0.1:8080/candidate",method:"GET",token:getToken)
             let data = try await retrieveCandidateData.fetchCandidateDetailsById(request: request)
-            
-            self.candidats = data
-            
+            DispatchQueue.main.async {
+                self.candidats = data
+            }
             return data
         } catch {
             throw FetchTokenResult.displayCandidatesListError
