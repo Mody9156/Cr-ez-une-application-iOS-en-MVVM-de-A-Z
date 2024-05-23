@@ -1,11 +1,8 @@
 import SwiftUI
 
 struct CandidatesListView: View {
-    @StateObject var fetchCandidateProfileViewModel: FetchCandidateProfileViewModel
-    @StateObject  var fetchcandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel
+    @StateObject var candidateListViewModel : CandidateListViewModel
     @State private var search = ""
-    @StateObject  var fetchDeleteCandidateViewModel : FetchDeleteCandidateViewModel
-    @StateObject  var fetchAndProcessCandidateFavoritesViewModel : FetchAndProcessCandidateFavoritesViewModel
     var body: some View {
         NavigationStack {
             ZStack {
@@ -20,17 +17,21 @@ struct CandidatesListView: View {
                                     Text(element.lastName)
                                     Text(element.firstName)
                                     Spacer()
-                                    Image(systemName: element.isFavorite ? "star.slash" : "star")
-                                        .foregroundColor(element.isFavorite ? .yellow : .black)
+                                    if element.isFavorite {
+                                        Image(systemName: "star.fill" )
+                                            .backgroundStyle(.yellow)
+                                    }
+                                    
                                 }
                             }
                         }
-                        .onDelete(perform: fetchDeleteCandidateViewModel.deleteCandidate)
+                        .onDelete(perform: candidateListViewModel.removeCandidate)
+                    
                     }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             EditButton()
-                                .frame(width: 100, height: 50)
+                                
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
@@ -39,8 +40,8 @@ struct CandidatesListView: View {
                             Button {
                                 Task {
                                     do {
-                                        let result = try await fetchAndProcessCandidateFavoritesViewModel.fetchAndProcessCandidateFavorites()
-                                        print("Félicitations, vous venez d'afficher les favoris")
+                                        let result = try await candidateListViewModel.showFavoriteCandidates(at: IndexSet())
+                                        print("Félicitations, vous venez d'afficher les favoris : \(String(describing: result))")
                                     } catch {
                                         print("Failed to process candidate favorites: \(error)")
                                     }
@@ -48,7 +49,6 @@ struct CandidatesListView: View {
                             } label: {
                                 Image(systemName: "star.fill")
                             }
-                            .frame(width: 100, height: 50)
                             .background(Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(10)
@@ -60,8 +60,8 @@ struct CandidatesListView: View {
                                 .foregroundColor(.blue)
                                 .padding()
                         }
-                    }
-                    .searchable(text: $search)
+                    }.searchable(text: $search)
+                    
                 }
             }
         }
@@ -70,21 +70,23 @@ struct CandidatesListView: View {
         }
     }
 
-    var searchResult: [RecruitTech] {
+    var searchResult: [CandidateInformation] {
         if search.isEmpty {
-            return fetchCandidateProfileViewModel.candidats
+            return candidateListViewModel.candidats
         } else {
-            return fetchCandidateProfileViewModel.candidats.filter { candidat in
+            return candidateListViewModel.candidats.filter { candidat in
                 candidat.lastName.lowercased().contains(search.lowercased()) ||
                 candidat.firstName.lowercased().contains(search.lowercased())
             }
         }
     }
+    
+    
 
     func loadCandidates() async {
         do {
-            let candidats = try await fetchCandidateProfileViewModel.fetchCandidateProfile()
-            fetchCandidateProfileViewModel.candidats = candidats
+            let candidats = try await candidateListViewModel.displayCandidatesList()
+            candidateListViewModel.candidats = candidats
         } catch {
             print("Erreur lors de la récupération des candidats")
         }

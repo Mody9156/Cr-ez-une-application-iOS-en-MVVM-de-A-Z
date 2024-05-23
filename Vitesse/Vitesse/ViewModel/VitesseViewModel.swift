@@ -19,20 +19,13 @@ class VitesseViewModel: ObservableObject {
         return RegistreViewModel(registrationRequestBuilder: registrationRequestBuilder)
     }
     
-    // Candidate
-    var fetchCandidateProfileViewModel: FetchCandidateProfileViewModel {
-        return FetchCandidateProfileViewModel(candidateProfile: CandidateProfile())
+    
+    var candidateDetailsManager: CandidateDetailsManager {
+        return CandidateDetailsManager(retrieveCandidateData: retrieveCandidateData())
     }
     
-    var fetchCandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel {
-        return FetchcandidateIDFetcherViewModel(candidateIDFetcher: CandidateIDFetcher(), candidats: [])
-    }
-    
-    var fetchDeleteCandidateViewModel: FetchDeleteCandidateViewModel {
-        return FetchDeleteCandidateViewModel(candidateDelete: CandidateDelete())
-    }
-    
-    var fetchAndProcessCandidateFavoritesViewModel: FetchAndProcessCandidateFavoritesViewModel {
-        return FetchAndProcessCandidateFavoritesViewModel(candidateFavoritesManager: CandidateFavoritesManager())
+   
+    var candidateListViewModel : CandidateListViewModel {
+        return CandidateListViewModel(retrieveCandidateData: retrieveCandidateData())
     }
 }

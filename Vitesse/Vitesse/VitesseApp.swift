@@ -9,16 +9,15 @@ struct VitesseApp: App {
             if vitesseViewModel.onLoginSucceed {
                 TabView {
                     CandidatesListView(
-                        fetchCandidateProfileViewModel: vitesseViewModel.fetchCandidateProfileViewModel,
-                        fetchcandidateIDFetcherViewModel: vitesseViewModel.fetchCandidateIDFetcherViewModel,
-                        fetchDeleteCandidateViewModel: vitesseViewModel.fetchDeleteCandidateViewModel,
-                        fetchAndProcessCandidateFavoritesViewModel: vitesseViewModel.fetchAndProcessCandidateFavoritesViewModel
-                    )
+                        candidateListViewModel: vitesseViewModel.candidateListViewModel)
                     .tabItem {
                         Image(systemName: "person.crop.circle")
                         Text("Candidats")
                     }
+                }.onAppear{
+                    //créer un nouveau candidat
                 }
+                
             } else {
                 LoginView(
                     AuthenticationView: vitesseViewModel.loginViewModel,

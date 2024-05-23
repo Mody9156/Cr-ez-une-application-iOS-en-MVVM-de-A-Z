@@ -1,15 +1,14 @@
 import SwiftUI
 
 struct CandidateDetailView: View {
-    @ObservedObject var fetchCandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel
-    @ObservedObject var fetchDeleteCandidateViewModel: FetchDeleteCandidateViewModel
+    @ObservedObject var candidateDetailsManager: CandidateDetailsManager
 
     var body: some View {
         ZStack {
             Color.blue.opacity(0.5).ignoresSafeArea()
             VStack {
                 List {
-                    ForEach(fetchCandidateIDFetcherViewModel.candidats, id: \.id) { tech in
+                    ForEach(candidateDetailsManager.candidats, id: \.id) { tech in
                         VStack {
                             HStack {
                                 Text(tech.lastName)
@@ -50,7 +49,7 @@ struct CandidateDetailView: View {
                         }
                         .padding()
                     }
-                    .onDelete(perform: fetchDeleteCandidateViewModel.deleteCandidate)
+                    
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -73,8 +72,8 @@ struct CandidateDetailView: View {
 
     func loadCandidateProfile() async {
         do {
-            let data = try await fetchCandidateIDFetcherViewModel.fetchCandidateIDFetcher(at: IndexSet())
-            fetchCandidateIDFetcherViewModel.candidats = data
+            let data = try await candidateDetailsManager.displayCandidateDetails(at: IndexSet())
+            candidateDetailsManager.candidats = data
             print("Félicitations")
         } catch {
             print("Dommage, le candidat n'est pas passé")
