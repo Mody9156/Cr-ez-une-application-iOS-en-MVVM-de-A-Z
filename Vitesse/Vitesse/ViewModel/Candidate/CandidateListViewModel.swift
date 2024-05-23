@@ -17,7 +17,7 @@ class CandidateListViewModel : ObservableObject {
     enum FetchTokenResult: Error, LocalizedError {
         case displayCandidatesListError
         case fetchTokenError
-        case deleteCandidateError,processCandidateElementsError
+        case deleteCandidateError,processCandidateElementsError,createCandidateError
     }
     @MainActor
     // recuperation du token
@@ -82,7 +82,7 @@ class CandidateListViewModel : ObservableObject {
         }
     }
     
-    func showFavoriteCandidates(at offsets: IndexSet) async throws -> [CandidateInformation]?{
+    func showFavoriteCandidates(at offsets: IndexSet) async throws -> [CandidateInformation]{
         do {
             let getToken = try await getToken()
             var id = ""
@@ -91,13 +91,28 @@ class CandidateListViewModel : ObservableObject {
             }
             let request =  try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)/favorite", method: "PUT", token: getToken, id: id)
             
-            let data = try await retrieveCandidateData.fetchCandidateDetails(request: request)
+            let data = try await retrieveCandidateData.fetchCandidateDetailsById(request: request)
                
             return data
             
         } catch {
-            print("Erreur dans fetchAndProcessCandidateFavorites: \(error)")
             throw FetchTokenResult.processCandidateElementsError
+        }
+    }
+    
+    func createCandidate(phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String,at offsets: IndexSet) async throws -> [CandidateInformation] {
+        
+        do {
+            let getToken = try await getToken()
+            var id = ""
+            for offset in offsets {
+                id = candidats[offset].id
+            }
+            let request = try CandidateManagement.createURLRequestfornewcandidat(url: "http://127.0.0.1:8080/candidate/", method: "POST", token: getToken, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName)
+            let data = try await retrieveCandidateData.accessCandidateCreationRequest(token: getToken, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName, request: request)
+            return data
+        }catch{
+            throw FetchTokenResult.createCandidateError
         }
     }
 }

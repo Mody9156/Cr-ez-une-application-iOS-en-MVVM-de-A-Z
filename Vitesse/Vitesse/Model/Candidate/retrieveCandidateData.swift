@@ -33,18 +33,8 @@ class retrieveCandidateData{
         }
         
     }
-    
-    func fetchCandidateDetails(request : URLRequest) async throws -> [CandidateInformation]? {
-        do {
-            let request =  request
-            let (data, _) = try await httpService.request(request)
-            let candidates = try JSONDecoder().decode([CandidateInformation].self, from: data)
-            return candidates
-        }catch{
-            throw CandidateFetchError.networkError
-        }
-        
-    }
+   
+   
     
     func fetchresponse(request : URLRequest) async throws -> HTTPURLResponse {
         
@@ -57,6 +47,16 @@ class retrieveCandidateData{
         return httpResponse
         
         
+    }
+    func accessCandidateCreationRequest(token: String, id: String,phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String,request : URLRequest) async throws -> [CandidateInformation] {
+        
+        let (data,_) = try await httpService.request(request)
+        
+       guard let jsonDecode = try? JSONDecoder().decode([CandidateInformation].self, from: data)
+        else {
+            throw CandidateFetchError.networkError
+        }
+        return jsonDecode
     }
     
 }

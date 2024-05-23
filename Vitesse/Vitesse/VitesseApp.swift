@@ -15,7 +15,7 @@ struct VitesseApp: App {
                         Text("Candidats")
                     }
                 }.onAppear{
-                    //
+                    //créer un nouveau candidat
                 }
                 
             } else {
