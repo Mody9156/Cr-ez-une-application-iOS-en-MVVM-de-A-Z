@@ -41,8 +41,8 @@ class FetchDeleteCandidateViewModel : ObservableObject {
                  id = candidats[offset].id
                
             }
-            try await candidateDelete.deleteCandidate(token: getToken, candidateId: id)
-            
+           let delete =  try await candidateDelete.deleteCandidate(token: getToken, candidateId: id)
+            print("candidate Delete : \(delete)")
             DispatchQueue.main.async {
                
                 self.candidats.remove(atOffsets: offsets)
