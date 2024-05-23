@@ -29,7 +29,7 @@ class CandidateListViewModel : ObservableObject {
     
     //////////////////////////////////////////
     ///
-    func fetchCandidateProfile() async throws -> [CandidateInformation] {
+    func displayCandidatesList() async throws -> [CandidateInformation] {
         do {
             let getToken = try  await fetchToken()
             let request = try
@@ -44,4 +44,9 @@ class CandidateListViewModel : ObservableObject {
             throw FetchTokenResult.candidateProfileError
         }
     }
+    
+    
+    
+    
+    
 }

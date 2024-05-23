@@ -91,7 +91,7 @@ struct CandidatesListView: View {
 
     func loadCandidates() async {
         do {
-            let candidats = try await candidateListViewModel.fetchCandidateProfile()
+            let candidats = try await candidateListViewModel.displayCandidatesList()
             candidateListViewModel.candidats = candidats
         } catch {
             print("Erreur lors de la récupération des candidats")
