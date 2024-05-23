@@ -21,8 +21,11 @@ struct CandidatesListView: View {
                                     Text(element.lastName)
                                     Text(element.firstName)
                                     Spacer()
-                                    Image(systemName:  "star.fill")
-                                        .backgroundStyle(element.isFavorite ? .yellow : .black)
+                                    if element.isFavorite {
+                                        Image(systemName: "star.fill" )
+                                            .backgroundStyle(.yellow)
+                                    }
+                                    
                                 }
                             }
                         }
