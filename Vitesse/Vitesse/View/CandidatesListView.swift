@@ -3,7 +3,6 @@ import SwiftUI
 struct CandidatesListView: View {
     @StateObject var candidateListViewModel : CandidateListViewModel
     @State private var search = ""
-    @State private var like : Bool = false
     var body: some View {
         NavigationStack {
             ZStack {
@@ -43,7 +42,6 @@ struct CandidatesListView: View {
                                     do {
                                         let result = try await candidateListViewModel.showFavoriteCandidates(at: IndexSet())
                                         print("Félicitations, vous venez d'afficher les favoris : \(String(describing: result))")
-                                         let like = true
                                     } catch {
                                         print("Failed to process candidate favorites: \(error)")
                                     }

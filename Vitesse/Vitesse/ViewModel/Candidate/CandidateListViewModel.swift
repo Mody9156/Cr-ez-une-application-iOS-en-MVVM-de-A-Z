@@ -83,7 +83,7 @@ class CandidateListViewModel : ObservableObject {
         }
     }
     
-    func showFavoriteCandidates(at offsets: IndexSet) async throws -> [CandidateInformation]?{
+    func showFavoriteCandidates(at offsets: IndexSet) async throws -> [CandidateInformation]{
         do {
             let getToken = try await getToken()
             var id = ""
