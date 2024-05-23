@@ -55,8 +55,9 @@ class CandidateListViewModel : ObservableObject {
                  id = candidats[offset].id
                
             }
-            let request = 
-            let data =
+            let request = CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)", method: "GET", token: getToken, id: id)
+            
+            let data = try await 
             
             DispatchQueue.main.async {
                

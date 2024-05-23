@@ -33,6 +33,15 @@ class retrieveCandidateData{
         }
     }
     
+    func fetchresponse(request : URLRequest) async throws -> HTTPURLResponse
+    
+    let request = request
+    let (_, response) = try await httpService.request(request)
+    
+    guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+        throw URLRequestError.httpResponseInvalid
+    }
+    return httpResponse
    
 
 }
