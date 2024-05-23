@@ -21,7 +21,7 @@ class VitesseViewModel: ObservableObject {
     
     // Candidate
     var fetchCandidateProfileViewModel: FetchCandidateProfileViewModel {
-        return FetchCandidateProfileViewModel(candidateProfile: CandidateProfile())
+        return FetchCandidateProfileViewModel(candidateProfile: CandidateAuthentication())
     }
     
     var fetchCandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel {

@@ -10,7 +10,7 @@ import Foundation
 class FetchDeleteCandidateViewModel : ObservableObject {
     let candidateDelete: CandidateDelete
     let keychain = Keychain()
-    @Published var candidats: [CandidateInformation] = []
+    @Published var candidats : [CandidateInformation] = []
 
     init(candidateDelete : CandidateDelete) {
         self.candidateDelete =  candidateDelete

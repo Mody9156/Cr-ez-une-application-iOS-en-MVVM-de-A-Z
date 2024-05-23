@@ -2,9 +2,9 @@ import Foundation
 
 class FetchCandidateProfileViewModel: ObservableObject {
     @Published var candidats: [CandidateInformation] = []
-    let candidateProfile: CandidateProfile
+    let candidateProfile: CandidateAuthentication
 
-    init(candidateProfile: CandidateProfile) {
+    init(candidateProfile: CandidateAuthentication) {
         self.candidateProfile = candidateProfile
     }
     enum FetchTokenResult: Error, LocalizedError {

@@ -15,9 +15,10 @@
 		238B00312BFCBBA000EF388A /* CandidateCreationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238B00302BFCBB9F00EF388A /* CandidateCreationManager.swift */; };
 		238B00332BFCBFF200EF388A /* CandidateUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238B00322BFCBFF200EF388A /* CandidateUpdater.swift */; };
 		238F89BF2BFCAFFB009DD983 /* CandidateFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238F89BE2BFCAFFB009DD983 /* CandidateFavoritesManager.swift */; };
+		23C0FC022BFF785F004A5D9C /* CandidateManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */; };
 		23D1FE852BF74C2500F3FA1E /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE842BF74C2500F3FA1E /* Keychain.swift */; };
 		23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE862BF74CB700F3FA1E /* TokenStore.swift */; };
-		23D1FE892BF7BA3F00F3FA1E /* CandidateProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE882BF7BA3F00F3FA1E /* CandidateProfile.swift */; };
+		23D1FE892BF7BA3F00F3FA1E /* CandidateAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE882BF7BA3F00F3FA1E /* CandidateAuthentication.swift */; };
 		23D1FE8B2BF7BDAD00F3FA1E /* CandidateInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */; };
 		23D2BB982BFB782F00CE9B72 /* CandidateIDFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D2BB972BFB782F00CE9B72 /* CandidateIDFetcher.swift */; };
 		23D2BB9A2BFB7A8300CE9B72 /* CandidateDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D2BB992BFB7A8300CE9B72 /* CandidateDelete.swift */; };
@@ -61,9 +62,10 @@
 		238B00302BFCBB9F00EF388A /* CandidateCreationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateCreationManager.swift; sourceTree = "<group>"; };
 		238B00322BFCBFF200EF388A /* CandidateUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateUpdater.swift; sourceTree = "<group>"; };
 		238F89BE2BFCAFFB009DD983 /* CandidateFavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateFavoritesManager.swift; sourceTree = "<group>"; };
+		23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateManagement.swift; sourceTree = "<group>"; };
 		23D1FE842BF74C2500F3FA1E /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		23D1FE862BF74CB700F3FA1E /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
-		23D1FE882BF7BA3F00F3FA1E /* CandidateProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateProfile.swift; sourceTree = "<group>"; };
+		23D1FE882BF7BA3F00F3FA1E /* CandidateAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateAuthentication.swift; sourceTree = "<group>"; };
 		23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateInformation.swift; sourceTree = "<group>"; };
 		23D2BB972BFB782F00CE9B72 /* CandidateIDFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateIDFetcher.swift; sourceTree = "<group>"; };
 		23D2BB992BFB7A8300CE9B72 /* CandidateDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDelete.swift; sourceTree = "<group>"; };
@@ -154,7 +156,8 @@
 		23C0FC002BFF76BF004A5D9C /* Authentification */ = {
 			isa = PBXGroup;
 			children = (
-				23D1FE882BF7BA3F00F3FA1E /* CandidateProfile.swift */,
+				23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */,
+				23D1FE882BF7BA3F00F3FA1E /* CandidateAuthentication.swift */,
 			);
 			path = Authentification;
 			sourceTree = "<group>";
@@ -173,7 +176,7 @@
 			children = (
 				23C0FC002BFF76BF004A5D9C /* Authentification */,
 				23D1FE832BF7485900F3FA1E /* Keychain */,
-				23ED074E2BF61A61006FECD3 /* Candidats */,
+				23ED074E2BF61A61006FECD3 /* Candidate */,
 				23ED074D2BF61A4B006FECD3 /* Registre */,
 				23E2DD192BF3CAA000C28A1F /* Login */,
 				23E2DD0C2BF39D8C00C28A1F /* Protocols */,
@@ -258,17 +261,17 @@
 			path = Registre;
 			sourceTree = "<group>";
 		};
-		23ED074E2BF61A61006FECD3 /* Candidats */ = {
+		23ED074E2BF61A61006FECD3 /* Candidate */ = {
 			isa = PBXGroup;
 			children = (
-				23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */,
 				23D2BB972BFB782F00CE9B72 /* CandidateIDFetcher.swift */,
 				23D2BB992BFB7A8300CE9B72 /* CandidateDelete.swift */,
 				238F89BE2BFCAFFB009DD983 /* CandidateFavoritesManager.swift */,
 				238B00302BFCBB9F00EF388A /* CandidateCreationManager.swift */,
 				238B00322BFCBFF200EF388A /* CandidateUpdater.swift */,
+				23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */,
 			);
-			path = Candidats;
+			path = Candidate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,12 +390,13 @@
 				234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */,
 				238B00332BFCBFF200EF388A /* CandidateUpdater.swift in Sources */,
 				238F89BF2BFCAFFB009DD983 /* CandidateFavoritesManager.swift in Sources */,
+				23C0FC022BFF785F004A5D9C /* CandidateManagement.swift in Sources */,
 				23D2BB982BFB782F00CE9B72 /* CandidateIDFetcher.swift in Sources */,
 				23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */,
 				23ED07522BF61E85006FECD3 /* RegistrationRequestBody.swift in Sources */,
 				23ED07502BF61C61006FECD3 /* RegistrationRequestBuilder.swift in Sources */,
 				23E2DD162BF3B82B00C28A1F /* BasicHTTPClient.swift in Sources */,
-				23D1FE892BF7BA3F00F3FA1E /* CandidateProfile.swift in Sources */,
+				23D1FE892BF7BA3F00F3FA1E /* CandidateAuthentication.swift in Sources */,
 				23E9EB9F2BFE3E1E004B0366 /* FetchcandidateIDFetcherViewModel.swift in Sources */,
 				23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */,
 				23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */,

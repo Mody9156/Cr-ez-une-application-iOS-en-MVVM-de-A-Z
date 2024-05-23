@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CandidateProfile {//
+class CandidateAuthentication {//
     
     let httpService: HTTPService
     
@@ -16,7 +16,7 @@ class CandidateProfile {//
     }
     
     enum URLRequestError: Error {
-        case invalidGeToken
+        case invalidToken
     }
     
     func fetchURLRequest(token: String) -> URLRequest {
@@ -35,7 +35,7 @@ class CandidateProfile {//
             let candidates = try JSONDecoder().decode([CandidateInformation].self, from: data)
             return candidates
         } catch {
-            throw URLRequestError.invalidGeToken
+            throw URLRequestError.invalidToken
         }
     }
 }

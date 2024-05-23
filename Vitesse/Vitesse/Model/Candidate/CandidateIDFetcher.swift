@@ -26,8 +26,6 @@ class CandidateIDFetcher {
         let authHeader = "Bearer " + token
         request.setValue(authHeader, forHTTPHeaderField: "Authorization")
        
-
-
         return request
     }
 
