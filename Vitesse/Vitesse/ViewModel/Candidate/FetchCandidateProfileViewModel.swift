@@ -10,23 +10,25 @@ class FetchCandidateProfileViewModel: ObservableObject {
     enum FetchTokenResult: Error, LocalizedError {
         case candidateProfileError,fetchTokenError
     }
-//affiche la liste
-    func fetchCandidateProfile() async throws -> [CandidateInformation] {
-        do {
-            let getToken = try fetchToken()
-            let data = try await candidateProfile.fetchCandidateSubmission(token: getToken)
-            self.candidats = data
-            return data
-        } catch {
-            throw FetchTokenResult.candidateProfileError
-        }
-    }
-
+    @MainActor
+    // recuperation du token
     private func fetchToken() throws -> String {
         let token = try Keychain().get(forKey: "token")
         guard let getToken = String(data: token, encoding: .utf8) else {
             throw FetchTokenResult.fetchTokenError
         }
         return getToken
+    }
+    @MainActor
+    //affiche la liste
+    func fetchCandidateProfile() async throws -> [CandidateInformation] {
+        do {
+            let getToken = try  fetchToken()
+            let data = try await candidateProfile.fetchCandidateSubmission(token: getToken)
+            self.candidats = data
+            return data
+        } catch {
+            throw FetchTokenResult.candidateProfileError
+        }
     }
 }

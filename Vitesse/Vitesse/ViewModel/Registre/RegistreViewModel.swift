@@ -23,7 +23,7 @@ class RegistreViewModel : ObservableObject {
     func handleRegistrationViewModel() async throws   {
         do{
             let buildRegistrationRequest = try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
-                print("Vous venez denregistrer : \(buildRegistrationRequest)")
+                print("Vous venez d'enregistrer : \(buildRegistrationRequest)")
            
         }catch{
           throw  error

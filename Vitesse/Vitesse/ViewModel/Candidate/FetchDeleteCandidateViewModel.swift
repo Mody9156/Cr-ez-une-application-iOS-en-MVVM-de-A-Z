@@ -22,6 +22,7 @@ class FetchDeleteCandidateViewModel : ObservableObject {
        
     }
     
+    // recuperation du token
     private func fetchToken() throws -> String {
         let token = try keychain.get(forKey: "token")
         guard let getToken = String(data: token, encoding: .utf8) else {
