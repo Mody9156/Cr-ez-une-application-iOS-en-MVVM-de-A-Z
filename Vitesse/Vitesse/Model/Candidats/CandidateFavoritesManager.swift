@@ -25,11 +25,8 @@ class CandidateFavoritesManager {
     func fetchFavoritesURLRequest(token: String, candidate: String) async throws -> [CandidateInformation]? {
         do {
             let request = favoritesURLRequest(token: token, candidate: candidate)
-            let (data, response) = try await httpService.request(request)
+            let (data, _) = try await httpService.request(request)
 
-            if let httpResponse = response as? HTTPURLResponse {
-                print("HTTP Response Status Code: \(httpResponse.statusCode)")
-            }
 
             let candidates = try? JSONDecoder().decode([CandidateInformation].self, from: data)
 
