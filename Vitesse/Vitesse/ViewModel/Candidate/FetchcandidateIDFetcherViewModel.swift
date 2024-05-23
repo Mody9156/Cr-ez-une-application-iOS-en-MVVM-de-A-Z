@@ -7,12 +7,12 @@
 import Foundation
 
 class FetchcandidateIDFetcherViewModel: ObservableObject {
-    @Published var candidats: [RecruitTech] = []
+    @Published var candidats: [CandidateInformation] = []
 
     let candidateIDFetcher: CandidateIDFetcher
     let keychain = Keychain()
 
-    init(candidateIDFetcher: CandidateIDFetcher, candidats: [RecruitTech] = []) {
+    init(candidateIDFetcher: CandidateIDFetcher, candidats: [CandidateInformation] = []) {
         self.candidateIDFetcher = candidateIDFetcher
         self.candidats = candidats
     }
@@ -30,7 +30,7 @@ class FetchcandidateIDFetcherViewModel: ObservableObject {
     }
 
     // Afficher les détails du candidat
-    func fetchCandidateIDFetcher(at offsets: IndexSet) async throws -> [RecruitTech] {
+    func fetchCandidateIDFetcher(at offsets: IndexSet) async throws -> [CandidateInformation] {
         do {
             let token = try fetchToken()
             var id = ""

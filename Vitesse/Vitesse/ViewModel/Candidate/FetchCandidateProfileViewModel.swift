@@ -1,7 +1,7 @@
 import Foundation
 
 class FetchCandidateProfileViewModel: ObservableObject {
-    @Published var candidats: [RecruitTech] = []
+    @Published var candidats: [CandidateInformation] = []
     let candidateProfile: CandidateProfile
 
     init(candidateProfile: CandidateProfile) {
@@ -11,7 +11,7 @@ class FetchCandidateProfileViewModel: ObservableObject {
         case candidateProfileError,fetchTokenError
     }
 //affiche la liste
-    func fetchCandidateProfile() async throws -> [RecruitTech] {
+    func fetchCandidateProfile() async throws -> [CandidateInformation] {
         do {
             let getToken = try fetchToken()
             let data = try await candidateProfile.fetchCandidateSubmission(token: getToken)

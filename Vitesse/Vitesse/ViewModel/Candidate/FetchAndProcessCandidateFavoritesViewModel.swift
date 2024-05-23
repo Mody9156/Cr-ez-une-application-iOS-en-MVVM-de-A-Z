@@ -11,7 +11,7 @@ class FetchAndProcessCandidateFavoritesViewModel : ObservableObject {
     
     let candidateFavoritesManager: CandidateFavoritesManager
     let keychain = Keychain()
-    @Published var candidats: [RecruitTech] = []
+    @Published var candidats: [CandidateInformation] = []
     
     init(candidateFavoritesManager: CandidateFavoritesManager){
         self.candidateFavoritesManager = candidateFavoritesManager
@@ -36,7 +36,7 @@ class FetchAndProcessCandidateFavoritesViewModel : ObservableObject {
     
     //Afficher les Favoris
     @MainActor
-    func fetchAndProcessCandidateFavorites() async throws -> [RecruitTech]?   {
+    func fetchAndProcessCandidateFavorites() async throws -> [CandidateInformation]?   {
         do {
             let getToken = try fetchToken()
             var id = ""

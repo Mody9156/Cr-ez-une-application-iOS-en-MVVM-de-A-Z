@@ -70,7 +70,7 @@ struct CandidatesListView: View {
         }
     }
 
-    var searchResult: [RecruitTech] {
+    var searchResult: [CandidateInformation] {
         if search.isEmpty {
             return fetchCandidateProfileViewModel.candidats
         } else {

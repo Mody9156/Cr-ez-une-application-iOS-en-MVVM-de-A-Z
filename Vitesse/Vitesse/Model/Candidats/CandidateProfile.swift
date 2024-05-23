@@ -28,11 +28,11 @@ class CandidateProfile {
         return request
     }
     
-    func fetchCandidateSubmission(token: String) async throws -> [RecruitTech] {
+    func fetchCandidateSubmission(token: String) async throws -> [CandidateInformation] {
         do {
             let request = fetchURLRequest(token: token)
             let (data, _) = try await httpService.request(request)
-            let candidates = try JSONDecoder().decode([RecruitTech].self, from: data)
+            let candidates = try JSONDecoder().decode([CandidateInformation].self, from: data)
             return candidates
         } catch {
             throw URLRequestError.invalidGeToken

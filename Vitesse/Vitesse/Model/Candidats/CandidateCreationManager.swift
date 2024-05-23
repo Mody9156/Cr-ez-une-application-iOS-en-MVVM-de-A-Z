@@ -22,7 +22,7 @@ class CandidateCreationManager {
         let url = URL(string: "http://127.0.0.1:8080/candidate/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        let data = RecruitTech(phone: phone, note: note, id: id, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName)
+        let data = CandidateInformation(phone: phone, note: note, id: id, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName)
         let body = try? JSONEncoder().encode(data)
         request.httpBody = body
         let authHeader = "Bearer " + token
@@ -31,11 +31,11 @@ class CandidateCreationManager {
     }
     
     
-    func accessCandidateCreationRequest(token: String, id: String,phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String) async throws -> [RecruitTech] {
+    func accessCandidateCreationRequest(token: String, id: String,phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String) async throws -> [CandidateInformation] {
         
         let (data,_) = try await httpService.request(buildCandidateCreationRequest(token: token, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName))
         
-       guard let jsonDecode = try? JSONDecoder().decode([RecruitTech].self, from: data)
+       guard let jsonDecode = try? JSONDecoder().decode([CandidateInformation].self, from: data)
         else {
             throw CandidateFetchError.networkError
         }
