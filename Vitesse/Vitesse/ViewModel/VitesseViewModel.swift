@@ -24,11 +24,7 @@ class VitesseViewModel: ObservableObject {
         return CandidateDetailsManager(retrieveCandidateData: retrieveCandidateData())
     }
     
-    
-    
-    var fetchAndProcessCandidateFavoritesViewModel: FetchAndProcessCandidateFavoritesViewModel {
-        return FetchAndProcessCandidateFavoritesViewModel(candidateFavoritesManager: CandidateFavoritesManager())
-    }
+   
     var candidateListViewModel : CandidateListViewModel {
         return CandidateListViewModel(retrieveCandidateData: retrieveCandidateData())
     }

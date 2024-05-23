@@ -9,9 +9,7 @@ struct VitesseApp: App {
             if vitesseViewModel.onLoginSucceed {
                 TabView {
                     CandidatesListView(
-                        candidateListViewModel: vitesseViewModel.candidateListViewModel,
-                        fetchAndProcessCandidateFavoritesViewModel: vitesseViewModel.fetchAndProcessCandidateFavoritesViewModel
-                    )
+                        candidateListViewModel: vitesseViewModel.candidateListViewModel)
                     .tabItem {
                         Image(systemName: "person.crop.circle")
                         Text("Candidats")
