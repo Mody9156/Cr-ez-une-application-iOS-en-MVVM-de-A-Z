@@ -151,6 +151,14 @@
 			path = VitesseTests;
 			sourceTree = "<group>";
 		};
+		23C0FC002BFF76BF004A5D9C /* Authentification */ = {
+			isa = PBXGroup;
+			children = (
+				23D1FE882BF7BA3F00F3FA1E /* CandidateProfile.swift */,
+			);
+			path = Authentification;
+			sourceTree = "<group>";
+		};
 		23D1FE832BF7485900F3FA1E /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +171,7 @@
 		23E2DD092BF3603900C28A1F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				23C0FC002BFF76BF004A5D9C /* Authentification */,
 				23D1FE832BF7485900F3FA1E /* Keychain */,
 				23ED074E2BF61A61006FECD3 /* Candidats */,
 				23ED074D2BF61A4B006FECD3 /* Registre */,
@@ -252,7 +261,6 @@
 		23ED074E2BF61A61006FECD3 /* Candidats */ = {
 			isa = PBXGroup;
 			children = (
-				23D1FE882BF7BA3F00F3FA1E /* CandidateProfile.swift */,
 				23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */,
 				23D2BB972BFB782F00CE9B72 /* CandidateIDFetcher.swift */,
 				23D2BB992BFB7A8300CE9B72 /* CandidateDelete.swift */,
