@@ -69,8 +69,17 @@ class CandidateListViewModel : ObservableObject {
         }
     }
     
-    
-    
-    
-    
+    func removeCandidate(at offsets: IndexSet) {
+        Task {
+            do {
+                try await deleteCandidate(at: offsets)
+            } catch {
+                throw FetchTokenResult.deleteCandidateError
+            }
+        }
+    }
 }
+    
+    
+    
+
