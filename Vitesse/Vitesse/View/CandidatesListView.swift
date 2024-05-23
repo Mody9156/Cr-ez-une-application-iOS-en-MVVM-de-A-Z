@@ -6,6 +6,7 @@ struct CandidatesListView: View {
     @State private var search = ""
     @StateObject  var fetchDeleteCandidateViewModel : FetchDeleteCandidateViewModel
     @StateObject  var fetchAndProcessCandidateFavoritesViewModel : FetchAndProcessCandidateFavoritesViewModel
+    @State private var like : Bool = false
     var body: some View {
         NavigationStack {
             ZStack {
@@ -20,7 +21,7 @@ struct CandidatesListView: View {
                                     Text(element.lastName)
                                     Text(element.firstName)
                                     Spacer()
-                                    Image(systemName: element.isFavorite ? "star.slash" : "star")
+                                    Image(systemName: element.isFavorite ? "star" : "star")
                                         .foregroundColor(element.isFavorite ? .yellow : .black)
                                 }
                             }
@@ -42,6 +43,7 @@ struct CandidatesListView: View {
                                     do {
                                         let result = try await fetchAndProcessCandidateFavoritesViewModel.fetchAndProcessCandidateFavorites()
                                         print("Félicitations, vous venez d'afficher les favoris : \(String(describing: result))")
+                                         let like = true
                                     } catch {
                                         print("Failed to process candidate favorites: \(error)")
                                     }
@@ -80,6 +82,8 @@ struct CandidatesListView: View {
             }
         }
     }
+    
+    
 
     func loadCandidates() async {
         do {
