@@ -15,7 +15,9 @@ class CandidateListViewModel : ObservableObject {
         self.retrieveCandidateData = retrieveCandidateData
     }
     enum FetchTokenResult: Error, LocalizedError {
-        case displayCandidatesListError,fetchTokenError,deleteCandidateError
+        case displayCandidatesListError
+        case fetchTokenError
+        case deleteCandidateError,processCandidateElementsError
     }
     @MainActor
     // recuperation du token
@@ -78,6 +80,24 @@ class CandidateListViewModel : ObservableObject {
             } catch {
                 throw FetchTokenResult.deleteCandidateError
             }
+        }
+    }
+    
+    func showFavoriteCandidates(at offsets: IndexSet) async throws -> [CandidateInformation]?{
+        do {
+            let getToken = try await getToken()
+            var id = ""
+            for offset in offsets {
+                id = candidats[offset].id
+            }
+            let request =  CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)/favorite", method: "PUT", token: getToken, id: id)
+            let data = try await retrieveCandidateData.fetchCandidateDetailsById(request: request)
+                
+            return data
+            
+        } catch {
+            print("Erreur dans fetchAndProcessCandidateFavorites: \(error)")
+            throw FetchTokenResult.processCandidateElementsError
         }
     }
 }

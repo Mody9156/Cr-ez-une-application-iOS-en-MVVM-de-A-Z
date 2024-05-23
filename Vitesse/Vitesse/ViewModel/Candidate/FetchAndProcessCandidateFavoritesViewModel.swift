@@ -30,8 +30,6 @@ class FetchAndProcessCandidateFavoritesViewModel : ObservableObject {
         }
         return getToken
     }
-    
-    
   
     
     //Afficher les Favoris
