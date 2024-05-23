@@ -3,7 +3,6 @@ import SwiftUI
 struct CandidatesListView: View {
     @StateObject var candidateListViewModel : CandidateListViewModel
     @State private var search = ""
-    @StateObject  var fetchDeleteCandidateViewModel : FetchDeleteCandidateViewModel
     @StateObject  var fetchAndProcessCandidateFavoritesViewModel : FetchAndProcessCandidateFavoritesViewModel
     @State private var like : Bool = false
     var body: some View {
@@ -28,7 +27,7 @@ struct CandidatesListView: View {
                                 }
                             }
                         }
-                        .onDelete(perform: fetchDeleteCandidateViewModel.deleteCandidate)
+                        .onDelete(perform: candidateListViewModel.removeCandidate)
                     
                     }
                     .toolbar {
