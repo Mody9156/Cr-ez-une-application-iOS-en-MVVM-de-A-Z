@@ -34,6 +34,18 @@ class retrieveCandidateData{
         
     }
     
+    func fetchCandidateDetails(request : URLRequest) async throws -> [CandidateInformation]? {
+        do {
+            let request =  request
+            let (data, _) = try await httpService.request(request)
+            let candidates = try JSONDecoder().decode([CandidateInformation].self, from: data)
+            return candidates
+        }catch{
+            throw CandidateFetchError.networkError
+        }
+        
+    }
+    
     func fetchresponse(request : URLRequest) async throws -> HTTPURLResponse {
         
         let request = request
