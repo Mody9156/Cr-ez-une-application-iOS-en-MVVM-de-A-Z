@@ -90,7 +90,7 @@ class CandidateListViewModel : ObservableObject {
             for offset in offsets {
                 id = candidats[offset].id
             }
-            let request =  CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)/favorite", method: "PUT", token: getToken, id: id)
+            let request =  try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)/favorite", method: "PUT", token: getToken, id: id)
             let data = try await retrieveCandidateData.fetchCandidateDetailsById(request: request)
                 
             return data
