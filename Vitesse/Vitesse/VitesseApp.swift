@@ -10,7 +10,6 @@ struct VitesseApp: App {
                 TabView {
                     CandidatesListView(
                         candidateListViewModel: vitesseViewModel.candidateListViewModel,
-                        fetchDeleteCandidateViewModel: vitesseViewModel.fetchDeleteCandidateViewModel,
                         fetchAndProcessCandidateFavoritesViewModel: vitesseViewModel.fetchAndProcessCandidateFavoritesViewModel
                     )
                     .tabItem {
