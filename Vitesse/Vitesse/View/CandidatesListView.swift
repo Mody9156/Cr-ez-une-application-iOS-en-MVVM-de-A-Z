@@ -2,8 +2,6 @@ import SwiftUI
 
 struct CandidatesListView: View {
     @StateObject var candidateListViewModel : CandidateListViewModel
-
-    @StateObject  var fetchcandidateIDFetcherViewModel: FetchcandidateIDFetcherViewModel
     @State private var search = ""
     @StateObject  var fetchDeleteCandidateViewModel : FetchDeleteCandidateViewModel
     @StateObject  var fetchAndProcessCandidateFavoritesViewModel : FetchAndProcessCandidateFavoritesViewModel

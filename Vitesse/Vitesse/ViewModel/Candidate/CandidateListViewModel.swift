@@ -15,11 +15,11 @@ class CandidateListViewModel : ObservableObject {
         self.retrieveCandidateData = retrieveCandidateData
     }
     enum FetchTokenResult: Error, LocalizedError {
-        case candidateProfileError,fetchTokenError
+        case displayCandidatesListError,fetchTokenError,deleteCandidateError
     }
     @MainActor
     // recuperation du token
-    private func fetchToken() throws -> String {
+    private func getToken() throws -> String {
         let token = try Keychain().get(forKey: "token")
         guard let getToken = String(data: token, encoding: .utf8) else {
             throw FetchTokenResult.fetchTokenError
@@ -31,7 +31,7 @@ class CandidateListViewModel : ObservableObject {
     ///
     func displayCandidatesList() async throws -> [CandidateInformation] {
         do {
-            let getToken = try  await fetchToken()
+            let getToken = try  await getToken()
             let request = try
             
             CandidateManagement.createURLRequesttt(url:"http://127.0.0.1:8080/candidate",method:"GET",token:getToken)
@@ -41,7 +41,29 @@ class CandidateListViewModel : ObservableObject {
             
             return data
         } catch {
-            throw FetchTokenResult.candidateProfileError
+            throw FetchTokenResult.displayCandidatesListError
+        }
+    }
+    
+    func deleteCandidate(at offsets: IndexSet) async throws -> HTTPURLResponse {
+        do {
+            let getToken = try await getToken()
+            var id = ""
+
+            for offset in offsets {
+                
+                 id = candidats[offset].id
+               
+            }
+            let request = 
+            let data =
+            
+            DispatchQueue.main.async {
+               
+                self.candidats.remove(atOffsets: offsets)
+            }
+        } catch {
+            throw FetchTokenResult.deleteCandidateError
         }
     }
     

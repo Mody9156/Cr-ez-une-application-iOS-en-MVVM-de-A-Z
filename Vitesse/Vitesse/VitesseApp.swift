@@ -9,8 +9,7 @@ struct VitesseApp: App {
             if vitesseViewModel.onLoginSucceed {
                 TabView {
                     CandidatesListView(
-                       
-                        candidateListViewModel: vitesseViewModel.candidateListViewModel, fetchcandidateIDFetcherViewModel: vitesseViewModel.fetchCandidateIDFetcherViewModel,
+                        candidateListViewModel: vitesseViewModel.candidateListViewModel,
                         fetchDeleteCandidateViewModel: vitesseViewModel.fetchDeleteCandidateViewModel,
                         fetchAndProcessCandidateFavoritesViewModel: vitesseViewModel.fetchAndProcessCandidateFavoritesViewModel
                     )
