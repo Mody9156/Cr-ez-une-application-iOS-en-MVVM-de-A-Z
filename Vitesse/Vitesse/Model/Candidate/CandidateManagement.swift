@@ -17,5 +17,13 @@ enum CandidateManagement {
         request.setValue(authHeader, forHTTPHeaderField: "Authorization")
         return request
     }
+    
+    func createURLRequesttt(url:String,method:String,token:String) -> URLRequest{
+        var url = URL(string: url)!
+        var request  = URLRequest(url: url)
+        request.httpMethod = method
+       
+        return request
+    }
    
 }
