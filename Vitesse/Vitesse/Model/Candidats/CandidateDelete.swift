@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CandidateDelete {
+class CandidateDelete {//
     
     let httpService: HTTPService
     

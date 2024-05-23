@@ -20,7 +20,7 @@ class FetchCandidateProfileViewModel: ObservableObject {
         return getToken
     }
     @MainActor
-    //affiche la liste
+    //afficher la liste
     func fetchCandidateProfile() async throws -> [CandidateInformation] {
         do {
             let getToken = try  fetchToken()

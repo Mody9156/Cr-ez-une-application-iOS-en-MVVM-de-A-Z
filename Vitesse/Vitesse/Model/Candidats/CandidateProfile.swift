@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CandidateProfile {
+class CandidateProfile {//
     
     let httpService: HTTPService
     

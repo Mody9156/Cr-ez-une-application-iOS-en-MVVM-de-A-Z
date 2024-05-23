@@ -26,11 +26,12 @@ struct CandidatesListView: View {
                             }
                         }
                         .onDelete(perform: fetchDeleteCandidateViewModel.deleteCandidate)
+                    
                     }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             EditButton()
-                                .frame(width: 100, height: 50)
+                                
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
@@ -48,7 +49,6 @@ struct CandidatesListView: View {
                             } label: {
                                 Image(systemName: "star.fill")
                             }
-                            .frame(width: 100, height: 50)
                             .background(Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(10)
@@ -60,8 +60,8 @@ struct CandidatesListView: View {
                                 .foregroundColor(.blue)
                                 .padding()
                         }
-                    }
-                    .searchable(text: $search)
+                    }.searchable(text: $search)
+                    
                 }
             }
         }

@@ -18,7 +18,10 @@ struct VitesseApp: App {
                         Image(systemName: "person.crop.circle")
                         Text("Candidats")
                     }
+                }.onAppear{
+                    //
                 }
+                
             } else {
                 LoginView(
                     AuthenticationView: vitesseViewModel.loginViewModel,
