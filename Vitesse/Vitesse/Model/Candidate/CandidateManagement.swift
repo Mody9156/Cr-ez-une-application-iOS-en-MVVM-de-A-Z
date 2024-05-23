@@ -7,20 +7,9 @@
 
 import Foundation
 
-class CandidateManagement {
+enum CandidateManagement {
     
-    let httpService: HTTPService
-
-    init(httpService: HTTPService = BasicHTTPClient()) {
-        self.httpService = httpService
-    }
-
-    enum CandidateFetchError: Error {
-        case networkError
-        case httpResponseInvalid
-    }
-    
-    func  createURLRequest(url:String,method:String,token:String) -> URLRequest{
+    func createURLRequest(url:String,method:String,token:String,id:String) -> URLRequest{
         var url = URL(string: url)!
         var request  = URLRequest(url: url)
         request.httpMethod = method
@@ -28,10 +17,5 @@ class CandidateManagement {
         request.setValue(authHeader, forHTTPHeaderField: "Authorization")
         return request
     }
-    
-    
-    
-    
-    
-    
+   
 }

@@ -16,6 +16,7 @@
 		238B00332BFCBFF200EF388A /* CandidateUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238B00322BFCBFF200EF388A /* CandidateUpdater.swift */; };
 		238F89BF2BFCAFFB009DD983 /* CandidateFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238F89BE2BFCAFFB009DD983 /* CandidateFavoritesManager.swift */; };
 		23C0FC022BFF785F004A5D9C /* CandidateManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */; };
+		23C0FC042BFF7E98004A5D9C /* retrieveCandidateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC032BFF7E98004A5D9C /* retrieveCandidateData.swift */; };
 		23D1FE852BF74C2500F3FA1E /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE842BF74C2500F3FA1E /* Keychain.swift */; };
 		23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE862BF74CB700F3FA1E /* TokenStore.swift */; };
 		23D1FE892BF7BA3F00F3FA1E /* CandidateAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE882BF7BA3F00F3FA1E /* CandidateAuthentication.swift */; };
@@ -63,6 +64,7 @@
 		238B00322BFCBFF200EF388A /* CandidateUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateUpdater.swift; sourceTree = "<group>"; };
 		238F89BE2BFCAFFB009DD983 /* CandidateFavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateFavoritesManager.swift; sourceTree = "<group>"; };
 		23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateManagement.swift; sourceTree = "<group>"; };
+		23C0FC032BFF7E98004A5D9C /* retrieveCandidateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = retrieveCandidateData.swift; sourceTree = "<group>"; };
 		23D1FE842BF74C2500F3FA1E /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		23D1FE862BF74CB700F3FA1E /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
 		23D1FE882BF7BA3F00F3FA1E /* CandidateAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateAuthentication.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				238B00302BFCBB9F00EF388A /* CandidateCreationManager.swift */,
 				238B00322BFCBFF200EF388A /* CandidateUpdater.swift */,
 				23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */,
+				23C0FC032BFF7E98004A5D9C /* retrieveCandidateData.swift */,
 			);
 			path = Candidate;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */,
 				23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */,
 				23E9EBA52BFE4731004B0366 /* FetchAndProcessCandidateFavoritesViewModel.swift in Sources */,
+				23C0FC042BFF7E98004A5D9C /* retrieveCandidateData.swift in Sources */,
 				238B00312BFCBBA000EF388A /* CandidateCreationManager.swift in Sources */,
 				23D1FE852BF74C2500F3FA1E /* Keychain.swift in Sources */,
 			);
