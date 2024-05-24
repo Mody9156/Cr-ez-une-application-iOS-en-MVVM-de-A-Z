@@ -58,5 +58,11 @@ class CandidateDetailsManager : ObservableObject {
         }
     }
     
+    func updateCandidateInformation(with updatedCandidate: CandidateInformation) {
+        if let index = candidats.firstIndex(where: { $0.id == updatedCandidate.id}){
+            candidats[index] = updatedCandidate
+        }
+    }
+    
     
 }

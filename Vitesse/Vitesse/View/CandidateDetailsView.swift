@@ -2,14 +2,15 @@ import SwiftUI
 
 struct CandidateDetailView: View {
     @ObservedObject var candidateDetailsManager: CandidateDetailsManager
+    @State private var isEditing = false
+    @State private var editedNote: String = ""
+    @State private var editedFirstName: String = ""
+    @State private var editedLastName: String = ""
+    @State private var editedPhone: String?
+    @State private var editedEmail: String = ""
+    @State private var editedLinkedIn: String?
+    
     var candidate: CandidateInformation
-        @State private var isEditing = false
-        @State private var editedNote: String = ""
-        @State private var editedFirstName: String = ""
-        @State private var editedLastName: String = ""
-        @State private var editedPhone: String?
-        @State private var editedEmail: String = ""
-        @State private var editedLinkedIn: String?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -17,55 +18,78 @@ struct CandidateDetailView: View {
                 HStack {
                     if isEditing {
                         TextField("Last Name", text: $editedLastName)
-                                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
                         TextField("First Name", text: $editedFirstName)
-                                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    }else {
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    } else {
                         Text(candidate.lastName)
                             .font(.title2)
                         Text(candidate.firstName)
                             .font(.title2)
-                        Spacer()
-                        Image(systemName: candidate.isFavorite ? "star.fill" : "star")
-                            .foregroundColor(candidate.isFavorite ? .yellow : .black)
-                            .font(.title2)
                     }
-                    
-                   
-                    
+                    Spacer()
+                    Image(systemName: candidate.isFavorite ? "star.fill" : "star")
+                        .foregroundColor(candidate.isFavorite ? .yellow : .black)
+                        .font(.title2)
                 }
                 
                 HStack {
                     Text("Phone")
-                    if let phone = candidate.phone {
-                        Text(phone)
+                    if isEditing {
+                        TextField("Phone", text: Binding(
+                            get: { editedPhone ?? "" },
+                            set: { editedPhone = $0 }
+                        ))
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        Text("No phone available")
-                            .foregroundColor(.gray)
+                        if let phone = candidate.phone {
+                            Text(phone)
+                        } else {
+                            Text("No phone available")
+                                .foregroundColor(.gray)
+                        }
                     }
                 }
                 
                 HStack {
                     Text("Email")
-                    Text(candidate.email)
+                    if isEditing {
+                        TextField("Email", text: $editedEmail)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    } else {
+                        Text(candidate.email)
+                    }
                 }
                 
                 HStack {
                     Text("LinkedIn")
-                    if let linkedIn = candidate.linkedinURL {
-                        Text(linkedIn)
+                    if isEditing {
+                        TextField("LinkedIn URL", text: Binding(
+                            get: { editedLinkedIn ?? "" },
+                            set: { editedLinkedIn = $0 }
+                        ))
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        Text("Go on LinkedIn")
-                            .foregroundColor(.white)
+                        if let linkedIn = candidate.linkedinURL {
+                            Text(linkedIn)
+                        } else {
+                            Text("Go on LinkedIn")
+                                .foregroundColor(.white)
+                        }
                     }
                 }
                 
                 Text("Note")
-                if let note = candidate.note {
-                    Text(note)
+                if isEditing {
+                    TextField("Note", text: $editedNote)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                 } else {
-                    Text("No note available")
-                        .foregroundColor(.gray)
+                    if let note = candidate.note {
+                        Text(note)
+                    } else {
+                        Text("No note available")
+                            .foregroundColor(.gray)
+                    }
                 }
             }
         }
@@ -74,37 +98,33 @@ struct CandidateDetailView: View {
             Task {
                 await loadCandidateProfile()
             }
-            
             initializeEditingFields()
-            
-        }.toolbar {
+        }
+        .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if isEditing {
                     Button("Save") {
-                        Task {@MainActor in
-                            await candidateUpdater()
+                        Task {
+                            await saveCandidate()
                         }
                     }
-                }else {
-                    Button("Edit"){
+                } else {
+                    Button("Edit") {
                         isEditing.toggle()
                     }
                 }
-               
             }
         }
     }
     
-    
     func initializeEditingFields() {
-           editedNote = candidate.note ?? ""
-           editedFirstName = candidate.firstName
-           editedLastName = candidate.lastName
-           editedPhone = candidate.phone
-           editedEmail = candidate.email
-           editedLinkedIn = candidate.linkedinURL
-       }
-    
+        editedNote = candidate.note ?? ""
+        editedFirstName = candidate.firstName
+        editedLastName = candidate.lastName
+        editedPhone = candidate.phone
+        editedEmail = candidate.email
+        editedLinkedIn = candidate.linkedinURL
+    }
     
     func loadCandidateProfile() async {
         do {
@@ -116,24 +136,23 @@ struct CandidateDetailView: View {
         }
     }
     
-    func candidateUpdater() async {
+    func saveCandidate() async {
         do {
-            let data = try await candidateDetailsManager.candidateUpdater(
-                phone: candidate.phone,
-                note: candidate.note,
-                firstName: candidate.firstName,
-                linkedinURL: candidate.linkedinURL,
-                isFavorite: candidate.isFavorite,
-                email: candidate.email,
-                lastName: candidate.lastName,
+            let updatedCandidate = try await candidateDetailsManager.candidateUpdater(
+                phone: editedPhone,
+                note: editedNote,
+                firstName: editedFirstName,
+                linkedinURL: editedLinkedIn,
+                isFavorite: candidate.isFavorite, // Only administrators can update this field
+                email: editedEmail,
+                lastName: editedLastName,
                 id: candidate.id
             )
-            
-            
-
-            print("Félicitations Updater \(data)")
+            candidateDetailsManager.updateCandidateInformation(with: updatedCandidate)
+            isEditing.toggle()
+            print("Félicitations Updater \(updatedCandidate)")
         } catch {
-            print("Dommage, le Updater n'est pas passé ")
+            print("Dommage, le Updater n'est pas passé")
         }
     }
 }
