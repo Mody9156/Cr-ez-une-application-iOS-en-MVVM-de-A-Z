@@ -53,6 +53,11 @@ class CandidateDetailsManager : ObservableObject {
             }
             let request = try CandidateManagement.createURLRequestfornewcandidat(url: "http://127.0.0.1:8080/candidate/\(id)", method: "PUT", token: getToken, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName)
             let data = try await retrieveCandidateData.fetchCandidateInformation(token: getToken, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName, request: request)
+            print("data : \(data)")
+            print("data : \(request)")
+            print("data : \(getToken)")
+            print("data : \(id)")
+
             return data
         }catch{
             throw FetchTokenResult.candidateUpdaterError
