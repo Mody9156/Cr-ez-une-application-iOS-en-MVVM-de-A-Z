@@ -6,8 +6,8 @@ struct CandidateDetailView: View {
         ZStack {
             Color.blue.opacity(0.5).ignoresSafeArea()
             VStack {
-                List {
-                    ForEach(candidateDetailsManager.candidats, id: \.id) { tech in
+               
+                List(candidateDetailsManager.candidats, id: \.id) { tech in
                         VStack {
                             HStack {
                                 Text(tech.lastName)
@@ -48,8 +48,6 @@ struct CandidateDetailView: View {
                         }
                         .padding()
                     }
-                    
-                }
                 .onAppear {
                     Task {
                         await loadCandidateProfile()

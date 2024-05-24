@@ -11,7 +11,7 @@ struct CandidatesListView: View {
                     List {
                         ForEach(searchResult, id: \.id) { element in
                             NavigationLink(destination:
-                                Text(element.lastName)
+                                CandidateDetailView(candidateDetailsManager: CandidateDetailsManager(retrieveCandidateData: retrieveCandidateData()))
                             ){
                                 HStack {
                                     Text(element.lastName)
