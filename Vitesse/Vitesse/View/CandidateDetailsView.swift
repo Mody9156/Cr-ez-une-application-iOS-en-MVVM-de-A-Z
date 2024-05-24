@@ -74,6 +74,9 @@ struct CandidateDetailView: View {
             Task {
                 await loadCandidateProfile()
             }
+            
+            initializeEditingFields()
+            
         }.toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if isEditing {
@@ -91,6 +94,17 @@ struct CandidateDetailView: View {
             }
         }
     }
+    
+    
+    func initializeEditingFields() {
+           editedNote = candidate.note ?? ""
+           editedFirstName = candidate.firstName
+           editedLastName = candidate.lastName
+           editedPhone = candidate.phone
+           editedEmail = candidate.email
+           editedLinkedIn = candidate.linkedinURL
+       }
+    
     
     func loadCandidateProfile() async {
         do {
@@ -114,6 +128,9 @@ struct CandidateDetailView: View {
                 lastName: candidate.lastName,
                 id: candidate.id
             )
+            
+            
+
             print("Félicitations Updater \(data)")
         } catch {
             print("Dommage, le Updater n'est pas passé ")
