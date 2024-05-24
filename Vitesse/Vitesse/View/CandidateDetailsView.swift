@@ -9,14 +9,16 @@ struct CandidateDetailView: View {
 
             HStack {
                 Text(candidate.lastName)
+                    .font(.title2)
                 Text(candidate.firstName)
+                    .font(.title2)
                 Spacer()
                 Image(systemName: candidate.isFavorite ? "star.fill" : "star")
-                    .foregroundColor(candidate.isFavorite ? .yellow : .black)
-            }.padding()
+                    .foregroundColor(candidate.isFavorite ? .yellow : .black).font(.title2)
+            }
                 
             HStack {
-                Text("Phone")
+                Text("Phone").font(.title3)
                 if let phone = candidate.phone {
                     Text(phone)
                 } else {
@@ -26,11 +28,11 @@ struct CandidateDetailView: View {
             }
                 
             HStack {
-                Text("Email")
+                Text("Email").font(.title3)
                 Text(candidate.email)
             }
             HStack {
-                Text("LinkedIn")
+                Text("LinkedIn").font(.title3)
                 if let linkedIn = candidate.linkedinURL {
                     Text(linkedIn)
                 } else {
@@ -39,12 +41,12 @@ struct CandidateDetailView: View {
                 }
             }
             }
-            Text("Note")
+            Text("Note").font(.title3)
             if let note = candidate.note {
                 Text(note)
             } else {
                 Text("No note available")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.gray).border(.blue,width: 2)
             }
         }
         .padding()
