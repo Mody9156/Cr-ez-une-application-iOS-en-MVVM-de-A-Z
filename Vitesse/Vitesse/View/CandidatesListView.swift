@@ -46,10 +46,7 @@ struct CandidatesListView: View {
                             .frame(width: 40,height: 40)
                             .foregroundColor(.blue)
                         }
-                        ToolbarItem(placement: .navigation) {
-                            Text("Candidats")
-                                .foregroundColor(.blue)
-                        }
+                       
                     }
                     .searchable(text: $search)
                 }
