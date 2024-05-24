@@ -3,19 +3,36 @@ import SwiftUI
 struct CandidateDetailView: View {
     @ObservedObject var candidateDetailsManager: CandidateDetailsManager
     var candidate: CandidateInformation
+        @State private var isEditing = false
+        @State private var editedNote: String = ""
+        @State private var editedFirstName: String = ""
+        @State private var editedLastName: String = ""
+        @State private var editedPhone: String?
+        @State private var editedEmail: String = ""
+        @State private var editedLinkedIn: String?
     
     var body: some View {
         VStack(alignment: .leading) {
             Group {
                 HStack {
-                    Text(candidate.lastName)
-                        .font(.title2)
-                    Text(candidate.firstName)
-                        .font(.title2)
-                    Spacer()
-                    Image(systemName: candidate.isFavorite ? "star.fill" : "star")
-                        .foregroundColor(candidate.isFavorite ? .yellow : .black)
-                        .font(.title2)
+                    if isEditing {
+                        TextField("Last Name", text: $editedLastName)
+                                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                        TextField("First Name", text: $editedFirstName)
+                                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }else {
+                        Text(candidate.lastName)
+                            .font(.title2)
+                        Text(candidate.firstName)
+                            .font(.title2)
+                        Spacer()
+                        Image(systemName: candidate.isFavorite ? "star.fill" : "star")
+                            .foregroundColor(candidate.isFavorite ? .yellow : .black)
+                            .font(.title2)
+                    }
+                    
+                   
+                    
                 }
                 
                 HStack {
@@ -57,14 +74,20 @@ struct CandidateDetailView: View {
             Task {
                 await loadCandidateProfile()
             }
-        }
-        .toolbar {
+        }.toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Edit") {
-                    Task {@MainActor in
-                        await candidateUpdater()
+                if isEditing {
+                    Button("Save") {
+                        Task {@MainActor in
+                            await candidateUpdater()
+                        }
+                    }
+                }else {
+                    Button("Edit"){
+                        isEditing.toggle()
                     }
                 }
+               
             }
         }
     }
