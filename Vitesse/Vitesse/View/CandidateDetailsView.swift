@@ -36,22 +36,21 @@ struct CandidateDetailView: View {
                 if let linkedIn = candidate.linkedinURL {
                     Text(linkedIn)
                 } else {
-                    Text("No LinkedIn available")
-                        .foregroundColor(.gray)
+                  
+                        Text("Go on Linkedin").foregroundColor(.white)
+                           
+                    
                 }
             }
             }
             Text("Note")
-            ZStack {
-                Rectangle().border(.black,width: 1).frame(width: 380, height: 100, alignment: .leading).foregroundColor(.white).cornerRadius(10)
-               
+          
                 if let note = candidate.note {
                     Text(note)
                 } else {
                     Text("No note available")
                         .foregroundColor(.gray)
-                    
-                }
+                
                 
             }
         }
