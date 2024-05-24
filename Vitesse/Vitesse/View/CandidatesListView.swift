@@ -44,6 +44,8 @@ struct CandidatesListView: View {
                             } label: {
                                 Image(systemName: "star.fill")
                             }
+                            .frame(width: 40,height: 40)
+                            .frame(width: 40,height: 40)
                             .background(Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(10)
