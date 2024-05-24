@@ -82,7 +82,7 @@ class CandidateListViewModel : ObservableObject {
         }
     }
     
-    func showFavoriteCandidates(at offsets: IndexSet) async throws -> [CandidateInformation]{
+    func showFavoriteCandidates(at offsets: IndexSet) async throws -> [CandidateInformation]? {
         do {
             let getToken = try await getToken()
             var id = ""
@@ -92,10 +92,7 @@ class CandidateListViewModel : ObservableObject {
             let request =  try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)/favorite", method: "PUT", token: getToken, id: id)
             
             let data = try await retrieveCandidateData.fetchCandidateData(request: request)
-               print("request : \(request)")
-            print("request : \(data)")
-            print("request : \(getToken)")
-            print("request : \(id)")
+               
             return data
             
         } catch {
