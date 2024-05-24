@@ -18,7 +18,7 @@ struct CandidateDetailView: View {
             }
                 
             HStack {
-                Text("Phone").font(.title3)
+                Text("Phone")
                 if let phone = candidate.phone {
                     Text(phone)
                 } else {
@@ -28,11 +28,11 @@ struct CandidateDetailView: View {
             }
                 
             HStack {
-                Text("Email").font(.title3)
+                Text("Email")
                 Text(candidate.email)
             }
             HStack {
-                Text("LinkedIn").font(.title3)
+                Text("LinkedIn")
                 if let linkedIn = candidate.linkedinURL {
                     Text(linkedIn)
                 } else {
@@ -41,12 +41,18 @@ struct CandidateDetailView: View {
                 }
             }
             }
-            Text("Note").font(.title3)
-            if let note = candidate.note {
-                Text(note)
-            } else {
-                Text("No note available")
-                    .foregroundColor(.gray).border(.blue,width: 2)
+            Text("Note")
+            ZStack {
+                Rectangle().border(.black,width: 1).frame(width: 380, height: 100, alignment: .leading).foregroundColor(.white).cornerRadius(10)
+               
+                if let note = candidate.note {
+                    Text(note)
+                } else {
+                    Text("No note available")
+                        .foregroundColor(.gray)
+                    
+                }
+                
             }
         }
         .padding()
