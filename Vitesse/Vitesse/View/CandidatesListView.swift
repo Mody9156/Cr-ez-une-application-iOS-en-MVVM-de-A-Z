@@ -27,9 +27,8 @@ struct CandidatesListView: View {
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             EditButton()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                                .frame(width: 40,height: 40)
+                                .foregroundColor(.blue)
                         }
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {
@@ -45,10 +44,7 @@ struct CandidatesListView: View {
                                 Image(systemName: "star.fill")
                             }
                             .frame(width: 40,height: 40)
-                            .frame(width: 40,height: 40)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                            .foregroundColor(.blue)
                         }
                         ToolbarItem(placement: .navigation) {
                             Text("Candidats")
