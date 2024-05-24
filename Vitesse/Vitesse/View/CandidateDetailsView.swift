@@ -93,7 +93,7 @@ struct CandidateDetailView: View {
             )
             print("Félicitations Updater \(data)")
         } catch {
-            print("Dommage, le Updater n'est pas passé \(candidate.lastName)")
+            print("Dommage, le Updater n'est pas passé ")
         }
     }
 }
