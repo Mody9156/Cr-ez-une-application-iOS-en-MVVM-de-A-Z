@@ -87,8 +87,15 @@ struct CandidateDetailView: View {
     
     func candidateUpdater() async {
         do{
-            let data = try await candidateDetailsManager.candidateUpdater(at: IndexSet(), phone: candidate.phone, note: candidate.note, firstName: candidate.firstName, linkedinURL: candidate.linkedinURL, isFavorite: candidate.isFavorite, email: candidate.email, lastName: candidate
-                .lastName)
+            let data = try await candidateDetailsManager.candidateUpdater(
+            phone: candidate.phone,
+            note: candidate.note,
+            firstName: candidate.firstName,
+            linkedinURL: candidate.linkedinURL,
+            isFavorite: candidate.isFavorite,
+            email: candidate.email,
+            lastName: candidate.lastName,
+            id: candidate.id)
             print("Félicitations Updater \(data)")
         }catch{
             print("Dommage, le Updater n'est pas passé")
