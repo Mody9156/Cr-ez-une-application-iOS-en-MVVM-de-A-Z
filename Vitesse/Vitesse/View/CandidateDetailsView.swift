@@ -116,15 +116,9 @@ struct CandidateDetailView: View {
             }
         }
     }
-    
-    func initializeEditingFields() {
-        editedNote = candidate.note ?? ""
-        editedFirstName = candidate.firstName
-        editedLastName = candidate.lastName
-        editedPhone = candidate.phone ?? ""
-        editedEmail = candidate.email
-        editedLinkedIn = candidate.linkedinURL ?? ""
-    }
+}
+
+extension CandidateDetailView {
     
     func loadCandidateProfile() async {
         do {
@@ -136,6 +130,10 @@ struct CandidateDetailView: View {
         }
     }
     
+    }
+
+
+extension CandidateDetailView {
     func saveCandidate() async {
         do {
             let updatedCandidate = try await candidateDetailsManager.candidateUpdater(
@@ -155,4 +153,20 @@ struct CandidateDetailView: View {
             print("Dommage, le Updater n'est pas passé")
         }
     }
+}
+
+
+
+
+ 
+extension CandidateDetailView {
+    func initializeEditingFields() {
+        editedNote = candidate.note ?? ""
+        editedFirstName = candidate.firstName
+        editedLastName = candidate.lastName
+        editedPhone = candidate.phone ?? ""
+        editedEmail = candidate.email
+        editedLinkedIn = candidate.linkedinURL ?? ""
+    }
+    
 }
