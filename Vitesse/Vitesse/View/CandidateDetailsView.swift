@@ -13,7 +13,7 @@ struct CandidateDetailView: View {
                                 Text(candidate.firstName)
                                 Spacer()
                                 Image(systemName: candidate.isFavorite ? "star.fill" : "star")
-                                    .foregroundColor(candidate.isFavorite ? .yellow : .black)
+                                    .foregroundColor( .yellow )
                             }
                             HStack {
                                 Text("Phone")

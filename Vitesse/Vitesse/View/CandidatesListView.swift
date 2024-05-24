@@ -8,6 +8,7 @@ struct CandidatesListView: View {
             ZStack {
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
+              
                     List {
                         ForEach(searchResult, id: \.id) { candidate in
                             NavigationLink(destination:CandidateDetailView(candidateDetailsManager: CandidateDetailsManager(retrieveCandidateData: retrieveCandidateData()), candidate: candidate)){
