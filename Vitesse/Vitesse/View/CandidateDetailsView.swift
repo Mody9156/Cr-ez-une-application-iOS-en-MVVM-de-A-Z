@@ -1,24 +1,23 @@
 import SwiftUI
 struct CandidateDetailView: View {
     @ObservedObject var candidateDetailsManager: CandidateDetailsManager
-    
+     var candidate: CandidateInformation // Assurez-vous que CandidateInformation est le bon type
     var body: some View {
         ZStack {
             Color.blue.opacity(0.5).ignoresSafeArea()
             VStack {
                 List {
-                    ForEach(candidateDetailsManager.candidats, id: \.id) { tech in // Utilisez candidats du manager
                         VStack {
                             HStack {
-                                Text(tech.lastName)
-                                Text(tech.firstName)
+                                Text(candidate.lastName)
+                                Text(candidate.firstName)
                                 Spacer()
-                                Image(systemName: tech.isFavorite ? "star.fill" : "star")
-                                    .foregroundColor(tech.isFavorite ? .yellow : .black)
+                                Image(systemName: candidate.isFavorite ? "star.fill" : "star")
+                                    .foregroundColor(candidate.isFavorite ? .yellow : .black)
                             }
                             HStack {
                                 Text("Phone")
-                                if let phone = tech.phone {
+                                if let phone = candidate.phone {
                                     Text(phone)
                                 } else {
                                     Text("No phone available")
@@ -27,11 +26,11 @@ struct CandidateDetailView: View {
                             }
                             HStack {
                                 Text("Email")
-                                Text(tech.email)
+                                Text(candidate.email)
                             }
                             HStack {
                                 Text("LinkedIn")
-                                if let linkedIn = tech.linkedinURL {
+                                if let linkedIn = candidate.linkedinURL {
                                     Text(linkedIn)
                                 } else {
                                     Text("No LinkedIn available")
@@ -39,7 +38,7 @@ struct CandidateDetailView: View {
                                 }
                             }
                             Text("Note")
-                            if let note = tech.note {
+                            if let note = candidate.note {
                                 Text(note)
                             } else {
                                 Text("No note available")
@@ -47,7 +46,7 @@ struct CandidateDetailView: View {
                             }
                         }
                         .padding()
-                    }
+                    
                     .onAppear {
                         Task {
                             await loadCandidateProfile()
