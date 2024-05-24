@@ -2,7 +2,6 @@ import SwiftUI
 
 struct CandidateDetailView: View {
     @ObservedObject var candidateDetailsManager: CandidateDetailsManager
-
     var body: some View {
         ZStack {
             Color.blue.opacity(0.5).ignoresSafeArea()
@@ -50,15 +49,6 @@ struct CandidateDetailView: View {
                         .padding()
                     }
                     
-                }
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        EditButton()
-                            .frame(width: 100, height: 50)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
                 }
                 .onAppear {
                     Task {
