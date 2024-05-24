@@ -16,10 +16,10 @@ struct CandidatesListView: View {
                                     Text(candidate.lastName)
                                     Text(candidate.firstName)
                                     Spacer()
-                                    if candidate.isFavorite {
+                                   
                                         Image(systemName: "star.fill" )
                                             .backgroundStyle(.yellow)
-                                    }
+                                    
                                 }
                             }
                         }
@@ -34,12 +34,13 @@ struct CandidatesListView: View {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {
                                 Task {
-                                    do {
-                                        let result = try await candidateListViewModel.showFavoriteCandidates(at: IndexSet())
-                                        print("Félicitations, vous venez d'afficher les favoris : \(String(describing: result))")
-                                    } catch {
-                                        print("Failed to process candidate favorites: \(error)")
+                                    do{
+                                        try  await candidateListViewModel.showFavoriteCandidates(at: IndexSet())
+                                    }catch {
+                                        print("erreur")
                                     }
+                                      
+                                      
                                 }
                             } label: {
                                 Image(systemName: "star")
