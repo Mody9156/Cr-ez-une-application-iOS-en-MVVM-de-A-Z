@@ -1,37 +1,32 @@
 import SwiftUI
-
 struct CandidatesListView: View {
-    @StateObject var candidateListViewModel : CandidateListViewModel
+    @StateObject var candidateListViewModel: CandidateListViewModel
     @State private var search = ""
+    
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ZStack {
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
                     List {
-                        ForEach(searchResult, id: \.id) { element in
-                            NavigationLink(destination:
-                                CandidateDetailView(candidateDetailsManager: CandidateDetailsManager(retrieveCandidateData: retrieveCandidateData()))
-                            ){
+                        ForEach(searchResult, id: \.id) { candidate in
+                            NavigationLink(destination: CandidateDetailView(candidateDetailsManager: CandidateDetailsManager(retrieveCandidateData: retrieveCandidateData()))) {
                                 HStack {
-                                    Text(element.lastName)
-                                    Text(element.firstName)
+                                    Text(candidate.lastName)
+                                    Text(candidate.firstName)
                                     Spacer()
-                                    if element.isFavorite {
+                                    if candidate.isFavorite {
                                         Image(systemName: "star.fill" )
                                             .backgroundStyle(.yellow)
                                     }
-                                    
                                 }
                             }
                         }
                         .onDelete(perform: candidateListViewModel.removeCandidate)
-                    
                     }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             EditButton()
-                                
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
@@ -60,8 +55,8 @@ struct CandidatesListView: View {
                                 .foregroundColor(.blue)
                                 .padding()
                         }
-                    }.searchable(text: $search)
-                    
+                    }
+                    .searchable(text: $search)
                 }
             }
         }
@@ -69,7 +64,7 @@ struct CandidatesListView: View {
             await loadCandidates()
         }
     }
-
+    
     var searchResult: [CandidateInformation] {
         if search.isEmpty {
             return candidateListViewModel.candidats
@@ -81,8 +76,6 @@ struct CandidatesListView: View {
         }
     }
     
-    
-
     func loadCandidates() async {
         do {
             let candidats = try await candidateListViewModel.displayCandidatesList()

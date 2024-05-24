@@ -1,19 +1,19 @@
 import SwiftUI
-
 struct CandidateDetailView: View {
     @ObservedObject var candidateDetailsManager: CandidateDetailsManager
+    
     var body: some View {
         ZStack {
             Color.blue.opacity(0.5).ignoresSafeArea()
             VStack {
-               
-                List(candidateDetailsManager.candidats, id: \.id) { tech in
+                List {
+                    ForEach(candidateDetailsManager.candidats, id: \.id) { tech in // Utilisez candidats du manager
                         VStack {
                             HStack {
                                 Text(tech.lastName)
                                 Text(tech.firstName)
                                 Spacer()
-                                Image(systemName: tech.isFavorite ? "star.slash" : "star")
+                                Image(systemName: tech.isFavorite ? "star.fill" : "star")
                                     .foregroundColor(tech.isFavorite ? .yellow : .black)
                             }
                             HStack {
@@ -48,18 +48,20 @@ struct CandidateDetailView: View {
                         }
                         .padding()
                     }
-                .onAppear {
-                    Task {
-                        await loadCandidateProfile()
+                    .onAppear {
+                        Task {
+                            await loadCandidateProfile()
+                        }
                     }
-                }
                 .padding()
+                }
             }
         }
     }
 
     func loadCandidateProfile() async {
         do {
+            // Chargez les détails du candidat depuis le manager
             let data = try await candidateDetailsManager.displayCandidateDetails(at: IndexSet())
             candidateDetailsManager.candidats = data
             print("Félicitations")
