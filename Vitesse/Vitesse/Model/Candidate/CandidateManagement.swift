@@ -31,8 +31,8 @@ struct CandidateManagement {
         let url = URL(string: url)!
          var request  = URLRequest(url: url)
          request.httpMethod = method
-        let data = CandidateInformation(phone: phone, note: note, id: id, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName)
-        let body = try? JSONEncoder().encode(data)
+        let data = CandidateInformation(phone: phone, note: note, id: id, firstName: firstName, linkedinURL: linkedinURL, isFavorite: false, email: email, lastName: lastName)
+        let body = try JSONEncoder().encode(data)
         request.httpBody = body
          let authHeader = "Bearer " + token
          request.setValue(authHeader, forHTTPHeaderField: "Authorization")

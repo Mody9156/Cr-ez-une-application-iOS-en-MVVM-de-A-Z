@@ -1,11 +1,12 @@
 import SwiftUI
-
 struct CandidateDetailView: View {
     @ObservedObject var candidateDetailsManager: CandidateDetailsManager
-    var candidate: CandidateInformation // Assurez-vous que CandidateInformation est le bon type
-    
+     var candidate: CandidateInformation // Assurez-vous que CandidateInformation est le bon type
     var body: some View {
+        
         VStack(alignment: .leading) {
+            Group {
+
             HStack {
                 Text(candidate.lastName)
                     .font(.title2)
@@ -13,9 +14,9 @@ struct CandidateDetailView: View {
                     .font(.title2)
                 Spacer()
                 Image(systemName: candidate.isFavorite ? "star.fill" : "star")
-                    .foregroundColor(candidate.isFavorite ? .yellow : .black)
-                    .font(.title2)
+                    .foregroundColor(candidate.isFavorite ? .yellow : .black).font(.title2)
             }
+                
             HStack {
                 Text("Phone")
                 if let phone = candidate.phone {
@@ -25,6 +26,7 @@ struct CandidateDetailView: View {
                         .foregroundColor(.gray)
                 }
             }
+                
             HStack {
                 Text("Email")
                 Text(candidate.email)
@@ -32,40 +34,46 @@ struct CandidateDetailView: View {
             HStack {
                 Text("LinkedIn")
                 if let linkedIn = candidate.linkedinURL {
-                    Button(action: {
-                        // Handle LinkedIn URL action
-                    }) {
-                        Text(linkedIn)
-                            .foregroundColor(.blue)
-                    }
+                    Text(linkedIn)
                 } else {
-                    Text("No LinkedIn available")
-                        .foregroundColor(.gray)
+                  
+                        Text("Go on Linkedin").foregroundColor(.white)
+                           
+                    
                 }
             }
+            }
             Text("Note")
-            if let note = candidate.note {
-                Text(note)
-            } else {
-                Text("No note available")
-                    .foregroundColor(.gray)
+          
+                if let note = candidate.note {
+                    Text(note)
+                } else {
+                    Text("No note available")
+                        .foregroundColor(.gray)
+                
+                
             }
         }
         .padding()
+        
         .onAppear {
             Task {
                 await loadCandidateProfile()
             }
-        }
-        .toolbar {
-            Button("Edit") {
-                Task {
-                    await candidateUpdater() // Ajoutez des parenthèses ici
+        }.toolbar{
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Edit") {
+                    Task{
+                        await  candidateUpdater()
+                        
+                    }
                 }
             }
         }
-    }
-    
+  
+  }
+            
+
     func loadCandidateProfile() async {
         do {
             // Chargez les détails du candidat depuis le manager
@@ -78,11 +86,14 @@ struct CandidateDetailView: View {
     }
     
     func candidateUpdater() async {
-        do {
-            let data = try await candidateDetailsManager.candidateUpdater(at: IndexSet(), phone: candidate.phone, note: candidate.note, firstName: candidate.firstName, linkedinURL: candidate.linkedinURL, isFavorite: candidate.isFavorite, email: candidate.email, lastName: candidate.lastName)
-            print("Félicitations Updater ")
-        } catch {
+        do{
+            let data = try await candidateDetailsManager.candidateUpdater(at: IndexSet(), phone: candidate.phone, note: candidate.note, firstName: candidate.firstName, linkedinURL: candidate.linkedinURL, isFavorite: candidate.isFavorite, email: candidate.email, lastName: candidate
+                .lastName)
+            print("Félicitations Updater \(data)")
+        }catch{
             print("Dommage, le Updater n'est pas passé")
         }
     }
+    
+    
 }

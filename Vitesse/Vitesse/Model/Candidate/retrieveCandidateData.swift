@@ -48,11 +48,11 @@ class retrieveCandidateData{
         
         
     }
-    func fetchCandidateInformation(token: String, id: String,phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String,request : URLRequest) async throws -> [CandidateInformation] {
+    func fetchCandidateInformation(token: String, id: String,phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String,request : URLRequest) async throws -> CandidateInformation {
         
         let (data,_) = try await httpService.request(request)
         
-       guard let jsonDecode = try? JSONDecoder().decode([CandidateInformation].self, from: data)
+       guard let jsonDecode = try? JSONDecoder().decode(CandidateInformation.self, from: data)
         else {
             throw CandidateFetchError.networkError
         }
