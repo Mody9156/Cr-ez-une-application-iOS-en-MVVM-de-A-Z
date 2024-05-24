@@ -1,67 +1,57 @@
 import SwiftUI
-
 struct CandidatesListView: View {
-    @StateObject var candidateListViewModel : CandidateListViewModel
+    @StateObject var candidateListViewModel: CandidateListViewModel
     @State private var search = ""
+    
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ZStack {
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
+              
                     List {
-                        ForEach(searchResult, id: \.id) { element in
-                            NavigationLink(destination:
-                                Text(element.lastName)
-                            ){
+                        ForEach(searchResult, id: \.id) { candidate in
+                            NavigationLink(destination:CandidateDetailView(candidateDetailsManager: CandidateDetailsManager(retrieveCandidateData: retrieveCandidateData()), candidate: candidate)){
                                 HStack {
-                                    Text(element.lastName)
-                                    Text(element.firstName)
+                                    Text(candidate.lastName)
+                                    Text(candidate.firstName)
                                     Spacer()
-                                    if element.isFavorite {
+                                   
                                         Image(systemName: "star.fill" )
                                             .backgroundStyle(.yellow)
-                                    }
                                     
                                 }
                             }
                         }
                         .onDelete(perform: candidateListViewModel.removeCandidate)
-                    
                     }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             EditButton()
-                                
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                                .frame(width: 40,height: 40)
+                                .foregroundColor(.blue)
                         }
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {
                                 Task {
-                                    do {
-                                        let result = try await candidateListViewModel.showFavoriteCandidates(at: IndexSet())
-                                        print("Félicitations, vous venez d'afficher les favoris : \(String(describing: result))")
-                                    } catch {
-                                        print("Failed to process candidate favorites: \(error)")
+                                    do{
+                                       let favoris =  try  await candidateListViewModel.showFavoriteCandidates(at: IndexSet())
+                                        print("favoris : \(favoris)")
+                                    }catch {
+                                        print("erreur",error)
                                     }
+                                      
+                                      
                                 }
                             } label: {
-                                Image(systemName: "star.fill")
+                                Image(systemName: "star")
                             }
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                            .frame(width: 40,height: 40)
+                            .foregroundColor(.blue)
                         }
-                        ToolbarItem(placement: .navigation) {
-                            Text("Candidats")
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .foregroundColor(.blue)
-                                .padding()
-                        }
-                    }.searchable(text: $search)
-                    
+                       
+                    }
+                    .searchable(text: $search)
                 }
             }
         }
@@ -69,7 +59,7 @@ struct CandidatesListView: View {
             await loadCandidates()
         }
     }
-
+    
     var searchResult: [CandidateInformation] {
         if search.isEmpty {
             return candidateListViewModel.candidats
@@ -81,8 +71,6 @@ struct CandidatesListView: View {
         }
     }
     
-    
-
     func loadCandidates() async {
         do {
             let candidats = try await candidateListViewModel.displayCandidatesList()

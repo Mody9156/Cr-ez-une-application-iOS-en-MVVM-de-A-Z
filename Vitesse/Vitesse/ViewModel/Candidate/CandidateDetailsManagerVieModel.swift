@@ -37,25 +37,30 @@ class CandidateDetailsManager : ObservableObject {
                 id = candidats[offset].id
             }
             let request = try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)", method: "GET", token: token, id: id)
-            let data = try await retrieveCandidateData.fetchCandidateDetailsById(request: request)
+            let data = try await retrieveCandidateData.fetchCandidateData(request: request)
             return data
         } catch {
             throw FetchTokenResult.displayCandidateDetailsError
         }
     }
     
-    func candidateUpdater(at offsets: IndexSet,phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String) async throws -> [CandidateInformation]  {
+    func candidateUpdater(phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String,id:String) async throws -> CandidateInformation  {
         do {
             let getToken = try await getToken()
-            var id = ""
-            for offset in offsets {
-                id = candidats[offset].id
-            }
+           
             let request = try CandidateManagement.createURLRequestfornewcandidat(url: "http://127.0.0.1:8080/candidate/\(id)", method: "PUT", token: getToken, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName)
-            let data = try await retrieveCandidateData.accessCandidateCreationRequest(token: getToken, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName, request: request)
+            let data = try await retrieveCandidateData.fetchCandidateInformation(token: getToken, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName, request: request)
+           
+
             return data
         }catch{
             throw FetchTokenResult.candidateUpdaterError
+        }
+    }
+    //add new element in the array
+    func updateCandidateInformation(with updatedCandidate: CandidateInformation) {
+        if let index = candidats.firstIndex(where: { $0.id == updatedCandidate.id}){
+            candidats[index] = updatedCandidate
         }
     }
     

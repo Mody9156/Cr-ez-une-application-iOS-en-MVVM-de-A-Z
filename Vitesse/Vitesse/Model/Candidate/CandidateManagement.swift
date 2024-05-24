@@ -15,6 +15,7 @@ struct CandidateManagement {
         request.httpMethod = method
         let authHeader = "Bearer " + token
         request.setValue(authHeader, forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
     
@@ -24,6 +25,7 @@ struct CandidateManagement {
         request.httpMethod = method
         let authHeader = "Bearer " + token
         request.setValue(authHeader, forHTTPHeaderField: "Authorization")
+       request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
     
@@ -36,11 +38,9 @@ struct CandidateManagement {
         request.httpBody = body
          let authHeader = "Bearer " + token
          request.setValue(authHeader, forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
          return request
      }
     
-    
-    
-    
-   
 }

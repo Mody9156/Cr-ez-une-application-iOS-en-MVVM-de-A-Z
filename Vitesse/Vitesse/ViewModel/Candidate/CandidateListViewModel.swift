@@ -36,7 +36,7 @@ class CandidateListViewModel : ObservableObject {
             let request = try
             
             CandidateManagement.createURLRequesttt(url:"http://127.0.0.1:8080/candidate",method:"GET",token:getToken)
-            let data = try await retrieveCandidateData.fetchCandidateDetailsById(request: request)
+            let data = try await retrieveCandidateData.fetchCandidateData(request: request)
             DispatchQueue.main.async {
                 self.candidats = data
             }
@@ -58,7 +58,7 @@ class CandidateListViewModel : ObservableObject {
             }
             let request = try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)", method: "GET", token: getToken, id: id)
             
-            let data = try await retrieveCandidateData.fetchresponse(request: request)
+            let data = try await retrieveCandidateData.validateHTTPResponse(request: request)
             
             DispatchQueue.main.async {
                
@@ -81,17 +81,17 @@ class CandidateListViewModel : ObservableObject {
             }
         }
     }
-    
-    func showFavoriteCandidates(at offsets: IndexSet) async throws -> [CandidateInformation]{
+    @MainActor
+    func showFavoriteCandidates(at offsets: IndexSet) async throws -> [CandidateInformation] {
         do {
-            let getToken = try await getToken()
+             let getToken = try getToken()
             var id = ""
             for offset in offsets {
                 id = candidats[offset].id
             }
             let request =  try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)/favorite", method: "PUT", token: getToken, id: id)
             
-            let data = try await retrieveCandidateData.fetchCandidateDetailsById(request: request)
+            let data = try await retrieveCandidateData.fetchCandidateData(request: request)
                
             return data
             
@@ -100,21 +100,21 @@ class CandidateListViewModel : ObservableObject {
         }
     }
     
-    func createCandidate(phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String,at offsets: IndexSet) async throws -> [CandidateInformation] {
-        
-        do {
-            let getToken = try await getToken()
-            var id = ""
-            for offset in offsets {
-                id = candidats[offset].id
-            }
-            let request = try CandidateManagement.createURLRequestfornewcandidat(url: "http://127.0.0.1:8080/candidate/", method: "POST", token: getToken, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName)
-            let data = try await retrieveCandidateData.accessCandidateCreationRequest(token: getToken, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName, request: request)
-            return data
-        }catch{
-            throw FetchTokenResult.createCandidateError
-        }
-    }
+//    func createCandidate(phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String,at offsets: IndexSet) async throws -> CandidateInformation {
+//        
+//        do {
+//            let getToken = try await getToken()
+//            var id = ""
+//            for offset in offsets {
+//                id = candidats[offset].id
+//            }
+//            let request = try CandidateManagement.createURLRequestfornewcandidat(url: "http://127.0.0.1:8080/candidate/", method: "POST", token: getToken, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: false, email: email, lastName: lastName)
+//            let data = try await retrieveCandidateData.fetchCandidateInformation(token: getToken, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName, request: request)
+//            return data
+//        }catch{
+//            throw FetchTokenResult.createCandidateError
+//        }
+//    }
 }
     
     
