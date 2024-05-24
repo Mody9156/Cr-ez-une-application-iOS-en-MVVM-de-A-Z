@@ -4,7 +4,7 @@ struct CandidateDetailView: View {
      var candidate: CandidateInformation // Assurez-vous que CandidateInformation est le bon type
     var body: some View {
         
-        VStack {
+        VStack(alignment: .leading) {
             Group {
 
             HStack {
@@ -13,7 +13,8 @@ struct CandidateDetailView: View {
                 Spacer()
                 Image(systemName: candidate.isFavorite ? "star.fill" : "star")
                     .foregroundColor(candidate.isFavorite ? .yellow : .black)
-            }
+            }.padding()
+                
             HStack {
                 Text("Phone")
                 if let phone = candidate.phone {
@@ -23,6 +24,7 @@ struct CandidateDetailView: View {
                         .foregroundColor(.gray)
                 }
             }
+                
             HStack {
                 Text("Email")
                 Text(candidate.email)
