@@ -39,8 +39,4 @@ struct CandidateManagement {
          return request
      }
     
-    
-    
-    
-   
 }
