@@ -5,15 +5,14 @@ struct CandidateDetailView: View {
     var body: some View {
         ZStack {
             Color.blue.opacity(0.5).ignoresSafeArea()
-            VStack {
-                List {
+           
                         VStack {
                             HStack {
                                 Text(candidate.lastName)
                                 Text(candidate.firstName)
                                 Spacer()
                                 Image(systemName: candidate.isFavorite ? "star.fill" : "star")
-                                    .foregroundColor( .yellow )
+                                    .foregroundColor(candidate.isFavorite ? .yellow : .black)
                             }
                             HStack {
                                 Text("Phone")
@@ -54,8 +53,7 @@ struct CandidateDetailView: View {
                     }
                 .padding()
                 }
-            }
-        }
+            
     }
 
     func loadCandidateProfile() async {
