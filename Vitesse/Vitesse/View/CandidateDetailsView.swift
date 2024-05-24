@@ -89,6 +89,7 @@ struct CandidateDetailView: View {
                     } else {
                         Text("No note available")
                             .foregroundColor(.gray)
+                    }
                 }
             }
         }
@@ -140,7 +141,7 @@ extension CandidateDetailView {
                 note: editedNote,
                 firstName: editedFirstName,
                 linkedinURL: editedLinkedIn,
-                isFavorite: candidate.isFavorite, // Only administrators can update this field
+                isFavorite: candidate.isFavorite,
                 email: editedEmail,
                 lastName: editedLastName,
                 id: candidate.id

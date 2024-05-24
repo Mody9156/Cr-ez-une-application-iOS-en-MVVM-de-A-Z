@@ -27,6 +27,7 @@ class retrieveCandidateData{
             let request =  request
             let (data, _) = try await httpService.request(request)
             let candidates = try JSONDecoder().decode([CandidateInformation].self, from: data)
+            
             return candidates
         }catch{
             throw CandidateFetchError.networkError
