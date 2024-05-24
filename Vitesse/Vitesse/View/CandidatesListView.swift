@@ -10,7 +10,7 @@ struct CandidatesListView: View {
                 VStack {
                     List {
                         ForEach(searchResult, id: \.id) { candidate in
-                            NavigationLink(destination: NavigationLink(candidate.id, destination:CandidateDetailView(candidateDetailsManager: CandidateDetailsManager(retrieveCandidateData: retrieveCandidateData()), candidate: candidate))){
+                            NavigationLink(destination:CandidateDetailView(candidateDetailsManager: CandidateDetailsManager(retrieveCandidateData: retrieveCandidateData()), candidate: candidate)){
                                 HStack {
                                     Text(candidate.lastName)
                                     Text(candidate.firstName)
