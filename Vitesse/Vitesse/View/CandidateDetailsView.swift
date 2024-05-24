@@ -60,10 +60,16 @@ struct CandidateDetailView: View {
             Task {
                 await loadCandidateProfile()
             }
+        }.toolbar{
+            Button("Edit") {
+                Task{
+                    await  candidateUpdater()
+
+                }
+            }
         }
   
-                
-                }
+  }
             
 
     func loadCandidateProfile() async {
@@ -71,9 +77,21 @@ struct CandidateDetailView: View {
             // Chargez les détails du candidat depuis le manager
             let data = try await candidateDetailsManager.displayCandidateDetails(at: IndexSet())
             candidateDetailsManager.candidats = data
-            print("Félicitations")
+            print("Félicitations loadCandidateProfile est passée")
         } catch {
             print("Dommage, le candidat n'est pas passé")
         }
     }
+    
+    func candidateUpdater() async {
+        do{
+            let data = try await candidateDetailsManager.candidateUpdater(at: IndexSet(), phone: candidate.phone, note: candidate.note, firstName: candidate.firstName, linkedinURL: candidate.linkedinURL, isFavorite: candidate.isFavorite, email: candidate.email, lastName: candidate
+                .lastName)
+            print("Félicitations Updater ")
+        }catch{
+            print("Dommage, le Updater n'est pas passé")
+        }
+    }
+    
+    
 }
