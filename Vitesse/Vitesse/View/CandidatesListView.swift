@@ -41,17 +41,14 @@ struct CandidatesListView: View {
                                     }
                                 }
                             } label: {
-                                Image(systemName: "star.fill")
+                                Image(systemName: "star")
                             }
                             .frame(width: 40,height: 40)
                             .foregroundColor(.blue)
                         }
                         ToolbarItem(placement: .navigation) {
                             Text("Candidats")
-                                .font(.title3)
-                                .fontWeight(.bold)
                                 .foregroundColor(.blue)
-                                .padding()
                         }
                     }
                     .searchable(text: $search)
