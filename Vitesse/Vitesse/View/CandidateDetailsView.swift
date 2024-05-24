@@ -89,7 +89,6 @@ struct CandidateDetailView: View {
                     } else {
                         Text("No note available")
                             .foregroundColor(.gray)
-                    }
                 }
             }
         }
@@ -156,9 +155,6 @@ extension CandidateDetailView {
 }
 
 
-
-
- 
 extension CandidateDetailView {
     func initializeEditingFields() {
         editedNote = candidate.note ?? ""
