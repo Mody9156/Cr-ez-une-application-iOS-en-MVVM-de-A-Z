@@ -121,9 +121,9 @@ struct CandidateDetailView: View {
         editedNote = candidate.note ?? ""
         editedFirstName = candidate.firstName
         editedLastName = candidate.lastName
-        editedPhone = candidate.phone
+        editedPhone = candidate.phone ?? ""
         editedEmail = candidate.email
-        editedLinkedIn = candidate.linkedinURL
+        editedLinkedIn = candidate.linkedinURL ?? ""
     }
     
     func loadCandidateProfile() async {

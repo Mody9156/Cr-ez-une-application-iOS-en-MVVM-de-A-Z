@@ -57,7 +57,7 @@ class CandidateDetailsManager : ObservableObject {
             throw FetchTokenResult.candidateUpdaterError
         }
     }
-    
+    //add new element in the array
     func updateCandidateInformation(with updatedCandidate: CandidateInformation) {
         if let index = candidats.firstIndex(where: { $0.id == updatedCandidate.id}){
             candidats[index] = updatedCandidate
