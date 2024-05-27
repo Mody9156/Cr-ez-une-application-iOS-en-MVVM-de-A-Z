@@ -39,24 +39,13 @@
                ReferencedContainer = "container:Vitesse.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "234BDF9E2BEFEC8500C96E42"
-               BuildableName = "VitesseUITests.xctest"
-               BlueprintName = "VitesseUITests"
-               ReferencedContainer = "container:Vitesse.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      customLLDBInitFile = "/Users/keita/Documents/Projet6/Cr-ez-une-application-iOS-en-MVVM-de-A-Z/CandidateAPI/Package (1).swift"
+      customLLDBInitFile = "/Users/keita/Documents/Projet6/Cr-ez-une-application-iOS-en-MVVM-de-A-Z/CandidateAPI/Package.swift"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
