@@ -34,6 +34,7 @@ class retrieveCandidateData{
         }
         
     }
+  
     func fetchCandidateDataFavoris(request : URLRequest) async throws -> CandidateInformation {
         do {
             let request =  request
