@@ -19,7 +19,7 @@ class retrieveCandidateData{
     }
     
     enum CandidateFetchError: Error {
-        case networkError,httpResponseInvalid
+        case networkError,httpResponseInvalid,processCandidateElementsError
     }
     
     func fetchCandidateData(request : URLRequest) async throws -> [CandidateInformation] {
@@ -59,5 +59,17 @@ class retrieveCandidateData{
         }
         return jsonDecode
     }
+    
+    func fetchSingleCandidate(request: URLRequest) async throws -> CandidateInformation {
+           let (data, response) = try await URLSession.shared.data(for: request)
+           
+           guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+               throw CandidateFetchError.processCandidateElementsError
+           }
+           
+           let decoder = JSONDecoder()
+           return try decoder.decode(CandidateInformation.self, from: data)
+       }
+    
     
 }

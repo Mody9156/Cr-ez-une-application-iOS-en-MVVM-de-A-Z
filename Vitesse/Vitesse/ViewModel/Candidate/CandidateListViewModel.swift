@@ -92,9 +92,9 @@ class CandidateListViewModel : ObservableObject {
            
             let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
 
-            let request =  try CandidateManagement.createURLRequest(url:url, method: "PUT", token: getToken, id: id)
-            
-            let data = try await retrieveCandidateData.fetchCandidateData(request: request)
+            var request =  try CandidateManagement.createURLRequest(url:url, method: "PUT", token: getToken, id: id)
+            request.httpBody = Data()
+            let data = try await retrieveCandidateData.fetchSingleCandidate(request: request)
                
             if let index = candidats.firstIndex(where: { $0.id
                 == candidat.id }){

@@ -1,25 +1,33 @@
 import SwiftUI
+
 struct CandidatesListView: View {
     @StateObject var candidateListViewModel: CandidateListViewModel
     @State private var search = ""
-    
+
     var body: some View {
         NavigationView {
             ZStack {
                 Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
-              
                     List {
                         ForEach(searchResult, id: \.id) { candidate in
-                            NavigationLink(destination:CandidateDetailView(candidateDetailsManager: CandidateDetailsManager(retrieveCandidateData: retrieveCandidateData()), candidate: candidate)){
+                            NavigationLink(destination: CandidateDetailView(candidateDetailsManager: CandidateDetailsManager(retrieveCandidateData: retrieveCandidateData()), candidate: candidate)) {
                                 HStack {
                                     Text(candidate.lastName)
                                     Text(candidate.firstName)
                                     Spacer()
-                                   
-                                        Image(systemName: "star.fill" )
-                                            .backgroundStyle(.yellow)
-                                    
+                                    Button(action: {
+                                        Task {
+                                            do {
+                                                try await candidateListViewModel.showFavoriteCandidates(for: candidate)
+                                            } catch {
+                                                print("Erreur lors de la mise à jour du statut de favori : \(error)")
+                                            }
+                                        }
+                                    }) {
+                                        Image(systemName: candidate.isFavorite ? "star.fill" : "star")
+                                            .foregroundColor(candidate.isFavorite ? .yellow : .gray)
+                                    }
                                 }
                             }
                         }
@@ -28,28 +36,14 @@ struct CandidatesListView: View {
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             EditButton()
-                                .frame(width: 40,height: 40)
+                                .frame(width: 40, height: 40)
                                 .foregroundColor(.blue)
                         }
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                                Task {
-                                    do{
-                                       let favoris =   try await candidateListViewModel.showFavoriteCandidates()
-                                        print("favoris : \(String(describing: favoris))")
-                                    }catch {
-                                        print("erreur",error)
-                                    }
-                                      
-                                      
-                                }
-                            } label: {
-                                Image(systemName: "star")
-                            }
-                            .frame(width: 40,height: 40)
-                            .foregroundColor(.blue)
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Image(systemName: "start")
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(.blue)
                         }
-                       
                     }
                     .searchable(text: $search)
                 }
@@ -59,7 +53,7 @@ struct CandidatesListView: View {
             await loadCandidates()
         }
     }
-    
+
     var searchResult: [CandidateInformation] {
         if search.isEmpty {
             return candidateListViewModel.candidats
@@ -70,7 +64,7 @@ struct CandidatesListView: View {
             }
         }
     }
-    
+
     func loadCandidates() async {
         do {
             let candidats = try await candidateListViewModel.displayCandidatesList()
