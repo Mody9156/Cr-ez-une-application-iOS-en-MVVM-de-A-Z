@@ -34,7 +34,7 @@ struct CandidatesListView: View {
                             Button {
                                 Task {
                                     do{
-                                        let favoris =   try await candidateListViewModel.showFavoriteCandidates(at: IndexSet())
+                                        let favoris =   try await candidateListViewModel.showFavoriteCandidates()
                                         print("favoris : \(String(describing: favoris))")
                                     }catch {
                                         print("erreur",error)

@@ -82,30 +82,22 @@ class CandidateListViewModel : ObservableObject {
         }
     }
     @MainActor
-    func showFavoriteCandidates(at offsets: IndexSet) async throws -> [CandidateInformation] {
+    func showFavoriteCandidates() async throws -> [CandidateInformation] {
         do {
             let getToken = try getToken()
-            var id = ""
-            for offset in offsets {
-                 id = candidats[offset].id
+            guard let candidate = candidats.first else {
+                throw FetchTokenResult.processCandidateElementsError
             }
-
+            let id = candidate.id
             let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
-            var request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
-            request.httpBody = Data() // Si nécessaire, vous pouvez ajouter un corps de requête vide
-            print("httpMethod : \(url)")
-            print("request : \(request)")
-            print("getToken : \(getToken)")
-
-
+            let request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
             let data = try await retrieveCandidateData.fetchCandidateData(request: request)
-            print("data : \(data)")
-
             return data
         } catch {
             throw FetchTokenResult.processCandidateElementsError
         }
     }
+
 
 //    func createCandidate(phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String,at offsets: IndexSet) async throws -> CandidateInformation {
 //        
