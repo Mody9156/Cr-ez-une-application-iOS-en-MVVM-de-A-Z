@@ -96,9 +96,11 @@ class CandidateListViewModel : ObservableObject {
         } catch FetchTokenResult.processCandidateElementsError {
             throw FetchTokenResult.processCandidateElementsError
         } catch {
+            print("Error: \(error)") // Afficher l'erreur attrapée
             throw error
         }
     }
+
 
 
 
