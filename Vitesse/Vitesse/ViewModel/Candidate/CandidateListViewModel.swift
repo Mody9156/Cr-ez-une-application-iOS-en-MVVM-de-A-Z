@@ -93,10 +93,13 @@ class CandidateListViewModel : ObservableObject {
             let request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
             let data = try await retrieveCandidateData.fetchCandidateData(request: request)
             return data
-        } catch {
+        } catch FetchTokenResult.processCandidateElementsError {
             throw FetchTokenResult.processCandidateElementsError
+        } catch {
+            throw error
         }
     }
+
 
 
 //    func createCandidate(phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String,at offsets: IndexSet) async throws -> CandidateInformation {
