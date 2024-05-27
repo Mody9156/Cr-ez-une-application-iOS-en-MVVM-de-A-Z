@@ -82,20 +82,24 @@ class CandidateListViewModel : ObservableObject {
         }
     }
     @MainActor
-    func showFavoriteCandidates() async throws -> [CandidateInformation] {
+    func showFavoriteCandidates(for candidat :CandidateInformation ) async throws  {
         do {
              let getToken = try getToken()
             var id = ""
             for candidat in candidats {
                 id = candidat.id
             }
-            let request =  try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)/favorite", method: "PUT", token: getToken, id: id)
-            print("request id : \(id)" )
-            print("url : \(String(describing: request.url)) ")
-            print("allHTTPHeaderFields  : \(String(describing: request.allHTTPHeaderFields)) ")
+           
+            let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
+
+            let request =  try CandidateManagement.createURLRequest(url:url, method: "PUT", token: getToken, id: id)
+            
             let data = try await retrieveCandidateData.fetchCandidateData(request: request)
                
-            return data
+            if let index = candidats.firstIndex(where: { $0.id
+                == candidat.id }){
+                candidats[index] = data
+            }
             
         } catch {
             throw FetchTokenResult.processCandidateElementsError
