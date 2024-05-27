@@ -82,7 +82,7 @@ class CandidateListViewModel : ObservableObject {
         }
     }
     @MainActor
-    func showFavoriteCandidates( ) async throws  -> [CandidateInformation]{
+    func showFavoriteCandidates() async throws  -> [CandidateInformation]{
         do {
              let getToken = try getToken()
             var id = ""
@@ -93,9 +93,13 @@ class CandidateListViewModel : ObservableObject {
             let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
 
             var request =  try CandidateManagement.createURLRequest(url:url, method: "PUT", token: getToken, id: id)
-            request.httpBody = Data()
             let data = try await retrieveCandidateData.fetchCandidateData(request: request)
-               
+            print("id :\(id)")
+            print("url :\(url)")
+            print("id :\(id)")
+            print("id :\(id)")
+            print("id :\(id)")
+            print("id :\(id)")
            return data
             
         } catch {
