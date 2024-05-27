@@ -90,7 +90,7 @@ class CandidateListViewModel : ObservableObject {
             }
             let id = candidate.id
             let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
-            let request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
+            let request = try CandidateManagement.createURLRequestFavoris(url: url, method: "PUT", token: getToken)
             let _ = try await retrieveCandidateData.validateHTTPResponse(request: request)
             // Aucune donnée à décoder car il n'y a pas de corps dans la réponse
             print("La mise à jour du statut du favori pour le candidat a réussi.")
