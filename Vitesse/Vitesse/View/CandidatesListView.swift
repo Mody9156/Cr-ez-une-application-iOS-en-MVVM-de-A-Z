@@ -17,7 +17,7 @@ struct CandidatesListView: View {
                                     Text(candidate.firstName)
                                     Spacer()
                                    
-                                        Image(systemName: "star.fill" )
+                                    Image(systemName: candidate.isFavorite ? "star" : "star.fill" )
                                             .foregroundColor(.yellow)
                                     
                                 }
