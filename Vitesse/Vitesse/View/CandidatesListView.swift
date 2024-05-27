@@ -17,9 +17,8 @@ struct CandidatesListView: View {
                                     Text(candidate.firstName)
                                     Spacer()
                                    
-                                        Image(systemName: "star.fill" )
-                                            .backgroundStyle(.yellow)
-                                    
+                                    Image(systemName:"star")
+                                        .foregroundColor(candidate.isFavorite ? .yellow : .black)
                                 }
                             }
                         }
@@ -35,8 +34,8 @@ struct CandidatesListView: View {
                             Button {
                                 Task {
                                     do{
-                                       let favoris =  try  await candidateListViewModel.showFavoriteCandidates
-                                        print("favoris : \(favoris)")
+                                        try await candidateListViewModel.showFavoriteCandidates()
+                                        print("favoris félicitation")
                                     }catch {
                                         print("erreur",error)
                                     }

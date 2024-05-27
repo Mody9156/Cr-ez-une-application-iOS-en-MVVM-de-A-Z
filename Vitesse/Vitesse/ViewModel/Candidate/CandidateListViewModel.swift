@@ -81,27 +81,28 @@ class CandidateListViewModel : ObservableObject {
             }
         }
     }
-    @MainActor
-    func showFavoriteCandidates() async throws -> [CandidateInformation] {
-        do {
-             let getToken = try getToken()
-            var id = ""
-            for candidat in candidats {
-                id = candidat.id
-            }
-            let request =  try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)/favorite", method: "PUT", token: getToken, id: id)
-            print("request id : \(id)" )
-            print("url : \(String(describing: request.url)) ")
-            print("allHTTPHeaderFields  : \(String(describing: request.allHTTPHeaderFields)) ")
-            let data = try await retrieveCandidateData.fetchCandidateData(request: request)
-               
-            return data
-            
-        } catch {
-            throw FetchTokenResult.processCandidateElementsError
-        }
-    }
     
+    @MainActor
+    func showFavoriteCandidates() async throws {
+           do {
+               let getToken = try  getToken()
+               guard let candidate = candidats.first else {
+                   throw FetchTokenResult.processCandidateElementsError
+               }
+               let id = candidate.id
+               let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
+               let request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
+               let respnse = try await retrieveCandidateData.validateHTTPResponse(request: request)
+               print("La mise à jour du statut du favori pour le candidat a réussi. : :\(respnse)")
+           } catch {
+               throw FetchTokenResult.processCandidateElementsError
+           }
+       }
+
+
+
+
+
 //    func createCandidate(phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String,at offsets: IndexSet) async throws -> CandidateInformation {
 //        
 //        do {
