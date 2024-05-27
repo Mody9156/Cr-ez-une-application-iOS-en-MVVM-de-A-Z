@@ -45,7 +45,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      customLLDBInitFile = "/Users/keita/Documents/Projet6/Cr-ez-une-application-iOS-en-MVVM-de-A-Z/CandidateAPI/Package (1).swift"
+      customLLDBInitFile = "/Users/keita/Documents/Projet6/Cr-ez-une-application-iOS-en-MVVM-de-A-Z/CandidateAPI/Package.swift"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
