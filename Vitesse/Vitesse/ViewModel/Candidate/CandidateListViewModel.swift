@@ -96,10 +96,7 @@ class CandidateListViewModel : ObservableObject {
             request.httpBody = Data()
             let data = try await retrieveCandidateData.fetchCandidateData(request: request)
                
-            if let index = candidats.firstIndex(where: { $0.id
-                == candidat.id }){
-                candidats[index] = data
-            }
+           return data
             
         } catch {
             throw FetchTokenResult.processCandidateElementsError
