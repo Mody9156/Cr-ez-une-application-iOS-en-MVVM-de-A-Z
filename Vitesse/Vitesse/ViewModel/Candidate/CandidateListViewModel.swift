@@ -82,7 +82,7 @@ class CandidateListViewModel : ObservableObject {
         }
     }
     @MainActor
-    func showFavoriteCandidates()  throws -> [CandidateInformation] {
+    func showFavoriteCandidates() async throws -> [CandidateInformation] {
         do {
              let getToken = try getToken()
             var id = ""
