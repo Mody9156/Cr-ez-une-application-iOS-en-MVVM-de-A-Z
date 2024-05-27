@@ -19,7 +19,7 @@ class retrieveCandidateData{
     }
     
     enum CandidateFetchError: Error {
-        case networkError,httpResponseInvalid,processCandidateElementsError
+        case networkError,httpResponseInvalid,processCandidateElementsError,fetchCandidateDataFavoris
     }
     
     func fetchCandidateData(request : URLRequest) async throws -> [CandidateInformation] {
@@ -41,24 +41,23 @@ class retrieveCandidateData{
             return try JSONDecoder().decode(CandidateInformation.self, from: data)
             
         }catch{
-            throw CandidateFetchError.networkError
+            print("error ", error)
+            throw CandidateFetchError.fetchCandidateDataFavoris
         }
         
     }
    
     
-    func validateHTTPResponse(request : URLRequest) async throws -> HTTPURLResponse {
-        
-        let request = request
+    func validateHTTPResponse(request: URLRequest) async throws -> HTTPURLResponse {
         let (_, response) = try await httpService.request(request)
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw CandidateFetchError.httpResponseInvalid
         }
+        
         return httpResponse
-        
-        
     }
+
     func fetchCandidateInformation(token: String, id: String,phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String,request : URLRequest) async throws -> CandidateInformation {
         
         let (data,_) = try await httpService.request(request)

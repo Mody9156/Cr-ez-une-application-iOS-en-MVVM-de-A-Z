@@ -82,7 +82,7 @@ class CandidateListViewModel : ObservableObject {
         }
     }
     @MainActor
-    func showFavoriteCandidates() async throws -> [CandidateInformation] {
+    func showFavoriteCandidates() async throws {
         do {
             let getToken = try getToken()
             guard let candidate = candidats.first else {
@@ -91,15 +91,14 @@ class CandidateListViewModel : ObservableObject {
             let id = candidate.id
             let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
             let request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
-            let data = try await retrieveCandidateData.fetchCandidateData(request: request)
-            return data
-        } catch FetchTokenResult.processCandidateElementsError {
-            throw FetchTokenResult.processCandidateElementsError
+            let _ = try await retrieveCandidateData.validateHTTPResponse(request: request)
+            // Aucune donnée à décoder car il n'y a pas de corps dans la réponse
+            print("La mise à jour du statut du favori pour le candidat a réussi.")
         } catch {
-            print("Error: \(error)") // Afficher l'erreur attrapée
             throw error
         }
     }
+
 
 
 

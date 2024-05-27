@@ -13,7 +13,6 @@ struct CandidateManagement {
         let url = URL(string: url)!
         var request  = URLRequest(url: url)
         request.httpMethod = method
-        request.httpBody = Data()
         let authHeader = "Bearer " + token
         request.setValue(authHeader, forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
