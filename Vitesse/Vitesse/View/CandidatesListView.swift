@@ -25,8 +25,9 @@ struct CandidatesListView: View {
                                             }
                                         }
                                     }) {
-                                        Image(systemName: candidate.isFavorite ? "star.fill" : "star")
-                                            .foregroundColor(candidate.isFavorite ? .yellow : .gray)
+//                                        Image(systemName: candidate.isFavorite ? "star.fill" : "star")
+//                                            .foregroundColor(candidate.isFavorite ? .yellow : .gray)
+                                        Text("clic here")
                                     }
                                 }
                             }
@@ -36,11 +37,6 @@ struct CandidatesListView: View {
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             EditButton()
-                                .frame(width: 40, height: 40)
-                                .foregroundColor(.blue)
-                        }
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Image(systemName: "start")
                                 .frame(width: 40, height: 40)
                                 .foregroundColor(.blue)
                         }
