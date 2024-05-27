@@ -39,6 +39,8 @@ class CandidateDetailsManager : ObservableObject {
             let request = try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)", method: "GET", token: token, id: id)
             let data = try await retrieveCandidateData.fetchCandidateData(request: request)
             return data
+            
+            
         } catch {
             throw FetchTokenResult.displayCandidateDetailsError
         }
