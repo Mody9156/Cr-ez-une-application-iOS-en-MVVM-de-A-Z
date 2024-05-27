@@ -96,10 +96,10 @@ class CandidateListViewModel : ObservableObject {
             let data = try await retrieveCandidateData.fetchCandidateData(request: request)
             print("id :\(id)")
             print("url :\(url)")
-            print("id :\(id)")
-            print("id :\(id)")
-            print("id :\(id)")
-            print("id :\(id)")
+            print("httpBody :\(String(describing: request.httpBody))")
+            print("allHTTPHeaderFields :\(String(describing: request.allHTTPHeaderFields))")
+            print("data :\(data)")
+            print("request :\(request)")
            return data
             
         } catch {
