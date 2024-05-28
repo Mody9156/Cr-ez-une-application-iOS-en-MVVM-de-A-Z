@@ -36,17 +36,18 @@ struct LoginView: View {
                         Text("Email/Username")
                             .foregroundColor(.white)
                         
-                        TextField("Entrez un Email ou Username valide", text: $loginViewModel.username)
+                        TextField(("Entrez un Email ou Username valide"), text: $loginViewModel.username)
                             .padding()
                             .background(textFieldGray)
                             .cornerRadius(5.0)
-                            .foregroundColor(.black)
+                            .foregroundColor(.black)                      .disableAutocorrection(true)
+
                         
                         Text("Password")
                             .foregroundColor(.white)
                             .font(.title3)
                         
-                        SecureField("Veuillez entrez un mot de passe valide", text: $loginViewModel.password)
+                        SecureField(("Veuillez entrez un mot de passe valide"), text: $loginViewModel.password)
                             .padding()
                             .background(textFieldGray)
                             .cornerRadius(5.0)
@@ -56,7 +57,8 @@ struct LoginView: View {
                     
                     Button("Sign in") {
                         Task { @MainActor in
-                            try? await loginViewModel.authenticateUserAndProceed()
+                       try? await loginViewModel.authenticateUserAndProceed()
+                            
                         }
                     }
                     .font(.headline)

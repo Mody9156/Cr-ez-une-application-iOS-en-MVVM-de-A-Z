@@ -8,8 +8,8 @@ class VitesseViewModel: ObservableObject {
     }
    
     var loginViewModel: LoginViewModel {
-        return LoginViewModel({
-            self.onLoginSucceed = true
+        return LoginViewModel({[weak self] in
+            self?.onLoginSucceed = true
         }, authenticationManager: AuthenticationManager())
     }
     
