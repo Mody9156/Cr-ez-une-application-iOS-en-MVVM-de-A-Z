@@ -22,7 +22,7 @@ struct LoginView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.blue)
                         .padding()
-                    Image("running_").resizable()
+                    Image("speed").resizable()
                     VStack {
                         Text("Email/Username")
                             .foregroundColor(.white)
