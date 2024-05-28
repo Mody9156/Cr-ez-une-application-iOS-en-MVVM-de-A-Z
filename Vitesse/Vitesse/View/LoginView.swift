@@ -10,7 +10,6 @@ import SwiftUI
 struct LoginView: View {
     @State var registre: Bool = false
     @ObservedObject var loginViewModel : LoginViewModel
-    let textFieldGray = Color(red: 0.83, green: 0.83, blue: 0.83)
     let vitesseViewModel: VitesseViewModel
     @State private var rotationAngle: Double = 0
 
@@ -43,23 +42,28 @@ struct LoginView: View {
                         
                         TextField(("Entrez un Email ou Username valide"), text: $loginViewModel.username)
                             .padding()
-                            .background(textFieldGray)
                             .cornerRadius(5.0)
-                            .foregroundColor(.black)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                            .keyboardType(.emailAddress)
+                            .foregroundColor(.gray)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.orange, lineWidth: 2)
+                            )
 
                         
                         Text("Password")
                             .foregroundColor(.white)
                             .font(.title3)
                         
-                        SecureField(("Veuillez entrez un mot de passe valide"), text: $loginViewModel.password)
+                    
+                        SecureField("Veuillez entrez un mot de passe valide", text: $loginViewModel.password)
                             .padding()
-                            .background(textFieldGray)
                             .cornerRadius(5.0)
-                            .foregroundColor(.black)
+                            .foregroundColor(.gray)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.orange, lineWidth: 2)
+                            )
+
                         
                         Text(loginViewModel.message).foregroundColor(.red)
                         

@@ -9,7 +9,6 @@ struct RegistrationView: View {
 
     var body: some View {
             ZStack {
-                Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
                     Text("Registre")
                         .font(.largeTitle)
