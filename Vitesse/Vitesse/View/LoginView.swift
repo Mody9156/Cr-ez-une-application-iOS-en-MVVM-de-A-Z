@@ -22,7 +22,12 @@ struct LoginView: View {
                         .fontWeight(.semibold)
                         .padding(.bottom,20)
                     
-                    Image("speed").resizable().aspectRatio( contentMode: .fill).frame(width: 150,height: 150).padding()
+                    Image("speed")
+                        .resizable()
+                        .aspectRatio( contentMode: .fill)
+                        .frame(width: 150,height: 150)
+                        .clipped()
+                        .cornerRadius(150).padding(.bottom,75)
                     
                         Text("Email/Username")
                             .foregroundColor(.white)
