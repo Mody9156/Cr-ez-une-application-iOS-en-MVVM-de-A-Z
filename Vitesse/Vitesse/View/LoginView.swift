@@ -8,48 +8,65 @@
 import SwiftUI
 
 struct LoginView: View {
-    
-    @ObservedObject var AuthenticationView: LoginViewModel
-    @State private var registre: Bool = false
+    @State var registre: Bool = false
+    @ObservedObject var loginViewModel : LoginViewModel
     let textFieldGray = Color(red: 0.83, green: 0.83, blue: 0.83)
-    let vitesseViewModel : VitesseViewModel
+    let vitesseViewModel: VitesseViewModel
+    
     var body: some View {
         NavigationStack {
             ZStack {
+                
                 VStack {
-                    
                     Text("Login")
                         .font(.largeTitle)
                         .fontWeight(.semibold)
-                        .padding(.bottom,20)
+                        .foregroundColor(.white)
+                        .padding(.bottom, 20)
                     
                     Image("speed")
                         .resizable()
-                        .aspectRatio( contentMode: .fill)
-                        .frame(width: 150,height: 150)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 150, height: 150)
                         .clipped()
-                        .cornerRadius(150).padding(.bottom,75)
+                        .cornerRadius(75) // Adjusted to 75 to make it a circle
+                        .padding(.bottom, 75)
                     
+                    VStack(alignment: .leading, spacing: 15) {
                         Text("Email/Username")
                             .foregroundColor(.white)
-                        TextField("Entrez un Email ou Username valide", text: $AuthenticationView.username)
-                        .padding()
-                        .background(textFieldGray)
-                        .cornerRadius(5.0)
-                        .padding(.bottom,20)
-                    
-                        Text("Password")
-                            .foregroundColor(.white)
-                            .font(.title3)
-                        SecureField("Veuillez entrez un mot de passe valide", text: $AuthenticationView.password)
+                        
+                        TextField("Entrez un Email ou Username valide", text: $loginViewModel.username)
                             .padding()
                             .background(textFieldGray)
                             .cornerRadius(5.0)
-                            .padding(.bottom,20)
+                            .foregroundColor(.black)
+                        
+                        Text("Password")
+                            .foregroundColor(.white)
+                            .font(.title3)
+                        
+                        SecureField("Veuillez entrez un mot de passe valide", text: $loginViewModel.password)
+                            .padding()
+                            .background(textFieldGray)
+                            .cornerRadius(5.0)
+                            .foregroundColor(.black)
+                    }
+                    .padding(.bottom, 20)
                     
-                    LoginButtonContent(authentification: AuthenticationView)
+                    Button("Sign in") {
+                        Task { @MainActor in
+                            try? await loginViewModel.authenticateUserAndProceed()
+                        }
+                    }
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: 220, height: 60)
+                    .background(Color.black)
+                    .cornerRadius(35)
                     
-                    Button("Registrer") {
+                    Button("Register") {
                         registre = true
                     }
                     .font(.headline)
@@ -58,30 +75,18 @@ struct LoginView: View {
                     .frame(width: 220, height: 60)
                     .background(Color.black)
                     .cornerRadius(35)
-                    .sheet(isPresented: $registre ) {
+                    .sheet(isPresented: $registre) {
                         RegistrationView(registreViewModel: vitesseViewModel.registreViewModel, login: LoginViewModel({}))
                     }
-                }.padding()
-            
+                }
+                .padding()
             }
         }
     }
 }
 
-
-struct LoginButtonContent : View {
-    let authentification : LoginViewModel
-    var body: some View {
-        Button("Sign in") {
-            Task { @MainActor in
-                try? await authentification.authenticateUserAndProceed()
-            }
-        }
-        .font(.headline)
-        .foregroundColor(.white)
-        .padding()
-        .frame(width: 220, height: 60)
-        .background(Color.black)
-        .cornerRadius(35)
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView(loginViewModel: LoginViewModel({}), vitesseViewModel: VitesseViewModel())
     }
 }
