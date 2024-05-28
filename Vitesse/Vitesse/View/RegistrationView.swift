@@ -16,15 +16,7 @@ struct RegistrationView: View {
                         .foregroundColor(.black)
                         .padding(.bottom,20)
 
-                    Image("Vitesse")
-                        .resizable()
-                        .frame(width: 150, height: 150)
-                        .clipShape(Circle()).rotationEffect(.degrees(rotationAngle))
-                        .onAppear {
-                            withAnimation(Animation.linear(duration: 5).repeatForever(autoreverses: false)) {
-                                rotationAngle = 360
-                            }
-                        }
+                  
                     VStack(alignment: .leading) {
                         FetchRegistre(registreViewModel: $registreViewModel, infos: "First Name",text:registreViewModel.firstName,textField: "Use First Name valid")
                         FetchRegistre(registreViewModel: $registreViewModel, infos: "Last Name",text:registreViewModel.lastName,textField: "Use Last Name valid")
@@ -63,10 +55,11 @@ struct RegistrationView: View {
                             
                         }
                     }
-                    .frame(width: 100, height: 50)
-                    .background(Color.blue)
+                    .font(.headline)
                     .foregroundColor(.white)
-                    .cornerRadius(10)
+                    .padding()
+                    .background(Color.black)
+                    .cornerRadius(35)
                 }
                 .padding()
             }
