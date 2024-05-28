@@ -21,10 +21,10 @@ struct LoginView: View {
                     Text("Login")
                         .font(.largeTitle)
                         .fontWeight(.semibold)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .padding(.bottom, 20)
                     
-                    Image("speed")
+                    Image("running")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 150, height: 150)
