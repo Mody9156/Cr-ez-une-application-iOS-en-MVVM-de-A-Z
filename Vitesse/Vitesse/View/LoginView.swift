@@ -26,8 +26,7 @@ struct LoginView: View {
                     
                     Image("running")
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 150, height: 150)
+                        .aspectRatio(contentMode: .fill).ignoresSafeArea()
                         .clipped()
                         .cornerRadius(75) // Adjusted to 75 to make it a circle
                         .padding(.bottom, 75)
