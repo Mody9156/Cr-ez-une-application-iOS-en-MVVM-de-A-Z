@@ -44,6 +44,7 @@ struct RegistrationView: View {
                         Task {
                             try await registreViewModel.handleRegistrationViewModel()
                             self.login.username = registreViewModel.email
+                            
                         }
                     }
                     .frame(width: 100, height: 50)
