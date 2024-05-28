@@ -16,22 +16,17 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                
+                Image("running")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill).ignoresSafeArea()
+                    
                 VStack {
                     Text("Login")
                         .font(.largeTitle)
                         .fontWeight(.semibold)
                         .foregroundColor(.black)
-                        
                     
-                    Image("running")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill).ignoresSafeArea()
-                        .clipped()
-                        .cornerRadius(75) // Adjusted to 75 to make it a circle
-                        
-                    
-                    VStack(alignment: .leading, spacing: 15) {
+                    VStack {
                         Text("Email/Username")
                             .foregroundColor(.white)
                         
@@ -69,7 +64,7 @@ struct LoginView: View {
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .frame(width: 220, height: 60)
+                    .frame(width: 150, height: 60)
                     .background(Color.black)
                     .cornerRadius(35)
                     
@@ -79,21 +74,15 @@ struct LoginView: View {
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .frame(width: 220, height: 60)
+                    .frame(width: 150, height: 60)
                     .background(Color.black)
                     .cornerRadius(35)
                     .sheet(isPresented: $registre) {
                         RegistrationView(registreViewModel: vitesseViewModel.registreViewModel, login: LoginViewModel({}))
                     }
-                }
-                .padding()
+                }.padding()
+               
             }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView(loginViewModel: LoginViewModel({}), vitesseViewModel: VitesseViewModel())
     }
 }
