@@ -22,14 +22,14 @@ struct LoginView: View {
                         .font(.largeTitle)
                         .fontWeight(.semibold)
                         .foregroundColor(.black)
-                        .padding(.bottom, 20)
+                        
                     
                     Image("running")
                         .resizable()
                         .aspectRatio(contentMode: .fill).ignoresSafeArea()
                         .clipped()
                         .cornerRadius(75) // Adjusted to 75 to make it a circle
-                        .padding(.bottom, 75)
+                        
                     
                     VStack(alignment: .leading, spacing: 15) {
                         Text("Email/Username")
