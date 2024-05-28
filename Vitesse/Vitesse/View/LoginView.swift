@@ -40,7 +40,10 @@ struct LoginView: View {
                             .padding()
                             .background(textFieldGray)
                             .cornerRadius(5.0)
-                            .foregroundColor(.black)                      .disableAutocorrection(true)
+                            .foregroundColor(.black)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.none)
+                            .keyboardType(.emailAddress)
 
                         
                         Text("Password")
