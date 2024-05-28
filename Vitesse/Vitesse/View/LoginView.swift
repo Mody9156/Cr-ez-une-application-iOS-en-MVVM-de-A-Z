@@ -21,14 +21,14 @@ struct LoginView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(.blue)
+                    
                     Image("speed").resizable().aspectRatio( contentMode: .fill).frame(width: 150,height: 150).padding()
-                    VStack {
+                    
                         Text("Email/Username")
                             .foregroundColor(.white)
                         TextField("Entrez un Email ou Username valide", text: $AuthenticationView.username)
                             .disableAutocorrection(true)
                             .textFieldStyle(.roundedBorder)
-                    }
                     
                     VStack {
                         Text("Password")
@@ -38,7 +38,7 @@ struct LoginView: View {
                             .textFieldStyle(.roundedBorder)
                         
                     }
-                    .padding()
+                  
                     
                     Button("Sign in") {
                         Task { @MainActor in
@@ -49,7 +49,7 @@ struct LoginView: View {
                     .foregroundColor(.white)
                     .background(Color.blue)
                     .cornerRadius(10)
-                    .padding()
+                  
                     
                    
                     
@@ -64,7 +64,7 @@ struct LoginView: View {
                         RegistrationView(registreViewModel: vitesseViewModel.registreViewModel, login: LoginViewModel({}))
                     }
                 }
-                .padding()
+            
             }
         }
     }
