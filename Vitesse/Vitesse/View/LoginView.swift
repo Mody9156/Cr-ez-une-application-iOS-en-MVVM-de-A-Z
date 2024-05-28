@@ -11,6 +11,7 @@ struct LoginView: View {
     
     @ObservedObject var AuthenticationView: LoginViewModel
     @State private var registre: Bool = false
+    let textFieldGray = Color(red: 0.83, green: 0.83, blue: 0.83)
     let vitesseViewModel : VitesseViewModel
     var body: some View {
         NavigationStack {
@@ -32,15 +33,20 @@ struct LoginView: View {
                         Text("Email/Username")
                             .foregroundColor(.white)
                         TextField("Entrez un Email ou Username valide", text: $AuthenticationView.username)
-                            .disableAutocorrection(true)
-                            .textFieldStyle(.roundedBorder)
+                        .padding()
+                        .background(textFieldGray)
+                        .cornerRadius(5.0)
+                        .padding(.bottom,20)
                     
                     VStack {
                         Text("Password")
                             .foregroundColor(.white)
                             .font(.title3)
                         SecureField("Veuillez entrez un mot de passe vaide", text: $AuthenticationView.password)
-                            .textFieldStyle(.roundedBorder)
+                            .padding()
+                            .background(textFieldGray)
+                            .cornerRadius(5.0)
+                            .padding(.bottom,20)
                         
                     }
                   
