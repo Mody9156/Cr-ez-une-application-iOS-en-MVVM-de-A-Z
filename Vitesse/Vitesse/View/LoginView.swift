@@ -22,7 +22,7 @@ struct LoginView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.blue)
                         .padding()
-                    
+                    Image("running_")
                     VStack {
                         Text("Email/Username")
                             .foregroundColor(.white)
