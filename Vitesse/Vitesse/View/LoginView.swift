@@ -15,7 +15,6 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
                     
                     Text("Login")
