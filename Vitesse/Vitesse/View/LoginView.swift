@@ -12,19 +12,30 @@ struct LoginView: View {
     @ObservedObject var loginViewModel : LoginViewModel
     let textFieldGray = Color(red: 0.83, green: 0.83, blue: 0.83)
     let vitesseViewModel: VitesseViewModel
-    
+    @State private var rotationAngle: Double = 0
+
     var body: some View {
         NavigationStack {
             ZStack {
-                Image("running")
-                    .resizable()
-                .ignoresSafeArea()
-                    
+              
                 VStack {
                     Text("Login")
                         .font(.largeTitle)
                         .fontWeight(.semibold)
                         .foregroundColor(.black)
+                        .padding(.bottom,20)
+                    
+                    Image("Vitesse")
+                        .resizable()
+                        .frame(width: 150, height: 150)
+                        .clipShape(Circle()).rotationEffect(.degrees(rotationAngle))
+                        .onAppear {
+                            withAnimation(Animation.linear(duration: 5).repeatForever(autoreverses: false)) {
+                                rotationAngle = 360
+                            }
+                        }
+
+
                     
                     VStack {
                         Text("Email/Username")
