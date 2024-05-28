@@ -9,14 +9,14 @@ struct RegistrationView: View {
 
     var body: some View {
             ZStack {
-                Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
                     Text("Registre")
                         .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.blue)
-                        .padding()
+                        .fontWeight(.semibold)
+                        .foregroundColor(.black)
+                        .padding(.bottom,20)
 
+                  
                     VStack(alignment: .leading) {
                         FetchRegistre(registreViewModel: $registreViewModel, infos: "First Name",text:registreViewModel.firstName,textField: "Use First Name valid")
                         FetchRegistre(registreViewModel: $registreViewModel, infos: "Last Name",text:registreViewModel.lastName,textField: "Use Last Name valid")
@@ -26,16 +26,24 @@ struct RegistrationView: View {
                             Text("Password").foregroundColor(.white)
                                 .font(.title3)
                             SecureField("Use Password valid", text: $registreViewModel.password)
-                                .textFieldStyle(.roundedBorder)
-                                .autocapitalization(.none)
-                                .disableAutocorrection(true)
+                                .padding()
+                                .cornerRadius(5.0)
+                                .foregroundColor(.gray)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color.orange, lineWidth: 2)
+                                )
 
                             Text("Confirm Password").foregroundColor(.white)
                                 .font(.title3)
                             SecureField("Use Password valid", text: $password)
-                                .textFieldStyle(.roundedBorder)
-                                .autocapitalization(.none)
-                                .disableAutocorrection(true)
+                                .padding()
+                                .cornerRadius(5.0)
+                                .foregroundColor(.gray)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color.orange, lineWidth: 2)
+                                )
                         }
                     }
                     .padding()
@@ -44,12 +52,14 @@ struct RegistrationView: View {
                         Task {
                             try await registreViewModel.handleRegistrationViewModel()
                             self.login.username = registreViewModel.email
+                            
                         }
                     }
-                    .frame(width: 100, height: 50)
-                    .background(Color.blue)
+                    .font(.headline)
                     .foregroundColor(.white)
-                    .cornerRadius(10)
+                    .padding()
+                    .background(Color.black)
+                    .cornerRadius(35)
                 }
                 .padding()
             }
@@ -67,9 +77,13 @@ struct FetchRegistre: View {
         Group {
             Text(infos).foregroundColor(.white)
             TextField(textField, text: $text)
-                .disableAutocorrection(true)
-                .textFieldStyle(.roundedBorder)
-                .autocapitalization(.none)
+                .padding()
+                .cornerRadius(5.0)
+                .foregroundColor(.gray)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.orange, lineWidth: 2)
+                )
 
         }
     }

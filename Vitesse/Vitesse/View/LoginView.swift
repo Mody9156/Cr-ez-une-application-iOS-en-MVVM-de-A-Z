@@ -8,65 +8,93 @@
 import SwiftUI
 
 struct LoginView: View {
-    
-    @ObservedObject var AuthenticationView: LoginViewModel
-    @State private var registre: Bool = false
-    let vitesseViewModel : VitesseViewModel
+    @State var registre: Bool = false
+    @ObservedObject var loginViewModel : LoginViewModel
+    let vitesseViewModel: VitesseViewModel
+    @State private var rotationAngle: Double = 0
+
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.blue.opacity(0.5).ignoresSafeArea()
+              
                 VStack {
-                    
                     Text("Login")
                         .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.blue)
-                        .padding()
+                        .fontWeight(.semibold)
+                        .foregroundColor(.black)
+                        .padding(.bottom,20)
+                    
+                    Image("Vitesse")
+                        .resizable()
+                        .frame(width: 150, height: 150)
+                        .clipShape(Circle()).rotationEffect(.degrees(rotationAngle))
+                        .onAppear {
+                            withAnimation(Animation.linear(duration: 5).repeatForever(autoreverses: false)) {
+                                rotationAngle = 360
+                            }
+                        }
+
+
                     
                     VStack {
                         Text("Email/Username")
                             .foregroundColor(.white)
-                        TextField("Entrez un Email ou Username valide", text: $AuthenticationView.username)
-                            .disableAutocorrection(true)
-                            .textFieldStyle(.roundedBorder)
-                    }
-                    
-                    VStack {
+                        
+                        TextField(("Entrez un Email ou Username valide"), text: $loginViewModel.username)
+                            .padding()
+                            .cornerRadius(5.0)
+                            .foregroundColor(.gray)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.orange, lineWidth: 2)
+                            )
+
+                        
                         Text("Password")
                             .foregroundColor(.white)
                             .font(.title3)
-                        SecureField("Veuillez entrez un mot de passe vaide", text: $AuthenticationView.password)
-                            .textFieldStyle(.roundedBorder)
+                        
+                    
+                        SecureField("Veuillez entrez un mot de passe valide", text: $loginViewModel.password)
+                            .padding()
+                            .cornerRadius(5.0)
+                            .foregroundColor(.gray)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.orange, lineWidth: 2)
+                            )
+
+                        
+                        Text(loginViewModel.message).foregroundColor(.red)
                         
                     }
-                    .padding()
+                    .padding(.bottom, 20)
                     
                     Button("Sign in") {
                         Task { @MainActor in
-                            try? await AuthenticationView.authenticateUserAndProceed()
+                       try? await loginViewModel.authenticateUserAndProceed()
+                            
                         }
                     }
-                    .frame(width: 100, height: 50)
+                    .font(.headline)
                     .foregroundColor(.white)
-                    .background(Color.blue)
-                    .cornerRadius(10)
                     .padding()
+                    .background(Color.black)
+                    .cornerRadius(35)
                     
-                   
-                    
-                    Button("Registrer") {
+                    Button("Register") {
                         registre = true
                     }
-                    .frame(width: 100, height: 50)
-                    .background(Color.blue)
+                    .font(.headline)
                     .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .sheet(isPresented: $registre ) {
+                    .padding()
+                    .background(Color.black)
+                    .cornerRadius(35)
+                    .sheet(isPresented: $registre) {
                         RegistrationView(registreViewModel: vitesseViewModel.registreViewModel, login: LoginViewModel({}))
                     }
-                }
-                .padding()
+                }.padding()
+               
             }
         }
     }

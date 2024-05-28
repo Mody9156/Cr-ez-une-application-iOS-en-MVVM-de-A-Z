@@ -6,24 +6,23 @@ struct VitesseApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if vitesseViewModel.onLoginSucceed {
-                TabView {
-                    CandidatesListView(
-                        candidateListViewModel: vitesseViewModel.candidateListViewModel)
-                    .tabItem {
-                        Image(systemName: "person.crop.circle")
-                        Text("Candidats")
+            Group{
+                if vitesseViewModel.onLoginSucceed {
+                    TabView {
+                        CandidatesListView(
+                            candidateListViewModel: vitesseViewModel.candidateListViewModel)
+                        .tabItem {
+                            Image(systemName: "person.crop.circle")
+                            Text("Candidats")
+                        }
+                    }.onAppear{
+                        //créer un nouveau candidat
                     }
-                }.onAppear{
-                    //créer un nouveau candidat
+                    
+                } else {
+                    LoginView(loginViewModel: vitesseViewModel.loginViewModel, vitesseViewModel: VitesseViewModel())
                 }
-                
-            } else {
-                LoginView(
-                    AuthenticationView: vitesseViewModel.loginViewModel,
-                    vitesseViewModel: vitesseViewModel
-                )
-            }
+            }.animation(.easeInOut(duration: 0.5), value: UUID())
         }
     }
 }
