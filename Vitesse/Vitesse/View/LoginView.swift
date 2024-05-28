@@ -19,8 +19,8 @@ struct LoginView: View {
                     
                     Text("Login")
                         .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.blue)
+                        .fontWeight(.semibold)
+                        .padding(.bottom,20)
                     
                     Image("speed").resizable().aspectRatio( contentMode: .fill).frame(width: 150,height: 150).padding()
                     
