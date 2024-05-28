@@ -36,6 +36,10 @@ class LoginViewModel: ObservableObject {
                 message = "Une erreur est survenue. Veuillez vérifier que votre email ou votre nom d'utilisateur est correct."
             }else if password.isEmpty {
                 message = "Une erreur est survenue. Veuillez vérifier que votre mot depasse est correct."
+            }else if username.isEmpty && password.isEmpty {
+                message = "Une erreur est survenue. Veuillez vérifier que votre mot depasse ou votre nom d'utilisateur/mot de passe est correct."
+            }else{
+                message = ""
             }
                 onLoginSucceed()
                 

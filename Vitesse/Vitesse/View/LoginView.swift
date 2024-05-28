@@ -55,6 +55,9 @@ struct LoginView: View {
                             .background(textFieldGray)
                             .cornerRadius(5.0)
                             .foregroundColor(.black)
+                        
+                        Text(loginViewModel.message).foregroundColor(.red)
+                        
                     }
                     .padding(.bottom, 20)
                     
