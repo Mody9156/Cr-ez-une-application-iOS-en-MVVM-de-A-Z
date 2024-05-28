@@ -9,7 +9,9 @@ class VitesseViewModel: ObservableObject {
    
     var loginViewModel: LoginViewModel {
         return LoginViewModel({[weak self] in
-            self?.onLoginSucceed = true
+            DispatchQueue.main.async {
+                self?.onLoginSucceed = true
+            }
         }, authenticationManager: AuthenticationManager())
     }
     
