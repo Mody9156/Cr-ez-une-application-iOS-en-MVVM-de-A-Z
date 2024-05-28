@@ -10,6 +10,7 @@ import Foundation
 class LoginViewModel: ObservableObject {
     @Published var username: String = "admin@vitesse.com"
     @Published var password: String = "test123"
+    @Published var message: String = ""
     let keychain = Keychain()
     let authenticationManager: AuthenticationManager
     var onLoginSucceed: (() -> ())
@@ -30,10 +31,14 @@ class LoginViewModel: ObservableObject {
                 print("\(authenticationResult.isAdmin)")
                 
                 try keychain.add(authenticationResult.token, forKey: "token")
-                onLoginSucceed()
-            if username == "admin@vitesse.com" && password == "test123 "{
-                
+            
+            if username.isEmpty{
+                message = "Une erreur est survenue. Veuillez vérifier que votre email ou votre nom d'utilisateur est correct."
+            }else if password.isEmpty {
+                message = "Une erreur est survenue. Veuillez vérifier que votre mot depasse est correct."
             }
+                onLoginSucceed()
+                
                 return authenticationResult
                
         }catch{
