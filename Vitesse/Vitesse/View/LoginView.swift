@@ -47,23 +47,17 @@ struct LoginView: View {
                             .cornerRadius(5.0)
                             .padding(.bottom,20)
                     
-                    Button("Sign in") {
-                        Task { @MainActor in
-                            try? await AuthenticationView.authenticateUserAndProceed()
-                        }
-                    }
-                    .frame(width: 100, height: 50)
-                    .foregroundColor(.white)
-                    .background(Color.blue)
-                    .cornerRadius(10)
+                    LoginButtonContent(authentification: AuthenticationView)
                     
                     Button("Registrer") {
                         registre = true
                     }
-                    .frame(width: 100, height: 50)
-                    .background(Color.blue)
+                    .font(.headline)
                     .foregroundColor(.white)
-                    .cornerRadius(10)
+                    .padding()
+                    .frame(width: 220, height: 60)
+                    .background(Color.black)
+                    .cornerRadius(35)
                     .sheet(isPresented: $registre ) {
                         RegistrationView(registreViewModel: vitesseViewModel.registreViewModel, login: LoginViewModel({}))
                     }
@@ -71,5 +65,23 @@ struct LoginView: View {
             
             }
         }
+    }
+}
+
+
+struct LoginButtonContent : View {
+    let authentification : LoginViewModel
+    var body: some View {
+        Button("Sign in") {
+            Task { @MainActor in
+                try? await authentification.authenticateUserAndProceed()
+            }
+        }
+        .font(.headline)
+        .foregroundColor(.white)
+        .padding()
+        .frame(width: 220, height: 60)
+        .background(Color.black)
+        .cornerRadius(35)
     }
 }
