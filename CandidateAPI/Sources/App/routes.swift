@@ -13,6 +13,7 @@ func routes(_ app: Application) throws {
             return try await UserController().login(req:Request)
  
     }
+   
 
     app.post("/user/register") { Request -> EventLoopFuture<HTTPStatus> in
     
@@ -44,7 +45,7 @@ func routes(_ app: Application) throws {
     
     app.put("/candidate/:candidateId/favorite") { Request -> EventLoopFuture<Candidate> in
             
-            return try CandidateController().favoriteCandidate(req: Request)
+    return try CandidateController().favoriteCandidate(req: Request)
     }
 
     
