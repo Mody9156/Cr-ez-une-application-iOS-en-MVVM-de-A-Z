@@ -12,10 +12,19 @@ struct RegistrationView: View {
                 VStack {
                     Text("Registre")
                         .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.blue)
-                        .padding()
+                        .fontWeight(.semibold)
+                        .foregroundColor(.black)
+                        .padding(.bottom,20)
 
+                    Image("Vitesse")
+                        .resizable()
+                        .frame(width: 150, height: 150)
+                        .clipShape(Circle()).rotationEffect(.degrees(rotationAngle))
+                        .onAppear {
+                            withAnimation(Animation.linear(duration: 5).repeatForever(autoreverses: false)) {
+                                rotationAngle = 360
+                            }
+                        }
                     VStack(alignment: .leading) {
                         FetchRegistre(registreViewModel: $registreViewModel, infos: "First Name",text:registreViewModel.firstName,textField: "Use First Name valid")
                         FetchRegistre(registreViewModel: $registreViewModel, infos: "Last Name",text:registreViewModel.lastName,textField: "Use Last Name valid")
@@ -25,16 +34,24 @@ struct RegistrationView: View {
                             Text("Password").foregroundColor(.white)
                                 .font(.title3)
                             SecureField("Use Password valid", text: $registreViewModel.password)
-                                .textFieldStyle(.roundedBorder)
-                                .autocapitalization(.none)
-                                .disableAutocorrection(true)
+                                .padding()
+                                .cornerRadius(5.0)
+                                .foregroundColor(.gray)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color.orange, lineWidth: 2)
+                                )
 
                             Text("Confirm Password").foregroundColor(.white)
                                 .font(.title3)
                             SecureField("Use Password valid", text: $password)
-                                .textFieldStyle(.roundedBorder)
-                                .autocapitalization(.none)
-                                .disableAutocorrection(true)
+                                .padding()
+                                .cornerRadius(5.0)
+                                .foregroundColor(.gray)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color.orange, lineWidth: 2)
+                                )
                         }
                     }
                     .padding()
@@ -67,9 +84,13 @@ struct FetchRegistre: View {
         Group {
             Text(infos).foregroundColor(.white)
             TextField(textField, text: $text)
-                .disableAutocorrection(true)
-                .textFieldStyle(.roundedBorder)
-                .autocapitalization(.none)
+                .padding()
+                .cornerRadius(5.0)
+                .foregroundColor(.gray)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.orange, lineWidth: 2)
+                )
 
         }
     }
