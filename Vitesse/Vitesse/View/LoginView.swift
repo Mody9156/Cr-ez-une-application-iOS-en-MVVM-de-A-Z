@@ -38,18 +38,14 @@ struct LoginView: View {
                         .cornerRadius(5.0)
                         .padding(.bottom,20)
                     
-                    VStack {
                         Text("Password")
                             .foregroundColor(.white)
                             .font(.title3)
-                        SecureField("Veuillez entrez un mot de passe vaide", text: $AuthenticationView.password)
+                        SecureField("Veuillez entrez un mot de passe valide", text: $AuthenticationView.password)
                             .padding()
                             .background(textFieldGray)
                             .cornerRadius(5.0)
                             .padding(.bottom,20)
-                        
-                    }
-                  
                     
                     Button("Sign in") {
                         Task { @MainActor in
@@ -60,9 +56,6 @@ struct LoginView: View {
                     .foregroundColor(.white)
                     .background(Color.blue)
                     .cornerRadius(10)
-                  
-                    
-                   
                     
                     Button("Registrer") {
                         registre = true
@@ -74,7 +67,7 @@ struct LoginView: View {
                     .sheet(isPresented: $registre ) {
                         RegistrationView(registreViewModel: vitesseViewModel.registreViewModel, login: LoginViewModel({}))
                     }
-                }
+                }.padding()
             
             }
         }
