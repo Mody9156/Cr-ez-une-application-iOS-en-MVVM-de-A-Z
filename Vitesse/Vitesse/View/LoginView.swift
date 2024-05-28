@@ -18,7 +18,7 @@ struct LoginView: View {
             ZStack {
                 Image("running")
                     .resizable()
-                    .aspectRatio(contentMode: .fill).ignoresSafeArea()
+                .ignoresSafeArea()
                     
                 VStack {
                     Text("Login")
@@ -64,7 +64,6 @@ struct LoginView: View {
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .frame(width: 150, height: 60)
                     .background(Color.black)
                     .cornerRadius(35)
                     
@@ -74,7 +73,6 @@ struct LoginView: View {
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .frame(width: 150, height: 60)
                     .background(Color.black)
                     .cornerRadius(35)
                     .sheet(isPresented: $registre) {
