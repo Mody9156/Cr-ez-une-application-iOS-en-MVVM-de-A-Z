@@ -52,9 +52,11 @@ class retrieveCandidateData{
     func validateHTTPResponse(request: URLRequest) async throws -> HTTPURLResponse {
         let (_, response) = try await httpService.request(request)
         
+        
         guard  response.statusCode == 200 else {
             throw CandidateFetchError.httpResponseInvalid
         }
+        
         
         return response
     }
