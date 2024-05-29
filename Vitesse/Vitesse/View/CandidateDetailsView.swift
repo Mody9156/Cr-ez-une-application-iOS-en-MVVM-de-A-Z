@@ -122,7 +122,7 @@ extension CandidateDetailView {
     
     func loadCandidateProfile() async {
         do {
-            let candidateDetails = try await candidateDetailsManager.displayCandidateDetails(at: IndexSet())
+            let candidateDetails = try await candidateDetailsManager.displayCandidateDetails()
             candidateDetailsManager.candidats = candidateDetails
             print("candidateDetails:\(candidateDetails)")
             print("Félicitations, loadCandidateProfile est passée")
