@@ -25,7 +25,7 @@ class CandidateDetailsManager: ObservableObject {
             }
         }
     
-    func displayCandidateDetails() async throws -> [CandidateInformation] {
+    func displayCandidateDetails() async throws -> CandidateInformation {
             do {
                 let token = try  getToken()
                 print("Token récupéré : \(token)")
@@ -46,7 +46,7 @@ class CandidateDetailsManager: ObservableObject {
                 )
                 print("Requête HTTP : \(request)")
                 
-                let data = try await retrieveCandidateData.fetchCandidateData(request: request)
+                let data = try await retrieveCandidateData.fetchCandidateDetaille(request: request)
                 print("Données reçues : \(data)")
                 
                 return data

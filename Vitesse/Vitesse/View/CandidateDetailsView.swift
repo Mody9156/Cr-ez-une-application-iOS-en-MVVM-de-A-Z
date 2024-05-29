@@ -95,7 +95,7 @@ struct CandidateDetailView: View {
         .padding()
         .onAppear {
             Task {
-                print("Nombre de candidats : \(self.candidateDetailsManager.candidats.count)")
+                print("Nombre de candidats : \(candidate)")
                 await loadCandidateProfile()
             }
             initializeEditingFields()
@@ -122,8 +122,9 @@ extension CandidateDetailView {
     func loadCandidateProfile() async {
         do {
             let candidateDetails = try await candidateDetailsManager.displayCandidateDetails()
+            candidate = candidateDetails
             await MainActor.run {
-                self.candidate = candidateDetails.first!
+                
                 print("candidateDetails: \(candidateDetails)")
                 print("Félicitations, loadCandidateProfile est passée")
             }
