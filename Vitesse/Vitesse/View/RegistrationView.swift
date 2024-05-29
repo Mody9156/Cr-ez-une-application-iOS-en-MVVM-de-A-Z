@@ -28,7 +28,7 @@ struct RegistrationView: View {
                             SecureField("Use Password valid", text: $registreViewModel.password)
                                 .padding()
                                 .cornerRadius(5.0)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.black)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 5)
                                         .stroke(Color.orange, lineWidth: 2)
@@ -39,7 +39,7 @@ struct RegistrationView: View {
                             SecureField("Use Password valid", text: $password)
                                 .padding()
                                 .cornerRadius(5.0)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.black)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 5)
                                         .stroke(Color.orange, lineWidth: 2)
