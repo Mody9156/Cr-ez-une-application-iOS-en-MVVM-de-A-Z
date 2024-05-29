@@ -43,7 +43,7 @@ struct LoginView: View {
                         TextField(("Entrez un Email ou Username valide"), text: $loginViewModel.username)
                             .padding()
                             .cornerRadius(5.0)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.black)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
                                     .stroke(Color.orange, lineWidth: 2)
@@ -58,7 +58,7 @@ struct LoginView: View {
                         SecureField("Veuillez entrez un mot de passe valide", text: $loginViewModel.password)
                             .padding()
                             .cornerRadius(5.0)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.black)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
                                     .stroke(Color.orange, lineWidth: 2)
