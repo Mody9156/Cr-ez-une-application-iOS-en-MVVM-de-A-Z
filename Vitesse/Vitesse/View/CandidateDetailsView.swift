@@ -124,8 +124,10 @@ extension CandidateDetailView {
         do {
             let candidateDetails = try await candidateDetailsManager.displayCandidateDetails(at: IndexSet())
             candidateDetailsManager.candidats = candidateDetails
+            print("candidateDetails:\(candidateDetails)")
             print("Félicitations, loadCandidateProfile est passée")
         } catch {
+           
             print("Dommage, le candidat n'est pas passé")
         }
     }
