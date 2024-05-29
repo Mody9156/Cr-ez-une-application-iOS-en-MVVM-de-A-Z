@@ -29,12 +29,12 @@ class CandidateDetailsManager : ObservableObject {
         return getToken
     }
     
-    func displayCandidateDetails(at offsets: IndexSet) async throws -> [CandidateInformation] {
+    func displayCandidateDetails() async throws -> [CandidateInformation] {
         do {
             let token = try await getToken()
             var id = ""
-            for offset in offsets {
-                id = candidats[offset].id
+            for candidat in candidats {
+                id = candidat.id
             }
             let request = try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)", method: "GET", token: token, id: id)
             let data = try await retrieveCandidateData.fetchCandidateData(request: request)
