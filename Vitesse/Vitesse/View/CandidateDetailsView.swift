@@ -9,9 +9,8 @@ struct CandidateDetailView: View {
     @State private var editedPhone: String?
     @State private var editedEmail: String = ""
     @State private var editedLinkedIn: String?
-    
-    var candidate: CandidateInformation
-    
+    @State  var candidate: CandidateInformation
+
     var body: some View {
         VStack(alignment: .leading) {
             Group {
@@ -96,7 +95,6 @@ struct CandidateDetailView: View {
         .padding()
         .onAppear {
             Task {
-               
                 print("Nombre de candidats : \(self.candidateDetailsManager.candidats.count)")
                 await loadCandidateProfile()
             }
@@ -125,7 +123,7 @@ extension CandidateDetailView {
         do {
             let candidateDetails = try await candidateDetailsManager.displayCandidateDetails()
             await MainActor.run {
-                candidateDetailsManager.candidats = candidateDetails
+                self.candidate = candidateDetails.first!
                 print("candidateDetails: \(candidateDetails)")
                 print("Félicitations, loadCandidateProfile est passée")
             }
@@ -133,9 +131,7 @@ extension CandidateDetailView {
             print("Dommage, le candidat n'est pas passé")
         }
     }
- 
-                          
-                          
+
     func saveCandidate() async {
         do {
             let updatedCandidate = try await candidateDetailsManager.candidateUpdater(
