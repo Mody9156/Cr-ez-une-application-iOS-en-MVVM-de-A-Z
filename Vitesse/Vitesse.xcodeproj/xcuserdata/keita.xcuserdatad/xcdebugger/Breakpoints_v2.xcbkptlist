@@ -196,7 +196,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "F10C2B2B-4EE1-4672-AACA-5E3F5A0D0A8B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Vitesse/View/CandidateDetailsView.swift"
@@ -205,6 +205,22 @@
             startingLineNumber = "126"
             endingLineNumber = "126"
             landmarkName = "loadCandidateProfile()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "39208AAE-0696-41AA-80DC-D0A955993636"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vitesse/ViewModel/Candidate/CandidateDetailsManagerVieModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "displayCandidateDetails(at:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
