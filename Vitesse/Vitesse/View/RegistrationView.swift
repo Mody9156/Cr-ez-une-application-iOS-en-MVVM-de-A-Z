@@ -13,7 +13,7 @@ struct RegistrationView: View {
                     Text("Registre")
                         .font(.largeTitle)
                         .fontWeight(.semibold)
-                        .foregroundColor(.black)
+                        .foregroundColor(.orange)
                         .padding(.bottom,20)
 
                   
@@ -79,7 +79,7 @@ struct FetchRegistre: View {
             TextField(textField, text: $text)
                 .padding()
                 .cornerRadius(5.0)
-                .foregroundColor(.gray)
+                .foregroundColor(.black)
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.orange, lineWidth: 2)
