@@ -22,19 +22,26 @@ class CandidateDetailsManager: ObservableObject {
     }
     
     func displayCandidateDetails() async throws -> [CandidateInformation] {
-        do {
-            let token = try await getToken()
-            guard let candidate = candidats.first else {
-                throw FetchTokenResult.displayCandidateDetailsError
-            }
-            let id = candidate.id
-            let request = try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)", method: "GET", token: token, id: id)
-            let data = try await retrieveCandidateData.fetchCandidateData(request: request)
-            return data
-        } catch {
-            throw FetchTokenResult.displayCandidateDetailsError
-        }
-    }
+        
+           do {
+               
+               let token = try await getToken()
+               guard let candidate = candidats.first else {
+                   print("Aucun candidat trouvé dans la liste.")
+                   print("token : \(token)")
+                   throw FetchTokenResult.displayCandidateDetailsError
+               }
+               let id = candidate.id
+               let request = try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)", method: "GET", token: token, id: id)
+               let data = try await retrieveCandidateData.fetchCandidateData(request: request)
+               
+               return data
+               
+           } catch {
+               print("Erreur lors de displayCandidateDetails: \(error)")
+               throw FetchTokenResult.displayCandidateDetailsError
+           }
+       }
     
     func candidateUpdater(phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String, id: String) async throws -> CandidateInformation {
         do {

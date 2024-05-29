@@ -95,7 +95,7 @@ struct CandidateDetailView: View {
         }
         .padding()
         .onAppear {
-            Task {
+            Task {@MainActor in
                 await loadCandidateProfile()
             }
             initializeEditingFields()
