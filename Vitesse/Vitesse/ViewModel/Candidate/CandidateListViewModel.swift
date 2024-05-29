@@ -13,6 +13,7 @@ class CandidateListViewModel : ObservableObject {
 
     init(retrieveCandidateData: retrieveCandidateData) {
         self.retrieveCandidateData = retrieveCandidateData
+        
     }
     enum FetchTokenResult: Error, LocalizedError {
         case displayCandidatesListError

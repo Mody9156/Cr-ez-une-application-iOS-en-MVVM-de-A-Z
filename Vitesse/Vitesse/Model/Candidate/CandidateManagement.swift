@@ -9,15 +9,15 @@ import Foundation
 
 struct CandidateManagement {
     
-    static func createURLRequest(url:String,method:String,token:String,id:String) throws -> URLRequest {
-        let url = URL(string: url)!
-        var request  = URLRequest(url: url)
-        request.httpMethod = method
-        let authHeader = "Bearer" + token
-        request.setValue(authHeader, forHTTPHeaderField: "Authorization")
-
-        return request
-    }
+    static func createURLRequest(url: String, method: String, token: String, id: String) throws -> URLRequest {
+          guard let url = URL(string: url) else {
+              throw URLError(.badURL)
+          }
+          var request = URLRequest(url: url)
+          request.httpMethod = method
+          request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+          return request
+      }
     static func createURLRequestFavoris(url:String,method:String,token:String) throws -> URLRequest {
         let url = URL(string: url)!
         var request  = URLRequest(url: url)
