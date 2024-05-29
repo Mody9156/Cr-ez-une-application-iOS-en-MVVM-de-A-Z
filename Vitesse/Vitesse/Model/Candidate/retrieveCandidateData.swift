@@ -19,7 +19,9 @@ class retrieveCandidateData{
     }
     
     enum CandidateFetchError: Error {
-        case networkError,httpResponseInvalid,processCandidateElementsError,fetchCandidateDataFavoris
+        case networkError,httpResponseInvalid,processCandidateElementsError
+        case fetchCandidateDataFavoris
+        case NetworkError
     }
     
     func fetchCandidateData(request : URLRequest) async throws -> [CandidateInformation] {
@@ -34,6 +36,7 @@ class retrieveCandidateData{
         }
         
     }
+ 
   
     func fetchCandidateDataFavoris(request : URLRequest) async throws -> CandidateInformation {
         do {

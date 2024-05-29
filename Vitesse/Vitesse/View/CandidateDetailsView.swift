@@ -95,7 +95,9 @@ struct CandidateDetailView: View {
         }
         .padding()
         .onAppear {
-            Task {@MainActor in
+            Task {
+               
+                print("Nombre de candidats : \(self.candidateDetailsManager.candidats.count)")
                 await loadCandidateProfile()
             }
             initializeEditingFields()
@@ -131,7 +133,9 @@ extension CandidateDetailView {
             print("Dommage, le candidat n'est pas passé")
         }
     }
-    
+ 
+                          
+                          
     func saveCandidate() async {
         do {
             let updatedCandidate = try await candidateDetailsManager.candidateUpdater(
