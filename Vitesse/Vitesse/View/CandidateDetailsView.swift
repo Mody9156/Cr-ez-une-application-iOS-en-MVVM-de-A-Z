@@ -124,7 +124,7 @@ extension CandidateDetailView {
         do {
             let candidateDetails = try await candidateDetailsManager.displayCandidateDetails()
                candidate = candidateDetails
-            initializeEditingFields()
+                initializeEditingFields()
                 print("candidateDetails: \(candidateDetails)")
                 print("Félicitations, loadCandidateProfile est passée")
         } catch {
