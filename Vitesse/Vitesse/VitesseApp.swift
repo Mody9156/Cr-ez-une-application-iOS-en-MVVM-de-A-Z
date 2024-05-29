@@ -1,25 +1,28 @@
-//
-//  VitesseApp.swift
-//  Vitesse
-//
-//  Created by KEITA on 11/05/2024.
-//
-
 import SwiftUI
 
 @main
 struct VitesseApp: App {
-    let vitesseViewModel = VitesseViewModel()
+    @StateObject var vitesseViewModel = VitesseViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            Group {
+            Group{
                 if vitesseViewModel.onLoginSucceed {
+                    TabView {
+                        CandidatesListView(
+                            candidateListViewModel: vitesseViewModel.candidateListViewModel)
+                        .tabItem {
+                            Image(systemName: "person.crop.circle")
+                            Text("Candidats")
+                        }
+                    }.onAppear{
+                        //créer un nouveau candidat
+                    }
                     
-                }else{
-                    Login(loginViewModel: vitesseViewModel.loginViewModel)
+                } else {
+                    LoginView(loginViewModel: vitesseViewModel.loginViewModel, vitesseViewModel: VitesseViewModel())
                 }
-            }
-            
+            }.animation(.easeInOut(duration: 0.5), value: UUID())
         }
     }
 }
