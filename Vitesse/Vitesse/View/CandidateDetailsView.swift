@@ -28,7 +28,7 @@ struct CandidateDetailView: View {
                             .font(.title2)
                     }
                     Spacer()
-                    Image(systemName: candidate.isFavorite ? "star" : "")
+                    Image(systemName:  "star" )
                         .foregroundColor( .yellow)
                         .font(.title2)
                 }
