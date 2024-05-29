@@ -1,7 +1,6 @@
 import Vapor
 import Fluent
 
-
 struct RegisterRequest: Content {
     let firstName: String
     let lastName: String
@@ -14,6 +13,10 @@ struct LoginRequest: Content {
     let password: String
 }
 
+struct TokenResponse: Content {
+    let token: String
+    let isAdmin: Bool
+}
 
 final class UserController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
@@ -22,7 +25,6 @@ final class UserController: RouteCollection {
         usersRoute.post("register", use: register)
             .description("Register a new user")
         
-    
         usersRoute.post("auth", use: login)
             .description("Authenticate a user and return a JWT token")
     }
@@ -44,6 +46,15 @@ final class UserController: RouteCollection {
     func login(req: Request) async throws -> TokenResponse {
         let loginRequest = try req.content.decode(LoginRequest.self)
 
+        // Vérifier que l'email et le mot de passe ne sont pas vides
+        guard !loginRequest.email.isEmpty else {
+            throw Abort(.badRequest, reason: "Email cannot be empty.")
+        }
+
+        guard !loginRequest.password.isEmpty else {
+            throw Abort(.badRequest, reason: "Password cannot be empty.")
+        }
+
         let user = try await User.query(on: req.db)
             .filter(\.$email == loginRequest.email)
             .first()
@@ -59,10 +70,4 @@ final class UserController: RouteCollection {
         let payload = UserPayload(email: findUser.email, isAdmin: findUser.isAdmin)
         return TokenResponse(token: try req.jwt.sign(payload), isAdmin: findUser.isAdmin)
     }
-
-}
-
-struct TokenResponse: Content {
-    let token: String
-    let isAdmin: Bool
 }
