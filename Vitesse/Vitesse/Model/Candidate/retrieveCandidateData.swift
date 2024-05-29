@@ -52,11 +52,11 @@ class retrieveCandidateData{
     func validateHTTPResponse(request: URLRequest) async throws -> HTTPURLResponse {
         let (_, response) = try await httpService.request(request)
         
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+        guard  response.statusCode == 200 else {
             throw CandidateFetchError.httpResponseInvalid
         }
         
-        return httpResponse
+        return response
     }
 
     func fetchCandidateInformation(token: String, id: String,phone:String?,note:String?,firstName:String,linkedinURL: String?,isFavorite: Bool,email:String,lastName: String,request : URLRequest) async throws -> CandidateInformation {
