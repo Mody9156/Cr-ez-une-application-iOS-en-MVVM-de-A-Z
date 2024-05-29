@@ -79,7 +79,7 @@ struct LoginView: View {
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .background(Color.black)
+                    .background(Color.orange)
                     .cornerRadius(35)
                     
                     Button("Register") {
