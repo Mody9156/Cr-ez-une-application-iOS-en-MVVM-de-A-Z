@@ -21,7 +21,7 @@ struct LoginView: View {
                     Text("Login")
                         .font(.largeTitle)
                         .fontWeight(.semibold)
-                        .foregroundColor(.black)
+                        .foregroundColor(.orange)
                         .padding(.bottom,20)
                     
                     Image("Vitesse")
