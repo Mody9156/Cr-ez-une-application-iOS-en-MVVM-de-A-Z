@@ -28,8 +28,8 @@ struct CandidateDetailView: View {
                             .font(.title2)
                     }
                     Spacer()
-                    Image(systemName:  "star" )
-                        .foregroundColor( .yellow)
+                    Image(systemName: "star")
+                        .foregroundColor(.yellow)
                         .font(.title2)
                 }
                 
@@ -97,9 +97,8 @@ struct CandidateDetailView: View {
         .onAppear {
             Task {
                 await loadCandidateProfile()
-                initializeEditingFields()
             }
-            
+            initializeEditingFields()
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -118,13 +117,16 @@ struct CandidateDetailView: View {
         }
     }
 }
+
 extension CandidateDetailView {
     func loadCandidateProfile() async {
         do {
             let candidateDetails = try await candidateDetailsManager.displayCandidateDetails()
-            candidateDetailsManager.candidats = candidateDetails
-            print("candidateDetails: \(candidateDetails)")
-            print("Félicitations, loadCandidateProfile est passée")
+            await MainActor.run {
+                candidateDetailsManager.candidats = candidateDetails
+                print("candidateDetails: \(candidateDetails)")
+                print("Félicitations, loadCandidateProfile est passée")
+            }
         } catch {
             print("Dommage, le candidat n'est pas passé")
         }
@@ -142,9 +144,11 @@ extension CandidateDetailView {
                 lastName: editedLastName,
                 id: candidate.id
             )
-            candidateDetailsManager.updateCandidateInformation(with: updatedCandidate)
-            isEditing.toggle()
-            print("Félicitations Updater \(updatedCandidate)")
+            await MainActor.run {
+                candidateDetailsManager.updateCandidateInformation(with: updatedCandidate)
+                isEditing.toggle()
+                print("Félicitations Updater \(updatedCandidate)")
+            }
         } catch {
             print("Dommage, le Updater n'est pas passé")
         }
@@ -160,5 +164,4 @@ extension CandidateDetailView {
         editedEmail = candidate.email
         editedLinkedIn = candidate.linkedinURL ?? ""
     }
-    
 }
