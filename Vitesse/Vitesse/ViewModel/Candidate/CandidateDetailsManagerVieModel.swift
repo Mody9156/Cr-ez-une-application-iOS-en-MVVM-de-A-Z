@@ -1,11 +1,12 @@
 import Foundation
 class CandidateDetailsManager: ObservableObject {
     
-    @Published var candidats: [CandidateInformation] = []
+    @Published var candidats: [CandidateInformation]
     let retrieveCandidateData: retrieveCandidateData
 
-    init(retrieveCandidateData: retrieveCandidateData) {
+    init(retrieveCandidateData: retrieveCandidateData,candidats: [CandidateInformation]) {
         self.retrieveCandidateData = retrieveCandidateData
+        self.candidats = candidats
     }
     
     enum FetchTokenResult: Error, LocalizedError {

@@ -96,9 +96,10 @@ struct CandidateDetailView: View {
         .onAppear {
             Task {
                 print("Nombre de candidats : \(candidate)")
+                print("loadCandidateProfile():\(await loadCandidateProfile())")
                 await loadCandidateProfile()
             }
-            initializeEditingFields()
+           
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -122,12 +123,10 @@ extension CandidateDetailView {
     func loadCandidateProfile() async {
         do {
             let candidateDetails = try await candidateDetailsManager.displayCandidateDetails()
-            candidate = candidateDetails
-            await MainActor.run {
-                
+               candidate = candidateDetails
+            initializeEditingFields()
                 print("candidateDetails: \(candidateDetails)")
                 print("Félicitations, loadCandidateProfile est passée")
-            }
         } catch {
             print("Dommage, le candidat n'est pas passé")
         }
