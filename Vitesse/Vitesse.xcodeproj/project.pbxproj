@@ -26,7 +26,7 @@
 		23E2DD102BF3A8D200C28A1F /* VitesseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0F2BF3A8D100C28A1F /* VitesseViewModel.swift */; };
 		23E2DD122BF3B69E00C28A1F /* CandidatesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD112BF3B69E00C28A1F /* CandidatesListView.swift */; };
 		23E2DD142BF3B7A300C28A1F /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD132BF3B7A300C28A1F /* HTTPService.swift */; };
-		23E2DD162BF3B82B00C28A1F /* BasicHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD152BF3B82B00C28A1F /* BasicHTTPClient.swift */; };
+		23E2DD162BF3B82B00C28A1F /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD152BF3B82B00C28A1F /* URLSessionHTTPClient.swift */; };
 		23E2DD1D2BF3CB1900C28A1F /* LoginJSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */; };
 		23E2DD1F2BF3D2D300C28A1F /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD1E2BF3D2D300C28A1F /* AuthenticationManager.swift */; };
 		23E9EB962BFDFD09004B0366 /* CandidateDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9EB952BFDFD09004B0366 /* CandidateDetailsView.swift */; };
@@ -68,7 +68,7 @@
 		23E2DD0F2BF3A8D100C28A1F /* VitesseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseViewModel.swift; sourceTree = "<group>"; };
 		23E2DD112BF3B69E00C28A1F /* CandidatesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidatesListView.swift; sourceTree = "<group>"; };
 		23E2DD132BF3B7A300C28A1F /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
-		23E2DD152BF3B82B00C28A1F /* BasicHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicHTTPClient.swift; sourceTree = "<group>"; };
+		23E2DD152BF3B82B00C28A1F /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		23E2DD1C2BF3CB1900C28A1F /* LoginJSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJSONModel.swift; sourceTree = "<group>"; };
 		23E2DD1E2BF3D2D300C28A1F /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		23E9EB952BFDFD09004B0366 /* CandidateDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandidateDetailsView.swift; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				23E2DD132BF3B7A300C28A1F /* HTTPService.swift */,
-				23E2DD152BF3B82B00C28A1F /* BasicHTTPClient.swift */,
+				23E2DD152BF3B82B00C28A1F /* URLSessionHTTPClient.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -367,7 +367,7 @@
 				23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */,
 				23ED07522BF61E85006FECD3 /* RegistrationRequestBody.swift in Sources */,
 				23ED07502BF61C61006FECD3 /* RegistrationRequestBuilder.swift in Sources */,
-				23E2DD162BF3B82B00C28A1F /* BasicHTTPClient.swift in Sources */,
+				23E2DD162BF3B82B00C28A1F /* URLSessionHTTPClient.swift in Sources */,
 				23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */,
 				23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */,
 				23C0FC042BFF7E98004A5D9C /* CandidateDataManager.swift in Sources */,
