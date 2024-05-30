@@ -39,6 +39,15 @@ class CandidateDataManager {
             throw CandidateFetchError.fetchCandidateDetailError
         }
     }
+    func fetchCandidateDetailFavoris(request: URLRequest) async throws -> CandidateInformation? {
+        do {
+            let (data, _) = try await httpService.request(request)
+            let candidate = try JSONDecoder().decode(CandidateInformation.self, from: data)
+            return candidate
+        } catch {
+            throw CandidateFetchError.fetchCandidateDetailError
+        }
+    }
     
     func validateHTTPResponse(request: URLRequest) async throws -> HTTPURLResponse {
         let (_, response) = try await httpService.request(request)

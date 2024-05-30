@@ -20,6 +20,16 @@ struct CandidateManagement {
 
         return request
     }
+    static func createURLRequestFavoris(url: String, method: String, token: String) throws -> URLRequest {
+        guard let url = URL(string: url) else {
+            throw URLError(.badURL)
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+        return request
+    }
 
     static func loadCandidatesFromURL(url: String, method: String, token: String) throws -> URLRequest {
         guard let url = URL(string: url) else {

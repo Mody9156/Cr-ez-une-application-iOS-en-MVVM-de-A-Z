@@ -96,10 +96,10 @@ class CandidateListViewModel : ObservableObject {
                let id = candidate.id
                print("id:\(id)")
                let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
-               let request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
+               let request = try CandidateManagement.createURLRequestFavoris(url: url, method: "PUT", token: getToken)
                print("request:\(request)")
-               let response = try await retrieveCandidateData.fetchCandidateDetail(request: request)
-                print("La mise à jour du statut du favori pour le candidat a réussi. : :\(response)")
+               let response = try await retrieveCandidateData.fetchCandidateDetailFavoris(request: request)
+               print("La mise à jour du statut du favori pour le candidat a réussi. : :\(String(describing: response))")
                      
                      return response
            } catch {
