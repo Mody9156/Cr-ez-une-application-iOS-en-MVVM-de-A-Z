@@ -11,7 +11,7 @@ struct CandidatesListView: View {
               
                     List {
                         ForEach(searchResult, id: \.id) { candidate in
-                            NavigationLink(destination: CandidateDetailView(CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidats), CandidateInformation: candidate)){
+                            NavigationLink(destination: CandidateDetailView(CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidates), CandidateInformation: candidate)){
                                 HStack {
                                     Text(candidate.lastName)
                                     Text(candidate.firstName)
@@ -60,9 +60,9 @@ struct CandidatesListView: View {
     
     var searchResult: [CandidateInformation] {
         if search.isEmpty {
-            return candidateListViewModel.candidats
+            return candidateListViewModel.candidates
         } else {
-            return candidateListViewModel.candidats.filter { candidat in
+            return candidateListViewModel.candidates.filter { candidat in
                 candidat.lastName.lowercased().contains(search.lowercased()) ||
                 candidat.firstName.lowercased().contains(search.lowercased())
             }
@@ -72,7 +72,7 @@ struct CandidatesListView: View {
     func loadCandidates() async {
         do {
             let candidats = try await candidateListViewModel.displayCandidatesList()
-            candidateListViewModel.candidats = candidats
+            candidateListViewModel.candidates = candidats
         } catch {
             print("Erreur lors de la récupération des candidats")
         }
