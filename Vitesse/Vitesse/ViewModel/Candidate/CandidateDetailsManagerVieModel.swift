@@ -47,7 +47,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
                 )
                 print("Requête HTTP : \(request)")
                 
-                let data = try await retrieveCandidateData.fetchCandidateDetaille(request: request)
+                let data = try await retrieveCandidateData.fetchCandidateDetail(request: request)
                 print("Données reçues : \(data)")
                 
                 return data

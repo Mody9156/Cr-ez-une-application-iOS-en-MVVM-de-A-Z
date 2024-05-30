@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State var registre: Bool = false
+    @State var register: Bool = false
     @ObservedObject var loginViewModel: LoginViewModel
     let vitesseViewModel: VitesseViewModel
     @State private var rotationAngle: Double = 0
@@ -76,16 +76,16 @@ struct LoginView: View {
                     .cornerRadius(35)
 
                     Button("Register") {
-                        registre = true
+                        register = true
                     }
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.orange)
                     .cornerRadius(35)
-                    .sheet(isPresented: $registre) {
+                    .sheet(isPresented: $register) {
                         RegistrationView(
-                            registreViewModel: vitesseViewModel.registreViewModel,
+                            registerViewModel: vitesseViewModel.registerViewModel,
                             login: LoginViewModel({})
                         )
                     }

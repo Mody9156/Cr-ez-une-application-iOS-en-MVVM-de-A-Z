@@ -17,14 +17,14 @@ class Keychain: TokenStore {
     }
     
     func add(_ data: String, forKey key: String) throws {
-        let recupdata = data.data(using: .utf8)!
+        let fetchData = data.data(using: .utf8)!
         
         try? delete(forKey: key)
         
         let array: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key,
-            kSecValueData as String: recupdata
+            kSecValueData as String: fetchData
         ]
         
         let status = SecItemAdd(array as CFDictionary, nil)

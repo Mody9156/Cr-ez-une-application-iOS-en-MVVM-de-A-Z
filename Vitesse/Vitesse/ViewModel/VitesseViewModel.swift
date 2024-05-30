@@ -16,18 +16,18 @@ class VitesseViewModel: ObservableObject {
     }
     
     // Registre
-    var registreViewModel: RegistreViewModel {
-        let registrationRequestBuilder = RegistrationRequestBuilder(httpService: BasicHTTPClient())
-        return RegistreViewModel(registrationRequestBuilder: registrationRequestBuilder)
+    var registerViewModel: RegisterViewModel {
+        let registrationRequestBuilder = RegistrationRequestBuilder(httpService: URLSessionHTTPClient())
+        return RegisterViewModel(registrationRequestBuilder: registrationRequestBuilder)
     }
     
     
     var candidateDetailsManager: CandidateDetailsManagerViewModel {
-        return CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidats)
+        return CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidates)
     }
     
    
     var candidateListViewModel : CandidateListViewModel {
-        return CandidateListViewModel(retrieveCandidateData: CandidateDataManager())
+        return CandidateListViewModel(retrieveCandidateData: CandidateDataManager(), candidates: [])
     }
 }

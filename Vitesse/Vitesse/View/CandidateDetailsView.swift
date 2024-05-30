@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CandidateDetailView: View {
-    @ObservedObject var candidateDetailsManager: CandidateDetailsManagerViewModel
+    @ObservedObject var CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
     @State private var isEditing = false
     @State private var editedNote: String = ""
     @State private var editedFirstName: String = ""
@@ -9,7 +9,7 @@ struct CandidateDetailView: View {
     @State private var editedPhone: String?
     @State private var editedEmail: String = ""
     @State private var editedLinkedIn: String?
-    @State var candidate: CandidateInformation
+    @State var CandidateInformation: CandidateInformation
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -21,15 +21,18 @@ struct CandidateDetailView: View {
                         TextField("First Name", text: $editedFirstName)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        Text(candidate.lastName)
+                        Text(CandidateInformation.lastName)
                             .font(.title2)
-                        Text(candidate.firstName)
+                        Text(CandidateInformation.firstName)
                             .font(.title2)
                     }
                     Spacer()
-                    Image(systemName: "star")
-                        .foregroundColor(.yellow)
-                        .font(.title2)
+                    if CandidateInformation.isFavorite {
+                        Image(systemName:"star.fill")
+                            .foregroundColor(.yellow)
+                            .font(.title2)
+                    }
+                   
                 }
 
                 HStack {
@@ -41,7 +44,7 @@ struct CandidateDetailView: View {
                         ))
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        if let phone = candidate.phone {
+                        if let phone = CandidateInformation.phone {
                             Text(phone)
                         } else {
                             Text("No phone available")
@@ -56,7 +59,7 @@ struct CandidateDetailView: View {
                         TextField("Email", text: $editedEmail)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        Text(candidate.email)
+                        Text(CandidateInformation.email)
                     }
                 }
 
@@ -69,7 +72,7 @@ struct CandidateDetailView: View {
                         ))
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        if let linkedIn = candidate.linkedinURL {
+                        if let linkedIn = CandidateInformation.linkedinURL {
                             Text(linkedIn)
                         } else {
                             Text("Go on LinkedIn")
@@ -83,7 +86,7 @@ struct CandidateDetailView: View {
                     TextField("Note", text: $editedNote)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                 } else {
-                    if let note = candidate.note {
+                    if let note = CandidateInformation.note {
                         Text(note)
                     } else {
                         Text("No note available")
@@ -95,7 +98,7 @@ struct CandidateDetailView: View {
         .padding()
         .onAppear {
             Task {
-                print("Nombre de candidats : \(candidate)")
+                print("Nombre de candidats : \(CandidateInformation)")
                 print("loadCandidateProfile():\(await loadCandidateProfile())")
                 await loadCandidateProfile()
             }
@@ -121,13 +124,13 @@ struct CandidateDetailView: View {
 extension CandidateDetailView {
     func loadCandidateProfile() async {
         do {
-            let candidateDetails = try await candidateDetailsManager.displayCandidateDetails()
-            candidate = candidateDetails
-            initializeEditingFields()
+            let candidateDetails = try await CandidateDetailsManagerViewModel.displayCandidateDetails()
+            CandidateInformation = candidateDetails
+            initialiseEditingFields()
             print("candidateDetails: \(candidateDetails)")
             print("Félicitations, loadCandidateProfile est passée")
-               candidate = candidateDetails
-                initializeEditingFields()
+               CandidateInformation = candidateDetails
+                initialiseEditingFields()
                 print("candidateDetails: \(candidateDetails)")
                 print("Félicitations, loadCandidateProfile est passée")
         } catch {
@@ -137,18 +140,18 @@ extension CandidateDetailView {
 
     func saveCandidate() async {
         do {
-            let updatedCandidate = try await candidateDetailsManager.candidateUpdater(
+            let updatedCandidate = try await CandidateDetailsManagerViewModel.candidateUpdater(
                 phone: editedPhone,
                 note: editedNote,
                 firstName: editedFirstName,
                 linkedinURL: editedLinkedIn,
-                isFavorite: candidate.isFavorite,
+                isFavorite: CandidateInformation.isFavorite,
                 email: editedEmail,
                 lastName: editedLastName,
-                id: candidate.id
+                id: CandidateInformation.id
             )
             await MainActor.run {
-                candidateDetailsManager.updateCandidateInformation(with: updatedCandidate)
+                CandidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
                 isEditing.toggle()
                 print("Félicitations Updater \(updatedCandidate)")
             }
@@ -159,12 +162,12 @@ extension CandidateDetailView {
 }
 
 extension CandidateDetailView {
-    func initializeEditingFields() {
-        editedNote = candidate.note ?? ""
-        editedFirstName = candidate.firstName
-        editedLastName = candidate.lastName
-        editedPhone = candidate.phone ?? ""
-        editedEmail = candidate.email
-        editedLinkedIn = candidate.linkedinURL ?? ""
+    func initialiseEditingFields() {
+        editedNote = CandidateInformation.note ?? ""
+        editedFirstName = CandidateInformation.firstName
+        editedLastName = CandidateInformation.lastName
+        editedPhone = CandidateInformation.phone ?? ""
+        editedEmail = CandidateInformation.email
+        editedLinkedIn = CandidateInformation.linkedinURL ?? ""
     }
 }

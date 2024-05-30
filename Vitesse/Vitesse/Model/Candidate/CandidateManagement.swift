@@ -20,6 +20,7 @@ struct CandidateManagement {
 
         return request
     }
+  
 
     static func loadCandidatesFromURL(url: String, method: String, token: String) throws -> URLRequest {
         guard let url = URL(string: url) else {

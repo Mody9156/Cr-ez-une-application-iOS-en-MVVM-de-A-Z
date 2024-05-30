@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    @State var registreViewModel = RegistreViewModel(registrationRequestBuilder: RegistrationRequestBuilder(httpService: URLSessionHTTPClient()))
+    @State var registerViewModel = RegisterViewModel(registrationRequestBuilder: RegistrationRequestBuilder(httpService: URLSessionHTTPClient()))
     @State private var registre: Bool = false
     @State var infos : String = ""
     @State var login : LoginViewModel
@@ -17,19 +17,19 @@ struct RegistrationView: View {
 
                   
                     VStack(alignment: .leading) {
-                        FetchRegistre(registreViewModel: $registreViewModel, infos: "First Name",text:registreViewModel.firstName,textField: "Use First Name valid")
-                        FetchRegistre(registreViewModel: $registreViewModel, infos: "Last Name",text:registreViewModel.lastName,textField: "Use Last Name valid")
-                        FetchRegistre(registreViewModel: $registreViewModel, infos: "Email",text:registreViewModel.email,textField: "Use Email valid ")
+                        FetchRegistre(registreViewModel: $registerViewModel, infos: "First Name",text:registerViewModel.firstName,textField: "Use First Name valid")
+                        FetchRegistre(registreViewModel: $registerViewModel, infos: "Last Name",text:registerViewModel.lastName,textField: "Use Last Name valid")
+                        FetchRegistre(registreViewModel: $registerViewModel, infos: "Email",text:registerViewModel.email,textField: "Use Email valid ")
 
-                        PasswordInputField(registreViewModel: $registreViewModel,textNames:"Password")
-                        PasswordInputField(registreViewModel: $registreViewModel, textNames:" Confirm Password")
+                        PasswordInputField(registreViewModel: $registerViewModel,textNames:"Password")
+                        PasswordInputField(registreViewModel: $registerViewModel, textNames:" Confirm Password")
                     }
                     .padding()
 
                     Button("Create") {
                         Task {
-                            try await registreViewModel.handleRegistrationViewModel()
-                            self.login.username = registreViewModel.email
+                            try await registerViewModel.handleRegistrationViewModel()
+                            self.login.username = registerViewModel.email
                             
                         }
                     }
@@ -46,7 +46,7 @@ struct RegistrationView: View {
 }
 
 struct FetchRegistre: View {
-    @Binding var registreViewModel : RegistreViewModel
+    @Binding var registreViewModel : RegisterViewModel
     @State var infos : String = ""
     @State var text : String = ""
     @State var textField : String = ""
@@ -68,7 +68,7 @@ struct FetchRegistre: View {
 }
 
 struct PasswordInputField: View {
-    @Binding var registreViewModel : RegistreViewModel
+    @Binding var registreViewModel : RegisterViewModel
     var textNames : String = ""
     
     var body: some View {

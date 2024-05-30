@@ -11,10 +11,7 @@ struct VitesseApp: App {
                     TabView {
                         CandidatesListView(
                             candidateListViewModel: vitesseViewModel.candidateListViewModel)
-                        .tabItem {
-                            Image(systemName: "person.crop.circle")
-                            Text("Candidats")
-                        }
+                        
                     }.onAppear{
                         //créer un nouveau candidat
                     }
