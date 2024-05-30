@@ -10,7 +10,7 @@
 
 import Foundation
 
-class retrieveCandidateData{
+class CandidateDataManager{
     
     let httpService: HTTPService
     
@@ -19,9 +19,8 @@ class retrieveCandidateData{
     }
     
     enum CandidateFetchError: Error {
-        case networkError,httpResponseInvalid,processCandidateElementsError
-        case fetchCandidateDataFavoris
-        case NetworkError
+        case httpResponseInvalid,fetchCandidateDataError
+        case fetchCandidateDetailleError,fetchCandidateInformationError
     }
     
     func fetchCandidateData(request : URLRequest) async throws -> [CandidateInformation] {
@@ -32,7 +31,7 @@ class retrieveCandidateData{
             
             return candidates
         }catch{
-            throw CandidateFetchError.networkError
+            throw CandidateFetchError.fetchCandidateDataError
         }
         
     }
@@ -44,26 +43,12 @@ class retrieveCandidateData{
             
             return candidates
         }catch{
-            throw CandidateFetchError.networkError
+            throw CandidateFetchError.fetchCandidateDetailleError
         }
         
     }
  
   
-    func fetchCandidateDataFavoris(request : URLRequest) async throws -> CandidateInformation {
-        do {
-            let request =  request
-            let (data, _) = try await httpService.request(request)
-            return try JSONDecoder().decode(CandidateInformation.self, from: data)
-            
-        }catch{
-            print("error ", error)
-            throw CandidateFetchError.fetchCandidateDataFavoris
-        }
-        
-    }
-   
-    
     func validateHTTPResponse(request: URLRequest) async throws -> HTTPURLResponse {
         let (_, response) = try await httpService.request(request)
         
@@ -82,7 +67,7 @@ class retrieveCandidateData{
         
        guard let jsonDecode = try? JSONDecoder().decode(CandidateInformation.self, from: data)
         else {
-            throw CandidateFetchError.networkError
+            throw CandidateFetchError.fetchCandidateInformationError
         }
         return jsonDecode
     }

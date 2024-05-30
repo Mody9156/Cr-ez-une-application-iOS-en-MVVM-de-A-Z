@@ -14,7 +14,7 @@
 		234BDF902BEFEC8500C96E42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */; };
 		234BDF9A2BEFEC8500C96E42 /* VitesseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF992BEFEC8500C96E42 /* VitesseTests.swift */; };
 		23C0FC022BFF785F004A5D9C /* CandidateManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */; };
-		23C0FC042BFF7E98004A5D9C /* retrieveCandidateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC032BFF7E98004A5D9C /* retrieveCandidateData.swift */; };
+		23C0FC042BFF7E98004A5D9C /* CandidateDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC032BFF7E98004A5D9C /* CandidateDataManager.swift */; };
 		23C0FC062BFF87D7004A5D9C /* CandidateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */; };
 		23C0FC082BFF98CE004A5D9C /* CandidateDetailsManagerVieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC072BFF98CE004A5D9C /* CandidateDetailsManagerVieModel.swift */; };
 		23D1FE852BF74C2500F3FA1E /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE842BF74C2500F3FA1E /* Keychain.swift */; };
@@ -56,7 +56,7 @@
 		234BDF952BEFEC8500C96E42 /* VitesseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		234BDF992BEFEC8500C96E42 /* VitesseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseTests.swift; sourceTree = "<group>"; };
 		23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateManagement.swift; sourceTree = "<group>"; };
-		23C0FC032BFF7E98004A5D9C /* retrieveCandidateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = retrieveCandidateData.swift; sourceTree = "<group>"; };
+		23C0FC032BFF7E98004A5D9C /* CandidateDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDataManager.swift; sourceTree = "<group>"; };
 		23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateListViewModel.swift; sourceTree = "<group>"; };
 		23C0FC072BFF98CE004A5D9C /* CandidateDetailsManagerVieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDetailsManagerVieModel.swift; sourceTree = "<group>"; };
 		23D1FE842BF74C2500F3FA1E /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
@@ -245,7 +245,7 @@
 			children = (
 				23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */,
 				23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */,
-				23C0FC032BFF7E98004A5D9C /* retrieveCandidateData.swift */,
+				23C0FC032BFF7E98004A5D9C /* CandidateDataManager.swift */,
 			);
 			path = Candidate;
 			sourceTree = "<group>";
@@ -370,7 +370,7 @@
 				23E2DD162BF3B82B00C28A1F /* BasicHTTPClient.swift in Sources */,
 				23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */,
 				23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */,
-				23C0FC042BFF7E98004A5D9C /* retrieveCandidateData.swift in Sources */,
+				23C0FC042BFF7E98004A5D9C /* CandidateDataManager.swift in Sources */,
 				23D1FE852BF74C2500F3FA1E /* Keychain.swift in Sources */,
 				23C0FC062BFF87D7004A5D9C /* CandidateListViewModel.swift in Sources */,
 			);

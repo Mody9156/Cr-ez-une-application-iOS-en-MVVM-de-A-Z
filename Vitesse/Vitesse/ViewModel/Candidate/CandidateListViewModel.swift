@@ -9,9 +9,9 @@ import Foundation
 
 class CandidateListViewModel : ObservableObject {
     @Published var candidats: [CandidateInformation] = []
-    let retrieveCandidateData: retrieveCandidateData
+    let retrieveCandidateData: CandidateDataManager
 
-    init(retrieveCandidateData: retrieveCandidateData) {
+    init(retrieveCandidateData: CandidateDataManager) {
         self.retrieveCandidateData = retrieveCandidateData
         
     }
@@ -36,7 +36,7 @@ class CandidateListViewModel : ObservableObject {
             let getToken = try   getToken()
             let request = try
             
-            CandidateManagement.createURLRequesttt(url:"http://127.0.0.1:8080/candidate",method:"GET",token:getToken)
+            CandidateManagement.loadCandidatesFromURL(url:"http://127.0.0.1:8080/candidate",method:"GET",token:getToken)
             let data = try await retrieveCandidateData.fetchCandidateData(request: request)
             DispatchQueue.main.async {
                 self.candidats = data

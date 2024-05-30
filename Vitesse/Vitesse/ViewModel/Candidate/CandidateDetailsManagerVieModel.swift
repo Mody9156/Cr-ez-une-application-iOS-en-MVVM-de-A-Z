@@ -2,9 +2,9 @@ import Foundation
 class CandidateDetailsManager: ObservableObject {
     
     @Published var candidats: [CandidateInformation]
-    let retrieveCandidateData: retrieveCandidateData
+    let retrieveCandidateData: CandidateDataManager
 
-    init(retrieveCandidateData: retrieveCandidateData,candidats: [CandidateInformation]) {
+    init(retrieveCandidateData: CandidateDataManager,candidats: [CandidateInformation]) {
         self.retrieveCandidateData = retrieveCandidateData
         self.candidats = candidats
     }
@@ -62,7 +62,7 @@ class CandidateDetailsManager: ObservableObject {
     func candidateUpdater(phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String, id: String) async throws -> CandidateInformation {
         do {
             let token = try  getToken()
-            let request = try CandidateManagement.createURLRequestfornewcandidat(url: "http://127.0.0.1:8080/candidate/\(id)", method: "PUT", token: token, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName)
+            let request = try CandidateManagement.createNewCandidateRequest(url: "http://127.0.0.1:8080/candidate/\(id)", method: "PUT", token: token, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName)
             let data = try await retrieveCandidateData.fetchCandidateInformation(token: token, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName, request: request)
             return data
         } catch {
