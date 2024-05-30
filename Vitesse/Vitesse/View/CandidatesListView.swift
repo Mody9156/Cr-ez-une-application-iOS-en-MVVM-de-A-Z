@@ -43,7 +43,7 @@ struct CandidatesListView: View {
                                 }
 
                             } label: {
-                                Image(systemName: "star")
+                                Image(systemName: "star.fill").foregroundColor(.yellow)
                             }
                             .frame(width: 40,height: 40)
                             .foregroundColor(.blue)
