@@ -11,7 +11,7 @@ class CandidateDataManager {
     
     let httpService: HTTPService
     
-    init(httpService: HTTPService = BasicHTTPClient()) {
+    init(httpService: HTTPService = URLSessionHTTPClient()) {
         self.httpService = httpService
     }
     
