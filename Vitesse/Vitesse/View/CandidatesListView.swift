@@ -2,7 +2,7 @@ import SwiftUI
 struct CandidatesListView: View {
     @StateObject var candidateListViewModel: CandidateListViewModel
     @State private var search = ""
-    @State private var favorite : Bool = false
+    @State private var showFavorites : Bool = false
     
     var body: some View {
         NavigationView {
@@ -11,14 +11,16 @@ struct CandidatesListView: View {
               
                     List {
                         ForEach(searchResult, id: \.id) { candidate in
-                            NavigationLink(destination: CandidateDetailView(CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidates), CandidateInformation: candidate)){
-                                HStack {
-                                    Text(candidate.lastName)
-                                    Text(candidate.firstName)
-                                    Spacer()
-                                   
-                                    Image(systemName:candidate.isFavorite ? "star.fill" :"star")
-                                        .foregroundColor(candidate.isFavorite ? .yellow : .black)
+                            if !showFavorites || candidate.isFavorite {
+                                NavigationLink(destination: CandidateDetailView(CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidates), CandidateInformation: candidate)){
+                                    HStack {
+                                        Text(candidate.lastName)
+                                        Text(candidate.firstName)
+                                        Spacer()
+                                        
+                                        Image(systemName:candidate.isFavorite ? "star.fill" :"star")
+                                            .foregroundColor(candidate.isFavorite ? .yellow : .black)
+                                    }
                                 }
                             }
                         }
@@ -36,14 +38,14 @@ struct CandidatesListView: View {
                                     do {
                                         let candidate = try await candidateListViewModel.showFavoriteCandidates()
                                         print("La mise à jour du statut du favori pour le candidat a réussi. : \(String(describing: candidate))")
-                                        self.favorite = true
+                                        self.showFavorites.toggle()
                                     } catch {
                                         print("Dommage, il y a une erreur :", error)
                                     }
                                 }
 
                             } label: {
-                                Image(systemName: "star.fill").foregroundColor(.yellow)
+                                Image(systemName: showFavorites ?  "star.fill":"star").foregroundColor(showFavorites ? .yellow : .black)
                             }
                             .frame(width: 40,height: 40)
                             .foregroundColor(.blue)
@@ -78,4 +80,6 @@ struct CandidatesListView: View {
             print("Erreur lors de la récupération des candidats")
         }
     }
+    
+  
 }
