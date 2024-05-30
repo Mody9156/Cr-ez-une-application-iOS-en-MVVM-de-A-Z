@@ -9,7 +9,7 @@ struct CandidateDetailView: View {
     @State private var editedPhone: String?
     @State private var editedEmail: String = ""
     @State private var editedLinkedIn: String?
-    @State  var candidate: CandidateInformation
+    @State var candidate: CandidateInformation
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -31,7 +31,7 @@ struct CandidateDetailView: View {
                         .foregroundColor(.yellow)
                         .font(.title2)
                 }
-                
+
                 HStack {
                     Text("Phone")
                     if isEditing {
@@ -49,7 +49,7 @@ struct CandidateDetailView: View {
                         }
                     }
                 }
-                
+
                 HStack {
                     Text("Email")
                     if isEditing {
@@ -59,7 +59,7 @@ struct CandidateDetailView: View {
                         Text(candidate.email)
                     }
                 }
-                
+
                 HStack {
                     Text("LinkedIn")
                     if isEditing {
@@ -77,7 +77,7 @@ struct CandidateDetailView: View {
                         }
                     }
                 }
-                
+
                 Text("Note")
                 if isEditing {
                     TextField("Note", text: $editedNote)
@@ -99,7 +99,6 @@ struct CandidateDetailView: View {
                 print("loadCandidateProfile():\(await loadCandidateProfile())")
                 await loadCandidateProfile()
             }
-           
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -123,10 +122,10 @@ extension CandidateDetailView {
     func loadCandidateProfile() async {
         do {
             let candidateDetails = try await candidateDetailsManager.displayCandidateDetails()
-               candidate = candidateDetails
+            candidate = candidateDetails
             initializeEditingFields()
-                print("candidateDetails: \(candidateDetails)")
-                print("Félicitations, loadCandidateProfile est passée")
+            print("candidateDetails: \(candidateDetails)")
+            print("Félicitations, loadCandidateProfile est passée")
         } catch {
             print("Dommage, le candidat n'est pas passé")
         }
