@@ -2,6 +2,7 @@ import SwiftUI
 struct CandidatesListView: View {
     @StateObject var candidateListViewModel: CandidateListViewModel
     @State private var search = ""
+    @State private var favorite : Bool = false
     
     var body: some View {
         NavigationView {
@@ -35,7 +36,7 @@ struct CandidatesListView: View {
                                     do {
                                         let candidate = try await candidateListViewModel.showFavoriteCandidates()
                                         print("La mise à jour du statut du favori pour le candidat a réussi. : \(String(describing: candidate))")
-                                        
+                                        self.favorite = true
                                     } catch {
                                         print("Dommage, il y a une erreur :", error)
                                     }
