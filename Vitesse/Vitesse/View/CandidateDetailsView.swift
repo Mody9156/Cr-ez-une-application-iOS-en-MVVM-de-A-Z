@@ -27,9 +27,12 @@ struct CandidateDetailView: View {
                             .font(.title2)
                     }
                     Spacer()
-                    Image(systemName: CandidateInformation.isFavorite ? "star.fill":"")
-                        .foregroundColor(.yellow)
-                        .font(.title2)
+                    if CandidateInformation.isFavorite {
+                        Image(systemName:"star.fill")
+                            .foregroundColor(.yellow)
+                            .font(.title2)
+                    }
+                   
                 }
 
                 HStack {
