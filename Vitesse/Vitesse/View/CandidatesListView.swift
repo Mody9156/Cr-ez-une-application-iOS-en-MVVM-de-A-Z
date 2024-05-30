@@ -35,7 +35,6 @@ struct CandidatesListView: View {
                                 Task {
                                     do{
                                         try await candidateListViewModel.showFavoriteCandidates()
-                                        print("favoris félicitation")
                                     }catch {
                                         print("erreur",error)
                                     }
