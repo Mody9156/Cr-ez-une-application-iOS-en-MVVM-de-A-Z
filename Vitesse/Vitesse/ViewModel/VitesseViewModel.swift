@@ -22,8 +22,8 @@ class VitesseViewModel: ObservableObject {
     }
     
     
-    var candidateDetailsManager: CandidateDetailsManager {
-        return CandidateDetailsManager(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidats)
+    var candidateDetailsManager: CandidateDetailsManagerViewModel {
+        return CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidats)
     }
     
    

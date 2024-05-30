@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CandidateDetailView: View {
-    @ObservedObject var candidateDetailsManager: CandidateDetailsManager
+    @ObservedObject var candidateDetailsManager: CandidateDetailsManagerViewModel
     @State private var isEditing = false
     @State private var editedNote: String = ""
     @State private var editedFirstName: String = ""

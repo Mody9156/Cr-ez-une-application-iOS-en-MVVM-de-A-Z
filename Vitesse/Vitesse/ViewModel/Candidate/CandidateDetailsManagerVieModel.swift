@@ -1,5 +1,5 @@
 import Foundation
-class CandidateDetailsManager: ObservableObject {
+class CandidateDetailsManagerViewModel: ObservableObject {
     
     @Published var candidats: [CandidateInformation]
     let retrieveCandidateData: CandidateDataManager
@@ -9,7 +9,7 @@ class CandidateDetailsManager: ObservableObject {
         self.candidats = candidats
     }
     
-    enum FetchTokenResult: Error, LocalizedError {
+    enum CandidateManagementError: Error, LocalizedError {
         case displayCandidateDetailsError, fetchTokenError, candidateUpdaterError
     }
     
@@ -17,12 +17,12 @@ class CandidateDetailsManager: ObservableObject {
             do {
                 let token = try Keychain().get(forKey: "token")
                 guard let getToken = String(data: token, encoding: .utf8) else {
-                    throw FetchTokenResult.fetchTokenError
+                    throw CandidateManagementError.fetchTokenError
                 }
                 return getToken
             } catch {
                 print("Erreur lors de la récupération du token : \(error)")
-                throw FetchTokenResult.fetchTokenError
+                throw CandidateManagementError.fetchTokenError
             }
         }
     
@@ -33,7 +33,7 @@ class CandidateDetailsManager: ObservableObject {
                 
                 guard let candidate = candidats.first else {
                     print("Aucun candidat trouvé dans la liste.")
-                    throw FetchTokenResult.displayCandidateDetailsError
+                    throw CandidateManagementError.displayCandidateDetailsError
                 }
                 
                 let id = candidate.id
@@ -54,7 +54,7 @@ class CandidateDetailsManager: ObservableObject {
                 
             } catch {
                 print("Erreur lors de displayCandidateDetails : \(error)")
-                throw FetchTokenResult.displayCandidateDetailsError
+                throw CandidateManagementError.displayCandidateDetailsError
             }
         }
           
@@ -66,7 +66,7 @@ class CandidateDetailsManager: ObservableObject {
             let data = try await retrieveCandidateData.fetchCandidateInformation(token: token, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName, request: request)
             return data
         } catch {
-            throw FetchTokenResult.candidateUpdaterError
+            throw CandidateManagementError.candidateUpdaterError
         }
     }
     

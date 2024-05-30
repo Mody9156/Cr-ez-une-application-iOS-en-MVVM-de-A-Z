@@ -15,7 +15,7 @@ class CandidateListViewModel : ObservableObject {
         self.retrieveCandidateData = retrieveCandidateData
         
     }
-    enum FetchTokenResult: Error, LocalizedError {
+    enum CandidateManagementError: Error, LocalizedError {
         case displayCandidatesListError
         case fetchTokenError
         case deleteCandidateError,processCandidateElementsError,createCandidateError
@@ -25,7 +25,7 @@ class CandidateListViewModel : ObservableObject {
     private func getToken() throws -> String {
         let token = try Keychain().get(forKey: "token")
         guard let getToken = String(data: token, encoding: .utf8) else {
-            throw FetchTokenResult.fetchTokenError
+            throw CandidateManagementError.fetchTokenError
         }
         return getToken
     }
@@ -43,7 +43,7 @@ class CandidateListViewModel : ObservableObject {
             }
             return data
         } catch {
-            throw FetchTokenResult.displayCandidatesListError
+            throw CandidateManagementError.displayCandidatesListError
         }
     }
     
@@ -67,7 +67,7 @@ class CandidateListViewModel : ObservableObject {
             }
             return data
         } catch {
-            throw FetchTokenResult.deleteCandidateError
+            throw CandidateManagementError.deleteCandidateError
         }
     }
     
@@ -78,7 +78,7 @@ class CandidateListViewModel : ObservableObject {
                 print("\(candidate)")
                 
             } catch {
-                throw FetchTokenResult.deleteCandidateError
+                throw CandidateManagementError.deleteCandidateError
             }
         }
     }
@@ -88,7 +88,7 @@ class CandidateListViewModel : ObservableObject {
            do {
                let getToken = try  getToken()
                guard let candidate = candidats.first else {
-                   throw FetchTokenResult.processCandidateElementsError
+                   throw CandidateManagementError.processCandidateElementsError
                }
                let id = candidate.id
                let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
@@ -96,7 +96,7 @@ class CandidateListViewModel : ObservableObject {
                let respnse = try await retrieveCandidateData.validateHTTPResponse(request: request)
                print("La mise à jour du statut du favori pour le candidat a réussi. : :\(respnse)")
            } catch {
-               throw FetchTokenResult.processCandidateElementsError
+               throw CandidateManagementError.processCandidateElementsError
            }
        }
 
