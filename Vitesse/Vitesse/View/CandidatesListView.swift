@@ -31,12 +31,19 @@ struct CandidatesListView: View {
                         }
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {
-                                Task {@MainActor in
-                                   try await candidateListViewModel.showFavoriteCandidates()
-
-
-                                     
+                                Task {
+                                    do {
+                                        let candidate = try await candidateListViewModel.showFavoriteCandidates()
+                                        if let candidate = candidate {
+                                            print("La mise à jour du statut du favori pour le candidat a réussi. : \(candidate)")
+                                        } else {
+                                            print("La mise à jour du statut du favori pour le candidat a échoué.")
+                                        }
+                                    } catch {
+                                        print("Dommage, il y a une erreur :", error)
+                                    }
                                 }
+
                             } label: {
                                 Image(systemName: "star")
                             }

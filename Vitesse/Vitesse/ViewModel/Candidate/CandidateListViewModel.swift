@@ -84,20 +84,20 @@ class CandidateListViewModel : ObservableObject {
     }
     
     @MainActor
-    func showFavoriteCandidates(at offsets: IndexSet) async throws -> CandidateInformation? {
+    func showFavoriteCandidates() async throws -> [CandidateInformation]? {
            do {
                let getToken = try  getToken()
                
                var id = ""
 
-               for offset in offsets {
+               for candidate in candidates {
                    
-                   id = candidates[offset].id
+                   id = candidate.id
                   
                }
                let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
                let request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
-               let response = try await retrieveCandidateData.fetchCandidateDetail(request: request)
+               let response = try await retrieveCandidateData.fetchCandidateData(request: request)
                print("La mise à jour du statut du favori pour le candidat a réussi. : :\(response)")
                return response
            } catch {
