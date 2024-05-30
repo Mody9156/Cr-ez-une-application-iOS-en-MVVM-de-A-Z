@@ -87,13 +87,17 @@ class CandidateListViewModel : ObservableObject {
     func showFavoriteCandidates() async throws {
            do {
                let getToken = try  getToken()
-               guard let candidate = candidates.first else {
-                   throw CandidateManagementError.processCandidateElementsError
+               
+               var id = ""
+
+               for candidate in candidates {
+                   
+                   id = candidate.id
+                  
                }
-               let id = candidate.id
                let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
                let request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
-               let response = try await retrieveCandidateData.validateHTTPResponse(request: request)
+               let response = try await retrieveCandidateData.fetchCandidateDetail(request: request)
                print("La mise à jour du statut du favori pour le candidat a réussi. : :\(response)")
            } catch {
                throw CandidateManagementError.processCandidateElementsError
