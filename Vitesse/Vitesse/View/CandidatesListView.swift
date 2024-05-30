@@ -57,7 +57,7 @@ struct CandidatesListView: View {
             return candidateListViewModel.candidates
         } else {
             return candidateListViewModel.candidates.filter { candidat in
-                candidat.lastName.lowercased().contains(search.lowercased()) ||
+                candidat.lastName.lowercased().contains(search.lowercased()) &&
                 candidat.firstName.lowercased().contains(search.lowercased())
             }
         }
