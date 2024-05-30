@@ -8,10 +8,10 @@
 import Foundation
 
 class RegistreViewModel : ObservableObject {
-    @Published var email : String = "exemple45@gmail.com"
-    @Published var password : String = "test123"
-    @Published var firstName: String = "jaune"
-    @Published var lastName: String = "Pierre"
+    @Published var email : String = ""
+    @Published var password : String = ""
+    @Published var firstName: String = ""
+    @Published var lastName: String = ""
     
     let registrationRequestBuilder : RegistrationRequestBuilder
     

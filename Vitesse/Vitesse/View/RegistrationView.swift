@@ -2,7 +2,6 @@ import SwiftUI
 
 struct RegistrationView: View {
     @State var registreViewModel = RegistreViewModel(registrationRequestBuilder: RegistrationRequestBuilder(httpService: BasicHTTPClient()))
-    @State private var password: String = "test123"
     @State private var registre: Bool = false
     @State var infos : String = ""
     @State var login : LoginViewModel
@@ -21,10 +20,9 @@ struct RegistrationView: View {
                         FetchRegistre(registreViewModel: $registreViewModel, infos: "First Name",text:registreViewModel.firstName,textField: "Use First Name valid")
                         FetchRegistre(registreViewModel: $registreViewModel, infos: "Last Name",text:registreViewModel.lastName,textField: "Use Last Name valid")
                         FetchRegistre(registreViewModel: $registreViewModel, infos: "Email",text:registreViewModel.email,textField: "Use Email valid ")
-                        Group {
-                            PasswordInputField(registreViewModel: $registreViewModel, password: $password,textNames: "Password")
-                            PasswordInputField(registreViewModel: $registreViewModel, password: $password,textNames: "Confirm Password")
-                        }
+
+                        PasswordInputField(registreViewModel: $registreViewModel,textNames:"Password")
+                        PasswordInputField(registreViewModel: $registreViewModel, textNames:" Confirm Password")
                     }
                     .padding()
 
@@ -54,7 +52,7 @@ struct FetchRegistre: View {
     @State var textField : String = ""
     
     var body: some View {
-      
+        Group {
             Text(infos).foregroundColor(.white)
             TextField(textField, text: $text)
                 .padding()
@@ -67,14 +65,14 @@ struct FetchRegistre: View {
 
         }
     }
-
+}
 
 struct PasswordInputField: View {
     @Binding var registreViewModel : RegistreViewModel
-    @Binding var password : String
     var textNames : String = ""
     
     var body: some View {
+        Group {
             Text(textNames).foregroundColor(.white)
                 .font(.title3)
             SecureField("Use Password valid", text: $registreViewModel.password)
@@ -86,15 +84,6 @@ struct PasswordInputField: View {
                         .stroke(Color.orange, lineWidth: 2)
                 )
             
-//            Text("Confirm Password").foregroundColor(.white)
-//                .font(.title3)
-//            SecureField("Use Password valid", text: $password)
-//                .padding()
-//                .cornerRadius(5.0)
-//                .foregroundColor(.black)
-//                .overlay(
-//                    RoundedRectangle(cornerRadius: 5)
-//                        .stroke(Color.orange, lineWidth: 2)
-//                )
+        }
     }
 }
