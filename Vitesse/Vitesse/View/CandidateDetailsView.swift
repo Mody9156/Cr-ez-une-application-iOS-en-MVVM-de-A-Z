@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CandidateDetailView: View {
-    @ObservedObject var candidateDetailsManager: CandidateDetailsManagerViewModel
+    @ObservedObject var CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
     @State private var isEditing = false
     @State private var editedNote: String = ""
     @State private var editedFirstName: String = ""
@@ -121,7 +121,7 @@ struct CandidateDetailView: View {
 extension CandidateDetailView {
     func loadCandidateProfile() async {
         do {
-            let candidateDetails = try await candidateDetailsManager.displayCandidateDetails()
+            let candidateDetails = try await CandidateDetailsManagerViewModel.displayCandidateDetails()
             candidate = candidateDetails
             initializeEditingFields()
             print("candidateDetails: \(candidateDetails)")
@@ -137,7 +137,7 @@ extension CandidateDetailView {
 
     func saveCandidate() async {
         do {
-            let updatedCandidate = try await candidateDetailsManager.candidateUpdater(
+            let updatedCandidate = try await CandidateDetailsManagerViewModel.candidateUpdater(
                 phone: editedPhone,
                 note: editedNote,
                 firstName: editedFirstName,
@@ -148,7 +148,7 @@ extension CandidateDetailView {
                 id: candidate.id
             )
             await MainActor.run {
-                candidateDetailsManager.updateCandidateInformation(with: updatedCandidate)
+                CandidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
                 isEditing.toggle()
                 print("Félicitations Updater \(updatedCandidate)")
             }
