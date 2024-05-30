@@ -84,15 +84,15 @@ class CandidateListViewModel : ObservableObject {
     }
     
     @MainActor
-    func showFavoriteCandidates() async throws -> CandidateInformation? {
+    func showFavoriteCandidates(at offsets: IndexSet) async throws -> CandidateInformation? {
            do {
                let getToken = try  getToken()
                
                var id = ""
 
-               for candidate in candidates {
+               for offset in offsets {
                    
-                   id = candidate.id
+                   id = candidates[offset].id
                   
                }
                let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"

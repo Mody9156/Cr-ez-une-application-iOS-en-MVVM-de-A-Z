@@ -32,12 +32,9 @@ struct CandidatesListView: View {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {
                                 Task {@MainActor in
-                                    do{
-                                        let favoris = try await candidateListViewModel.showFavoriteCandidates()
-                                        print("favoris : \(String(describing: favoris))")
-                                    }catch{
-                                        print(error)
-                                    }
+                                   try await candidateListViewModel.showFavoriteCandidates()
+
+
                                      
                                 }
                             } label: {
