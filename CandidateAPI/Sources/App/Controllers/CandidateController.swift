@@ -34,7 +34,7 @@ final class CandidateController: RouteCollection {
         protectedRoutes.delete(":candidateID", use: removeCandidate)
             .description("Remove a candidate by ID")
         
-        protectedRoutes.post(":candidateID", "favorite", use: favoriteCandidate)
+        protectedRoutes.put(":candidateID", "favorite", use: favoriteCandidate)
             .description("Mark a candidate as favorite (Admin only)")
     }
 
