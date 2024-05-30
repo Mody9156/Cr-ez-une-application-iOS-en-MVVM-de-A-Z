@@ -20,15 +20,15 @@ struct CandidateManagement {
 
           return request
       }
-    static func createURLRequestFavoris(url:String,method:String,token:String) throws -> URLRequest {
-        let url = URL(string: url)!
-        var request  = URLRequest(url: url)
-        request.httpMethod = method
-        let authHeader = "Bearer " + token
-        request.setValue(authHeader, forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        return request
-    }
+//    static func createURLRequestFavoris(url:String,method:String,token:String) throws -> URLRequest {
+//        let url = URL(string: url)!
+//        var request  = URLRequest(url: url)
+//        request.httpMethod = method
+//        let authHeader = "Bearer " + token
+//        request.setValue(authHeader, forHTTPHeaderField: "Authorization")
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        return request
+//    }
     
    static func createURLRequesttt(url:String,method:String,token:String) throws -> URLRequest{
        let url = URL(string: url)!
