@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RegistreViewModel : ObservableObject {
+class RegisterViewModel : ObservableObject {
     @Published var email : String = "exemplenuméro1@gmail.com"
     @Published var password : String = "test123"
     @Published var firstName: String = "max"
