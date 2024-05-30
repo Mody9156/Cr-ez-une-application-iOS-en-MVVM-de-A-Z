@@ -16,7 +16,7 @@ class VitesseViewModel: ObservableObject {
     }
     
     // Registre
-    var registreViewModel: RegisterViewModel {
+    var registerViewModel: RegisterViewModel {
         let registrationRequestBuilder = RegistrationRequestBuilder(httpService: URLSessionHTTPClient())
         return RegisterViewModel(registrationRequestBuilder: registrationRequestBuilder)
     }

@@ -85,7 +85,7 @@ struct LoginView: View {
                     .cornerRadius(35)
                     .sheet(isPresented: $register) {
                         RegistrationView(
-                            registreViewModel: vitesseViewModel.registreViewModel,
+                            registerViewModel: vitesseViewModel.registerViewModel,
                             login: LoginViewModel({})
                         )
                     }
