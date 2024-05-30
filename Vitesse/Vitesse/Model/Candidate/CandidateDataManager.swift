@@ -43,6 +43,8 @@ class CandidateDataManager {
         do {
             let (data, _) = try await httpService.request(request)
             let candidate = try JSONDecoder().decode(CandidateInformation.self, from: data)
+            print("candidate :\(candidate)")
+            print("candidate :\(String(describing:data))")
             return candidate
         } catch {
             throw CandidateFetchError.fetchCandidateDetailError
