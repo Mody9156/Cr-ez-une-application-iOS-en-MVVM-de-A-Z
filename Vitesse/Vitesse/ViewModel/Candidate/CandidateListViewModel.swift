@@ -88,21 +88,22 @@ class CandidateListViewModel : ObservableObject {
            do {
                
                let getToken = try  getToken()
-                      
+               print("Token:\(getToken)")
                guard let candidate = candidates.first else {
                    throw CandidateManagementError.processCandidateElementsError
                 }
                       
                let id = candidate.id
-                      
+               print("id:\(id)")
                let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
-                     let request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
-                     
-                     let response = try await retrieveCandidateData.fetchCandidateDetail(request: request)
-                     print("La mise à jour du statut du favori pour le candidat a réussi. : :\(response)")
+               let request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
+               print("request:\(request)")
+               let response = try await retrieveCandidateData.fetchCandidateDetail(request: request)
+                print("La mise à jour du statut du favori pour le candidat a réussi. : :\(response)")
                      
                      return response
            } catch {
+               print("there are error in function showFavoriteCandidates()")
                throw CandidateManagementError.processCandidateElementsError
            }
        }

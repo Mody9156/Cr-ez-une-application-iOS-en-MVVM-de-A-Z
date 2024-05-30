@@ -34,7 +34,7 @@ struct CandidatesListView: View {
                                 Task {
                                     do {
                                         let candidate = try await candidateListViewModel.showFavoriteCandidates()
-                                            print("La mise à jour du statut du favori pour le candidat a réussi. : \(candidate)")
+                                        print("La mise à jour du statut du favori pour le candidat a réussi. : \(String(describing: candidate))")
                                         
                                     } catch {
                                         print("Dommage, il y a une erreur :", error)
