@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CandidateDetailView: View {
-    @ObservedObject var candidateDetailsManager: CandidateDetailsManager
+    @ObservedObject var candidateDetailsManager: CandidateDetailsManagerViewModel
     @State private var isEditing = false
     @State private var editedNote: String = ""
     @State private var editedFirstName: String = ""
@@ -9,9 +9,8 @@ struct CandidateDetailView: View {
     @State private var editedPhone: String?
     @State private var editedEmail: String = ""
     @State private var editedLinkedIn: String?
-    
-    var candidate: CandidateInformation
-    
+    @State var candidate: CandidateInformation
+
     var body: some View {
         VStack(alignment: .leading) {
             Group {
@@ -28,11 +27,11 @@ struct CandidateDetailView: View {
                             .font(.title2)
                     }
                     Spacer()
-                    Image(systemName: candidate.isFavorite ? "star" : "")
-                        .foregroundColor( .yellow)
+                    Image(systemName: "star")
+                        .foregroundColor(.yellow)
                         .font(.title2)
                 }
-                
+
                 HStack {
                     Text("Phone")
                     if isEditing {
@@ -50,7 +49,7 @@ struct CandidateDetailView: View {
                         }
                     }
                 }
-                
+
                 HStack {
                     Text("Email")
                     if isEditing {
@@ -60,7 +59,7 @@ struct CandidateDetailView: View {
                         Text(candidate.email)
                     }
                 }
-                
+
                 HStack {
                     Text("LinkedIn")
                     if isEditing {
@@ -78,7 +77,7 @@ struct CandidateDetailView: View {
                         }
                     }
                 }
-                
+
                 Text("Note")
                 if isEditing {
                     TextField("Note", text: $editedNote)
@@ -96,9 +95,10 @@ struct CandidateDetailView: View {
         .padding()
         .onAppear {
             Task {
+                print("Nombre de candidats : \(candidate)")
+                print("loadCandidateProfile():\(await loadCandidateProfile())")
                 await loadCandidateProfile()
             }
-            initializeEditingFields()
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -119,21 +119,22 @@ struct CandidateDetailView: View {
 }
 
 extension CandidateDetailView {
-    
     func loadCandidateProfile() async {
         do {
-            let candidateDetails = try await candidateDetailsManager.displayCandidateDetails(at: IndexSet())
-            candidateDetailsManager.candidats = candidateDetails
+            let candidateDetails = try await candidateDetailsManager.displayCandidateDetails()
+            candidate = candidateDetails
+            initializeEditingFields()
+            print("candidateDetails: \(candidateDetails)")
             print("Félicitations, loadCandidateProfile est passée")
+               candidate = candidateDetails
+                initializeEditingFields()
+                print("candidateDetails: \(candidateDetails)")
+                print("Félicitations, loadCandidateProfile est passée")
         } catch {
             print("Dommage, le candidat n'est pas passé")
         }
     }
-    
-    }
 
-
-extension CandidateDetailView {
     func saveCandidate() async {
         do {
             let updatedCandidate = try await candidateDetailsManager.candidateUpdater(
@@ -146,15 +147,16 @@ extension CandidateDetailView {
                 lastName: editedLastName,
                 id: candidate.id
             )
-            candidateDetailsManager.updateCandidateInformation(with: updatedCandidate)
-            isEditing.toggle()
-            print("Félicitations Updater \(updatedCandidate)")
+            await MainActor.run {
+                candidateDetailsManager.updateCandidateInformation(with: updatedCandidate)
+                isEditing.toggle()
+                print("Félicitations Updater \(updatedCandidate)")
+            }
         } catch {
             print("Dommage, le Updater n'est pas passé")
         }
     }
 }
-
 
 extension CandidateDetailView {
     func initializeEditingFields() {
@@ -165,5 +167,4 @@ extension CandidateDetailView {
         editedEmail = candidate.email
         editedLinkedIn = candidate.linkedinURL ?? ""
     }
-    
 }

@@ -9,92 +9,88 @@ import SwiftUI
 
 struct LoginView: View {
     @State var registre: Bool = false
-    @ObservedObject var loginViewModel : LoginViewModel
+    @ObservedObject var loginViewModel: LoginViewModel
     let vitesseViewModel: VitesseViewModel
     @State private var rotationAngle: Double = 0
 
     var body: some View {
         NavigationStack {
             ZStack {
-              
                 VStack {
                     Text("Login")
                         .font(.largeTitle)
                         .fontWeight(.semibold)
-                        .foregroundColor(.black)
-                        .padding(.bottom,20)
-                    
+                        .foregroundColor(.orange)
+                        .padding(.bottom, 20)
+
                     Image("Vitesse")
                         .resizable()
                         .frame(width: 150, height: 150)
-                        .clipShape(Circle()).rotationEffect(.degrees(rotationAngle))
+                        .clipShape(Circle())
+                        .rotationEffect(.degrees(rotationAngle))
                         .onAppear {
                             withAnimation(Animation.linear(duration: 5).repeatForever(autoreverses: false)) {
                                 rotationAngle = 360
                             }
                         }
 
-
-                    
                     VStack {
                         Text("Email/Username")
                             .foregroundColor(.white)
-                        
-                        TextField(("Entrez un Email ou Username valide"), text: $loginViewModel.username)
+
+                        TextField("Entrez un Email ou Username valide", text: $loginViewModel.username)
                             .padding()
                             .cornerRadius(5.0)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.black)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
                                     .stroke(Color.orange, lineWidth: 2)
                             )
 
-                        
                         Text("Password")
                             .foregroundColor(.white)
                             .font(.title3)
-                        
-                    
+
                         SecureField("Veuillez entrez un mot de passe valide", text: $loginViewModel.password)
                             .padding()
                             .cornerRadius(5.0)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.black)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
                                     .stroke(Color.orange, lineWidth: 2)
                             )
 
-                        
                         Text(loginViewModel.message).foregroundColor(.red)
-                        
                     }
                     .padding(.bottom, 20)
-                    
+
                     Button("Sign in") {
                         Task { @MainActor in
-                       try? await loginViewModel.authenticateUserAndProceed()
-                            
+                            try? await loginViewModel.authenticateUserAndProceed()
                         }
                     }
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .background(Color.black)
+                    .background(Color.orange)
                     .cornerRadius(35)
-                    
+
                     Button("Register") {
                         registre = true
                     }
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .background(Color.black)
+                    .background(Color.orange)
                     .cornerRadius(35)
                     .sheet(isPresented: $registre) {
-                        RegistrationView(registreViewModel: vitesseViewModel.registreViewModel, login: LoginViewModel({}))
+                        RegistrationView(
+                            registreViewModel: vitesseViewModel.registreViewModel,
+                            login: LoginViewModel({})
+                        )
                     }
-                }.padding()
-               
+                }
+                .padding()
             }
         }
     }

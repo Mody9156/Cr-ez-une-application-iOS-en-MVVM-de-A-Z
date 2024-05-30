@@ -11,7 +11,7 @@ struct CandidatesListView: View {
               
                     List {
                         ForEach(searchResult, id: \.id) { candidate in
-                            NavigationLink(destination:CandidateDetailView(candidateDetailsManager: CandidateDetailsManager(retrieveCandidateData: retrieveCandidateData()), candidate: candidate)){
+                            NavigationLink(destination: CandidateDetailView(candidateDetailsManager: CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidats), candidate: candidate)){
                                 HStack {
                                     Text(candidate.lastName)
                                     Text(candidate.firstName)
@@ -35,7 +35,6 @@ struct CandidatesListView: View {
                                 Task {
                                     do{
                                         try await candidateListViewModel.showFavoriteCandidates()
-                                        print("favoris félicitation")
                                     }catch {
                                         print("erreur",error)
                                     }

@@ -11,7 +11,7 @@ class AuthenticationManager {
     
     let httpService: HTTPService
     
-    init(httpService: BasicHTTPClient = BasicHTTPClient()) {
+    init(httpService: URLSessionHTTPClient = URLSessionHTTPClient()) {
         self.httpService = httpService
     }
     

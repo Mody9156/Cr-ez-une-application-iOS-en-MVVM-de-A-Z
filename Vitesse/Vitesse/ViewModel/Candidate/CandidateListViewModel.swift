@@ -9,12 +9,13 @@ import Foundation
 
 class CandidateListViewModel : ObservableObject {
     @Published var candidats: [CandidateInformation] = []
-    let retrieveCandidateData: retrieveCandidateData
+    let retrieveCandidateData: CandidateDataManager
 
-    init(retrieveCandidateData: retrieveCandidateData) {
+    init(retrieveCandidateData: CandidateDataManager) {
         self.retrieveCandidateData = retrieveCandidateData
+        
     }
-    enum FetchTokenResult: Error, LocalizedError {
+    enum CandidateManagementError: Error, LocalizedError {
         case displayCandidatesListError
         case fetchTokenError
         case deleteCandidateError,processCandidateElementsError,createCandidateError
@@ -24,7 +25,7 @@ class CandidateListViewModel : ObservableObject {
     private func getToken() throws -> String {
         let token = try Keychain().get(forKey: "token")
         guard let getToken = String(data: token, encoding: .utf8) else {
-            throw FetchTokenResult.fetchTokenError
+            throw CandidateManagementError.fetchTokenError
         }
         return getToken
     }
@@ -35,14 +36,14 @@ class CandidateListViewModel : ObservableObject {
             let getToken = try   getToken()
             let request = try
             
-            CandidateManagement.createURLRequesttt(url:"http://127.0.0.1:8080/candidate",method:"GET",token:getToken)
+            CandidateManagement.loadCandidatesFromURL(url:"http://127.0.0.1:8080/candidate",method:"GET",token:getToken)
             let data = try await retrieveCandidateData.fetchCandidateData(request: request)
             DispatchQueue.main.async {
                 self.candidats = data
             }
             return data
         } catch {
-            throw FetchTokenResult.displayCandidatesListError
+            throw CandidateManagementError.displayCandidatesListError
         }
     }
     
@@ -56,7 +57,7 @@ class CandidateListViewModel : ObservableObject {
                  id = candidats[offset].id
                
             }
-            let request = try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)", method: "GET", token: getToken, id: id)
+            let request = try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)", method: "DELETE", token: getToken, id: id)
             
             let data = try await retrieveCandidateData.validateHTTPResponse(request: request)
             
@@ -66,7 +67,7 @@ class CandidateListViewModel : ObservableObject {
             }
             return data
         } catch {
-            throw FetchTokenResult.deleteCandidateError
+            throw CandidateManagementError.deleteCandidateError
         }
     }
     
@@ -77,7 +78,7 @@ class CandidateListViewModel : ObservableObject {
                 print("\(candidate)")
                 
             } catch {
-                throw FetchTokenResult.deleteCandidateError
+                throw CandidateManagementError.deleteCandidateError
             }
         }
     }
@@ -87,7 +88,7 @@ class CandidateListViewModel : ObservableObject {
            do {
                let getToken = try  getToken()
                guard let candidate = candidats.first else {
-                   throw FetchTokenResult.processCandidateElementsError
+                   throw CandidateManagementError.processCandidateElementsError
                }
                let id = candidate.id
                let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
@@ -95,7 +96,7 @@ class CandidateListViewModel : ObservableObject {
                let respnse = try await retrieveCandidateData.validateHTTPResponse(request: request)
                print("La mise à jour du statut du favori pour le candidat a réussi. : :\(respnse)")
            } catch {
-               throw FetchTokenResult.processCandidateElementsError
+               throw CandidateManagementError.processCandidateElementsError
            }
        }
 

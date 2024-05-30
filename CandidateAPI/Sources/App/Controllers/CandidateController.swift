@@ -79,14 +79,24 @@ final class CandidateController: RouteCollection {
         guard user.isAdmin else {
             throw Abort(.forbidden)
         }
-        
-        return Candidate.find(req.parameters.get("candidateID"), on: req.db)
+
+        guard let candidateID = req.parameters.get("candidateID", as: UUID.self) else {
+            throw Abort(.badRequest)
+        }
+
+        return Candidate.find(candidateID, on: req.db)
             .unwrap(or: Abort(.notFound))
             .flatMap { candidate in
                 candidate.isFavorite.toggle()
                 return candidate.save(on: req.db).map { candidate }
             }
+            .flatMapErrorThrowing { error in
+                // Log the error for debugging
+                req.logger.error("\(error)")
+                throw error
+            }
     }
+
 }
 
 
