@@ -6,7 +6,6 @@ struct CandidatesListView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack {
               
                     List {
@@ -33,12 +32,7 @@ struct CandidatesListView: View {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {
                                 Task {
-                                    do{
-                                        try await candidateListViewModel.showFavoriteCandidates()
-                                    }catch {
-                                        print("erreur",error)
-                                    }
-                                      
+                                 try await candidateListViewModel.showFavoriteCandidates()
                                       
                                 }
                             } label: {
