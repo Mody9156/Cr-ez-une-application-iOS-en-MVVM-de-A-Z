@@ -20,7 +20,7 @@ struct CandidatesListView: View {
                                         
                                         Image(systemName:candidate.isFavorite ? "star.fill" :"star")
                                             .foregroundColor(candidate.isFavorite ? .yellow : .black)
-                                    }
+                                    }.listRowSeparatorTint(.orange,edges:.bottom)
                                 }
                             }
                         }
