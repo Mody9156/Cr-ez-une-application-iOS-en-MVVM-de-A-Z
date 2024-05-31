@@ -20,10 +20,10 @@ struct CandidatesListView: View {
                                         
                                         Image(systemName:candidate.isFavorite ? "star.fill" :"star")
                                             .foregroundColor(candidate.isFavorite ? .yellow : .black)
-                                            .listRowBackground(Color.orange)
+                                            
                                     }
                                        
-                                }.listRowSeparator(.orange)
+                                }
                             }
                         }
                         .onDelete(perform: candidateListViewModel.removeCandidate)
