@@ -15,7 +15,7 @@ struct CandidatesListView: View {
                                 NavigationLink(destination: CandidateDetailView(CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidates), CandidateInformation: candidate)){
                                     HStack {
                                         Text(candidate.lastName)
-                                        Text(candidate.firstName).listRowSeparatorTint(.orange)
+                                        Text(candidate.firstName).listRowSeparatorTint(.orange,edges:.bottom)
                                         Spacer()
                                         
                                         Image(systemName:candidate.isFavorite ? "star.fill" :"star")
