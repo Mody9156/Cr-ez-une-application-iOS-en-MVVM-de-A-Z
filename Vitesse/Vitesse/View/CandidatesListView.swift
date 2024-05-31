@@ -14,7 +14,7 @@ struct CandidatesListView: View {
                             if !showFavorites || candidate.isFavorite {
                                 NavigationLink(destination: CandidateDetailView(CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidates), CandidateInformation: candidate)){
                                     HStack {
-                                        Text(candidate.lastName)
+                                        Text(candidate.lastName).listRowSeparatorTint(.orange,edges:.bottom)
                                         Text(candidate.firstName).listRowSeparatorTint(.orange,edges:.bottom)
                                         Spacer()
                                         
