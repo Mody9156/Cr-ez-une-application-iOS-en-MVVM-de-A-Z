@@ -23,15 +23,15 @@ struct CandidatesListView: View {
                                             
                                     }
                                        
-                                }
+                                }.listRowSeparatorTint(.orange)
                             }
                         }
                         .onDelete(perform: candidateListViewModel.removeCandidate)
                     }.background(
                         LinearGradient(
                         gradient: Gradient(colors: [Color.orange.opacity(0.6), Color.orange]),
-                        startPoint: .leading,
-                        endPoint: .trailing
+                        startPoint: .top,
+                        endPoint: .bottom
                     )).scrollContentBackground(.hidden)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
