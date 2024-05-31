@@ -7,10 +7,11 @@ struct CandidatesListView: View {
     var body: some View {
         NavigationView {
             ZStack {
+                Color.orange.opacity(0.1)
+                                   .edgesIgnoringSafeArea(.all)
                 VStack {
               
                     List {
-                        Section{
                         ForEach(searchResult, id: \.id) { candidate in
                             if !showFavorites || candidate.isFavorite {
                                 NavigationLink(destination: CandidateDetailView(CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidates), CandidateInformation: candidate)){
@@ -21,14 +22,14 @@ struct CandidatesListView: View {
                                         
                                         Image(systemName:candidate.isFavorite ? "star.fill" :"star")
                                             .foregroundColor(candidate.isFavorite ? .yellow : .black)
-                                        
+                                            
                                     }
-                                    
+                                       
                                 }.listRowSeparatorTint(.orange)
                             }
                         }
                         .onDelete(perform: candidateListViewModel.removeCandidate)
-                    }
+                        
                     }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
