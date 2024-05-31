@@ -14,14 +14,14 @@ struct CandidatesListView: View {
                             if !showFavorites || candidate.isFavorite {
                                 NavigationLink(destination: CandidateDetailView(CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidates), CandidateInformation: candidate)){
                                     HStack {
-                                        Text(candidate.lastName)
-                                        Text(candidate.firstName)
+                                        Text(candidate.lastName).listRowSeparatorTint(.orange,edges:.bottom)
+                                        Text(candidate.firstName).listRowSeparatorTint(.orange,edges:.bottom)
                                         Spacer()
                                         
                                         Image(systemName:candidate.isFavorite ? "star.fill" :"star")
-                                            .foregroundColor(candidate.isFavorite ? .yellow : .black)
+                                            .foregroundColor(candidate.isFavorite ? .yellow : .black).listRowSeparatorTint(.orange,edges:.bottom)
                                     }.listRowSeparatorTint(.orange,edges:.bottom)
-                                }
+                                }.listRowSeparatorTint(.orange,edges:.bottom)
                             }
                         }
                         .onDelete(perform: candidateListViewModel.removeCandidate)
