@@ -7,8 +7,7 @@ struct CandidatesListView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.orange.opacity(0.1)
-                                   .edgesIgnoringSafeArea(.all)
+                
                 VStack {
               
                     List {
@@ -25,7 +24,10 @@ struct CandidatesListView: View {
                                             
                                     }
                                        
-                                }.listRowSeparatorTint(.orange)
+                                } .listStyle(.plain)
+                                    .listRowBackground(Color.clear)
+                                    .listSectionSeparator(.hidden, edges: .bottom)
+                                        //gerer l'affichage de la list ainsi que les espaces
                             }
                         }
                         .onDelete(perform: candidateListViewModel.removeCandidate)
