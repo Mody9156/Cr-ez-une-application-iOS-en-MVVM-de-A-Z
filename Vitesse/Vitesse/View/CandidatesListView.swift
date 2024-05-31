@@ -27,7 +27,12 @@ struct CandidatesListView: View {
                             }
                         }
                         .onDelete(perform: candidateListViewModel.removeCandidate)
-                    }.background(Color.orange).scrollContentBackground(.hidden)
+                    }.background(
+                        LinearGradient(
+                        gradient: Gradient(colors: [Color.orange.opacity(0.6), Color.orange]),
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )).scrollContentBackground(.hidden)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             EditButton()
