@@ -27,7 +27,7 @@ struct CandidatesListView: View {
                             }
                         }
                         .onDelete(perform: candidateListViewModel.removeCandidate)
-                    }
+                    }.background(Color.gray).scrollContentBackground(.hidden)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             EditButton()
