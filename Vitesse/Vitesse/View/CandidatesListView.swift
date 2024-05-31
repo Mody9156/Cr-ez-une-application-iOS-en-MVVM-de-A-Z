@@ -12,23 +12,31 @@ struct CandidatesListView: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    List {
-                        ForEach(searchResult, id: \.id) { candidate in
-                            if !showFavorites || candidate.isFavorite {
-                                NavigationLink(destination: CandidateDetailView(CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidates), CandidateInformation: candidate)) {
-                                    HStack {
-                                        Text(candidate.lastName).foregroundColor(.orange)
-                                        Text(candidate.firstName).foregroundColor(.orange)
-                                        Spacer()
-                                        
-                                        Image(systemName: candidate.isFavorite ? "star.fill" : "star")
-                                            .foregroundColor(candidate.isFavorite ? .yellow : .gray)
+                    ScrollView {
+                        VStack(spacing: 10) {
+                            ForEach(searchResult, id: \.id) { candidate in
+                                if !showFavorites || candidate.isFavorite {
+                                    NavigationLink(destination: CandidateDetailView(CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidates), CandidateInformation: candidate)) {
+                                        HStack {
+                                            VStack(alignment: .leading) {
+                                                Text(candidate.lastName)
+                                                    .foregroundColor(.orange)
+                                                Text(candidate.firstName)
+                                                    .foregroundColor(.orange)
+                                            }
+                                            Spacer()
+                                            Image(systemName: candidate.isFavorite ? "star.fill" : "star")
+                                                .foregroundColor(candidate.isFavorite ? .yellow : .gray)
+                                        }
+                                        .padding()
+                                        .background(Color.white)
+                                        .cornerRadius(8)
+                                        .shadow(radius: 2)
                                     }
+                                    .padding([.horizontal])
                                 }
-                                .listRowSeparatorTint(.orange)
                             }
                         }
-                        .onDelete(perform: candidateListViewModel.removeCandidate)
                     }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
