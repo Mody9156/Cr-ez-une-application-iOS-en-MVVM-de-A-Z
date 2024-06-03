@@ -61,6 +61,7 @@ struct CandidatesListView: View {
                 }.searchable(text: $search)
             }
             .padding()
+            .background(.gray)
             
         }
         .task {
