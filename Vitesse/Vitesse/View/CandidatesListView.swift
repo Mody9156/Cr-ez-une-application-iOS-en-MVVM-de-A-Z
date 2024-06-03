@@ -61,7 +61,7 @@ struct CandidatesListView: View {
                 }.searchable(text: $search)
             }
             .padding()
-            .background(Color.orange.opacity(0.1).edgesIgnoringSafeArea(.all))
+            
         }
         .task {
             await loadCandidates()
