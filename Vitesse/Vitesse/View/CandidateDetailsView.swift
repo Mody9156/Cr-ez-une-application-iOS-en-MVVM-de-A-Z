@@ -12,28 +12,28 @@ struct CandidateDetailView: View {
     @State var CandidateInformation: CandidateInformation
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Group {
+        VStack (alignment: .leading) {
+            Section {
                 HStack {
                     if isEditing {
-                        TextField("Last Name", text: $editedLastName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
                         TextField("First Name", text: $editedFirstName)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
+                        TextField("Last Name", text: $editedLastName)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        Text(CandidateInformation.lastName)
-                            .font(.title2)
                         Text(CandidateInformation.firstName)
+                            .font(.title2)
+                        Text(CandidateInformation.lastName)
                             .font(.title2)
                     }
                     Spacer()
                     if CandidateInformation.isFavorite {
-                        Image(systemName:"star.fill")
+                        Image(systemName: "star.fill")
                             .foregroundColor(.yellow)
                             .font(.title2)
                     }
-                   
                 }
+                .padding()
 
                 HStack {
                     Text("Phone")
@@ -52,6 +52,7 @@ struct CandidateDetailView: View {
                         }
                     }
                 }
+                .padding()
 
                 HStack {
                     Text("Email")
@@ -62,6 +63,7 @@ struct CandidateDetailView: View {
                         Text(CandidateInformation.email)
                     }
                 }
+                .padding()
 
                 HStack {
                     Text("LinkedIn")
@@ -76,26 +78,38 @@ struct CandidateDetailView: View {
                             Text(linkedIn)
                         } else {
                             Text("Go on LinkedIn")
-                                .foregroundColor(.white)
+                                .foregroundColor(.gray)
                         }
                     }
                 }
+                .padding()
 
-                Text("Note")
-                if isEditing {
-                    TextField("Note", text: $editedNote)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                } else {
-                    if let note = CandidateInformation.note {
-                        Text(note)
+                VStack(alignment: .leading) {
+                    Text("Note")
+                    if isEditing {
+                        TextField("Note", text: $editedNote)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        Text("No note available")
-                            .foregroundColor(.gray)
+                        if let note = CandidateInformation.note {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.orange, lineWidth: 1)
+                                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                                    .frame(height: 100)
+                                Text(note)
+                                    .padding()
+                                    .foregroundColor(.black)
+                            }
+                        } else {
+                            Text("No note available")
+                                .foregroundColor(.gray)
+                        }
                     }
                 }
+                .padding()
             }
+            Spacer()
         }
-        .padding()
         .onAppear {
             Task {
                 print("Nombre de candidats : \(CandidateInformation)")
@@ -129,10 +143,6 @@ extension CandidateDetailView {
             initialiseEditingFields()
             print("candidateDetails: \(candidateDetails)")
             print("Félicitations, loadCandidateProfile est passée")
-               CandidateInformation = candidateDetails
-                initialiseEditingFields()
-                print("candidateDetails: \(candidateDetails)")
-                print("Félicitations, loadCandidateProfile est passée")
         } catch {
             print("Dommage, le candidat n'est pas passé")
         }
