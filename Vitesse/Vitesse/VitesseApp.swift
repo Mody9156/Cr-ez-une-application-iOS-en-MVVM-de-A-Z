@@ -10,7 +10,7 @@ struct VitesseApp: App {
                 if vitesseViewModel.onLoginSucceed {
                     TabView {
                         CandidatesListView(
-                            candidateListViewModel: vitesseViewModel.candidateListViewModel)
+                            candidateListViewModel: vitesseViewModel.candidateListViewModel, candidateDetailsManagerViewModel: vitesseViewModel.candidateDetailsManager)
                         
                     }.onAppear{
                         //créer un nouveau candidat
