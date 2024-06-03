@@ -12,7 +12,7 @@ struct CandidateDetailView: View {
     @State var CandidateInformation: CandidateInformation
 
     var body: some View {
-        VStack (alignment: .leading) {
+        VStack(alignment: .leading) {
             Section {
                 HStack {
                     if isEditing {
@@ -23,12 +23,10 @@ struct CandidateDetailView: View {
                     } else {
                         Text(CandidateInformation.firstName)
                             .font(.largeTitle)
-                            .fontWeight(.bold
-                            )
+                            .fontWeight(.bold)
                         Text(CandidateInformation.lastName)
                             .font(.largeTitle)
-                            .fontWeight(.bold
-                            )
+                            .fontWeight(.bold)
                     }
                     Spacer()
                     if CandidateInformation.isFavorite {
@@ -78,11 +76,12 @@ struct CandidateDetailView: View {
                         ))
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        if let linkedIn = CandidateInformation.linkedinURL {
-                            Link("Go on LinkedIn", destination: URL(string: linkedIn)!)
-                                                           .foregroundColor(.blue)
+                        if let linkedIn = CandidateInformation.linkedinURL,
+                            let url = URL(string: linkedIn) {
+                        Link("Go on LinkedIn", destination: url)
+                                .padding().border(.orange).foregroundColor(.white).background(Color.orange).cornerRadius(10)
                         } else {
-                            Text("Go on LinkedIn")
+                            Text("No LinkedIn available")
                                 .foregroundColor(.gray)
                         }
                     }
@@ -120,9 +119,8 @@ struct CandidateDetailView: View {
             Task {
                 await loadCandidateProfile()
             }
-
         }
-            .toolbar {
+        .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if isEditing {
                     Button("Done") {
@@ -145,7 +143,7 @@ extension CandidateDetailView {
         do {
             let candidateDetails = try await CandidateDetailsManagerViewModel.displayCandidateDetails()
             CandidateInformation = candidateDetails
-            
+            initialiseEditingFields()
             print("candidateDetails: \(candidateDetails)")
             print("Félicitations, loadCandidateProfile est passée")
         } catch {
@@ -165,10 +163,9 @@ extension CandidateDetailView {
                 lastName: editedLastName,
                 id: CandidateInformation.id
             )
-                CandidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
-                isEditing.toggle()
-                print("Félicitations Updater \(updatedCandidate)")
-            
+            CandidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
+            isEditing.toggle()
+            print("Félicitations Updater \(updatedCandidate)")
         } catch {
             print("Dommage, le Updater n'est pas passé")
         }
