@@ -67,9 +67,9 @@ struct CandidatesListView: View {
             }
             .padding()
             .background(Color.white)
-            .task {
-                await loadCandidates()
-            }
+            
+        }.task {
+            await loadCandidates()
         }
     }
 

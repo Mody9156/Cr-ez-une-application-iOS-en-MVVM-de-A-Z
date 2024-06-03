@@ -89,11 +89,14 @@ class CandidateListViewModel : ObservableObject {
                
                let getToken = try  getToken()
                print("Token:\(getToken)")
+               
+               
+               
                guard let candidate = candidates.first else {
                    throw CandidateManagementError.processCandidateElementsError
                 }
                       
-               let id = candidate.id
+               var id = candidate.id
                print("id:\(id)")
                let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
                let request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
