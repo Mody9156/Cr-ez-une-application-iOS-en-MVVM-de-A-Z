@@ -9,6 +9,7 @@ struct CandidateDetailView: View {
     @State private var editedPhone: String?
     @State private var editedEmail: String = ""
     @State private var editedLinkedIn: String?
+    @State private var overText = false
     @State var CandidateInformation: CandidateInformation
 
     var body: some View {
@@ -38,7 +39,7 @@ struct CandidateDetailView: View {
                 .padding()
 
                 HStack {
-                    Text("Phone")
+                    Text("Phone :")
                     if isEditing {
                         TextField("Phone", text: Binding(
                             get: { editedPhone ?? "" },
@@ -57,7 +58,7 @@ struct CandidateDetailView: View {
                 .padding()
 
                 HStack {
-                    Text("Email")
+                    Text("Email :")
                     if isEditing {
                         TextField("Email", text: $editedEmail)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -68,7 +69,7 @@ struct CandidateDetailView: View {
                 .padding()
 
                 HStack {
-                    Text("LinkedIn")
+                    Text("LinkedIn :")
                     if isEditing {
                         TextField("LinkedIn URL", text: Binding(
                             get: { editedLinkedIn ?? "" },
@@ -79,7 +80,10 @@ struct CandidateDetailView: View {
                         if let linkedIn = CandidateInformation.linkedinURL,
                             let url = URL(string: linkedIn) {
                         Link("Go on LinkedIn", destination: url)
-                                .padding().border(.orange).foregroundColor(.white).background(Color.orange).cornerRadius(10)
+                                .padding().border(.orange).foregroundStyle(overText ? .black : .orange)
+                                .onHover { over in
+                                    overText = over
+                                }.background(Color.orange).cornerRadius(10)
                         } else {
                             Text("No LinkedIn available")
                                 .foregroundColor(.gray)
@@ -89,7 +93,7 @@ struct CandidateDetailView: View {
                 .padding()
 
                 VStack(alignment: .leading) {
-                    Text("Note")
+                    Text("Note :")
                     if isEditing {
                         TextField("Note", text: $editedNote)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
