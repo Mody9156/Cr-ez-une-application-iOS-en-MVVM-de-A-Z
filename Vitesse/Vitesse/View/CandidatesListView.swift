@@ -8,12 +8,7 @@ struct CandidatesListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // Search bar at the top
-                TextField("Search", text: $search)
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(8)
-                    .padding([.horizontal, .top])
+                
 
                 // List for the candidates
                 List {
