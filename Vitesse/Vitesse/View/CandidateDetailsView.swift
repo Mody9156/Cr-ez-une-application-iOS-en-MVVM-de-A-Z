@@ -79,7 +79,8 @@ struct CandidateDetailView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
                         if let linkedIn = CandidateInformation.linkedinURL {
-                            Text(linkedIn)
+                            Link("Go on LinkedIn", destination: URL(string: linkedIn)!)
+                                                           .foregroundColor(.blue)
                         } else {
                             Text("Go on LinkedIn")
                                 .foregroundColor(.gray)
