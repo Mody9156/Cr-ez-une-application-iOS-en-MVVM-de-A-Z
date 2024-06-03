@@ -19,7 +19,7 @@ struct VitesseApp: App {
                 } else {
                     LoginView(loginViewModel: vitesseViewModel.loginViewModel, vitesseViewModel: VitesseViewModel())
                 }
-            }.animation(.easeInOut(duration: 0.1), value: UUID())
+            }
         }
     }
 }
