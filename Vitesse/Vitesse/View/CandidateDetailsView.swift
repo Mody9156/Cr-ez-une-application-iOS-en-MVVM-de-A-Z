@@ -3,13 +3,14 @@ import SwiftUI
 struct CandidateDetailView: View {
     @ObservedObject var CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
     @State private var isEditing = false
-    @State private var editedNote: String = ""
+    @State private var editedNote: String?
     @State private var editedFirstName: String = ""
     @State private var editedLastName: String = ""
     @State private var editedPhone: String?
     @State private var editedEmail: String = ""
     @State private var editedLinkedIn: String?
     @State var CandidateInformation: CandidateInformation
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -80,7 +81,7 @@ struct CandidateDetailView: View {
                             let url = URL(string: linkedIn) {
                         Link("Go on LinkedIn", destination: url)
                                 .padding().border(.orange).foregroundStyle(.white)
-                                .background(Color.orange).cornerRadius(10).opacity(0.5)
+                                .background(Color.orange).cornerRadius(10)
                         } else {
                             Text("No LinkedIn available")
                                 .foregroundColor(.gray)
@@ -92,19 +93,21 @@ struct CandidateDetailView: View {
                 VStack(alignment: .leading) {
                     Text("Note :")
                     if isEditing {
-                        TextField("Note", text: $editedNote)
+                        TextField("Note", text:  Binding(get: {editedNote ?? ""}, set: {editedNote = $0}))
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
                         if let note = CandidateInformation.note {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.orange, lineWidth: 1)
-                                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                                    .frame(height: 100)
-                                Text(note)
-                                    .padding()
-                                    .foregroundColor(.black)
-                            }
+                            RoundedRectangle(cornerRadius: 10)
+                                .strokeBorder(Color.orange, lineWidth: 1)
+                                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                                .frame(height: 100)
+                                .overlay(
+                                    Text(note)
+                                        .padding()
+                                        .foregroundColor(.black),
+                                    alignment: .center
+                                )
+
                         } else {
                             Text("No note available")
                                 .foregroundColor(.gray)
@@ -114,7 +117,7 @@ struct CandidateDetailView: View {
                 .padding()
             }
             Spacer()
-        }
+        }.navigationBarBackButtonHidden()
         .onAppear {
             initialiseEditingFields()
             Task {
@@ -122,7 +125,23 @@ struct CandidateDetailView: View {
             }
         }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .navigationBarLeading) {
+                   if isEditing {
+                       Button("Cancel") {
+                           Task {
+                               presentationMode.wrappedValue.dismiss()
+                           }
+                       }.foregroundColor(.orange)
+                   }else{
+                       Button {
+                           presentationMode.wrappedValue.dismiss()
+                       } label: {
+                           Image(systemName: "arrow.left.circle").foregroundColor(.orange)
+                       }
+
+                   }
+               }
+       ToolbarItem(placement: .navigationBarTrailing) {
                 if isEditing {
                     Button("Done") {
                         Task {
