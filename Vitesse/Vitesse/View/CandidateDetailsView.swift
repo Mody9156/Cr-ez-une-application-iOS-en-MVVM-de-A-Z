@@ -115,6 +115,8 @@ struct CandidateDetailView: View {
                 print("Nombre de candidats : \(CandidateInformation)")
                 print("loadCandidateProfile():\(await loadCandidateProfile())")
                 await loadCandidateProfile()
+                initialiseEditingFields()
+
             }
         }
         .toolbar {
@@ -140,7 +142,6 @@ extension CandidateDetailView {
         do {
             let candidateDetails = try await CandidateDetailsManagerViewModel.displayCandidateDetails()
             CandidateInformation = candidateDetails
-            initialiseEditingFields()
             print("candidateDetails: \(candidateDetails)")
             print("Félicitations, loadCandidateProfile est passée")
         } catch {

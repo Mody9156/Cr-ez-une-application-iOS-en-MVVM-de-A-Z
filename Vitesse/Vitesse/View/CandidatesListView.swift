@@ -69,8 +69,6 @@ struct CandidatesListView: View {
                     }
                 }
             }
-            .padding()
-            .background(Color.white) // Ajouter une couleur d'arrière-plan à la vue globale
             .task {
                 await loadCandidates()
             }
