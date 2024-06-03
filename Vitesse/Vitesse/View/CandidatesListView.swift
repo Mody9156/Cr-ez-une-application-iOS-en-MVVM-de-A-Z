@@ -63,7 +63,7 @@ struct CandidatesListView: View {
                         }
                         .frame(width: 40, height: 40)
                     }
-                }
+                }.searchable(text: $search)
             }
             .padding()
             .background(Color.orange.opacity(0.1).edgesIgnoringSafeArea(.all))
