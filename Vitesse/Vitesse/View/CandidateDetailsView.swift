@@ -23,8 +23,12 @@ struct CandidateDetailView: View {
                     } else {
                         Text(CandidateInformation.firstName)
                             .font(.largeTitle)
+                            .fontWeight(.bold
+                            )
                         Text(CandidateInformation.lastName)
                             .font(.largeTitle)
+                            .fontWeight(.bold
+                            )
                     }
                     Spacer()
                     if CandidateInformation.isFavorite {
@@ -117,7 +121,7 @@ struct CandidateDetailView: View {
             }
 
         }
-        .toolbar {
+            .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if isEditing {
                     Button("Done") {

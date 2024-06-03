@@ -7,7 +7,7 @@ struct CandidatesListView: View {
     @ObservedObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 // Liste des candidats
                 List {
