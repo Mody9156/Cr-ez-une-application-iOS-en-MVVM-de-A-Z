@@ -7,8 +7,6 @@ struct CandidatesListView: View {
 
     var body: some View {
         NavigationStack {
-                
-
                 // List for the candidates
                 List {
                     ForEach(searchResult, id: \.id) { candidate in
@@ -24,6 +22,7 @@ struct CandidatesListView: View {
                             
                             }.listRowSeparator(.visible,edges: .bottom)
                             .listRowSeparator(.visible, edges: .top)
+                            .listStyle(GroupedListStyle())
                         }
                     }
                     .onDelete(perform: candidateListViewModel.removeCandidate)
