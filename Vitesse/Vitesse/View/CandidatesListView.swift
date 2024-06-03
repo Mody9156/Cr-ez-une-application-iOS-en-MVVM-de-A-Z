@@ -27,7 +27,7 @@ struct CandidatesListView: View {
                         }
                     }
                     .onDelete(perform: candidateListViewModel.removeCandidate)
-                }
+                }.listRowSeparator(.hidden)
                 
 
                 // Toolbar at the bottom
