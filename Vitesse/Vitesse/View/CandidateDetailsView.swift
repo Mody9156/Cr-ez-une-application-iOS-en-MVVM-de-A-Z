@@ -22,9 +22,9 @@ struct CandidateDetailView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
                         Text(CandidateInformation.firstName)
-                            .font(.title2)
+                            .font(.largeTitle)
                         Text(CandidateInformation.lastName)
-                            .font(.title2)
+                            .font(.largeTitle)
                     }
                     Spacer()
                     if CandidateInformation.isFavorite {
@@ -111,12 +111,11 @@ struct CandidateDetailView: View {
             Spacer()
         }
         .onAppear {
+            initialiseEditingFields()
             Task {
-                print("Nombre de candidats : \(CandidateInformation)")
-                print("loadCandidateProfile():\(await loadCandidateProfile())")
                 await loadCandidateProfile()
-
             }
+
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -125,11 +124,11 @@ struct CandidateDetailView: View {
                         Task {
                             await saveCandidate()
                         }
-                    }
+                    }.foregroundColor(.orange)
                 } else {
                     Button("Edit") {
                         isEditing.toggle()
-                    }
+                    }.foregroundColor(.orange)
                 }
             }
         }
@@ -141,7 +140,7 @@ extension CandidateDetailView {
         do {
             let candidateDetails = try await CandidateDetailsManagerViewModel.displayCandidateDetails()
             CandidateInformation = candidateDetails
-            initialiseEditingFields()
+            
             print("candidateDetails: \(candidateDetails)")
             print("Félicitations, loadCandidateProfile est passée")
         } catch {
@@ -161,11 +160,10 @@ extension CandidateDetailView {
                 lastName: editedLastName,
                 id: CandidateInformation.id
             )
-            await MainActor.run {
                 CandidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
                 isEditing.toggle()
                 print("Félicitations Updater \(updatedCandidate)")
-            }
+            
         } catch {
             print("Dommage, le Updater n'est pas passé")
         }
