@@ -37,6 +37,10 @@ struct CandidatesListView: View {
                             .frame(width: 40, height: 40)
                             .foregroundColor(.orange)
                     }
+                    ToolbarItem(placement: .navigation) {
+                        Text("Candidats")
+                    }
+                    
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
                             Task {
