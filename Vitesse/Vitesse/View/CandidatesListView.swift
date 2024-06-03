@@ -38,10 +38,11 @@ struct CandidatesListView: View {
                             .frame(width: 40, height: 40)
                             .foregroundColor(.orange)
                     }
+                    Spacer()
                     ToolbarItem(placement: .navigation) {
                         Text("Candidats")
                     }
-                    
+                    Spacer()
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
                             Task {
