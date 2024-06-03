@@ -32,7 +32,7 @@ struct CandidatesListView: View {
                     }
                     .onDelete(perform: candidateListViewModel.removeCandidate)
                 }
-                .listStyle(PlainListStyle())
+                
 
                 // Toolbar at the bottom
                 .toolbar {
