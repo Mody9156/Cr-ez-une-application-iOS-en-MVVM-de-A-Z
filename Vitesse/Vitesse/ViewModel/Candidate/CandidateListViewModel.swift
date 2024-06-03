@@ -96,7 +96,7 @@ class CandidateListViewModel : ObservableObject {
                    throw CandidateManagementError.processCandidateElementsError
                 }
                       
-               var id = candidate.id
+               let id = candidate.id
                print("id:\(id)")
                let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
                let request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
@@ -110,4 +110,5 @@ class CandidateListViewModel : ObservableObject {
                throw CandidateManagementError.processCandidateElementsError
            }
        }
+    
 }

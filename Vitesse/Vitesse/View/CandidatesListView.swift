@@ -1,9 +1,10 @@
-import SwiftUI
 
+import SwiftUI
 struct CandidatesListView: View {
     @StateObject var candidateListViewModel: CandidateListViewModel
     @State private var search = ""
     @State private var showFavorites: Bool = false
+    @ObservedObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
 
     var body: some View {
         NavigationView {
@@ -13,10 +14,7 @@ struct CandidatesListView: View {
                     ForEach(searchResult, id: \.id) { candidate in
                         NavigationLink(
                             destination: CandidateDetailView(
-                                CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel(
-                                    retrieveCandidateData: CandidateDataManager(),
-                                    candidats: candidateListViewModel.candidates
-                                ),
+                                CandidateDetailsManagerViewModel: candidateDetailsManagerViewModel,
                                 CandidateInformation: candidate
                             )
                         ) {
@@ -25,7 +23,6 @@ struct CandidatesListView: View {
                                     .foregroundColor(.orange)
                                 Text(candidate.lastName)
                                     .foregroundColor(.orange)
-                               
                                 Spacer()
                                 Image(systemName: candidate.isFavorite ? "star.fill" : "star")
                                     .foregroundColor(candidate.isFavorite ? .yellow : .black)
@@ -67,7 +64,6 @@ struct CandidatesListView: View {
             }
             .padding()
             .background(Color.white)
-            
         }.task {
             await loadCandidates()
         }

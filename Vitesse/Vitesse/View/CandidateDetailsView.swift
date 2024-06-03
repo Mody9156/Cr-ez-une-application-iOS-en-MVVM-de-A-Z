@@ -170,9 +170,7 @@ extension CandidateDetailView {
             print("Dommage, le Updater n'est pas passé")
         }
     }
-}
 
-extension CandidateDetailView {
     func initialiseEditingFields() {
         editedNote = CandidateInformation.note ?? ""
         editedFirstName = CandidateInformation.firstName
