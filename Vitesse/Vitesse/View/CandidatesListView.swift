@@ -31,7 +31,7 @@ struct CandidatesListView: View {
                                         .foregroundColor(candidate.isFavorite ? .yellow : .black)
                                 }
                             }
-                            .listRowSeparator(.hidden)
+                            .listRowSeparator(.visible)
                             .listRowBackground(Color.clear)
                             .listSectionSeparatorTint(.orange)
                         }
@@ -45,18 +45,25 @@ struct CandidatesListView: View {
                     // Bouton pour modifier la liste
                     ToolbarItem(placement: .navigationBarLeading) {
                         EditButton()
-                            .frame(width: 40, height: 40)
-                            .foregroundColor(.orange)
+                            .frame(width: 40, height: 40).foregroundColor(.orange)
+                           
                     }
                     // Titre de la vue
-                    ToolbarItem(placement: .navigation) {
-                        Text("Candidats")
-                    }
+                    ToolbarItem(placement: .principal) {
+                                           HStack {
+                                               Spacer()
+                                               Text("Candidats")
+                                                   .font(.headline)
+                                                   .foregroundColor(.orange)
+                                               Spacer()
+                                           }
+                                           .frame(maxWidth: .infinity)
+                                       }
                     // Bouton pour afficher/masquer les favoris
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: toggleShowFavorites) {
                             Image(systemName: showFavorites ? "star.fill" : "star")
-                                .foregroundColor(showFavorites ? .yellow : .black)
+                                .foregroundColor(showFavorites ? .yellow : .orange)
                         }
                         .frame(width: 40, height: 40)
                     }
