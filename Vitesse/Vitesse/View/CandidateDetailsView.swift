@@ -106,7 +106,7 @@ struct CandidateDetailView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if isEditing {
-                    Button("Save") {
+                    Button("Done") {
                         Task {
                             await saveCandidate()
                         }
