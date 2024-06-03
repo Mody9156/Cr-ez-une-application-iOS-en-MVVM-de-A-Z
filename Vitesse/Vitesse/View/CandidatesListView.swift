@@ -33,7 +33,7 @@ struct CandidatesListView: View {
                             }
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
-                            .listRowSeparator(.orange)
+                            .listSectionSeparatorTint(.orange)
                         }
                     }
                     .onDelete(perform: candidateListViewModel.removeCandidate)
