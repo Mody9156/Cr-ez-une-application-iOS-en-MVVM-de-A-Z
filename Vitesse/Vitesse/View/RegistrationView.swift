@@ -36,7 +36,7 @@ struct RegistrationView: View {
                         }
                     }
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.orange)
                     .padding()
                     .background(Color.orange)
                     .cornerRadius(10)
@@ -75,7 +75,7 @@ struct PasswordInputField: View {
     
     var body: some View {
         Group {
-            Text(textNames).foregroundColor(.white)
+            Text(textNames).foregroundColor(.orange)
                 .font(.title3)
             SecureField("Use Password valid", text: $registreViewModel.password)
                 .padding()
