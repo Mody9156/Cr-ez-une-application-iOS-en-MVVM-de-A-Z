@@ -6,7 +6,7 @@ struct CandidatesListView: View {
     @State private var showFavorites: Bool = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 
 
@@ -29,7 +29,6 @@ struct CandidatesListView: View {
                     }
                     .onDelete(perform: candidateListViewModel.removeCandidate)
                 }
-                
 
                 // Toolbar at the bottom
                 .toolbar {
