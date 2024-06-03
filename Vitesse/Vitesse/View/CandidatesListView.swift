@@ -22,11 +22,7 @@ struct CandidatesListView: View {
                                     Image(systemName: candidate.isFavorite ? "star.fill" : "star")
                                         .foregroundColor(candidate.isFavorite ? .yellow : .black)
                                 }
-                                .padding()
-                                .background(Color.white)
-                                .cornerRadius(8)
-                                .shadow(radius: 2)
-                                .padding([.horizontal])
+                            
                             }
                         }
                     }
