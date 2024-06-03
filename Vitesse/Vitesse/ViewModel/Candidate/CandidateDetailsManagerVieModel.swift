@@ -29,7 +29,6 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     func displayCandidateDetails() async throws -> CandidateInformation {
             do {
                 let token = try  getToken()
-                print("Token récupéré : \(token)")
                 
                 guard let candidate = candidats.first else {
                     print("Aucun candidat trouvé dans la liste.")
@@ -37,7 +36,6 @@ class CandidateDetailsManagerViewModel: ObservableObject {
                 }
                 
                 let id = candidate.id
-                print("ID du candidat : \(id)")
                 
                 let request = try CandidateManagement.createURLRequest(
                     url: "http://127.0.0.1:8080/candidate/\(id)",
@@ -45,11 +43,8 @@ class CandidateDetailsManagerViewModel: ObservableObject {
                     token: token,
                     id: id
                 )
-                print("Requête HTTP : \(request)")
                 
-                let data = try await retrieveCandidateData.fetchCandidateDetail(request: request)
-                print("Données reçues : \(data)")
-                
+                let data = try await retrieveCandidateData.fetchCandidateDetail(request: request)                
                 return data
                 
             } catch {

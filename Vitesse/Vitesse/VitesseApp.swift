@@ -10,7 +10,7 @@ struct VitesseApp: App {
                 if vitesseViewModel.onLoginSucceed {
                     TabView {
                         CandidatesListView(
-                            candidateListViewModel: vitesseViewModel.candidateListViewModel)
+                            candidateListViewModel: vitesseViewModel.candidateListViewModel, candidateDetailsManagerViewModel: vitesseViewModel.candidateDetailsManager)
                         
                     }.onAppear{
                         //créer un nouveau candidat
@@ -19,7 +19,7 @@ struct VitesseApp: App {
                 } else {
                     LoginView(loginViewModel: vitesseViewModel.loginViewModel, vitesseViewModel: VitesseViewModel())
                 }
-            }.animation(.easeInOut(duration: 0.1), value: UUID())
+            }
         }
     }
 }

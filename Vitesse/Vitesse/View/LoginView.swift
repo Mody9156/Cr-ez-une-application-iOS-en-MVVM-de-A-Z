@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Vitesse
-//
-//  Created by KEITA on 11/05/2024.
-//
-
 import SwiftUI
 
 struct LoginView: View {
@@ -16,6 +9,9 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                Color.orange.opacity(0.2) // Fond orange clair
+                    .ignoresSafeArea()
+
                 VStack {
                     Text("Login")
                         .font(.largeTitle)
@@ -32,11 +28,11 @@ struct LoginView: View {
                             withAnimation(Animation.linear(duration: 5).repeatForever(autoreverses: false)) {
                                 rotationAngle = 360
                             }
-                        }
+                        }.padding(.bottom,20)
 
-                    VStack {
+                    VStack (alignment: .leading){
                         Text("Email/Username")
-                            .foregroundColor(.white)
+                            .foregroundColor(.orange)
 
                         TextField("Entrez un Email ou Username valide", text: $loginViewModel.username)
                             .padding()
@@ -48,7 +44,7 @@ struct LoginView: View {
                             )
 
                         Text("Password")
-                            .foregroundColor(.white)
+                            .foregroundColor(.orange)
                             .font(.title3)
 
                         SecureField("Veuillez entrez un mot de passe valide", text: $loginViewModel.password)
@@ -73,7 +69,8 @@ struct LoginView: View {
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.orange)
-                    .cornerRadius(35)
+                    .cornerRadius(10)
+                    .frame(maxWidth: .infinity) // Ajustement de la largeur du bouton
 
                     Button("Register") {
                         register = true
@@ -82,7 +79,8 @@ struct LoginView: View {
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.orange)
-                    .cornerRadius(35)
+                    .cornerRadius(10)
+                    .frame(maxWidth: .infinity) // Ajustement de la largeur du bouton
                     .sheet(isPresented: $register) {
                         RegistrationView(
                             registerViewModel: vitesseViewModel.registerViewModel,

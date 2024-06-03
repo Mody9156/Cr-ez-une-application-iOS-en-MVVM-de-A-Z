@@ -89,6 +89,9 @@ class CandidateListViewModel : ObservableObject {
                
                let getToken = try  getToken()
                print("Token:\(getToken)")
+               
+               
+               
                guard let candidate = candidates.first else {
                    throw CandidateManagementError.processCandidateElementsError
                 }
@@ -107,4 +110,5 @@ class CandidateListViewModel : ObservableObject {
                throw CandidateManagementError.processCandidateElementsError
            }
        }
+    
 }

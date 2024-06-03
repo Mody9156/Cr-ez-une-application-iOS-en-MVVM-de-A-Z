@@ -8,6 +8,8 @@ struct RegistrationView: View {
 
     var body: some View {
             ZStack {
+                Color.orange.opacity(0.2) // Fond orange clair
+                    .ignoresSafeArea()
                 VStack {
                     Text("Registre")
                         .font(.largeTitle)
@@ -37,7 +39,7 @@ struct RegistrationView: View {
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.orange)
-                    .cornerRadius(35)
+                    .cornerRadius(10)
                 }
                 .padding()
             }
@@ -53,7 +55,7 @@ struct FetchRegistre: View {
     
     var body: some View {
         Group {
-            Text(infos).foregroundColor(.white)
+            Text(infos).foregroundColor(.orange)
             TextField(textField, text: $text)
                 .padding()
                 .cornerRadius(5.0)
@@ -73,7 +75,7 @@ struct PasswordInputField: View {
     
     var body: some View {
         Group {
-            Text(textNames).foregroundColor(.white)
+            Text(textNames).foregroundColor(.orange)
                 .font(.title3)
             SecureField("Use Password valid", text: $registreViewModel.password)
                 .padding()

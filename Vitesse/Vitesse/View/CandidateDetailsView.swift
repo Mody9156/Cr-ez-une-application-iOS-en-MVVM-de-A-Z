@@ -3,40 +3,43 @@ import SwiftUI
 struct CandidateDetailView: View {
     @ObservedObject var CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
     @State private var isEditing = false
-    @State private var editedNote: String = ""
+    @State private var editedNote: String?
     @State private var editedFirstName: String = ""
     @State private var editedLastName: String = ""
     @State private var editedPhone: String?
     @State private var editedEmail: String = ""
     @State private var editedLinkedIn: String?
     @State var CandidateInformation: CandidateInformation
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         VStack(alignment: .leading) {
-            Group {
+            Section {
                 HStack {
                     if isEditing {
-                        TextField("Last Name", text: $editedLastName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
                         TextField("First Name", text: $editedFirstName)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
+                        TextField("Last Name", text: $editedLastName)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        Text(CandidateInformation.lastName)
-                            .font(.title2)
                         Text(CandidateInformation.firstName)
-                            .font(.title2)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                        Text(CandidateInformation.lastName)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
                     }
                     Spacer()
                     if CandidateInformation.isFavorite {
-                        Image(systemName:"star.fill")
+                        Image(systemName: "star.fill")
                             .foregroundColor(.yellow)
                             .font(.title2)
                     }
-                   
                 }
+                .padding()
 
                 HStack {
-                    Text("Phone")
+                    Text("Phone :")
                     if isEditing {
                         TextField("Phone", text: Binding(
                             get: { editedPhone ?? "" },
@@ -52,9 +55,10 @@ struct CandidateDetailView: View {
                         }
                     }
                 }
+                .padding()
 
                 HStack {
-                    Text("Email")
+                    Text("Email :")
                     if isEditing {
                         TextField("Email", text: $editedEmail)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -62,9 +66,10 @@ struct CandidateDetailView: View {
                         Text(CandidateInformation.email)
                     }
                 }
+                .padding()
 
                 HStack {
-                    Text("LinkedIn")
+                    Text("LinkedIn :")
                     if isEditing {
                         TextField("LinkedIn URL", text: Binding(
                             get: { editedLinkedIn ?? "" },
@@ -72,49 +77,81 @@ struct CandidateDetailView: View {
                         ))
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        if let linkedIn = CandidateInformation.linkedinURL {
-                            Text(linkedIn)
+                        if let linkedIn = CandidateInformation.linkedinURL,
+                            let url = URL(string: linkedIn) {
+                        Link("Go on LinkedIn", destination: url)
+                                .padding().border(.orange).foregroundStyle(.white)
+                                .background(Color.orange).cornerRadius(10)
                         } else {
-                            Text("Go on LinkedIn")
-                                .foregroundColor(.white)
+                            Text("No LinkedIn available")
+                                .foregroundColor(.gray)
                         }
                     }
                 }
+                .padding()
 
-                Text("Note")
-                if isEditing {
-                    TextField("Note", text: $editedNote)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                } else {
-                    if let note = CandidateInformation.note {
-                        Text(note)
+                VStack(alignment: .leading) {
+                    Text("Note :")
+                    if isEditing {
+                        TextField("Note", text:  Binding(get: {editedNote ?? ""}, set: {editedNote = $0}))
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        Text("No note available")
-                            .foregroundColor(.gray)
+                        if let note = CandidateInformation.note {
+                            RoundedRectangle(cornerRadius: 10)
+                                .strokeBorder(Color.orange, lineWidth: 1)
+                                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                                .frame(height: 100)
+                                .overlay(
+                                    Text(note)
+                                        .padding()
+                                        .foregroundColor(.black),
+                                    alignment: .center
+                                )
+
+                        } else {
+                            Text("No note available")
+                                .foregroundColor(.gray)
+                        }
                     }
                 }
+                .padding()
             }
-        }
-        .padding()
+            Spacer()
+        }.navigationBarBackButtonHidden()
         .onAppear {
+            initialiseEditingFields()
             Task {
-                print("Nombre de candidats : \(CandidateInformation)")
-                print("loadCandidateProfile():\(await loadCandidateProfile())")
                 await loadCandidateProfile()
             }
         }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .navigationBarLeading) {
+                   if isEditing {
+                       Button("Cancel") {
+                           Task {
+                               presentationMode.wrappedValue.dismiss()
+                           }
+                       }.foregroundColor(.orange)
+                   }else{
+                       Button {
+                           presentationMode.wrappedValue.dismiss()
+                       } label: {
+                           Image(systemName: "arrow.left.circle").foregroundColor(.orange)
+                       }
+
+                   }
+               }
+       ToolbarItem(placement: .navigationBarTrailing) {
                 if isEditing {
-                    Button("Save") {
+                    Button("Done") {
                         Task {
                             await saveCandidate()
                         }
-                    }
+                    }.foregroundColor(.orange)
                 } else {
                     Button("Edit") {
                         isEditing.toggle()
-                    }
+                    }.foregroundColor(.orange)
                 }
             }
         }
@@ -129,10 +166,6 @@ extension CandidateDetailView {
             initialiseEditingFields()
             print("candidateDetails: \(candidateDetails)")
             print("Félicitations, loadCandidateProfile est passée")
-               CandidateInformation = candidateDetails
-                initialiseEditingFields()
-                print("candidateDetails: \(candidateDetails)")
-                print("Félicitations, loadCandidateProfile est passée")
         } catch {
             print("Dommage, le candidat n'est pas passé")
         }
@@ -150,18 +183,14 @@ extension CandidateDetailView {
                 lastName: editedLastName,
                 id: CandidateInformation.id
             )
-            await MainActor.run {
-                CandidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
-                isEditing.toggle()
-                print("Félicitations Updater \(updatedCandidate)")
-            }
+            CandidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
+            isEditing.toggle()
+            print("Félicitations Updater \(updatedCandidate)")
         } catch {
             print("Dommage, le Updater n'est pas passé")
         }
     }
-}
 
-extension CandidateDetailView {
     func initialiseEditingFields() {
         editedNote = CandidateInformation.note ?? ""
         editedFirstName = CandidateInformation.firstName

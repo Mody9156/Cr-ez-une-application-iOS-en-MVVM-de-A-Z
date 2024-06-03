@@ -1,89 +1,90 @@
-import SwiftUI
 
+import SwiftUI
 struct CandidatesListView: View {
     @StateObject var candidateListViewModel: CandidateListViewModel
     @State private var search = ""
     @State private var showFavorites: Bool = false
+    @ObservedObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
-                // Search bar at the top
-                TextField("Search", text: $search)
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(8)
-                    .padding([.horizontal, .top])
-
-                // List for the candidates
+                // Liste des candidats
                 List {
                     ForEach(searchResult, id: \.id) { candidate in
-                        if !showFavorites || candidate.isFavorite {
-                            NavigationLink(destination: CandidateDetailView(CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidates), CandidateInformation: candidate)) {
-                                HStack {
-                                    Text(candidate.lastName).foregroundColor(.orange)
-                                    Text(candidate.firstName).foregroundColor(.orange)
-                                    Spacer()
-                                    Image(systemName: candidate.isFavorite ? "star.fill" : "star")
-                                        .foregroundColor(candidate.isFavorite ? .yellow : .black)
-                                }
-                                .padding()
-                                .background(Color.white)
-                                .cornerRadius(8)
-                                .shadow(radius: 2)
-                                .padding([.horizontal])
+                        NavigationLink(
+                            destination: CandidateDetailView(
+                                CandidateDetailsManagerViewModel: candidateDetailsManagerViewModel,
+                                CandidateInformation: candidate
+                            )
+                        ) {
+                            HStack {
+                                Text(candidate.firstName)
+                                    .foregroundColor(.orange)
+                                Text(candidate.lastName)
+                                    .foregroundColor(.orange)
+                                Spacer()
+                                Image(systemName: candidate.isFavorite ? "star.fill" : "star")
+                                    .foregroundColor(candidate.isFavorite ? .yellow : .black)
                             }
                         }
+                        .listRowSeparator(.visible)
+                        .listRowBackground(Color.clear)
+                        .listSectionSeparatorTint(.orange)
                     }
                     .onDelete(perform: candidateListViewModel.removeCandidate)
                 }
                 .listStyle(PlainListStyle())
-
-                // Toolbar at the bottom
+                .background(Color.white)
+                .searchable(text: $search)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         EditButton()
                             .frame(width: 40, height: 40)
                             .foregroundColor(.orange)
                     }
+                    ToolbarItem(placement: .principal) {
+                        HStack {
+                            Spacer()
+                            Text("Candidats")
+                                .font(.headline)
+                                .foregroundColor(.orange)
+                            Spacer()
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            Task {
-                                do {
-                                    let candidate = try await candidateListViewModel.showFavoriteCandidates()
-                                    print("La mise à jour du statut du favori pour le candidat a réussi. : \(String(describing: candidate))")
-                                    self.showFavorites.toggle()
-                                } catch {
-                                    print("Dommage, il y a une erreur :", error)
-                                }
-                            }
-                        } label: {
+                        Button(action: toggleShowFavorites) {
                             Image(systemName: showFavorites ? "star.fill" : "star")
-                                .foregroundColor(showFavorites ? .yellow : .black)
+                                .foregroundColor(showFavorites ? .yellow : .orange)
                         }
                         .frame(width: 40, height: 40)
                     }
                 }
             }
             .padding()
-            .background(Color.orange.opacity(0.1).edgesIgnoringSafeArea(.all))
-        }
-        .task {
+            .background(Color.white)
+        }.task {
             await loadCandidates()
         }
     }
 
+    // Résultats de la recherche
     var searchResult: [CandidateInformation] {
         if search.isEmpty {
-            return candidateListViewModel.candidates
+            return candidateListViewModel.candidates.filter { candidate in
+                !showFavorites || candidate.isFavorite
+            }
         } else {
-            return candidateListViewModel.candidates.filter { candidat in
-                candidat.lastName.lowercased().contains(search.lowercased()) ||
-                candidat.firstName.lowercased().contains(search.lowercased())
+            return candidateListViewModel.candidates.filter { candidate in
+                (candidate.lastName.lowercased().contains(search.lowercased()) ||
+                candidate.firstName.lowercased().contains(search.lowercased())) &&
+                (!showFavorites || candidate.isFavorite)
             }
         }
     }
 
+    // Charger les candidats
     func loadCandidates() async {
         do {
             let candidats = try await candidateListViewModel.displayCandidatesList()
@@ -91,5 +92,10 @@ struct CandidatesListView: View {
         } catch {
             print("Erreur lors de la récupération des candidats")
         }
+    }
+
+    // Basculer l'affichage des favoris
+    func toggleShowFavorites() {
+        showFavorites.toggle()
     }
 }
