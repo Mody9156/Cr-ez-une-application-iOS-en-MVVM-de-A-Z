@@ -23,7 +23,7 @@ struct CandidatesListView: View {
                                         .foregroundColor(candidate.isFavorite ? .yellow : .black)
                                 }
                             
-                            }.listRowSeparator(.hidden)
+                            }.listRowSeparator(.visible)
                         }
                     }
                     .onDelete(perform: candidateListViewModel.removeCandidate)
