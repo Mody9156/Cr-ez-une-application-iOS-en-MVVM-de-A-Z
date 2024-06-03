@@ -9,7 +9,6 @@ struct CandidateDetailView: View {
     @State private var editedPhone: String?
     @State private var editedEmail: String = ""
     @State private var editedLinkedIn: String?
-    @State private var overText = false
     @State var CandidateInformation: CandidateInformation
 
     var body: some View {
@@ -80,10 +79,8 @@ struct CandidateDetailView: View {
                         if let linkedIn = CandidateInformation.linkedinURL,
                             let url = URL(string: linkedIn) {
                         Link("Go on LinkedIn", destination: url)
-                                .padding().border(.orange).foregroundStyle(overText ? .black : .orange)
-                                .onHover { over in
-                                    overText = over
-                                }.background(Color.orange).cornerRadius(10)
+                                .padding().border(.orange).foregroundStyle(.white)
+                                .background(Color.orange).cornerRadius(10).opacity(0.5)
                         } else {
                             Text("No LinkedIn available")
                                 .foregroundColor(.gray)
