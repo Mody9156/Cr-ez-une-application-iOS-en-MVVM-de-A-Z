@@ -7,7 +7,6 @@ struct CandidatesListView: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
                 
 
                 // List for the candidates
@@ -64,7 +63,6 @@ struct CandidatesListView: View {
             .padding()
             
             
-        }
         .task {
             await loadCandidates()
         }
