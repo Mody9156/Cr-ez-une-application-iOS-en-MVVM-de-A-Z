@@ -9,7 +9,7 @@ struct CandidatesListView: View {
         NavigationView {
             VStack {
                 
-
+                ScrollView{
                 // List for the candidates
                 List {
                     ForEach(searchResult, id: \.id) { candidate in
@@ -22,15 +22,15 @@ struct CandidatesListView: View {
                                     Image(systemName: candidate.isFavorite ? "star.fill" : "star")
                                         .foregroundColor(candidate.isFavorite ? .yellow : .black)
                                 }
-                            
+                                
                             }.listRowSeparator(.visible,edges: .bottom)
-                            .listRowSeparator(.visible, edges: .top)
+                                .listRowSeparator(.visible, edges: .top)
                         }
                     }
                     .onDelete(perform: candidateListViewModel.removeCandidate)
                 }
                 
-
+            }
                 // Toolbar at the bottom
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
