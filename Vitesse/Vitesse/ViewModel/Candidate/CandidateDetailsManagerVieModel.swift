@@ -13,13 +13,16 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         case displayCandidateDetailsError, fetchTokenError, candidateUpdaterError
     }
     
-    private func getToken() throws -> String {
+    private func token() throws -> String {
             do {
-                let token = try Keychain().get(forKey: "token")
-                guard let getToken = String(data: token, encoding: .utf8) else {
+                let keychain = try Keychain().get(forKey: "token")
+                
+                guard let encodingToken = String(data: keychain, encoding: .utf8) else {
                     throw CandidateManagementError.fetchTokenError
                 }
-                return getToken
+                
+                return encodingToken
+                
             } catch {
                 print("Erreur lors de la récupération du token : \(error)")
                 throw CandidateManagementError.fetchTokenError
@@ -28,7 +31,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     
     func displayCandidateDetails() async throws -> CandidateInformation {
             do {
-                let token = try  getToken()
+                let token = try  token()
                 
                 guard let candidate = candidats.first else {
                     print("Aucun candidat trouvé dans la liste.")
@@ -56,7 +59,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     
     func candidateUpdater(phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String, id: String) async throws -> CandidateInformation {
         do {
-            let token = try  getToken()
+            let token = try  token()
             
             let request = try CandidateManagement.createNewCandidateRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)",
