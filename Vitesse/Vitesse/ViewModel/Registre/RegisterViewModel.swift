@@ -12,11 +12,13 @@ class RegisterViewModel : ObservableObject {
     @Published var password : String = "test123"
     @Published var firstName: String = "max"
     @Published var lastName: String = "Jean"
+    let loginViewModel : LoginViewModel
     
     let registrationRequestBuilder : RegistrationRequestBuilder
     
-    init(registrationRequestBuilder: RegistrationRequestBuilder) {
+    init(registrationRequestBuilder: RegistrationRequestBuilder,loginViewModel : LoginViewModel) {
         self.registrationRequestBuilder = registrationRequestBuilder
+        self.loginViewModel = loginViewModel
     }
     
     
