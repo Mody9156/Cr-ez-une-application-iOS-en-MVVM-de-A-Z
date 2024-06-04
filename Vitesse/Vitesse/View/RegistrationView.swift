@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    @State var registerViewModel : RegisterViewModel
+    @State var registerViewModel: RegisterViewModel
     @State private var registre: Bool = false
     @State var loginViewModel: LoginViewModel
 
@@ -17,13 +17,31 @@ struct RegistrationView: View {
                     .padding(.bottom, 20)
 
                 VStack(alignment: .leading) {
-                    LabeledTextField(textNames: "First Name", text: registerViewModel.firstName, textField: "Enter your last name")
-                    LabeledTextField(textNames: "Last Name", text: registerViewModel.lastName, textField: "Enter your name")
-                    
-                    LabeledTextField(textNames: "Email", text: registerViewModel.email, textField: "Use a valid Email").keyboardType(.emailAddress)
-
-                    PasswordInputField(textField: "Enter your password", text: registerViewModel.password, textNames: "Password")
-                    PasswordInputField(textField: "Enter your password", text: registerViewModel.password, textNames: "Confirm Password")
+                    LabeledTextField(
+                        textNames: "First Name",
+                        text: registerViewModel.firstName,
+                        textField: "Enter your last name"
+                    )
+                    LabeledTextField(
+                        textNames: "Last Name",
+                        text: registerViewModel.lastName,
+                        textField: "Enter your name"
+                    )
+                    LabeledTextField(
+                        textNames: "Email",
+                        text: registerViewModel.email,
+                        textField: "Use a valid Email"
+                    ).keyboardType(.emailAddress)
+                    PasswordInputField(
+                        textField: "Enter your password",
+                        text: registerViewModel.password,
+                        textNames: "Password"
+                    )
+                    PasswordInputField(
+                        textField: "Enter your password",
+                        text: registerViewModel.password,
+                        textNames: "Confirm Password"
+                    )
                 }
                 .padding()
 
