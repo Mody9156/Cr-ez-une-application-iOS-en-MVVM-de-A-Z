@@ -44,8 +44,8 @@ class CandidateDetailsManagerViewModel: ObservableObject {
                     id: id
                 )
                 
-                let data = try await retrieveCandidateData.fetchCandidateDetail(request: request)                
-                return data
+                let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
+                return fetchCandidateDetail
                 
             } catch {
                 print("Erreur lors de displayCandidateDetails : \(error)")
@@ -59,6 +59,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
             let token = try  getToken()
             let request = try CandidateManagement.createNewCandidateRequest(url: "http://127.0.0.1:8080/candidate/\(id)", method: "PUT", token: token, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName)
             let data = try await retrieveCandidateData.fetchCandidateInformation(token: token, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName, request: request)
+            
             return data
         } catch {
             throw CandidateManagementError.candidateUpdaterError
