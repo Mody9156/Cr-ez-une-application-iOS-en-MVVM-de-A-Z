@@ -64,7 +64,7 @@ struct LoginView: View {
                     ExtractedView(title:"Register",loginViewModel: $loginViewModel, register: $register).sheet(isPresented: $register) {
                         RegistrationView(
                             registerViewModel: vitesseViewModel.registerViewModel,
-                            login: LoginViewModel({})
+                            loginViewModel: LoginViewModel({})
                         )
                     }
                      

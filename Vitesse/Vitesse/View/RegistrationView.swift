@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    @State var registerViewModel = RegisterViewModel(registrationRequestBuilder: RegistrationRequestBuilder(httpService: URLSessionHTTPClient()), loginViewModel: LoginViewModel({}))
+    @State var registerViewModel : RegisterViewModel
     @State private var registre: Bool = false
-    @State var login: LoginViewModel
+    @State var loginViewModel: LoginViewModel
 
     var body: some View {
         ZStack {
@@ -17,10 +17,10 @@ struct RegistrationView: View {
                     .padding(.bottom, 20)
 
                 VStack(alignment: .leading) {
-                    FetchRegister(infos: "First Name", text: registerViewModel.firstName, textField: "Enter your last name")
-                    FetchRegister(infos: "Last Name", text: registerViewModel.lastName, textField: "Enter your name")
+                    LabeledTextField(textNames: "First Name", text: registerViewModel.firstName, textField: "Enter your last name")
+                    LabeledTextField(textNames: "Last Name", text: registerViewModel.lastName, textField: "Enter your name")
                     
-                    FetchRegister(infos: "Email", text: registerViewModel.email, textField: "Use a valid Email").keyboardType(.emailAddress)
+                    LabeledTextField(textNames: "Email", text: registerViewModel.email, textField: "Use a valid Email").keyboardType(.emailAddress)
 
                     PasswordInputField(textField: "Enter your password", text: registerViewModel.password, textNames: "Password")
                     PasswordInputField(textField: "Enter your password", text: registerViewModel.password, textNames: "Confirm Password")
@@ -31,7 +31,7 @@ struct RegistrationView: View {
                     Task {
                         do {
                             try await registerViewModel.handleRegistrationViewModel()
-                            self.login.username = registerViewModel.email
+                            self.loginViewModel.username = registerViewModel.email
                         } catch {
                             print("Error while creating the account: \(error)")
                         }
@@ -48,14 +48,14 @@ struct RegistrationView: View {
     }
 }
 
-struct FetchRegister: View {
-    @State var infos: String = ""
+struct LabeledTextField: View {
+    @State var textNames: String = ""
     @State var text: String = ""
     @State var textField: String = ""
     
     var body: some View {
         Group {
-            Text(infos).foregroundColor(.orange)
+            Text(textNames).foregroundColor(.orange)
             TextField(textField, text: $text)
                 .padding()
                 .cornerRadius(5.0)
