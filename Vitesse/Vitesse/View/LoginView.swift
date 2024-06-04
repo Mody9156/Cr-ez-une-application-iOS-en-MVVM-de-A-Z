@@ -56,7 +56,6 @@ struct LoginView: View {
                                     .stroke(Color.black, lineWidth: 2)
                             )
 
-                        Text(loginViewModel.message).foregroundColor(.red)
                     }
                     .padding(.bottom, 20)
 
