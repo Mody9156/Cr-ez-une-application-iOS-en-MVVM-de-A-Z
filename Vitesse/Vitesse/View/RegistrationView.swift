@@ -21,7 +21,7 @@ struct RegistrationView: View {
                     FetchRegister( infos: "Last Name", text: registerViewModel.lastName, textField: "Use a valid Last Name")
                     FetchRegister(infos: "Email", text: registerViewModel.email, textField: "Use a valid Email")
 
-                    PasswordInputField( textField:"Use a valid Password", text:registerViewModel.password, textNames: "Password")
+                    PasswordInputField( textField:"Enter your password", text:registerViewModel.password, textNames: "Password")
                     PasswordInputField( textField:"Use a valid Password", text:registerViewModel.password, textNames: "Confirm Password")
                 }
                 .padding()
@@ -75,7 +75,7 @@ struct PasswordInputField: View {
     var body: some View {
         Group {
             Text(textNames).foregroundColor(.orange)
-            TextField(textField, text: $text)
+            SecureField(textField, text: $text)
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
