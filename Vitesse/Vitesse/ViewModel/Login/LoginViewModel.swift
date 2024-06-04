@@ -1,10 +1,3 @@
-//
-//  LoginViewModel.swift
-//  Vitesse
-//
-//  Created by KEITA on 14/05/2024.
-//
-
 import Foundation
 
 class LoginViewModel: ObservableObject {
@@ -18,30 +11,27 @@ class LoginViewModel: ObservableObject {
         self.onLoginSucceed = callback
         self.authenticationManager = authenticationManager
     }
+    
     enum AuthViewModelFailure: Error {
-        case tokenInvalide
+        case invalidToken
     }
     
     @MainActor
     func authenticateUserAndProceed() async throws -> JSONResponseDecodingModel {
-        do{
-            let authenticationResult = try await authenticationManager.authenticate(username: username, password: password)
-                print("Authentification réussie!")
-                print("\(authenticationResult.isAdmin)")
-                
-                try keychain.add(authenticationResult.token, forKey: "token")
+        do {
+            let authenticate = try await authenticationManager.authenticate(
+                username: username,
+                password: password)
+            print("Authentication successful!")
             
-           
-                onLoginSucceed()
-                
-                return authenticationResult
-               
-        }catch{
-            throw AuthViewModelFailure.tokenInvalide
+            try keychain.add(authenticate.token, forKey: "token")
+            
+            onLoginSucceed()
+            
+            return authenticate
+            
+        } catch {
+            throw AuthViewModelFailure.invalidToken
         }
-        
-       
     }
-   
 }
-
