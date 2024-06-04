@@ -3,7 +3,6 @@ import SwiftUI
 struct RegistrationView: View {
     @State var registerViewModel = RegisterViewModel(registrationRequestBuilder: RegistrationRequestBuilder(httpService: URLSessionHTTPClient()), loginViewModel: LoginViewModel({}))
     @State private var registre: Bool = false
-    @State var infos: String = ""
     @State var login: LoginViewModel
 
     var body: some View {
@@ -18,12 +17,12 @@ struct RegistrationView: View {
                     .padding(.bottom, 20)
 
                 VStack(alignment: .leading) {
-                    FetchRegister(registreViewModel: $registerViewModel, infos: "First Name", text: registerViewModel.firstName, textField: "Use a valid First Name")
-                    FetchRegister(registreViewModel: $registerViewModel, infos: "Last Name", text: registerViewModel.lastName, textField: "Use a valid Last Name")
-                    FetchRegister(registreViewModel: $registerViewModel, infos: "Email", text: registerViewModel.email, textField: "Use a valid Email")
+                    FetchRegister( infos: "First Name", text: registerViewModel.firstName, textField: "Use a valid First Name")
+                    FetchRegister( infos: "Last Name", text: registerViewModel.lastName, textField: "Use a valid Last Name")
+                    FetchRegister(infos: "Email", text: registerViewModel.email, textField: "Use a valid Email")
 
-                    PasswordInputField(registreViewModel: $registerViewModel, textNames: "Password")
-                    PasswordInputField(registreViewModel: $registerViewModel, textNames: "Confirm Password")
+                    PasswordInputField( textField:"Use a valid Password", text:registerViewModel.password, textNames: "Password")
+                    PasswordInputField( textField:"Use a valid Password", text:registerViewModel.password, textNames: "Confirm Password")
                 }
                 .padding()
 
@@ -49,7 +48,6 @@ struct RegistrationView: View {
 }
 
 struct FetchRegister: View {
-    @Binding var registreViewModel: RegisterViewModel
     @State var infos: String = ""
     @State var text: String = ""
     @State var textField: String = ""
@@ -70,12 +68,21 @@ struct FetchRegister: View {
 }
 
 struct PasswordInputField: View {
-    @Binding var registreViewModel: RegisterViewModel
-    var textNames: String = ""
+    @State var textField: String = ""
+    @State var text: String = ""
+    @State var textNames: String = ""
     
     var body: some View {
         Group {
             Text(textNames).foregroundColor(.orange)
+            TextField(textField, text: $text)
+                .padding()
+                .cornerRadius(5.0)
+                .foregroundColor(.black)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.orange, lineWidth: 2)
+                )
         }
     }
 }
