@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    @State var registerViewModel = RegisterViewModel(registrationRequestBuilder: RegistrationRequestBuilder(httpService: URLSessionHTTPClient()))
+    @State var registerViewModel = RegisterViewModel(registrationRequestBuilder: RegistrationRequestBuilder(httpService: URLSessionHTTPClient()), loginViewModel: LoginViewModel({}))
     @State private var registre: Bool = false
     @State var infos : String = ""
     @State var login : LoginViewModel

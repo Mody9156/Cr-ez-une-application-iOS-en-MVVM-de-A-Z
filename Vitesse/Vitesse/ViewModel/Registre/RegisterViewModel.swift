@@ -26,7 +26,7 @@ class RegisterViewModel : ObservableObject {
         do{
             let buildRegistrationRequest = try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
                 print("Vous venez d'enregistrer : \(buildRegistrationRequest)")
-           
+            loginViewModel.username = email
         }catch{
           throw  error
         }
