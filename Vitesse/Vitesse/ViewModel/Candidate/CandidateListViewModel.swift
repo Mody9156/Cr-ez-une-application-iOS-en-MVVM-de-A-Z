@@ -1,47 +1,46 @@
-//
-//  CandidateListViewModel.swift
-//  Vitesse
-//
-//  Created by KEITA on 23/05/2024.
-//
-
 import Foundation
 
 class CandidateListViewModel : ObservableObject {
     @Published var candidates: [CandidateInformation]
     let retrieveCandidateData: CandidateDataManager
 
-    init(retrieveCandidateData: CandidateDataManager,candidates: [CandidateInformation]) {
+    init(retrieveCandidateData: CandidateDataManager, candidates: [CandidateInformation]) {
         self.retrieveCandidateData = retrieveCandidateData
         self.candidates = candidates
     }
+    
     enum CandidateManagementError: Error, LocalizedError {
-        case displayCandidatesListError
-        case fetchTokenError
-        case deleteCandidateError, processCandidateElementsError, createCandidateError
+        case displayCandidatesListError, fetchTokenError, deleteCandidateError
+        case processCandidateElementsError, createCandidateError
     }
+    
     @MainActor
-    // récupération du token
-    private func getToken() throws -> String {
-        let token = try Keychain().get(forKey: "token")
-        guard let getToken = String(data: token, encoding: .utf8) else {
+    // Get token
+    private func token() throws -> String {
+        let keychain = try Keychain().get(forKey: "token")
+        guard let encodingToken = String(data: keychain, encoding: .utf8) else {
             throw CandidateManagementError.fetchTokenError
         }
-        return getToken
+        return encodingToken
     }
     
     @MainActor
     func displayCandidatesList() async throws -> [CandidateInformation] {
         do {
-            let getToken = try   getToken()
-            let request = try
+            let token = try token()
             
-            CandidateManagement.loadCandidatesFromURL(url:"http://127.0.0.1:8080/candidate",method:"GET",token:getToken)
-            let data = try await retrieveCandidateData.fetchCandidateData(request: request)
+            let request = try CandidateManagement.loadCandidatesFromURL(
+                url: "http://127.0.0.1:8080/candidate",
+                method: "GET",
+                token: token)
+            
+            let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
             DispatchQueue.main.async {
-                self.candidates = data
+                self.candidates = fetchCandidateData
             }
-            return data
+            
+            return fetchCandidateData
+            
         } catch {
             throw CandidateManagementError.displayCandidatesListError
         }
@@ -49,25 +48,56 @@ class CandidateListViewModel : ObservableObject {
     
     func deleteCandidate(at offsets: IndexSet) async throws -> HTTPURLResponse {
         do {
-            let getToken = try await getToken()
+            let token = try await token()
+            
             var id = ""
 
             for offset in offsets {
-                
-                 id = candidates[offset].id
-               
+                id = candidates[offset].id
             }
-            let request = try CandidateManagement.createURLRequest(url: "http://127.0.0.1:8080/candidate/\(id)", method: "DELETE", token: getToken, id: id)
             
-            let data = try await retrieveCandidateData.validateHTTPResponse(request: request)
+            let request = try CandidateManagement.createURLRequest(
+                url: "http://127.0.0.1:8080/candidate/\(id)",
+                method: "DELETE",
+                token: token,
+                id: id)
+            
+            let validateHTTPResponse = try await retrieveCandidateData.validateHTTPResponse(request: request)
             
             DispatchQueue.main.async {
-               
                 self.candidates.remove(atOffsets: offsets)
             }
-            return data
+            
+            return validateHTTPResponse
         } catch {
             throw CandidateManagementError.deleteCandidateError
+        }
+    }
+    
+    @MainActor
+    func showFavoriteCandidates() async throws -> CandidateInformation {
+        do {
+            let token = try token()
+            
+            guard let candidate = candidates.first else {
+                throw CandidateManagementError.processCandidateElementsError
+            }
+            
+            let id = candidate.id
+            
+            let request = try CandidateManagement.createURLRequest(
+                url: "http://127.0.0.1:8080/candidate/\(id)/favorite",
+                method: "PUT",
+                token: token,
+                id: id)
+            
+            let response = try await retrieveCandidateData.fetchCandidateDetail(request: request)
+            print("Favorite status update for the candidate was successful: \(String(describing: response))")
+            
+            return response
+        } catch {
+            print("There are errors in function showFavoriteCandidates()")
+            throw CandidateManagementError.processCandidateElementsError
         }
     }
     
@@ -76,39 +106,9 @@ class CandidateListViewModel : ObservableObject {
             do {
                 let candidate = try await deleteCandidate(at: offsets)
                 print("\(candidate)")
-                
             } catch {
                 throw CandidateManagementError.deleteCandidateError
             }
         }
     }
-    
-    @MainActor
-    func showFavoriteCandidates() async throws -> CandidateInformation {
-           do {
-               
-               let getToken = try  getToken()
-               print("Token:\(getToken)")
-               
-               
-               
-               guard let candidate = candidates.first else {
-                   throw CandidateManagementError.processCandidateElementsError
-                }
-                      
-               let id = candidate.id
-               print("id:\(id)")
-               let url = "http://127.0.0.1:8080/candidate/\(id)/favorite"
-               let request = try CandidateManagement.createURLRequest(url: url, method: "PUT", token: getToken, id: id)
-               print("request:\(request)")
-               let response = try await retrieveCandidateData.fetchCandidateDetail(request: request)
-               print("La mise à jour du statut du favori pour le candidat a réussi. : :\(String(describing: response))")
-                     
-                     return response
-           } catch {
-               print("there are error in function showFavoriteCandidates()")
-               throw CandidateManagementError.processCandidateElementsError
-           }
-       }
-    
 }
