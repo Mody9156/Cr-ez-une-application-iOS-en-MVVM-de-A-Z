@@ -6,18 +6,21 @@ struct VitesseApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Group{
+            Group {
                 if vitesseViewModel.onLoginSucceed {
                     TabView {
                         CandidatesListView(
-                            candidateListViewModel: vitesseViewModel.candidateListViewModel, candidateDetailsManagerViewModel: vitesseViewModel.candidateDetailsManager)
-                        
-                    }.onAppear{
-                        //créer un nouveau candidat
+                            candidateListViewModel: vitesseViewModel.candidateListViewModel,
+                            candidateDetailsManagerViewModel: vitesseViewModel.candidateDetailsManager)
                     }
-                    
+                    .onAppear {
+                        // Créer un nouveau candidat
+                        // Exemple : vitesseViewModel.createNewCandidate()
+                    }
                 } else {
-                    LoginView(loginViewModel: vitesseViewModel.loginViewModel, vitesseViewModel: VitesseViewModel())
+                    LoginView(
+                        loginViewModel: vitesseViewModel.loginViewModel,
+                        vitesseViewModel: VitesseViewModel())
                 }
             }
         }
