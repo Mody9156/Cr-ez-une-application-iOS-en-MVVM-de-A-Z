@@ -10,7 +10,6 @@ import Foundation
 class LoginViewModel: ObservableObject {
     @Published var username: String = "admin@vitesse.com"
     @Published var password: String = "test123"
-    @Published var message: String = ""
     let keychain = Keychain()
     let authenticationManager: AuthenticationManager
     var onLoginSucceed: (() -> ())
