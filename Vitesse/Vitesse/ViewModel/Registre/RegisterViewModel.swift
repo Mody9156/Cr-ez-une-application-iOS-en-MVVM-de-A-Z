@@ -8,10 +8,10 @@
 import Foundation
 
 class RegisterViewModel : ObservableObject {
-    @Published var email : String = "exemplenuméro1@gmail.com"
-    @Published var password : String = "test123"
-    @Published var firstName: String = "max"
-    @Published var lastName: String = "Jean"
+    @Published var email : String = ""
+    @Published var password : String = ""
+    @Published var firstName: String = ""
+    @Published var lastName: String = ""
     let loginViewModel : LoginViewModel
     
     let registrationRequestBuilder : RegistrationRequestBuilder
