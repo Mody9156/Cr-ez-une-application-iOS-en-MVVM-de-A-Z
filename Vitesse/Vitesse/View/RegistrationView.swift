@@ -1,61 +1,78 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    @State var registerViewModel = RegisterViewModel(registrationRequestBuilder: RegistrationRequestBuilder(httpService: URLSessionHTTPClient()))
+    @StateObject var registerViewModel: RegisterViewModel
     @State private var registre: Bool = false
-    @State var infos : String = ""
-    @State var login : LoginViewModel
+    @StateObject var loginViewModel: LoginViewModel
 
     var body: some View {
-            ZStack {
-                Color.orange.opacity(0.2) // Fond orange clair
-                    .ignoresSafeArea()
-                VStack {
-                    Text("Registre")
-                        .font(.largeTitle)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.orange)
-                        .padding(.bottom,20)
+        ZStack {
+            Color.orange.opacity(0.2) // Light orange background
+                .ignoresSafeArea()
+            VStack {
+                Text("Register")
+                    .font(.largeTitle)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.orange)
+                    .padding(.bottom, 20)
 
-                  
-                    VStack(alignment: .leading) {
-                        FetchRegistre(registreViewModel: $registerViewModel, infos: "First Name",text:registerViewModel.firstName,textField: "Use First Name valid")
-                        FetchRegistre(registreViewModel: $registerViewModel, infos: "Last Name",text:registerViewModel.lastName,textField: "Use Last Name valid")
-                        FetchRegistre(registreViewModel: $registerViewModel, infos: "Email",text:registerViewModel.email,textField: "Use Email valid ")
-
-                        PasswordInputField(registreViewModel: $registerViewModel,textNames:"Password")
-                        PasswordInputField(registreViewModel: $registerViewModel, textNames:" Confirm Password")
-                    }
-                    .padding()
-
-                    Button("Create") {
-                        Task {
-                            try await registerViewModel.handleRegistrationViewModel()
-                            self.login.username = registerViewModel.email
-                            
-                        }
-                    }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.orange)
-                    .cornerRadius(10)
+                VStack(alignment: .leading) {
+                    LabeledTextField(
+                        textNames: "First Name",
+                        text: registerViewModel.firstName,
+                        textField: "Enter your last name"
+                    )
+                    LabeledTextField(
+                        textNames: "Last Name",
+                        text: registerViewModel.lastName,
+                        textField: "Enter your name"
+                    )
+                    LabeledTextField(
+                        textNames: "Email",
+                        text: registerViewModel.email,
+                        textField: "Use a valid Email"
+                    ).keyboardType(.emailAddress)
+                    PasswordInputField(
+                        textField: "Enter your password",
+                        text: registerViewModel.password,
+                        textNames: "Password"
+                    )
+                    PasswordInputField(
+                        textField: "Enter your password",
+                        text: registerViewModel.password,
+                        textNames: "Confirm Password"
+                    )
                 }
                 .padding()
+
+                Button("Create") {
+                    Task {
+                        do {
+                            try await registerViewModel.handleRegistrationViewModel()
+                        } catch {
+                            print("Error while creating the account: \(error)")
+                        }
+                    }
+                }
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.orange)
+                .cornerRadius(10)
             }
-        
+            .padding()
+        }
     }
 }
 
-struct FetchRegistre: View {
-    @Binding var registreViewModel : RegisterViewModel
-    @State var infos : String = ""
-    @State var text : String = ""
-    @State var textField : String = ""
+struct LabeledTextField: View {
+    @State var textNames: String = ""
+    @State var text: String = ""
+    @State var textField: String = ""
     
     var body: some View {
         Group {
-            Text(infos).foregroundColor(.orange)
+            Text(textNames).foregroundColor(.orange)
             TextField(textField, text: $text)
                 .padding()
                 .cornerRadius(5.0)
@@ -64,20 +81,19 @@ struct FetchRegistre: View {
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.orange, lineWidth: 2)
                 )
-
         }
     }
 }
 
 struct PasswordInputField: View {
-    @Binding var registreViewModel : RegisterViewModel
-    var textNames : String = ""
+    @State var textField: String = ""
+    @State var text: String = ""
+    @State var textNames: String = ""
     
     var body: some View {
         Group {
             Text(textNames).foregroundColor(.orange)
-                .font(.title3)
-            SecureField("Use Password valid", text: $registreViewModel.password)
+            SecureField(textField, text: $text)
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
@@ -85,7 +101,6 @@ struct PasswordInputField: View {
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.orange, lineWidth: 2)
                 )
-            
         }
     }
 }

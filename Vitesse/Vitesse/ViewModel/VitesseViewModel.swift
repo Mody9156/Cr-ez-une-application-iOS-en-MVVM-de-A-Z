@@ -8,7 +8,8 @@ class VitesseViewModel: ObservableObject {
     }
    
     var loginViewModel: LoginViewModel {
-        return LoginViewModel({[weak self] in
+        return LoginViewModel({
+            [weak self] in
             DispatchQueue.main.async {
                 self?.onLoginSucceed = true
             }
@@ -18,16 +19,14 @@ class VitesseViewModel: ObservableObject {
     // Registre
     var registerViewModel: RegisterViewModel {
         let registrationRequestBuilder = RegistrationRequestBuilder(httpService: URLSessionHTTPClient())
-        return RegisterViewModel(registrationRequestBuilder: registrationRequestBuilder)
+        return RegisterViewModel(registrationRequestBuilder: registrationRequestBuilder, loginViewModel: loginViewModel)
     }
-    
     
     var candidateDetailsManager: CandidateDetailsManagerViewModel {
         return CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidates)
     }
     
-   
-    var candidateListViewModel : CandidateListViewModel {
+    var candidateListViewModel: CandidateListViewModel {
         return CandidateListViewModel(retrieveCandidateData: CandidateDataManager(), candidates: [])
     }
 }

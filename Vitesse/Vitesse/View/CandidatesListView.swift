@@ -1,18 +1,19 @@
-
 import SwiftUI
+
 struct CandidatesListView: View {
     @StateObject var candidateListViewModel: CandidateListViewModel
     @State private var search = ""
     @State private var showFavorites: Bool = false
-    @ObservedObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
+    @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
 
     var body: some View {
         NavigationStack {
             VStack {
-                // Liste des candidats
+                // Candidates list
                 List {
                     ForEach(searchResult, id: \.id) { candidate in
                         NavigationLink(
+                            // Candidate details
                             destination: CandidateDetailView(
                                 CandidateDetailsManagerViewModel: candidateDetailsManagerViewModel,
                                 CandidateInformation: candidate
@@ -38,29 +39,9 @@ struct CandidatesListView: View {
                 .background(Color.white)
                 .searchable(text: $search)
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        EditButton()
-                            .frame(width: 40, height: 40)
-                            .foregroundColor(.orange)
-                    }
-                    ToolbarItem(placement: .principal) {
-                        HStack {
-                            Spacer()
-                            Text("Candidats")
-                                .font(.headline)
-                                .foregroundColor(.orange)
-                            Spacer()
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: toggleShowFavorites) {
-                            Image(systemName: showFavorites ? "star.fill" : "star")
-                                .foregroundColor(showFavorites ? .yellow : .orange)
-                        }
-                        .frame(width: 40, height: 40)
-                    }
+                    toolbarContent
                 }
+                
             }
             .padding()
             .background(Color.white)
@@ -69,7 +50,7 @@ struct CandidatesListView: View {
         }
     }
 
-    // Résultats de la recherche
+    // Search results
     var searchResult: [CandidateInformation] {
         if search.isEmpty {
             return candidateListViewModel.candidates.filter { candidate in
@@ -84,18 +65,46 @@ struct CandidatesListView: View {
         }
     }
 
-    // Charger les candidats
+    // Load candidates
     func loadCandidates() async {
         do {
-            let candidats = try await candidateListViewModel.displayCandidatesList()
-            candidateListViewModel.candidates = candidats
+            let candidates = try await candidateListViewModel.displayCandidatesList()
+            candidateListViewModel.candidates = candidates
         } catch {
-            print("Erreur lors de la récupération des candidats")
+            print("Error loading candidates")
         }
     }
-
-    // Basculer l'affichage des favoris
+    
+    // Toggle favorites view
     func toggleShowFavorites() {
         showFavorites.toggle()
+    }
+    
+    // Toolbar content
+    @ToolbarContentBuilder
+    var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarLeading) {
+            EditButton()
+                .frame(width: 40, height: 40)
+                .foregroundColor(.orange)
+        }
+        ToolbarItem(placement: .principal) {
+            HStack {
+                Spacer()
+                Text("Candidates")
+                    .font(.headline)
+                    .foregroundColor(.orange)
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+        }
+        
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: toggleShowFavorites) {
+                Image(systemName: showFavorites ? "star.fill" : "star")
+                    .foregroundColor(showFavorites ? .yellow : .orange)
+            }
+            .frame(width: 40, height: 40)
+        }
     }
 }

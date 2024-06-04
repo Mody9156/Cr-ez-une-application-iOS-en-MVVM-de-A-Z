@@ -2,8 +2,8 @@ import SwiftUI
 
 struct LoginView: View {
     @State var register: Bool = false
-    @ObservedObject var loginViewModel: LoginViewModel
-    let vitesseViewModel: VitesseViewModel
+    @StateObject var loginViewModel: LoginViewModel
+     var vitesseViewModel: VitesseViewModel
     @State private var rotationAngle: Double = 0
 
     var body: some View {
@@ -31,65 +31,81 @@ struct LoginView: View {
                         }.padding(.bottom,20)
 
                     VStack (alignment: .leading){
-                        Text("Email/Username")
-                            .foregroundColor(.orange)
+                        ExtractedView( loginViewModel: loginViewModel, textField: "Entrez un Email ou Username valide", textName: "Email/Username")
+                        
+                        ExtractedView(loginViewModel: loginViewModel, textField: "Veuillez entrez un mot de passe valide", textName: "Password")
 
-                        TextField("Entrez un Email ou Username valide", text: $loginViewModel.username)
-                            .padding()
-                            .cornerRadius(5.0)
-                            .foregroundColor(.black)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(Color.black, lineWidth: 2)
-                            )
-
-                        Text("Password")
-                            .foregroundColor(.orange)
-                            .font(.title3)
-
-                        SecureField("Veuillez entrez un mot de passe valide", text: $loginViewModel.password)
-                            .padding()
-                            .cornerRadius(5.0)
-                            .foregroundColor(.black)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(Color.black, lineWidth: 2)
-                            )
-
-                        Text(loginViewModel.message).foregroundColor(.red)
                     }
                     .padding(.bottom, 20)
 
-                    Button("Sign in") {
-                        Task { @MainActor in
-                            try? await loginViewModel.authenticateUserAndProceed()
-                        }
-                    }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.orange)
-                    .cornerRadius(10)
-                    .frame(maxWidth: .infinity) // Ajustement de la largeur du bouton
+                    AuthButton(title:"Sign in",loginViewModel: loginViewModel, register: $register)
 
-                    Button("Register") {
-                        register = true
-                    }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.orange)
-                    .cornerRadius(10)
-                    .frame(maxWidth: .infinity) // Ajustement de la largeur du bouton
-                    .sheet(isPresented: $register) {
+                    AuthButton(title:"Register",loginViewModel: loginViewModel, register: $register).sheet(isPresented: $register) {
                         RegistrationView(
                             registerViewModel: vitesseViewModel.registerViewModel,
-                            login: LoginViewModel({})
+                            loginViewModel: LoginViewModel({})
                         )
                     }
+                     
                 }
                 .padding()
             }
         }
+    }
+}
+
+struct ExtractedView: View {
+    @ObservedObject var loginViewModel : LoginViewModel
+    var textField : String = ""
+    var textName : String = ""
+    
+    var body: some View {
+        Text(textName)
+            .foregroundColor(.orange)
+        if textName == "Email/Username" {
+            TextField(textField, text: $loginViewModel.username)
+                .padding()
+                .cornerRadius(5.0)
+                .foregroundColor(.black)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.black, lineWidth: 2)
+                )
+        }else {
+            SecureField(textField, text: $loginViewModel.password)
+                .padding()
+                .cornerRadius(5.0)
+                .foregroundColor(.black)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.black, lineWidth: 2)
+                )
+        }
+      
+    }
+}
+
+struct AuthButton: View {
+    var title : String = ""
+    @ObservedObject var loginViewModel : LoginViewModel
+    @Binding var register : Bool
+    var body: some View {
+        Button(title) {
+            
+            if title == "Sign in"{
+                Task { @MainActor in
+                    try? await loginViewModel.authenticateUserAndProceed()
+                }
+            }else{
+                register = true
+            }
+            
+        }
+        .font(.headline)
+        .foregroundColor(.white)
+        .padding()
+        .background(Color.orange)
+        .cornerRadius(10)
+        .frame(maxWidth: .infinity)// Ajustement de la largeur du bouton
     }
 }
