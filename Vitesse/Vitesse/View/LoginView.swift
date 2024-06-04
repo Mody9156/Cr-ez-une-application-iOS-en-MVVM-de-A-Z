@@ -2,8 +2,8 @@ import SwiftUI
 
 struct LoginView: View {
     @State var register: Bool = false
-    @State var loginViewModel: LoginViewModel
-    @State var vitesseViewModel: VitesseViewModel
+    @StateObject var loginViewModel: LoginViewModel
+     var vitesseViewModel: VitesseViewModel
     @State private var rotationAngle: Double = 0
 
     var body: some View {
@@ -31,16 +31,16 @@ struct LoginView: View {
                         }.padding(.bottom,20)
 
                     VStack (alignment: .leading){
-                        ExtractedView(text: loginViewModel.username, textField: "Entrez un Email ou Username valide", textName: "Email/Username")
+                        ExtractedView( loginViewModel: loginViewModel, textField: "Entrez un Email ou Username valide", textName: "Email/Username")
                         
-                        ExtractedView(text: loginViewModel.password, textField: "Veuillez entrez un mot de passe valide", textName: "Password")
+                        ExtractedView(loginViewModel: loginViewModel, textField: "Veuillez entrez un mot de passe valide", textName: "Password")
 
                     }
                     .padding(.bottom, 20)
 
-                    AuthButton(title:"Sign in",loginViewModel: $loginViewModel, register: $register)
+                    AuthButton(title:"Sign in",loginViewModel: loginViewModel, register: $register)
 
-                    AuthButton(title:"Register",loginViewModel: $loginViewModel, register: $register).sheet(isPresented: $register) {
+                    AuthButton(title:"Register",loginViewModel: loginViewModel, register: $register).sheet(isPresented: $register) {
                         RegistrationView(
                             registerViewModel: vitesseViewModel.registerViewModel,
                             loginViewModel: LoginViewModel({})
@@ -55,15 +55,15 @@ struct LoginView: View {
 }
 
 struct ExtractedView: View {
-    @State var text : String = ""
-    @State var textField : String = ""
-    @State var textName : String = ""
+    @ObservedObject var loginViewModel : LoginViewModel
+    var textField : String = ""
+    var textName : String = ""
     
     var body: some View {
         Text(textName)
             .foregroundColor(.orange)
         if textName == "Email/Username" {
-            TextField(textField, text: $text)
+            TextField(textField, text: $loginViewModel.username)
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
@@ -72,7 +72,7 @@ struct ExtractedView: View {
                         .stroke(Color.black, lineWidth: 2)
                 )
         }else {
-            SecureField(textField, text: $text )
+            SecureField(textField, text: $loginViewModel.password)
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
@@ -87,7 +87,7 @@ struct ExtractedView: View {
 
 struct AuthButton: View {
     var title : String = ""
-    @Binding var loginViewModel : LoginViewModel
+    @ObservedObject var loginViewModel : LoginViewModel
     @Binding var register : Bool
     var body: some View {
         Button(title) {
