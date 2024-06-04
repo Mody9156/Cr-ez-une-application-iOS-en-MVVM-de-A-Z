@@ -13,6 +13,7 @@ struct CandidatesListView: View {
                 List {
                     ForEach(searchResult, id: \.id) { candidate in
                         NavigationLink(
+                            //Détailles des candidats
                             destination: CandidateDetailView(
                                 CandidateDetailsManagerViewModel: candidateDetailsManagerViewModel,
                                 CandidateInformation: candidate
@@ -53,6 +54,7 @@ struct CandidatesListView: View {
                         }
                         .frame(maxWidth: .infinity)
                     }
+                    
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: toggleShowFavorites) {
                             Image(systemName: showFavorites ? "star.fill" : "star")
@@ -61,6 +63,7 @@ struct CandidatesListView: View {
                         .frame(width: 40, height: 40)
                     }
                 }
+                
             }
             .padding()
             .background(Color.white)
@@ -93,9 +96,10 @@ struct CandidatesListView: View {
             print("Erreur lors de la récupération des candidats")
         }
     }
-
+    
     // Basculer l'affichage des favoris
     func toggleShowFavorites() {
-        showFavorites.toggle()
+      showFavorites.toggle()
     }
 }
+
