@@ -59,23 +59,15 @@ struct LoginView: View {
                     }
                     .padding(.bottom, 20)
 
-                    ExtractedView(title:"Sign in",loginViewModel: $loginViewModel, register: $register) // Ajustement de la largeur du bouton
+                    ExtractedView(title:"Sign in",loginViewModel: $loginViewModel, register: $register)
 
-                    Button("Register") {
-                        register = true
-                    }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.orange)
-                    .cornerRadius(10)
-                    .frame(maxWidth: .infinity) // Ajustement de la largeur du bouton
-                    .sheet(isPresented: $register) {
+                    ExtractedView(title:"Register",loginViewModel: $loginViewModel, register: $register).sheet(isPresented: $register) {
                         RegistrationView(
                             registerViewModel: vitesseViewModel.registerViewModel,
                             login: LoginViewModel({})
                         )
                     }
+                     
                 }
                 .padding()
             }
@@ -104,6 +96,6 @@ struct ExtractedView: View {
         .padding()
         .background(Color.orange)
         .cornerRadius(10)
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity)// Ajustement de la largeur du bouton
     }
 }
