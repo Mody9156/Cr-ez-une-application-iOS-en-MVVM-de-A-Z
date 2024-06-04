@@ -1,10 +1,11 @@
 import Foundation
+
 class CandidateDetailsManagerViewModel: ObservableObject {
     
     @Published var candidats: [CandidateInformation]
     let retrieveCandidateData: CandidateDataManager
 
-    init(retrieveCandidateData: CandidateDataManager,candidats: [CandidateInformation]) {
+    init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation]) {
         self.retrieveCandidateData = retrieveCandidateData
         self.candidats = candidats
     }
@@ -14,52 +15,51 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     }
     
     private func token() throws -> String {
-            do {
-                let keychain = try Keychain().get(forKey: "token")
-                
-                guard let encodingToken = String(data: keychain, encoding: .utf8) else {
-                    throw CandidateManagementError.fetchTokenError
-                }
-                
-                return encodingToken
-                
-            } catch {
-                print("Erreur lors de la récupération du token : \(error)")
+        do {
+            let keychain = try Keychain().get(forKey: "token")
+            
+            guard let encodingToken = String(data: keychain, encoding: .utf8) else {
                 throw CandidateManagementError.fetchTokenError
             }
+            
+            return encodingToken
+            
+        } catch {
+            print("Error while retrieving the token: \(error)")
+            throw CandidateManagementError.fetchTokenError
         }
+    }
     
     func displayCandidateDetails() async throws -> CandidateInformation {
-            do {
-                let token = try  token()
-                
-                guard let candidate = candidats.first else {
-                    print("Aucun candidat trouvé dans la liste.")
-                    throw CandidateManagementError.displayCandidateDetailsError
-                }
-                
-                let id = candidate.id
-                
-                let request = try CandidateManagement.createURLRequest(
-                    url: "http://127.0.0.1:8080/candidate/\(id)",
-                    method: "GET",
-                    token: token,
-                    id: id
-                )
-                
-                let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
-                return fetchCandidateDetail
-                
-            } catch {
-                print("Erreur lors de displayCandidateDetails : \(error)")
+        do {
+            let token = try token()
+            
+            guard let candidate = candidats.first else {
+                print("No candidate found in the list.")
                 throw CandidateManagementError.displayCandidateDetailsError
             }
+            
+            let id = candidate.id
+            
+            let request = try CandidateManagement.createURLRequest(
+                url: "http://127.0.0.1:8080/candidate/\(id)",
+                method: "GET",
+                token: token,
+                id: id
+            )
+            
+            let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
+            return fetchCandidateDetail
+            
+        } catch {
+            print("Error during displayCandidateDetails: \(error)")
+            throw CandidateManagementError.displayCandidateDetailsError
         }
-          
+    }
     
     func candidateUpdater(phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String, id: String) async throws -> CandidateInformation {
         do {
-            let token = try  token()
+            let token = try token()
             
             let request = try CandidateManagement.createNewCandidateRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)",
@@ -74,26 +74,17 @@ class CandidateDetailsManagerViewModel: ObservableObject {
                 email: email,
                 lastName: lastName)
             
-            let fetchCandidateInformation = try await retrieveCandidateData.fetchCandidateInformation(
-                token: token,
-                id: id, phone: phone,
-                note: note,
-                firstName: firstName,
-                linkedinURL: linkedinURL,
-                isFavorite: isFavorite,
-                email: email,
-                lastName: lastName,
-                request: request)
+            let fetchCandidateInformation = try await retrieveCandidateData.fetchCandidateInformation(token: token, id: id, phone: phone, note: note, firstName: firstName, linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName, request: request)
             
             return fetchCandidateInformation
-        } catch {
-            throw CandidateManagementError.candidateUpdaterError
         }
     }
-    
     func updateCandidateInformation(with updatedCandidate: CandidateInformation) {
         if let index = candidats.firstIndex(where: { $0.id == updatedCandidate.id }) {
             candidats[index] = updatedCandidate
         }
     }
+
 }
+
+
