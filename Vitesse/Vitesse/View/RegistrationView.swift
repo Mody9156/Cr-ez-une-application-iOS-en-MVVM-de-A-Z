@@ -19,7 +19,8 @@ struct RegistrationView: View {
                 VStack(alignment: .leading) {
                     FetchRegister( infos: "First Name", text: registerViewModel.firstName, textField: "Use a valid First Name")
                     FetchRegister( infos: "Last Name", text: registerViewModel.lastName, textField: "Use a valid Last Name")
-                    FetchRegister(infos: "Email", text: registerViewModel.email, textField: "Use a valid Email")
+                    
+                    FetchRegister(infos: "Email", text: registerViewModel.email, textField: "Use a valid Email").keyboardType(.emailAddress)
 
                     PasswordInputField( textField:"Enter your password", text:registerViewModel.password, textNames: "Password")
                     PasswordInputField( textField:"Use a valid Password", text:registerViewModel.password, textNames: "Confirm Password")
