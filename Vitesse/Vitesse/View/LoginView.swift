@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LoginView: View {
     @State var register: Bool = false
-    @ObservedObject var loginViewModel: LoginViewModel
+    @State var loginViewModel: LoginViewModel
     let vitesseViewModel: VitesseViewModel
     @State private var rotationAngle: Double = 0
 
@@ -59,17 +59,7 @@ struct LoginView: View {
                     }
                     .padding(.bottom, 20)
 
-                    Button("Sign in") {
-                        Task { @MainActor in
-                            try? await loginViewModel.authenticateUserAndProceed()
-                        }
-                    }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.orange)
-                    .cornerRadius(10)
-                    .frame(maxWidth: .infinity) // Ajustement de la largeur du bouton
+                    ExtractedView(title:"Sign in",loginViewModel: $loginViewModel, register: $register) // Ajustement de la largeur du bouton
 
                     Button("Register") {
                         register = true
@@ -90,5 +80,30 @@ struct LoginView: View {
                 .padding()
             }
         }
+    }
+}
+
+struct ExtractedView: View {
+    var title : String = ""
+    @Binding var loginViewModel : LoginViewModel
+    @Binding var register : Bool
+    var body: some View {
+        Button(title) {
+            
+            if title == "Sign in"{
+                Task { @MainActor in
+                    try? await loginViewModel.authenticateUserAndProceed()
+                }
+            }else{
+                register = true
+            }
+            
+        }
+        .font(.headline)
+        .foregroundColor(.white)
+        .padding()
+        .background(Color.orange)
+        .cornerRadius(10)
+        .frame(maxWidth: .infinity)
     }
 }
