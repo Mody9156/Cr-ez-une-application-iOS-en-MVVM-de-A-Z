@@ -40,7 +40,7 @@ struct LoginView: View {
                             .foregroundColor(.black)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .stroke(Color.orange, lineWidth: 2)
+                                    .stroke(Color.black, lineWidth: 2)
                             )
 
                         Text("Password")
@@ -53,7 +53,7 @@ struct LoginView: View {
                             .foregroundColor(.black)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .stroke(Color.orange, lineWidth: 2)
+                                    .stroke(Color.black, lineWidth: 2)
                             )
 
                         Text(loginViewModel.message).foregroundColor(.red)
