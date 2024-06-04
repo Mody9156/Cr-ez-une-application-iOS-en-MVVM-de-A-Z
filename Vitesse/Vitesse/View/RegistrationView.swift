@@ -49,7 +49,6 @@ struct RegistrationView: View {
                     Task {
                         do {
                             try await registerViewModel.handleRegistrationViewModel()
-                            self.loginViewModel.username = registerViewModel.email
                         } catch {
                             print("Error while creating the account: \(error)")
                         }
