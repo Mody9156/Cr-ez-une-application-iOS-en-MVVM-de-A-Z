@@ -4,7 +4,7 @@ struct CandidatesListView: View {
     @StateObject var candidateListViewModel: CandidateListViewModel
     @State private var search = ""
     @State private var showFavorites: Bool = false
-    @ObservedObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
+    @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
 
     var body: some View {
         NavigationStack {

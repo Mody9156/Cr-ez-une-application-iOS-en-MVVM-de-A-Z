@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    @State var registerViewModel: RegisterViewModel
+    @StateObject var registerViewModel: RegisterViewModel
     @State private var registre: Bool = false
-    @State var loginViewModel: LoginViewModel
+    @StateObject var loginViewModel: LoginViewModel
 
     var body: some View {
         ZStack {
