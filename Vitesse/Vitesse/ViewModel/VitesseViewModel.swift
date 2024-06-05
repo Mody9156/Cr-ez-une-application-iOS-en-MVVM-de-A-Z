@@ -23,10 +23,10 @@ class VitesseViewModel: ObservableObject {
     }
     
     var candidateDetailsManager: CandidateDetailsManagerViewModel {
-        return CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidats)
+        return CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(), candidats: candidateListViewModel.candidats, candidateListViewModel: candidateListViewModel)
     }
     
     var candidateListViewModel: CandidateListViewModel {
-        return CandidateListViewModel(retrieveCandidateData: CandidateDataManager(), candidates: [])
+        return CandidateListViewModel(retrieveCandidateData: CandidateDataManager(), candidats: [])
     }
 }

@@ -34,13 +34,11 @@ class CandidateListViewModel: ObservableObject {
                 method: "GET",
                 token: token
             )
-            
             let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
-            
-            DispatchQueue.main.async {
-                self.candidats = fetchCandidateData
-            }
            
+            self.candidats = fetchCandidateData
+           
+
             return fetchCandidateData
             
         } catch {

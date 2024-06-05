@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CandidateDetailView: View {
-    @ObservedObject var CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
+    @StateObject var CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
     @State private var isEditing = false
     @State private var editedNote: String?
     @State private var editedFirstName: String = ""
@@ -17,10 +17,9 @@ struct CandidateDetailView: View {
             Section {
                 HStack {
                     if isEditing {
-                        TextField("First Name", text: $editedFirstName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                        TextField("Last Name", text: $editedLastName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        TextFieldManager(textField: "First Name", text: editedFirstName)
+                        TextFieldManager(textField: "Last Name", text: editedLastName)
+                          
                     } else {
                         Text(CandidateInformation.firstName)
                             .font(.largeTitle)
@@ -60,8 +59,8 @@ struct CandidateDetailView: View {
                 HStack {
                     Text("Email :")
                     if isEditing {
-                        TextField("Email", text: $editedEmail)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                        TextFieldManager(textField: "Email", text: editedEmail)
                     } else {
                         Text(CandidateInformation.email)
                     }
@@ -184,7 +183,7 @@ struct TextFieldManager : View {
 
 
 extension CandidateDetailView {
-    func loadCandidateProfile() async {
+     func loadCandidateProfile() async {
         do {
             let candidateDetails = try await CandidateDetailsManagerViewModel.displayCandidateDetails()
             CandidateInformation = candidateDetails
@@ -192,6 +191,7 @@ extension CandidateDetailView {
             print("candidateDetails: \(candidateDetails)")
             print("Félicitations, loadCandidateProfile est passée")
         } catch {
+            print("\(CandidateInformation.email)")
             print("Dommage, le candidat n'est pas passé")
         }
     }
