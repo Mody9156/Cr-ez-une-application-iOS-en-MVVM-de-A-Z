@@ -1,12 +1,12 @@
 import Foundation
 
 class CandidateListViewModel : ObservableObject {
-    @Published var candidates: [CandidateInformation]
+    @Published var candidats: [CandidateInformation]
     let retrieveCandidateData: CandidateDataManager
 
     init(retrieveCandidateData: CandidateDataManager, candidates: [CandidateInformation]) {
         self.retrieveCandidateData = retrieveCandidateData
-        self.candidates = candidates
+        self.candidats = candidates
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -36,7 +36,7 @@ class CandidateListViewModel : ObservableObject {
             
             let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
             DispatchQueue.main.async {
-                self.candidates = fetchCandidateData
+                self.candidats = fetchCandidateData
             }
             
             return fetchCandidateData
@@ -53,7 +53,7 @@ class CandidateListViewModel : ObservableObject {
             var id = ""
 
             for offset in offsets {
-                id = candidates[offset].id
+                id = candidats[offset].id
             }
             
             let request = try CandidateManagement.createURLRequest(
@@ -65,7 +65,7 @@ class CandidateListViewModel : ObservableObject {
             let validateHTTPResponse = try await retrieveCandidateData.validateHTTPResponse(request: request)
             
             DispatchQueue.main.async {
-                self.candidates.remove(atOffsets: offsets)
+                self.candidats.remove(atOffsets: offsets)
             }
             
             return validateHTTPResponse
@@ -79,7 +79,7 @@ class CandidateListViewModel : ObservableObject {
         do {
             let token = try token()
             
-            guard let candidate = candidates.first else {
+            guard let candidate = candidats.first else {
                 throw CandidateManagementError.processCandidateElementsError
             }
             

@@ -53,11 +53,11 @@ struct CandidatesListView: View {
     // Search results
     var searchResult: [CandidateInformation] {
         if search.isEmpty {
-            return candidateListViewModel.candidates.filter { candidate in
+            return candidateListViewModel.candidats.filter { candidate in
                 !showFavorites || candidate.isFavorite
             }
         } else {
-            return candidateListViewModel.candidates.filter { candidate in
+            return candidateListViewModel.candidats.filter { candidate in
                 (candidate.lastName.lowercased().contains(search.lowercased()) ||
                 candidate.firstName.lowercased().contains(search.lowercased())) &&
                 (!showFavorites || candidate.isFavorite)
@@ -69,7 +69,7 @@ struct CandidatesListView: View {
     func loadCandidates() async {
         do {
             let candidates = try await candidateListViewModel.displayCandidatesList()
-            candidateListViewModel.candidates = candidates
+            candidateListViewModel.candidats = candidates
         } catch {
             print("Error loading candidates")
         }

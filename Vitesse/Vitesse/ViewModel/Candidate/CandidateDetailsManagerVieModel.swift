@@ -30,16 +30,17 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         }
     }
     
-    func displayCandidateDetails(at offsets: IndexSet) async throws -> CandidateInformation {
+    func displayCandidateDetails() async throws -> CandidateInformation {
         do {
             let token = try token()
             print("token :\(token)")
-
             
-            var id = ""
-            for offset in offsets {
-                id = candidats[offset].id
+            guard let candidate = candidats.first else {
+                print("No candidate found in the list.")
+                throw CandidateManagementError.displayCandidateDetailsError
             }
+            
+            let id = candidate.id
           
             print("id :\(id)")
             let request = try CandidateManagement.createURLRequest(
