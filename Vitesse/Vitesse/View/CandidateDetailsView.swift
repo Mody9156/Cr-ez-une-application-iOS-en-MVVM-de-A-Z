@@ -11,7 +11,8 @@ struct CandidateDetailView: View {
     @State private var editedLinkedIn: String?
     @State var CandidateInformation: CandidateInformation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
+    @State private var cancel : Bool = false
+    
     var body: some View {
         VStack(alignment: .leading) {
             Section {
@@ -128,9 +129,7 @@ struct CandidateDetailView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                    if isEditing {
                        Button("Cancel") {
-                           Task {
-                               presentationMode.wrappedValue.dismiss()
-                           }
+                           cancel = false
                        }.foregroundColor(.orange)
                    }else{
                        Button {
@@ -146,6 +145,7 @@ struct CandidateDetailView: View {
                     Button("Done") {
                         Task {
                             await saveCandidate()
+                            cancel = true
                         }
                     }.foregroundColor(.orange)
                 } else {
