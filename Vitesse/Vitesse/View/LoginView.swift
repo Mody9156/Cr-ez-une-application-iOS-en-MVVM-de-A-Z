@@ -31,9 +31,9 @@ struct LoginView: View {
                         }.padding(.bottom,20)
 
                     VStack (alignment: .leading){
-                        ExtractedView( loginViewModel: loginViewModel, textField: "Entrez un Email ou Username valide", textName: "Email/Username")
+                        AuthExtractor( loginViewModel: loginViewModel, textField: "Entrez un Email ou Username valide", textName: "Email/Username")
                         
-                        ExtractedView(loginViewModel: loginViewModel, textField: "Veuillez entrez un mot de passe valide", textName: "Password")
+                        AuthExtractor(loginViewModel: loginViewModel, textField: "Veuillez entrez un mot de passe valide", textName: "Password")
 
                     }
                     .padding(.bottom, 20)
@@ -54,7 +54,7 @@ struct LoginView: View {
     }
 }
 
-struct ExtractedView: View {
+struct AuthExtractor: View {
     @ObservedObject var loginViewModel : LoginViewModel
     var textField : String = ""
     var textName : String = ""
