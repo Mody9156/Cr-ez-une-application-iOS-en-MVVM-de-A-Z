@@ -17,8 +17,8 @@ struct CandidateDetailView: View {
             Section {
                 HStack {
                     if isEditing {
-                        TextField("First Name", text: $editedFirstName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                      
+                        TextFieldManager(textField: "First Name", text: editedFirstName)
                         TextField("Last Name", text: $editedLastName)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
@@ -129,6 +129,8 @@ struct CandidateDetailView: View {
         }
     }
     
+    
+    //toolbar
     @ToolbarContentBuilder
     var ToolbarContent : some ToolbarContent {
         
@@ -163,6 +165,20 @@ struct CandidateDetailView: View {
             }
     }
 }
+
+struct TextFieldManager : View {
+    var textField : String = ""
+    @State var text : String = ""
+    
+    var body: some View {
+        TextField(textField, text: $text)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+    }
+}
+
+
+
+
 
 extension CandidateDetailView {
     func loadCandidateProfile() async {
