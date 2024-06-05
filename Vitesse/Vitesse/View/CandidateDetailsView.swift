@@ -11,7 +11,6 @@ struct CandidateDetailView: View {
     @State private var editedLinkedIn: String?
     @State var CandidateInformation: CandidateInformation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State private var cancel : Bool = false
     
     var body: some View {
         VStack(alignment: .leading) {
