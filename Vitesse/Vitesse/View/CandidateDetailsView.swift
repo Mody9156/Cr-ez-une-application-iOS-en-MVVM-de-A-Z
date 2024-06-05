@@ -125,6 +125,13 @@ struct CandidateDetailView: View {
             }
         }
         .toolbar {
+            ToolbarContent
+        }
+    }
+    
+    @ToolbarContentBuilder
+    var ToolbarContent : some ToolbarContent {
+        
             ToolbarItem(placement: .navigationBarLeading) {
                    if isEditing {
                        Button("Cancel") {
@@ -154,7 +161,6 @@ struct CandidateDetailView: View {
                     }.foregroundColor(.orange)
                 }
             }
-        }
     }
 }
 
