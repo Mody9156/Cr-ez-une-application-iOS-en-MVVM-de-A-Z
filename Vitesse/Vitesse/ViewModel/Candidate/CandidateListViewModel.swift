@@ -50,7 +50,7 @@ class CandidateListViewModel: ObservableObject {
     
     func deleteCandidate(at offsets: IndexSet) async throws -> HTTPURLResponse {
         do {
-            let token = try token()
+            let token = try await token()
             
             var id = ""
 
