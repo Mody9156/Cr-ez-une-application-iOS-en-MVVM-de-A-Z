@@ -1,12 +1,12 @@
 import Foundation
 
-class CandidateListViewModel : ObservableObject {
+class CandidateListViewModel: ObservableObject {
     @Published var candidats: [CandidateInformation]
     let retrieveCandidateData: CandidateDataManager
 
-    init(retrieveCandidateData: CandidateDataManager, candidates: [CandidateInformation]) {
+    init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation]) {
         self.retrieveCandidateData = retrieveCandidateData
-        self.candidats = candidates
+        self.candidats = candidats
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -32,13 +32,15 @@ class CandidateListViewModel : ObservableObject {
             let request = try CandidateManagement.loadCandidatesFromURL(
                 url: "http://127.0.0.1:8080/candidate",
                 method: "GET",
-                token: token)
+                token: token
+            )
             
             let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
+            
             DispatchQueue.main.async {
                 self.candidats = fetchCandidateData
             }
-            
+           
             return fetchCandidateData
             
         } catch {
@@ -48,7 +50,7 @@ class CandidateListViewModel : ObservableObject {
     
     func deleteCandidate(at offsets: IndexSet) async throws -> HTTPURLResponse {
         do {
-            let token = try await token()
+            let token = try token()
             
             var id = ""
 
@@ -60,7 +62,8 @@ class CandidateListViewModel : ObservableObject {
                 url: "http://127.0.0.1:8080/candidate/\(id)",
                 method: "DELETE",
                 token: token,
-                id: id)
+                id: id
+            )
             
             let validateHTTPResponse = try await retrieveCandidateData.validateHTTPResponse(request: request)
             
@@ -89,7 +92,8 @@ class CandidateListViewModel : ObservableObject {
                 url: "http://127.0.0.1:8080/candidate/\(id)/favorite",
                 method: "PUT",
                 token: token,
-                id: id)
+                id: id
+            )
             
             let response = try await retrieveCandidateData.fetchCandidateDetail(request: request)
             print("Favorite status update for the candidate was successful: \(String(describing: response))")
@@ -107,7 +111,7 @@ class CandidateListViewModel : ObservableObject {
                 let candidate = try await deleteCandidate(at: offsets)
                 print("\(candidate)")
             } catch {
-                throw CandidateManagementError.deleteCandidateError
+                print("Error deleting candidate: \(error)")
             }
         }
     }
