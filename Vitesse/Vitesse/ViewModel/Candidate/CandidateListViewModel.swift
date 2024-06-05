@@ -84,7 +84,7 @@ class CandidateListViewModel : ObservableObject {
             }
             
             let id = candidate.id
-            
+           
             let request = try CandidateManagement.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)/favorite",
                 method: "PUT",
