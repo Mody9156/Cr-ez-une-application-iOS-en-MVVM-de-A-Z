@@ -129,7 +129,7 @@ struct CandidateDetailView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                    if isEditing {
                        Button("Cancel") {
-                           cancel = false
+                           isEditing = false
                        }.foregroundColor(.orange)
                    }else{
                        Button {
@@ -143,9 +143,10 @@ struct CandidateDetailView: View {
        ToolbarItem(placement: .navigationBarTrailing) {
                 if isEditing {
                     Button("Done") {
+                       
                         Task {
                             await saveCandidate()
-                            cancel = true
+                            
                         }
                     }.foregroundColor(.orange)
                 } else {
