@@ -5,7 +5,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     let retrieveCandidateData: CandidateDataManager
     var candidateListViewModel : CandidateListViewModel
     
-    init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation],candidateListViewModel : CandidateListViewModel) {
+    init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation],candidateListViewModel : CandidateListViewModel)  {
         self.retrieveCandidateData = retrieveCandidateData
         self.candidats = candidats
         self.candidateListViewModel = candidateListViewModel
@@ -31,16 +31,21 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         }
     }
     
-    func displayCandidateDetails() async throws -> CandidateInformation {
+    func displayCandidateDetails(at offsets: IndexSet) async throws -> CandidateInformation {
         do {
             let token = try token()
             let array = try await candidateListViewModel.displayCandidatesList()
-            guard let candidate = array else {
-                print("No candidate found in the list.")
+            DispatchQueue.main.async {
+                self.candidats = array
+            }
+          
+            guard let index = offsets.first, index < candidats.count else {
+                print("No candidate found at the given index.")
                 throw CandidateManagementError.displayCandidateDetailsError
             }
             
-            let id = candidate.id
+            let id = candidats[index].id
+            
             
             let request = try CandidateManagement.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)",

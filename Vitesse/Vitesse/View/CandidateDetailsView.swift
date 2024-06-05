@@ -59,7 +59,7 @@ struct CandidateDetailView: View {
                 HStack {
                     Text("Email :")
                     if isEditing {
-
+    
                         TextFieldManager(textField: "Email", text: editedEmail)
                     } else {
                         Text(CandidateInformation.email)
@@ -185,10 +185,9 @@ struct TextFieldManager : View {
 extension CandidateDetailView {
      func loadCandidateProfile() async {
         do {
-            let candidateDetails = try await CandidateDetailsManagerViewModel.displayCandidateDetails()
+            let candidateDetails = try await CandidateDetailsManagerViewModel.displayCandidateDetails(at: IndexSet())
             CandidateInformation = candidateDetails
             
-            print("candidateDetails: \(candidateDetails)")
             print("Félicitations, loadCandidateProfile est passée")
         } catch {
             print("\(CandidateInformation.email)")

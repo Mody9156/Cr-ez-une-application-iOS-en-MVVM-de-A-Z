@@ -1,7 +1,7 @@
 import Foundation
 
 class CandidateListViewModel: ObservableObject {
-    @Published var candidats: [CandidateInformation]
+    @Published var candidats: [CandidateInformation] = []
     let retrieveCandidateData: CandidateDataManager
 
     init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation]) {
@@ -35,9 +35,10 @@ class CandidateListViewModel: ObservableObject {
                 token: token
             )
             let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
-           
-            self.candidats = fetchCandidateData
-           
+            DispatchQueue.main.async {
+                
+                self.candidats = fetchCandidateData
+            }
 
             return fetchCandidateData
             
