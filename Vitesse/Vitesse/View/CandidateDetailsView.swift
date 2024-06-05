@@ -17,8 +17,8 @@ struct CandidateDetailView: View {
             Section {
                 HStack {
                     if isEditing {
-                      
-                        TextFieldManager(textField: "First Name", text: editedFirstName)
+                        TextField("First Name", text: $editedFirstName)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
                         TextField("Last Name", text: $editedLastName)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {

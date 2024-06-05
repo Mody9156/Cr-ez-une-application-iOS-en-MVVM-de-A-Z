@@ -33,22 +33,28 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     func displayCandidateDetails() async throws -> CandidateInformation {
         do {
             let token = try token()
+            print("token :\(token)")
+//            guard let candidate = candidats.first else {
+//                print("No candidate found in the list.")
+//                throw CandidateManagementError.displayCandidateDetailsError
+//            }
             
-            guard let candidate = candidats.first else {
-                print("No candidate found in the list.")
-                throw CandidateManagementError.displayCandidateDetailsError
+            var id = ""
+            for candidate in candidats {
+                id = candidate.id
             }
-            
-            let id = candidate.id
-            
+          
+            print("id :\(id)")
             let request = try CandidateManagement.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)",
                 method: "GET",
                 token: token,
                 id: id
             )
-            
+            print("request :\(request)")
             let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
+            print("fetchCandidateDetail :\(fetchCandidateDetail)")
+
             return fetchCandidateDetail
             
         } catch {
