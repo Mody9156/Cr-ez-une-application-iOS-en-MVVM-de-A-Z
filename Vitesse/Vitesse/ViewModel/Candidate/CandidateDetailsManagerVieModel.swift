@@ -33,23 +33,17 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         do {
             let token = try token()
             
-            // Ensure candidats list is updated
             let displayCandidatesList = try await candidateListViewModel.displayCandidatesList()
-           
-            // Check if there are candidates in the list
-                       guard !displayCandidatesList.isEmpty else {
-                           throw CandidateManagementError.displayCandidateDetailsError
-                       }
-                       
-                       // Assuming you want to fetch details of the first candidate in the list
-                       let firstCandidate = displayCandidatesList[0]
-                       let id = firstCandidate.id
+            
+            guard let candidate = displayCandidatesList.first else {
+                throw CandidateManagementError.displayCandidateDetailsError
+            }
             
             let request = try CandidateManagement.createURLRequest(
-                url: "http://127.0.0.1:8080/candidate/\(id)",
+                url: "http://127.0.0.1:8080/candidate/\(candidate.id)",
                 method: "GET",
                 token: token,
-                id: id
+                id: candidate.id
             )
             
             let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
