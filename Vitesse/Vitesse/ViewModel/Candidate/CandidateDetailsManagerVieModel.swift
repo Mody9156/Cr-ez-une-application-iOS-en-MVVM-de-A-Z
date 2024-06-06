@@ -34,18 +34,20 @@ class CandidateDetailsManagerViewModel: ObservableObject {
             let token = try token()
             
             let displayCandidatesList = try await candidateListViewModel.displayCandidatesList()
+            var id = ""
             
-            guard let candidate = displayCandidatesList.first else {
-                throw CandidateManagementError.displayCandidateDetailsError
+            print("displayCandidatesList :\(displayCandidatesList.count)")
+            for list in displayCandidatesList {
+                candidats = list
             }
             
             let request = try CandidateManagement.createURLRequest(
-                url: "http://127.0.0.1:8080/candidate/\(candidate.id)",
+                url: "http://127.0.0.1:8080/candidate/\(id)",
                 method: "GET",
                 token: token,
-                id: candidate.id
+                id: id
             )
-            
+            print("request : \(request)")
             let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
             return fetchCandidateDetail
             
