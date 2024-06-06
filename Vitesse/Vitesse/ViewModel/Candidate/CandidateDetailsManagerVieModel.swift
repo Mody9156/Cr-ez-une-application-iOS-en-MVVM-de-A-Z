@@ -39,7 +39,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
                 self.candidats = array
             }
           
-            guard let index = offsets.first, index > candidats.count else {
+            guard let index = offsets.first, index < candidats.count else {
                 print("No candidate found at the given index.")
                 throw CandidateManagementError.displayCandidateDetailsError
             }
