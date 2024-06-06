@@ -2,15 +2,13 @@ import Foundation
 
 class CandidateDetailsManagerViewModel: ObservableObject {
     @Published var candidats: [CandidateInformation]
-    var candidates: CandidateInformation
     let retrieveCandidateData: CandidateDataManager
     var candidateListViewModel: CandidateListViewModel
     
-    init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation], candidateListViewModel: CandidateListViewModel,candidates: CandidateInformation) {
+    init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation], candidateListViewModel: CandidateListViewModel) {
         self.retrieveCandidateData = retrieveCandidateData
         self.candidats = candidats
         self.candidateListViewModel = candidateListViewModel
-        self.candidates = candidates
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -36,8 +34,11 @@ class CandidateDetailsManagerViewModel: ObservableObject {
             let token = try token()
             
             let displayCandidatesList = try await candidateListViewModel.displayCandidatesList()
-            var id = candidates.id
-          
+            
+           
+                        guard let id = displayCandidatesList.first?.id else {
+                            throw CandidateManagementError.displayCandidateDetailsError
+                        }
             let request = try CandidateManagement.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)",
                 method: "GET",

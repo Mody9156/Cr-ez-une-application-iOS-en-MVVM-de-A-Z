@@ -38,7 +38,7 @@ class CandidateListViewModel: ObservableObject {
             
             // Update the published property on the main thread
             DispatchQueue.main.async {
-                self.candidates = fetchCandidateData
+                self.candidats = fetchCandidateData
             }
 
             return fetchCandidateData
