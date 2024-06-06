@@ -2,16 +2,11 @@ import Foundation
 
 class CandidateDetailsManagerViewModel: ObservableObject {
     @Published var candidats: [CandidateInformation]
-    @Published var selectedCandidateId: String?  // Propriété pour l'ID du candidat sélectionné
-    var candidateInformation: CandidateInformation
     let retrieveCandidateData: CandidateDataManager
-    var candidateListViewModel: CandidateListViewModel
     
-    init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation], candidateListViewModel: CandidateListViewModel,candidateInformation: CandidateInformation) {
+    init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation]) {
         self.retrieveCandidateData = retrieveCandidateData
         self.candidats = candidats
-        self.candidateListViewModel = candidateListViewModel
-        self.candidateInformation = candidateInformation
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -32,21 +27,21 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     }
 
     @MainActor
-    func displayCandidateDetails() async throws -> CandidateInformation {
+    func displayCandidateDetails(selectedCandidateId: String) async throws -> CandidateInformation {
         do {
             let token = try token()
-            
-            
-            let id =  candidateInformation.id
-            
-            // Créer et envoyer la requête pour récupérer les détails du candidat
+          
+           
             let request = try CandidateManagement.createURLRequest(
-                url: "http://127.0.0.1:8080/candidate/\(id)",
+                url: "http://127.0.0.1:8080/candidate/\(selectedCandidateId)",
                 method: "GET",
                 token: token,
-                id: id
+                id: selectedCandidateId
             )
-            print("id : \(id)")
+            
+            print("ID du candidat sélectionné : \(selectedCandidateId)")
+                  print("Requête : \(request)")
+            
             let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
             return fetchCandidateDetail
             
