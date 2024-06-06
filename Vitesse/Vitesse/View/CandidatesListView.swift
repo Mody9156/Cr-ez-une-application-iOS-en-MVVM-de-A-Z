@@ -37,12 +37,12 @@ struct CandidatesListView: View {
                 }
                 .listStyle(PlainListStyle())
                 .background(Color.white)
-                .searchable(text: $search)
+                
                 .toolbar {
                     toolbarContent
                 }
                 
-            }
+            }.searchable(text: $search)
             .padding()
             .background(Color.white)
         }.task {

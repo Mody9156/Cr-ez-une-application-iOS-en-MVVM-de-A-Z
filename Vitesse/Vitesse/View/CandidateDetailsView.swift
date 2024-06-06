@@ -118,11 +118,8 @@ struct CandidateDetailView: View {
             Spacer()
         }.navigationBarBackButtonHidden()
         .onAppear {
-            initialiseEditingFields()
             Task {
                 await loadCandidateProfile()
-               
-
             }
             
         }
@@ -186,7 +183,7 @@ extension CandidateDetailView {
      func loadCandidateProfile() async {
         do {
             let loadCandidate = try await CandidateDetailsManagerViewModel.displayCandidateDetails(selectedCandidateId: CandidateInformation.id)
-            
+            initialiseEditingFields()
             print("Félicitations, \(loadCandidate) est passée")
         } catch {
             print("\(CandidateInformation.email)")
