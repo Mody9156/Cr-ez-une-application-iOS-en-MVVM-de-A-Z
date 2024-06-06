@@ -25,7 +25,7 @@ class CandidateListViewModel: ObservableObject {
     
     // Fetch candidates list
     @MainActor
-    func displayCandidatesList() async throws -> CandidateInformation {
+    func displayCandidatesList() async throws -> [CandidateInformation] {
         do {
             let token = try token()
             
@@ -34,11 +34,11 @@ class CandidateListViewModel: ObservableObject {
                 method: "GET",
                 token: token
             )
-            let fetchCandidateData = try await retrieveCandidateData.fetchCandidateDetail(request: request)
+            let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
             
             // Update the published property on the main thread
             DispatchQueue.main.async {
-                self.candidats = fetchCandidateData
+                self.candidates = fetchCandidateData
             }
 
             return fetchCandidateData

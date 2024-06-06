@@ -69,7 +69,7 @@ struct CandidatesListView: View {
     func loadCandidates() async {
         do {
             let candidates = try await candidateListViewModel.displayCandidatesList()
-            candidateListViewModel.candidats = candidates
+            candidateListViewModel.candidates = candidates
         } catch {
             print("Error loading candidates")
         }
