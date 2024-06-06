@@ -9,6 +9,7 @@ struct CandidatesListView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                
                 // Candidates list
                 List {
                     ForEach(searchResult, id: \.id) { candidate in
@@ -27,21 +28,16 @@ struct CandidatesListView: View {
                                 Spacer()
                                 Image(systemName: candidate.isFavorite ? "star.fill" : "star")
                                     .foregroundColor(candidate.isFavorite ? .yellow : .black)
-                            }.searchable(text: $search)
+                            }
                         }
                         .listRowSeparator(.visible)
                         .listRowBackground(Color.clear)
                         .listSectionSeparatorTint(.orange)
                     }
                     .onDelete(perform: candidateListViewModel.removeCandidate)
-                }
+                }.searchable(text: $search)
                 .listStyle(PlainListStyle())
                 .background(Color.white)
-                
-                .toolbar {
-                    toolbarContent
-                }
-                
             }
             .padding()
             .background(Color.white)
@@ -70,7 +66,6 @@ struct CandidatesListView: View {
         }
     }
 
-
     // Load candidates
     func loadCandidates() async {
         do {
@@ -78,39 +73,6 @@ struct CandidatesListView: View {
             candidateListViewModel.candidats = candidates
         } catch {
             print("Error loading candidates")
-        }
-    }
-    
-    // Toggle favorites view
-    func toggleShowFavorites() {
-        showFavorites.toggle()
-    }
-    
-    // Toolbar content
-    @ToolbarContentBuilder
-    var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarLeading) {
-            EditButton()
-                .frame(width: 40, height: 40)
-                .foregroundColor(.orange)
-        }
-        ToolbarItem(placement: .principal) {
-            HStack {
-                Spacer()
-                Text("Candidates")
-                    .font(.headline)
-                    .foregroundColor(.orange)
-                Spacer()
-            }
-            .frame(maxWidth: .infinity)
-        }
-        
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button(action: toggleShowFavorites) {
-                Image(systemName: showFavorites ? "star.fill" : "star")
-                    .foregroundColor(showFavorites ? .yellow : .orange)
-            }
-            .frame(width: 40, height: 40)
         }
     }
 }
