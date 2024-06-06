@@ -27,6 +27,8 @@ class CandidateDetailsManagerViewModel: ObservableObject {
             throw CandidateManagementError.fetchTokenError
         }
     }
+    
+ 
 
     @MainActor
     func displayCandidateDetails() async throws -> CandidateInformation {
@@ -34,11 +36,17 @@ class CandidateDetailsManagerViewModel: ObservableObject {
             let token = try token()
             
             let displayCandidatesList = try await candidateListViewModel.displayCandidatesList()
+            let ids = displayCandidatesList.map { $0 }
+            print("ids : \(ids)")
+            candidats = ids
+            print("ids : \(candidats.count)")
+
             
-           
-                        guard let id = displayCandidatesList.first?.id else {
-                            throw CandidateManagementError.displayCandidateDetailsError
-                        }
+            var id = ""
+            for candidat in candidats {
+                id = candidat.id
+            }
+            
             let request = try CandidateManagement.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)",
                 method: "GET",
@@ -46,6 +54,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
                 id: id
             )
             print("request : \(request)")
+            print("id : \(id)")
             let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
             return fetchCandidateDetail
             
