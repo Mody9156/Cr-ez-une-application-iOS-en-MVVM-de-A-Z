@@ -31,36 +31,29 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         }
     }
     @MainActor
-    func displayCandidateDetails(at offsets: IndexSet) async throws -> CandidateInformation {
-        do {
-            let token = try token()
-           
-            
-        
-            guard let array = try await candidateListViewModel.displayCandidatesList().first else {
-                print("No candidate found at the given index.")
-                throw CandidateManagementError.displayCandidateDetailsError
-            }
-           
-            let id = array.id
-            
-            
-            let request = try CandidateManagement.createURLRequest(
-                url: "http://127.0.0.1:8080/candidate/\(id)",
-                method: "GET",
-                token: token,
-                id: id
-            )
-            
-            let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
-            return fetchCandidateDetail
-            
-        } catch {
-            print("Error during displayCandidateDetails: \(error)")
-            throw CandidateManagementError.displayCandidateDetailsError
-        }
-    }
-    
+       func displayCandidateDetails(at offsets: IndexSet) async throws -> CandidateInformation {
+           do {
+               let token = try token()
+               guard let firstOffset = offsets.first else {
+                   throw CandidateManagementError.displayCandidateDetailsError
+               }
+               let id = candidats[firstOffset].id
+
+               let request = try CandidateManagement.createURLRequest(
+                   url: "http://127.0.0.1:8080/candidate/\(id)",
+                   method: "GET",
+                   token: token,
+                   id: id
+               )
+
+               let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
+               return fetchCandidateDetail
+
+           } catch {
+               print("Error during displayCandidateDetails: \(error)")
+               throw CandidateManagementError.displayCandidateDetailsError
+           }
+       }
     func candidateUpdater(phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String, id: String) async throws -> CandidateInformation {
         do {
             let token = try token()
