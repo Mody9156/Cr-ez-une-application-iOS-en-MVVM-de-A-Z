@@ -30,22 +30,17 @@ class CandidateDetailsManagerViewModel: ObservableObject {
             throw CandidateManagementError.fetchTokenError
         }
     }
-    
+    @MainActor
     func displayCandidateDetails(at offsets: IndexSet) async throws -> CandidateInformation {
         do {
             let token = try token()
-            let array = try await candidateListViewModel.displayCandidatesList()
-            DispatchQueue.main.async {
-                self.candidats = array
-            }
-          
-            guard let index = offsets.first, index < candidats.count else {
+           
+            guard let index = try await candidateListViewModel.displayCandidatesList().first else {
                 print("No candidate found at the given index.")
                 throw CandidateManagementError.displayCandidateDetailsError
             }
             
-            let id = candidats[index].id
-            
+            let id = index.id
             
             let request = try CandidateManagement.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)",
