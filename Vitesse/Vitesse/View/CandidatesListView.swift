@@ -27,7 +27,7 @@ struct CandidatesListView: View {
                                 Spacer()
                                 Image(systemName: candidate.isFavorite ? "star.fill" : "star")
                                     .foregroundColor(candidate.isFavorite ? .yellow : .black)
-                            }
+                            }.searchable(text: $search)
                         }
                         .listRowSeparator(.visible)
                         .listRowBackground(Color.clear)
@@ -42,7 +42,7 @@ struct CandidatesListView: View {
                     toolbarContent
                 }
                 
-            }.searchable(text: $search)
+            }
             .padding()
             .background(Color.white)
         }.task {
@@ -58,12 +58,18 @@ struct CandidatesListView: View {
             }
         } else {
             return candidateListViewModel.candidats.filter { candidate in
-                (candidate.lastName.lowercased().contains(search.lowercased()) ||
-                candidate.firstName.lowercased().contains(search.lowercased())) &&
-                (!showFavorites || candidate.isFavorite)
+                let fullName = "\(candidate.firstName) \(candidate.lastName)"
+                let lowercaseSearch = search.lowercased()
+                let lowercaseFullName = fullName.lowercased()
+                
+                return (lowercaseFullName.contains(lowercaseSearch) ||
+                        candidate.firstName.lowercased().contains(lowercaseSearch) ||
+                        candidate.lastName.lowercased().contains(lowercaseSearch)) &&
+                       (!showFavorites || candidate.isFavorite)
             }
         }
     }
+
 
     // Load candidates
     func loadCandidates() async {
