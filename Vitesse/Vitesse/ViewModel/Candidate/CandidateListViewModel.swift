@@ -1,11 +1,12 @@
 import Foundation
 
 class CandidateListViewModel: ObservableObject {
-    @Published var candidats: [CandidateInformation] = []
+   @Published var candidats: [CandidateInformation]
     let retrieveCandidateData: CandidateDataManager
 
-    init(retrieveCandidateData: CandidateDataManager) {
+    init(retrieveCandidateData: CandidateDataManager,candidats: [CandidateInformation]) {
         self.retrieveCandidateData = retrieveCandidateData
+        self.candidats =  candidats
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -13,7 +14,6 @@ class CandidateListViewModel: ObservableObject {
         case processCandidateElementsError, createCandidateError
     }
     
-    @MainActor
     // Get token
     private func token() throws -> String {
         let keychain = try Keychain().get(forKey: "token")
@@ -23,6 +23,7 @@ class CandidateListViewModel: ObservableObject {
         return encodingToken
     }
     
+    // Fetch candidates list
     @MainActor
     func displayCandidatesList() async throws -> [CandidateInformation] {
         do {
@@ -34,11 +35,12 @@ class CandidateListViewModel: ObservableObject {
                 token: token
             )
             let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
+            
+            // Update the published property on the main thread
             DispatchQueue.main.async {
-                
                 self.candidats = fetchCandidateData
             }
-
+            print("candidats : \(candidats.count)")
             return fetchCandidateData
             
         } catch {
@@ -46,12 +48,12 @@ class CandidateListViewModel: ObservableObject {
         }
     }
     
+    // Delete candidate
     func deleteCandidate(at offsets: IndexSet) async throws -> HTTPURLResponse {
         do {
-            let token = try await token()
+            let token = try token()
             
             var id = ""
-
             for offset in offsets {
                 id = candidats[offset].id
             }
@@ -63,18 +65,20 @@ class CandidateListViewModel: ObservableObject {
                 id: id
             )
             
-            let validateHTTPResponse = try await retrieveCandidateData.validateHTTPResponse(request: request)
+            let response = try await retrieveCandidateData.validateHTTPResponse(request: request)
             
+            // Update the published property on the main thread
             DispatchQueue.main.async {
                 self.candidats.remove(atOffsets: offsets)
             }
             
-            return validateHTTPResponse
+            return response
         } catch {
             throw CandidateManagementError.deleteCandidateError
         }
     }
     
+    // Show favorite candidates
     @MainActor
     func showFavoriteCandidates() async throws -> CandidateInformation {
         do {
@@ -103,11 +107,12 @@ class CandidateListViewModel: ObservableObject {
         }
     }
     
+    // Remove candidate
     func removeCandidate(at offsets: IndexSet) {
         Task {
             do {
-                let candidate = try await deleteCandidate(at: offsets)
-                print("\(candidate)")
+                let response = try await deleteCandidate(at: offsets)
+                print("\(response)")
             } catch {
                 print("Error deleting candidate: \(error)")
             }

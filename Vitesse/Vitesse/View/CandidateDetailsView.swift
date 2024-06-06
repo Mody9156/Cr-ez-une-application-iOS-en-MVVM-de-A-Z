@@ -185,7 +185,7 @@ struct TextFieldManager : View {
 extension CandidateDetailView {
      func loadCandidateProfile() async {
         do {
-            let candidateDetails = try await CandidateDetailsManagerViewModel.displayCandidateDetails(at: IndexSet())
+            let candidateDetails = try await CandidateDetailsManagerViewModel.displayCandidateDetails()
             CandidateInformation = candidateDetails
             
             print("Félicitations, loadCandidateProfile est passée")
