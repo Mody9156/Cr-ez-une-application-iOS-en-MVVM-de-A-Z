@@ -2,13 +2,16 @@ import Foundation
 
 class CandidateDetailsManagerViewModel: ObservableObject {
     @Published var candidats: [CandidateInformation]
+    @Published var selectedCandidateId: String?  // Propriété pour l'ID du candidat sélectionné
+    var candidateInformation: CandidateInformation
     let retrieveCandidateData: CandidateDataManager
     var candidateListViewModel: CandidateListViewModel
     
-    init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation], candidateListViewModel: CandidateListViewModel) {
+    init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation], candidateListViewModel: CandidateListViewModel,candidateInformation: CandidateInformation) {
         self.retrieveCandidateData = retrieveCandidateData
         self.candidats = candidats
         self.candidateListViewModel = candidateListViewModel
+        self.candidateInformation = candidateInformation
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -27,32 +30,22 @@ class CandidateDetailsManagerViewModel: ObservableObject {
             throw CandidateManagementError.fetchTokenError
         }
     }
-    
- 
 
     @MainActor
     func displayCandidateDetails() async throws -> CandidateInformation {
         do {
             let token = try token()
-//
-//            let displayCandidatesList = try await candidateListViewModel.displayCandidatesList()
-//            let ids = displayCandidatesList.map { $0 }
-//            print("ids : \(ids)")
-//            candidats = ids
-
             
-            var id = ""
-            for candidat in candidats {
-                id = candidat.id
-            }
             
+            let id =  candidateInformation.id
+            
+            // Créer et envoyer la requête pour récupérer les détails du candidat
             let request = try CandidateManagement.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)",
                 method: "GET",
                 token: token,
                 id: id
             )
-            print("request : \(request)")
             print("id : \(id)")
             let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
             return fetchCandidateDetail
@@ -87,6 +80,9 @@ class CandidateDetailsManagerViewModel: ObservableObject {
             )
             
             return fetchCandidateInformation
+        } catch {
+            print("Error during candidateUpdater: \(error)")
+            throw CandidateManagementError.candidateUpdaterError
         }
     }
     

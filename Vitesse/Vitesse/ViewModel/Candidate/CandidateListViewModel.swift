@@ -1,12 +1,11 @@
 import Foundation
 
 class CandidateListViewModel: ObservableObject {
-   @Published var candidats: [CandidateInformation]
+   @Published var candidats: [CandidateInformation] = []
     let retrieveCandidateData: CandidateDataManager
 
-    init(retrieveCandidateData: CandidateDataManager,candidats: [CandidateInformation]) {
+    init(retrieveCandidateData: CandidateDataManager) {
         self.retrieveCandidateData = retrieveCandidateData
-        self.candidats =  candidats
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -38,9 +37,8 @@ class CandidateListViewModel: ObservableObject {
             
             // Update the published property on the main thread
             DispatchQueue.main.async {
-                let candidates = fetchCandidateData.map { $0 }
-
-                self.candidats = candidates
+                
+                self.candidats = fetchCandidateData
             }
 
             return fetchCandidateData
