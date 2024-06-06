@@ -41,9 +41,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
                 print("No candidate found at the given index.")
                 throw CandidateManagementError.displayCandidateDetailsError
             }
-            if let index = try await candidateListViewModel.displayCandidatesList().firstIndex(where: { $0.id == array.id }) {
-                candidats[index] = array
-            }
+           
             let id = array.id
             
             
