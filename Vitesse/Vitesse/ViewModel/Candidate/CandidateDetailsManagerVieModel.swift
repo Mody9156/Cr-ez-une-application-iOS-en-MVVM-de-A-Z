@@ -34,12 +34,11 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     func displayCandidateDetails() async throws -> CandidateInformation {
         do {
             let token = try token()
-            
-            let displayCandidatesList = try await candidateListViewModel.displayCandidatesList()
-            let ids = displayCandidatesList.map { $0 }
-            print("ids : \(ids)")
-            candidats = ids
-            print("ids : \(candidats.count)")
+//
+//            let displayCandidatesList = try await candidateListViewModel.displayCandidatesList()
+//            let ids = displayCandidatesList.map { $0 }
+//            print("ids : \(ids)")
+//            candidats = ids
 
             
             var id = ""
