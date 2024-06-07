@@ -138,7 +138,7 @@ struct CandidateDetailView: View {
         .navigationBarBackButtonHidden()
         .task {
             initialiseEditingFields()
-            await loadCandidateProfile()
+//            await loadCandidateProfile()
         }
         .toolbar {
             toolbarContent
