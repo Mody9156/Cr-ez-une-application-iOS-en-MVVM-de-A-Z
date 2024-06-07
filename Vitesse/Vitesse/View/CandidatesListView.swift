@@ -48,10 +48,6 @@ struct CandidatesListView: View {
             .background(Color.white)
         }.task {
             await loadCandidates()
-        }.onAppear{
-            Task{
-                await loadCandidateProfile()
-            }
         }
     }
 
@@ -75,16 +71,7 @@ struct CandidatesListView: View {
         }
     }
     
-    func loadCandidateProfile() async {
-       do {
-           let loadCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails(selectedCandidateId: CandidateInformation.id)
-           print("Félicitations, \(loadCandidate) est passée")
-       } catch {
-           print("\(CandidateInformation.email)")
-           print("Dommage, le candidat n'est pas passé")
-       }
-   }
-
+  
     // Load candidates
     func loadCandidates() async {
         do {
