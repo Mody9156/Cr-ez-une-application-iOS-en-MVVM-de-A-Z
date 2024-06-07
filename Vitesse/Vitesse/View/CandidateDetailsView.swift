@@ -14,7 +14,13 @@ struct CandidateDetailView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-//            Section {
+            Section {
+                
+                VStack{
+                    
+                }
+                
+                
 //                HStack {
 //                    if isEditing {
 //                        TextFieldManager(textField: "First Name", text: editedFirstName)
@@ -114,7 +120,7 @@ struct CandidateDetailView: View {
 //                    }
 //                }
 //                .padding()
-//            }
+            }
             Spacer()
         }.navigationBarBackButtonHidden()
         .onAppear {
