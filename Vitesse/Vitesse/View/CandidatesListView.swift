@@ -5,18 +5,19 @@ struct CandidatesListView: View {
     @State private var search = ""
     @State private var showFavorites: Bool = false
     @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
+    @State var CandidateInformation: CandidateInformation
 
     var body: some View {
         NavigationStack {
             VStack {
+             
                 // Candidates list
                 List {
                     ForEach(searchResult, id: \.id) { candidate in
                         NavigationLink(
                             // Candidate details
                             destination: CandidateDetailView(
-                                CandidateDetailsManagerViewModel: candidateDetailsManagerViewModel,
-                                CandidateInformation: candidate
+                                candidateDetailsManagerViewModel: candidateDetailsManagerViewModel, candidateListViewModel: CandidateListViewModel(retrieveCandidateData: CandidateDataManager()), candidateInformation: candidate
                             )
                         ) {
                             HStack {
@@ -29,6 +30,7 @@ struct CandidatesListView: View {
                                     .foregroundColor(candidate.isFavorite ? .yellow : .black)
                             }
                         }
+
                         .listRowSeparator(.visible)
                         .listRowBackground(Color.clear)
                         .listSectionSeparatorTint(.orange)
@@ -38,13 +40,13 @@ struct CandidatesListView: View {
                 .listStyle(PlainListStyle())
                 .background(Color.white)
                 
-                .toolbar {
-                    toolbarContent
-                }
                 
-            }
-            .padding()
-            .background(Color.white)
+                
+            }.toolbar {
+                
+                toolbarContent
+            }.background(Color.white)
+//                .searchable(text: $search)
         }.task {
             await loadCandidates()
         }
@@ -69,13 +71,14 @@ struct CandidatesListView: View {
             }
         }
     }
-
-
+    
+  
     // Load candidates
     func loadCandidates() async {
         do {
             let candidates = try await candidateListViewModel.displayCandidatesList()
             candidateListViewModel.candidats = candidates
+            print("super bien ")
         } catch {
             print("Error loading candidates")
         }
@@ -91,26 +94,16 @@ struct CandidatesListView: View {
     var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
             EditButton()
-                .frame(width: 40, height: 40)
                 .foregroundColor(.orange)
         }
-        ToolbarItem(placement: .principal) {
-            HStack {
-                Spacer()
-                Text("Candidates")
-                    .font(.headline)
-                    .foregroundColor(.orange)
-                Spacer()
-            }
-            .frame(maxWidth: .infinity)
-        }
-        
+       
+       
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: toggleShowFavorites) {
                 Image(systemName: showFavorites ? "star.fill" : "star")
                     .foregroundColor(showFavorites ? .yellow : .orange)
             }
-            .frame(width: 40, height: 40)
         }
+       
     }
 }

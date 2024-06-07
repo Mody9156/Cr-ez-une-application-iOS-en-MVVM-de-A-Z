@@ -1,12 +1,12 @@
 import Foundation
 
 class CandidateDetailsManagerViewModel: ObservableObject {
-    @Published var candidats: [CandidateInformation]
-    let retrieveCandidateData: CandidateDataManager
+    @Published var candidats: [CandidateInformation] = []
+    @Published var retrieveCandidateData: CandidateDataManager
     
-    init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation]) {
+    init(retrieveCandidateData: CandidateDataManager) {
         self.retrieveCandidateData = retrieveCandidateData
-        self.candidats = candidats
+       
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -30,8 +30,6 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     func displayCandidateDetails(selectedCandidateId: String) async throws -> CandidateInformation {
         do {
             let token = try token()
-          
-           
             let request = try CandidateManagement.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(selectedCandidateId)",
                 method: "GET",
@@ -39,12 +37,12 @@ class CandidateDetailsManagerViewModel: ObservableObject {
                 id: selectedCandidateId
             )
             
-            print("ID du candidat sélectionné : \(selectedCandidateId)")
-                  print("Requête : \(request)")
+            print("Selected candidate ID: \(selectedCandidateId)")
+            print("Request: \(request)")
             
             let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
+
             return fetchCandidateDetail
-            
         } catch {
             print("Error during displayCandidateDetails: \(error)")
             throw CandidateManagementError.displayCandidateDetailsError
@@ -70,9 +68,18 @@ class CandidateDetailsManagerViewModel: ObservableObject {
             )
             
             let fetchCandidateInformation = try await retrieveCandidateData.fetchCandidateInformation(
-                token: token, id: id, phone: phone, note: note, firstName: firstName,
-                linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName, request: request
+                token: token,
+                id: id,
+                phone: phone,
+                note: note,
+                firstName: firstName,
+                linkedinURL: linkedinURL,
+                isFavorite: isFavorite,
+                email: email,
+                lastName: lastName,
+                request: request
             )
+          
             
             return fetchCandidateInformation
         } catch {
@@ -82,6 +89,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     }
     
     func updateCandidateInformation(with updatedCandidate: CandidateInformation) {
+        
         if let index = candidats.firstIndex(where: { $0.id == updatedCandidate.id }) {
             candidats[index] = updatedCandidate
         }

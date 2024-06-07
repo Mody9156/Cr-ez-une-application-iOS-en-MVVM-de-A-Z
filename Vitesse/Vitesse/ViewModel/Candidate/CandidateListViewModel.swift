@@ -2,10 +2,11 @@ import Foundation
 
 class CandidateListViewModel: ObservableObject {
    @Published var candidats: [CandidateInformation] = []
-    let retrieveCandidateData: CandidateDataManager
+   @Published  var retrieveCandidateData: CandidateDataManager
 
     init(retrieveCandidateData: CandidateDataManager) {
         self.retrieveCandidateData = retrieveCandidateData
+       
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -35,12 +36,7 @@ class CandidateListViewModel: ObservableObject {
             )
             let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
             
-            // Update the published property on the main thread
-            DispatchQueue.main.async {
-                
-                self.candidats = fetchCandidateData
-            }
-
+           
             return fetchCandidateData
             
         } catch {
@@ -78,28 +74,24 @@ class CandidateListViewModel: ObservableObject {
         }
     }
     
-    // Show favorite candidates
+    // Add  candidates in favorite
     @MainActor
-    func showFavoriteCandidates() async throws -> CandidateInformation {
+    func showFavoriteCandidates(selectedCandidateId: String) async throws -> CandidateInformation {
         do {
             let token = try token()
             
-            guard let candidate = candidats.first else {
-                throw CandidateManagementError.processCandidateElementsError
-            }
             
-            let id = candidate.id
-           
             let request = try CandidateManagement.createURLRequest(
-                url: "http://127.0.0.1:8080/candidate/\(id)/favorite",
+                url: "http://127.0.0.1:8080/candidate/\(selectedCandidateId)/favorite",
                 method: "PUT",
                 token: token,
-                id: id
+                id: selectedCandidateId
             )
             
             let response = try await retrieveCandidateData.fetchCandidateDetail(request: request)
             print("Favorite status update for the candidate was successful: \(String(describing: response))")
-            
+         
+
             return response
         } catch {
             print("There are errors in function showFavoriteCandidates()")
