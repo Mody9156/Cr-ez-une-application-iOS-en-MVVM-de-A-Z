@@ -2,7 +2,7 @@ import Foundation
 
 class CandidateDetailsManagerViewModel: ObservableObject {
     @Published var candidats: [CandidateInformation] = []
-    let retrieveCandidateData: CandidateDataManager
+    @Published var retrieveCandidateData: CandidateDataManager
     
     init(retrieveCandidateData: CandidateDataManager) {
         self.retrieveCandidateData = retrieveCandidateData

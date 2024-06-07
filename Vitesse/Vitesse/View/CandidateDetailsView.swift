@@ -50,22 +50,24 @@ struct CandidateDetailView: View {
                             .fontWeight(.bold)
                     }
                     Spacer()
-                   
-                    if isButtonVisible {
-                        Button {
-                            Task {
-                                try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                                withAnimation {
-                                    isButtonVisible = false
+                    if candidateInformation.isFavorite {
+                        if isButtonVisible {
+                            Button {
+                                Task {
+                                    try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                    withAnimation {
+                                        isButtonVisible = false
+                                    }
                                 }
+                            } label: {
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(.yellow)
+                                    .font(.title2)
                             }
-                        } label: {
-                            Image(systemName: "star.fill")
-                                .foregroundColor(.yellow)
-                                .font(.title2)
+                            .transition(.opacity)
                         }
-                        .transition(.opacity)
                     }
+                   
                 }
                 .padding()
 
@@ -150,7 +152,7 @@ struct CandidateDetailView: View {
         .navigationBarBackButtonHidden()
         .task {
             initialiseEditingFields()
-//            await loadCandidateProfile()
+            await loadCandidateProfile()
         }
         .toolbar {
             toolbarContent
