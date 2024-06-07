@@ -5,6 +5,7 @@ struct CandidatesListView: View {
     @State private var search = ""
     @State private var showFavorites: Bool = false
     @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
+    @State var CandidateInformation: CandidateInformation
 
     var body: some View {
         NavigationStack {
@@ -47,6 +48,10 @@ struct CandidatesListView: View {
             .background(Color.white)
         }.task {
             await loadCandidates()
+        }.onAppear{
+            Task{
+                await loadCandidateProfile()
+            }
         }
     }
 
@@ -69,13 +74,23 @@ struct CandidatesListView: View {
             }
         }
     }
-
+    
+    func loadCandidateProfile() async {
+       do {
+           let loadCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails(selectedCandidateId: CandidateInformation.id)
+           print("Félicitations, \(loadCandidate) est passée")
+       } catch {
+           print("\(CandidateInformation.email)")
+           print("Dommage, le candidat n'est pas passé")
+       }
+   }
 
     // Load candidates
     func loadCandidates() async {
         do {
             let candidates = try await candidateListViewModel.displayCandidatesList()
             candidateListViewModel.candidats = candidates
+            print("super bien ")
         } catch {
             print("Error loading candidates")
         }
