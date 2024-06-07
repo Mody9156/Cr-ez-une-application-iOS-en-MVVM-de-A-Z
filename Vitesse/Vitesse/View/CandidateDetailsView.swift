@@ -13,6 +13,7 @@ struct CandidateDetailView: View {
     @State var candidateInformation: CandidateInformation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var isButtonVisible = true
+    @State private var showingAlert : Bool = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -26,7 +27,7 @@ struct CandidateDetailView: View {
                         if isButtonVisible {
                             Button {
                                 Task {
-                                    try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                 try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
                                     withAnimation {
                                         isButtonVisible = false
                                     }
@@ -58,6 +59,7 @@ struct CandidateDetailView: View {
                                     withAnimation {
                                         isButtonVisible = false
                                     }
+                                    showingAlert = true // Définir showingAlert à true pour afficher l'alerte
                                 }
                             } label: {
                                 Image(systemName: "star.fill")
@@ -65,8 +67,12 @@ struct CandidateDetailView: View {
                                     .font(.title2)
                             }
                             .transition(.opacity)
+                            .alert("Important message", isPresented: $showingAlert) {
+                                Button("OK", role: .cancel) { } // Bouton "OK" de l'alerte
+                            }
                         }
                     }
+
                 }
                 .padding()
 
@@ -207,12 +213,13 @@ struct TextFieldManager: View {
 extension CandidateDetailView {
     func loadCandidateProfile() async {
         do {
-            let loadCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails(selectedCandidateId: candidateInformation.id)
-            print("Success, \(loadCandidate) has been loaded")
+            let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails(selectedCandidateId: candidateInformation.id)
+            print("Success, \(loadedCandidate) has been loaded")
         } catch {
-            print("Error loading candidate profile for \(candidateInformation.email)")
+            print("Error loading candidate profile for \(candidateInformation.email): \(error)")
         }
     }
+
 
     func saveCandidate() async {
         do {

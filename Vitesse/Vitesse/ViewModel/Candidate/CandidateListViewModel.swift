@@ -36,11 +36,7 @@ class CandidateListViewModel: ObservableObject {
             )
             let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
             
-            // Update the published property on the main thread
-            DispatchQueue.main.async {
-                
-                self.candidats = fetchCandidateData
-            }
+           
             return fetchCandidateData
             
         } catch {
@@ -78,7 +74,7 @@ class CandidateListViewModel: ObservableObject {
         }
     }
     
-    // Show favorite candidates
+    // Add  candidates in favorite
     @MainActor
     func showFavoriteCandidates(selectedCandidateId: String) async throws -> CandidateInformation {
         do {
