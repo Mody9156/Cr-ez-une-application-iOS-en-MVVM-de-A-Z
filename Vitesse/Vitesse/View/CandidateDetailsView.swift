@@ -23,7 +23,24 @@ struct CandidateDetailView: View {
                         TextFieldManager(textField: "Last Name", text: $editedLastName)
                         Spacer()
 
-                        
+                        if isButtonVisible {
+                            Button {
+                                Task {
+                                    try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                    withAnimation {
+                                        isButtonVisible = false
+                                    }
+                                }
+                            } label: {
+                                Text(candidateInformation.isFavorite ? "Remove from favorites" : "Add to favorites")
+                                    .foregroundColor(.orange)
+                                    .padding()
+                                    .background(Color.orange.opacity(0.2))
+                                    .cornerRadius(10)
+                            }
+                            .transition(.opacity)
+                        }
+
                     } else {
                         Text(candidateInformation.firstName)
                             .font(.largeTitle)
@@ -33,7 +50,7 @@ struct CandidateDetailView: View {
                             .fontWeight(.bold)
                     }
                     Spacer()
-                    
+                   
                     if isButtonVisible {
                         Button {
                             Task {
