@@ -32,11 +32,9 @@ struct CandidateDetailView: View {
                                     }
                                 }
                             } label: {
-                                Text(candidateInformation.isFavorite ? "Remove from favorites" : "Add to favorites")
-                                    .foregroundColor(.orange)
-                                    .padding()
-                                    .background(Color.orange.opacity(0.2))
-                                    .cornerRadius(10)
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(.yellow)
+                                    .font(.title2)
                             }
                             .transition(.opacity)
                         }
@@ -49,11 +47,7 @@ struct CandidateDetailView: View {
                             .fontWeight(.bold)
                     }
                     Spacer()
-                    if candidateInformation.isFavorite {
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.yellow)
-                            .font(.title2)
-                    }
+                    
                 }
                 .padding()
 
