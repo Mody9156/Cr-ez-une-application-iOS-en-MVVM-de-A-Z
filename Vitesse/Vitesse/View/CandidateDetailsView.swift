@@ -112,8 +112,7 @@ struct CandidateDetailView: View {
                 VStack(alignment: .leading) {
                     Text("Note:")
                     if isEditing {
-                        TextField("Note", text: Binding(get: { editedNote ?? "" }, set: { editedNote = $0 }))
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        TextFieldManager(textField: "Note", text: Binding(get: { editedNote ?? "" }, set: { editedNote = $0 }))
                     } else {
                         if let note = candidateInformation.note {
                             RoundedRectangle(cornerRadius: 10)
