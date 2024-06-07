@@ -94,7 +94,7 @@ class CandidateListViewModel: ObservableObject {
             
             let response = try await retrieveCandidateData.fetchCandidateDetail(request: request)
             print("Favorite status update for the candidate was successful: \(String(describing: response))")
-            
+            objectWillChange.send()
             return response
         } catch {
             print("There are errors in function showFavoriteCandidates()")

@@ -72,7 +72,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
                 token: token, id: id, phone: phone, note: note, firstName: firstName,
                 linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName, request: request
             )
-            
+            objectWillChange.send()
             return fetchCandidateInformation
         } catch {
             print("Error during candidateUpdater: \(error)")
