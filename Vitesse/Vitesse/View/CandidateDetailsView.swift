@@ -119,7 +119,7 @@ struct CandidateDetailView: View {
         }.navigationBarBackButtonHidden()
         .task {
             Task {
-//                await loadCandidateProfile()
+                await loadCandidateProfile()
             }
         }
         .toolbar {

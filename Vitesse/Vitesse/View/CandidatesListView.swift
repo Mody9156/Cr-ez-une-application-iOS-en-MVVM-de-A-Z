@@ -16,7 +16,7 @@ struct CandidatesListView: View {
                         NavigationLink(
                             // Candidate details
                             destination: CandidateDetailView(
-                                CandidateDetailsManagerViewModel: candidateDetailsManagerViewModel, CandidateInformation: CandidateInformation
+                                CandidateDetailsManagerViewModel: candidateDetailsManagerViewModel, CandidateInformation: candidate
                             )
                         ) {
                             HStack {
