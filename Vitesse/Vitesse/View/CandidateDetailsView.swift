@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CandidateDetailView: View {
-    @StateObject var CandidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
+    @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
     @State private var isEditing = false
     @State private var editedNote: String?
     @State private var editedFirstName: String = ""
@@ -9,31 +9,47 @@ struct CandidateDetailView: View {
     @State private var editedPhone: String?
     @State private var editedEmail: String = ""
     @State private var editedLinkedIn: String?
-    @State var CandidateInformation: CandidateInformation
+    @State var candidateInformation: CandidateInformation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    @StateObject var candidateListViewModel: CandidateListViewModel
+
     var body: some View {
         VStack(alignment: .leading) {
             Section {
                 HStack {
                     if isEditing {
-                        TextFieldManager(textField: "First Name", text: editedFirstName)
-                        TextFieldManager(textField: "Last Name", text: editedLastName)
+                        TextFieldManager(textField: "First Name", text: $editedFirstName)
+                        TextFieldManager(textField: "Last Name", text: $editedLastName)
+                        Spacer()
+                        
+                        Button {
+                            Task {
+                                if candidateInformation.isFavorite {
+                                    try await candidateListViewModel.removeCandidateFromFavorites(selectedCandidateId: candidateInformation.id)
+                                } else {
+                                    try await candidateListViewModel.addCandidateToFavorites(selectedCandidateId: candidateInformation.id)
+                                }
+                            }
+                        } label: {
+                            Text(candidateInformation.isFavorite ? "Remove from Favorites" : "Add to Favorites")
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                        }
 
                     } else {
-                        Text(CandidateInformation.firstName)
+                        Text(candidateInformation.firstName)
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                        Text(CandidateInformation.lastName)
+                        Text(candidateInformation.lastName)
                             .font(.largeTitle)
                             .fontWeight(.bold)
                     }
                     Spacer()
-                    if CandidateInformation.isFavorite {
+                    if candidateInformation.isFavorite {
                         Image(systemName: "star.fill")
                             .foregroundColor(.yellow)
                             .font(.title2)
                     }
+                    
                 }
                 .padding()
 
@@ -46,7 +62,7 @@ struct CandidateDetailView: View {
                         ))
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        if let phone = CandidateInformation.phone {
+                        if let phone = candidateInformation.phone {
                             Text(phone)
                         } else {
                             Text("No phone available")
@@ -59,10 +75,9 @@ struct CandidateDetailView: View {
                 HStack {
                     Text("Email :")
                     if isEditing {
-
-                        TextFieldManager(textField: "Email", text: editedEmail)
+                        TextFieldManager(textField: "Email", text: $editedEmail)
                     } else {
-                        Text(CandidateInformation.email)
+                        Text(candidateInformation.email)
                     }
                 }
                 .padding()
@@ -76,11 +91,13 @@ struct CandidateDetailView: View {
                         ))
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        if let linkedIn = CandidateInformation.linkedinURL,
-                            let url = URL(string: linkedIn) {
-                        Link("Go on LinkedIn", destination: url)
-                                .padding().border(.orange).foregroundStyle(.white)
-                                .background(Color.orange).cornerRadius(10)
+                        if let linkedIn = candidateInformation.linkedinURL,
+                           let url = URL(string: linkedIn) {
+                            Link("Go on LinkedIn", destination: url)
+                                .padding().border(.orange)
+                                .foregroundColor(.white)
+                                .background(Color.orange)
+                                .cornerRadius(10)
                         } else {
                             Text("No LinkedIn available")
                                 .foregroundColor(.gray)
@@ -92,10 +109,10 @@ struct CandidateDetailView: View {
                 VStack(alignment: .leading) {
                     Text("Note :")
                     if isEditing {
-                        TextField("Note", text:  Binding(get: {editedNote ?? ""}, set: {editedNote = $0}))
+                        TextField("Note", text: Binding(get: { editedNote ?? "" }, set: { editedNote = $0 }))
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     } else {
-                        if let note = CandidateInformation.note {
+                        if let note = candidateInformation.note {
                             RoundedRectangle(cornerRadius: 10)
                                 .strokeBorder(Color.orange, lineWidth: 1)
                                 .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
@@ -106,7 +123,6 @@ struct CandidateDetailView: View {
                                         .foregroundColor(.black),
                                     alignment: .center
                                 )
-
                         } else {
                             Text("No note available")
                                 .foregroundColor(.gray)
@@ -116,57 +132,56 @@ struct CandidateDetailView: View {
                 .padding()
             }
             Spacer()
-        }.navigationBarBackButtonHidden()
+        }
+        .navigationBarBackButtonHidden()
         .task {
-            Task {
-//                await loadCandidateProfile()
-            }
+            initialiseEditingFields()
+            await loadCandidateProfile()
         }
         .toolbar {
-            ToolbarContent
+            toolbarContent
         }
     }
     
-    
-    //toolbar
+    // Toolbar content
     @ToolbarContentBuilder
-    var ToolbarContent : some ToolbarContent {
-        
-            ToolbarItem(placement: .navigationBarLeading) {
-                   if isEditing {
-                       Button("Cancel") {
-                           isEditing = false
-                       }.foregroundColor(.orange)
-                   }else{
-                       Button {
-                           presentationMode.wrappedValue.dismiss()
-                       } label: {
-                           Image(systemName: "arrow.left.circle").foregroundColor(.orange)
-                       }
-
-                   }
-               }
-       ToolbarItem(placement: .navigationBarTrailing) {
-                if isEditing {
-                    Button("Done") {
-                       
-                        Task {
-                            await saveCandidate()
-                            
-                        }
-                    }.foregroundColor(.orange)
-                } else {
-                    Button("Edit") {
-                        isEditing.toggle()
-                    }.foregroundColor(.orange)
+    var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarLeading) {
+            if isEditing {
+                Button("Cancel") {
+                    isEditing = false
+                }
+                .foregroundColor(.orange)
+            } else {
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "arrow.left.circle")
+                        .foregroundColor(.orange)
                 }
             }
+        }
+        ToolbarItem(placement: .navigationBarTrailing) {
+            if isEditing {
+                Button("Done") {
+                    Task {
+                        await saveCandidate()
+                    }
+                }
+                .foregroundColor(.orange)
+            } else {
+                Button("Edit") {
+                    isEditing.toggle()
+                }
+                .foregroundColor(.orange)
+            }
+        }
     }
 }
 
-struct TextFieldManager : View {
-    var textField : String = ""
-    @State var text : String = ""
+struct TextFieldManager: View {
+    var textField: String = ""
+    @Binding var text: String
     
     var body: some View {
         TextField(textField, text: $text)
@@ -174,49 +189,17 @@ struct TextFieldManager : View {
     }
 }
 
-
-
-
-
 extension CandidateDetailView {
-     func loadCandidateProfile() async {
+    func loadCandidateProfile() async {
         do {
-            let loadCandidate = try await CandidateDetailsManagerViewModel.displayCandidateDetails(selectedCandidateId: CandidateInformation.id)
-            initialiseEditingFields()
+            let loadCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails(selectedCandidateId: candidateInformation.id)
             print("Félicitations, \(loadCandidate) est passée")
         } catch {
-            print("\(CandidateInformation.email)")
+            print("\(candidateInformation.email)")
             print("Dommage, le candidat n'est pas passé")
         }
     }
 
     func saveCandidate() async {
         do {
-            let updatedCandidate = try await CandidateDetailsManagerViewModel.candidateUpdater(
-                phone: editedPhone,
-                note: editedNote,
-                firstName: editedFirstName,
-                linkedinURL: editedLinkedIn,
-                isFavorite: CandidateInformation.isFavorite,
-                email: editedEmail,
-                lastName: editedLastName,
-                id: CandidateInformation.id
-            )
-            CandidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
-            isEditing.toggle()
-            print("isEditing : \(isEditing)")
-            print("Félicitations Updater \(updatedCandidate)")
-        } catch {
-            print("Dommage, le Updater n'est pas passé")
-        }
-    }
-
-    func initialiseEditingFields() {
-        editedNote = CandidateInformation.note ?? ""
-        editedFirstName = CandidateInformation.firstName
-        editedLastName = CandidateInformation.lastName
-        editedPhone = CandidateInformation.phone ?? ""
-        editedEmail = CandidateInformation.email
-        editedLinkedIn = CandidateInformation.linkedinURL ?? ""
-    }
-}
+            let updatedCandidate = try await candidateDetailsManager
