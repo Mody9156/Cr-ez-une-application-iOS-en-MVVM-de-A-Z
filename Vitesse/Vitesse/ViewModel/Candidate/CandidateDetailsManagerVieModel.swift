@@ -6,6 +6,10 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     
     init(retrieveCandidateData: CandidateDataManager) {
         self.retrieveCandidateData = retrieveCandidateData
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+
+        }
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -29,8 +33,6 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     func displayCandidateDetails(selectedCandidateId: String) async throws -> CandidateInformation {
         do {
             let token = try token()
-          
-           
             let request = try CandidateManagement.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(selectedCandidateId)",
                 method: "GET",
@@ -38,12 +40,12 @@ class CandidateDetailsManagerViewModel: ObservableObject {
                 id: selectedCandidateId
             )
             
-            print("ID du candidat sélectionné : \(selectedCandidateId)")
-                  print("Requête : \(request)")
+            print("Selected candidate ID: \(selectedCandidateId)")
+            print("Request: \(request)")
             
             let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
+
             return fetchCandidateDetail
-            
         } catch {
             print("Error during displayCandidateDetails: \(error)")
             throw CandidateManagementError.displayCandidateDetailsError
@@ -69,10 +71,19 @@ class CandidateDetailsManagerViewModel: ObservableObject {
             )
             
             let fetchCandidateInformation = try await retrieveCandidateData.fetchCandidateInformation(
-                token: token, id: id, phone: phone, note: note, firstName: firstName,
-                linkedinURL: linkedinURL, isFavorite: isFavorite, email: email, lastName: lastName, request: request
+                token: token,
+                id: id,
+                phone: phone,
+                note: note,
+                firstName: firstName,
+                linkedinURL: linkedinURL,
+                isFavorite: isFavorite,
+                email: email,
+                lastName: lastName,
+                request: request
             )
-            objectWillChange.send()
+          
+            
             return fetchCandidateInformation
         } catch {
             print("Error during candidateUpdater: \(error)")

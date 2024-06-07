@@ -67,7 +67,6 @@ struct CandidateDetailView: View {
                             .transition(.opacity)
                         }
                     }
-                   
                 }
                 .padding()
 
@@ -78,7 +77,6 @@ struct CandidateDetailView: View {
                             get: { editedPhone ?? "" },
                             set: { editedPhone = $0 }
                         ))
-                        
                     } else {
                         if let phone = candidateInformation.phone {
                             Text(phone)
@@ -111,7 +109,8 @@ struct CandidateDetailView: View {
                         if let linkedIn = candidateInformation.linkedinURL,
                            let url = URL(string: linkedIn) {
                             Link("Go on LinkedIn", destination: url)
-                                .padding().border(.orange)
+                                .padding()
+                                .border(Color.orange)
                                 .foregroundColor(.white)
                                 .background(Color.orange)
                                 .cornerRadius(10)
@@ -240,8 +239,8 @@ extension CandidateDetailView {
         editedNote = candidateInformation.note ?? ""
         editedFirstName = candidateInformation.firstName
         editedLastName = candidateInformation.lastName
-        editedPhone = candidateInformation.phone ?? ""
+        editedPhone = candidateInformation.phone
         editedEmail = candidateInformation.email
-        editedLinkedIn = candidateInformation.linkedinURL ?? ""
+        editedLinkedIn = candidateInformation.linkedinURL
     }
 }

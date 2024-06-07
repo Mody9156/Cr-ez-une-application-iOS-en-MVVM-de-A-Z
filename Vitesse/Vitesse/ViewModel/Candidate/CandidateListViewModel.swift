@@ -6,6 +6,10 @@ class CandidateListViewModel: ObservableObject {
 
     init(retrieveCandidateData: CandidateDataManager) {
         self.retrieveCandidateData = retrieveCandidateData
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+
+        }
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -40,7 +44,6 @@ class CandidateListViewModel: ObservableObject {
                 
                 self.candidats = fetchCandidateData
             }
-
             return fetchCandidateData
             
         } catch {
@@ -94,7 +97,8 @@ class CandidateListViewModel: ObservableObject {
             
             let response = try await retrieveCandidateData.fetchCandidateDetail(request: request)
             print("Favorite status update for the candidate was successful: \(String(describing: response))")
-            objectWillChange.send()
+         
+
             return response
         } catch {
             print("There are errors in function showFavoriteCandidates()")
