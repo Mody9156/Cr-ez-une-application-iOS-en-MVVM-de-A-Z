@@ -13,7 +13,6 @@ struct CandidateDetailView: View {
     @State var candidateInformation: CandidateInformation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var isButtonVisible = true
-    @State private var showingAlert : Bool = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -27,7 +26,7 @@ struct CandidateDetailView: View {
                         if isButtonVisible {
                             Button {
                                 Task {
-                                 try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                 try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
                                     withAnimation {
                                         isButtonVisible = false
                                     }
@@ -51,28 +50,21 @@ struct CandidateDetailView: View {
                             .fontWeight(.bold)
                     }
                     Spacer()
-                    if candidateInformation.isFavorite {
-                        if isButtonVisible {
-                            Button {
-                                Task {
-                                    try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                                    withAnimation {
-                                        isButtonVisible = false
-                                    }
-                                    showingAlert = true // Définir showingAlert à true pour afficher l'alerte
+                    if candidateInformation.isFavorite && isButtonVisible {
+                        Button {
+                            Task {
+                                try await _ =  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                withAnimation {
+                                    isButtonVisible = false
                                 }
-                            } label: {
-                                Image(systemName: "star.fill")
-                                    .foregroundColor(.yellow)
-                                    .font(.title2)
                             }
-                            .transition(.opacity)
-                            .alert("Important message", isPresented: $showingAlert) {
-                                Button("OK", role: .cancel) { } // Bouton "OK" de l'alerte
-                            }
+                        } label: {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.yellow)
+                                .font(.title2)
                         }
+                        .transition(.opacity)
                     }
-
                 }
                 .padding()
 
