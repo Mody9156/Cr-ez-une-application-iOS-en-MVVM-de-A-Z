@@ -10,6 +10,28 @@ struct CandidatesListView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                HStack{
+                    EditButton()
+                        .frame(width: 40, height: 40)
+                        .foregroundColor(.orange)
+                    Spacer()
+                    Text("Candidates")
+                        .font(.headline)
+                        .foregroundColor(.orange)
+                    Spacer()
+                    Button(action: toggleShowFavorites) {
+                        Image(systemName: showFavorites ? "star.fill" : "star")
+                            .foregroundColor(showFavorites ? .yellow : .orange)
+                            .frame(width: 40, height: 40) // Taille spécifique pour le bouton
+                    }
+                   
+                             
+                }
+                TextField("Search", text: $search)
+                                        .textFieldStyle(PlainTextFieldStyle())
+                                        .padding(8)
+                                        .background(Color(.systemGray6))
+                                        .cornerRadius(8)
                 // Candidates list
                 List {
                     ForEach(searchResult, id: \.id) { candidate in
@@ -29,22 +51,19 @@ struct CandidatesListView: View {
                                     .foregroundColor(candidate.isFavorite ? .yellow : .black)
                             }
                         }
+
                         .listRowSeparator(.visible)
                         .listRowBackground(Color.clear)
                         .listSectionSeparatorTint(.orange)
                     }
                     .onDelete(perform: candidateListViewModel.removeCandidate)
-                }.searchable(text: $search)
+                }
                 .listStyle(PlainListStyle())
                 .background(Color.white)
                 
-                .toolbar {
-                    toolbarContent
-                }
                 
-            }
-            .padding()
-            .background(Color.white)
+                
+            }.background(Color.white)
         }.task {
             await loadCandidates()
         }
@@ -88,30 +107,31 @@ struct CandidatesListView: View {
     }
     
     // Toolbar content
-    @ToolbarContentBuilder
-    var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarLeading) {
-            EditButton()
-                .frame(width: 40, height: 40)
-                .foregroundColor(.orange)
-        }
-        ToolbarItem(placement: .principal) {
-            HStack {
-                Spacer()
-                Text("Candidates")
-                    .font(.headline)
-                    .foregroundColor(.orange)
-                Spacer()
-            }
-            .frame(maxWidth: .infinity)
-        }
-        
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button(action: toggleShowFavorites) {
-                Image(systemName: showFavorites ? "star.fill" : "star")
-                    .foregroundColor(showFavorites ? .yellow : .orange)
-            }
-            .frame(width: 40, height: 40)
-        }
-    }
+//    @ToolbarContentBuilder
+//    var toolbarContent: some ToolbarContent {
+//        ToolbarItem(placement: .navigationBarLeading) {
+//            EditButton()
+//                .frame(width: 40, height: 40)
+//                .foregroundColor(.orange)
+//        }
+//        ToolbarItem(placement: .principal) {
+//            HStack {
+//                Spacer()
+//                Text("Candidates")
+//                    .font(.headline)
+//                    .foregroundColor(.orange)
+//                Spacer()
+//            }.frame(maxWidth: .infinity)
+//
+//        }
+//
+//        ToolbarItem(placement: .navigationBarTrailing) {
+//            Button(action: toggleShowFavorites) {
+//                Image(systemName: showFavorites ? "star.fill" : "star")
+//                    .foregroundColor(showFavorites ? .yellow : .orange)
+//                    .frame(width: 40, height: 40) // Taille spécifique pour le bouton
+//            }
+//        }
+//
+//    }
 }
