@@ -6,10 +6,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     
     init(retrieveCandidateData: CandidateDataManager) {
         self.retrieveCandidateData = retrieveCandidateData
-        DispatchQueue.main.async {
-            self.objectWillChange.send()
-
-        }
+       
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -92,6 +89,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     }
     
     func updateCandidateInformation(with updatedCandidate: CandidateInformation) {
+        objectWillChange.send() 
         if let index = candidats.firstIndex(where: { $0.id == updatedCandidate.id }) {
             candidats[index] = updatedCandidate
         }

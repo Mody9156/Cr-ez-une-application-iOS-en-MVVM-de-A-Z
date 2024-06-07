@@ -6,10 +6,7 @@ class CandidateListViewModel: ObservableObject {
 
     init(retrieveCandidateData: CandidateDataManager) {
         self.retrieveCandidateData = retrieveCandidateData
-        DispatchQueue.main.async {
-            self.objectWillChange.send()
-
-        }
+       
     }
     
     enum CandidateManagementError: Error, LocalizedError {
