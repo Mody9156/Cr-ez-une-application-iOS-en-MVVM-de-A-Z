@@ -23,21 +23,7 @@ struct CandidateDetailView: View {
                         TextFieldManager(textField: "Last Name", text: $editedLastName)
                         Spacer()
 
-                        if isButtonVisible {
-                            Button {
-                                Task {
-                                    try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                                    withAnimation {
-                                        isButtonVisible = false
-                                    }
-                                }
-                            } label: {
-                                Image(systemName: "star.fill")
-                                    .foregroundColor(.yellow)
-                                    .font(.title2)
-                            }
-                            .transition(.opacity)
-                        }
+                        
                     } else {
                         Text(candidateInformation.firstName)
                             .font(.largeTitle)
@@ -48,6 +34,21 @@ struct CandidateDetailView: View {
                     }
                     Spacer()
                     
+                    if isButtonVisible {
+                        Button {
+                            Task {
+                                try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                withAnimation {
+                                    isButtonVisible = false
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.yellow)
+                                .font(.title2)
+                        }
+                        .transition(.opacity)
+                    }
                 }
                 .padding()
 
