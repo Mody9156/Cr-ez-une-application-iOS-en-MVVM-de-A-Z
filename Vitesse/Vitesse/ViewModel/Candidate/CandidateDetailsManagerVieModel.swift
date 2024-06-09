@@ -1,12 +1,12 @@
 import Foundation
 
 class CandidateDetailsManagerViewModel: ObservableObject {
-    @Published var candidats: [CandidateInformation] = []
+    @Published var candidats: [CandidateInformation]
     @Published var retrieveCandidateData: CandidateDataManager
     
-    init(retrieveCandidateData: CandidateDataManager) {
+    init(retrieveCandidateData: CandidateDataManager,candidats: [CandidateInformation]) {
         self.retrieveCandidateData = retrieveCandidateData
-       
+        self.candidats = candidats
     }
     
     enum CandidateManagementError: Error, LocalizedError {
