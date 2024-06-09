@@ -169,7 +169,11 @@ struct CandidateDetailView: View {
                 .foregroundColor(.orange)
             } else {
                 Button {
-                    presentationMode.wrappedValue.dismiss()
+                    Task{
+                        presentationMode.wrappedValue.dismiss()
+                        await loadCandidateProfile()
+                        initialiseEditingFields()
+                    }
                 } label: {
                     Image(systemName: "arrow.left.circle")
                         .foregroundColor(.orange)
@@ -181,6 +185,8 @@ struct CandidateDetailView: View {
                 Button("Done") {
                     Task {
                         await saveCandidate()
+                        await loadCandidateProfile()
+                        initialiseEditingFields()
                     }
                 }
                 .foregroundColor(.orange)
