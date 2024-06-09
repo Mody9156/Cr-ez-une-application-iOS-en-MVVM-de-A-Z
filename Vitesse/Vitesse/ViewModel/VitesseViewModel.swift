@@ -6,7 +6,8 @@ class VitesseViewModel: ObservableObject {
     init() {
         self.onLoginSucceed = false
     }
-   
+    
+    // Create and return a new instance of LoginViewModel
     var loginViewModel: LoginViewModel {
         return LoginViewModel({
             [weak self] in
@@ -16,18 +17,20 @@ class VitesseViewModel: ObservableObject {
         }, authenticationManager: AuthenticationManager())
     }
     
-    // Registre
+    // Create and return a new instance of RegisterViewModel
     var registerViewModel: RegisterViewModel {
         let registrationRequestBuilder = RegistrationRequestBuilder(httpService: URLSessionHTTPClient())
         return RegisterViewModel(registrationRequestBuilder: registrationRequestBuilder, loginViewModel: loginViewModel)
     }
     
+    // Create and return a new instance of CandidateDetailsManagerViewModel
     var candidateDetailsManager: CandidateDetailsManagerViewModel {
-        return CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager())
+        let candidateListVM = candidateListViewModel
+        return CandidateDetailsManagerViewModel(retrieveCandidateData: candidateListVM.retrieveCandidateData, candidats: candidateListVM.candidats)
     }
     
+    // Create and return a new instance of CandidateListViewModel
     var candidateListViewModel: CandidateListViewModel {
         return CandidateListViewModel(retrieveCandidateData: CandidateDataManager())
     }
 }
-
