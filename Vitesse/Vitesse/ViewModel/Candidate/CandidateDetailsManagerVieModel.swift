@@ -3,7 +3,8 @@ import Foundation
 class CandidateDetailsManagerViewModel: ObservableObject {
     @Published var candidats: [CandidateInformation]
     @Published var retrieveCandidateData: CandidateDataManager
-    
+    @Published var selectedCandidateId: String? // Ajout de cette propriété
+
     init(retrieveCandidateData: CandidateDataManager,candidats: [CandidateInformation]) {
         self.retrieveCandidateData = retrieveCandidateData
         self.candidats = candidats
