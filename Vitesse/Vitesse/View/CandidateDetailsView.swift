@@ -26,7 +26,7 @@ struct CandidateDetailView: View {
                         if isButtonVisible {
                             Button {
                                 Task {
-                                    try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                    try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
                                     withAnimation {
                                         isButtonVisible = false
                                     }
@@ -52,7 +52,7 @@ struct CandidateDetailView: View {
                     if candidateInformation.isFavorite && isButtonVisible {
                         Button {
                             Task {
-                                try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
                                 withAnimation {
                                     isButtonVisible = false
                                 }
@@ -147,7 +147,6 @@ struct CandidateDetailView: View {
         }
         .navigationBarBackButtonHidden()
         .task {
-            initialiseEditingFields()
             await loadCandidateProfile()
         }
         .toolbar {
@@ -205,7 +204,8 @@ extension CandidateDetailView {
     func loadCandidateProfile() async {
         do {
             candidateDetailsManagerViewModel.selectedCandidateId = candidateInformation.id
-            let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails()
+            let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails(at: IndexSet())
+            updateView(with: loadedCandidate)
             print("Success, \(loadedCandidate) has been loaded")
         } catch {
             print("Error loading candidate profile for \(candidateInformation.email): \(error)")
@@ -225,6 +225,8 @@ extension CandidateDetailView {
                 id: candidateInformation.id
             )
             candidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
+            candidateInformation = updatedCandidate
+            await loadCandidateProfile()
             isEditing.toggle()
             print("isEditing: \(isEditing)")
             print("Success: Candidate updated \(updatedCandidate)")
@@ -240,5 +242,10 @@ extension CandidateDetailView {
         editedPhone = candidateInformation.phone
         editedEmail = candidateInformation.email
         editedLinkedIn = candidateInformation.linkedinURL
+    }
+
+    func updateView(with candidate: CandidateInformation) {
+        candidateInformation = candidate
+        initialiseEditingFields()
     }
 }

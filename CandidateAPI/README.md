@@ -12,9 +12,7 @@ Une fois Vapor installé, vous pouvez simplement lancer le serveur en ligne de c
 
 ```
 swift run App --auto-migrate
-```
-
-```
+``
 [ NOTICE ] Server starting on http://127.0.0.1:8080
 ```
 
