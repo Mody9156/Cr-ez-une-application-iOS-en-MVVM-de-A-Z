@@ -30,6 +30,8 @@ struct CandidateDetailView: View {
                                     withAnimation {
                                         isButtonVisible = false
                                     }
+                                    await loadCandidateProfile()
+                                    initialiseEditingFields()
                                 }
                             } label: {
                                 Text(candidateInformation.isFavorite ? "Remove from favorites" : "Add to favorites")
@@ -53,6 +55,8 @@ struct CandidateDetailView: View {
                         Button {
                             Task {
                                 try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                               await loadCandidateProfile()
+                                initialiseEditingFields()
                                 withAnimation {
                                     isButtonVisible = false
                                 }
@@ -226,7 +230,6 @@ extension CandidateDetailView {
             )
             candidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
             candidateInformation = updatedCandidate
-            await loadCandidateProfile()
             isEditing.toggle()
             print("isEditing: \(isEditing)")
             print("Success: Candidate updated \(updatedCandidate)")
