@@ -17,7 +17,7 @@ struct CandidatesListView: View {
                         NavigationLink(
                             // Candidate details
                             destination: CandidateDetailView(
-                                candidateDetailsManagerViewModel: candidateDetailsManagerViewModel, candidateListViewModel: CandidateListViewModel(retrieveCandidateData: CandidateDataManager()), candidateInformation: CandidateInformation
+                                candidateDetailsManagerViewModel: candidateDetailsManagerViewModel, candidateListViewModel: CandidateListViewModel(retrieveCandidateData: CandidateDataManager()), candidateInformation: candidate
                             )
                         ) {
                             HStack {
@@ -78,6 +78,7 @@ struct CandidatesListView: View {
         do {
             let candidates = try await candidateListViewModel.displayCandidatesList()
             candidateListViewModel.candidats = candidates
+            
             print("super bien ")
         } catch {
             print("Error loading candidates")

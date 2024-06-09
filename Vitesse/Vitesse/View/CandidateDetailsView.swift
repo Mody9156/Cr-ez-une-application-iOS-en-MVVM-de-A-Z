@@ -26,7 +26,7 @@ struct CandidateDetailView: View {
                         if isButtonVisible {
                             Button {
                                 Task {
-                                 try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                    try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
                                     withAnimation {
                                         isButtonVisible = false
                                     }
@@ -40,7 +40,6 @@ struct CandidateDetailView: View {
                             }
                             .transition(.opacity)
                         }
-
                     } else {
                         Text(candidateInformation.firstName)
                             .font(.largeTitle)
@@ -53,7 +52,7 @@ struct CandidateDetailView: View {
                     if candidateInformation.isFavorite && isButtonVisible {
                         Button {
                             Task {
-                                try await _ =  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
                                 withAnimation {
                                     isButtonVisible = false
                                 }
@@ -205,13 +204,13 @@ struct TextFieldManager: View {
 extension CandidateDetailView {
     func loadCandidateProfile() async {
         do {
-            let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails(selectedCandidateId: candidateInformation.id)
+            candidateDetailsManagerViewModel.selectedCandidateId = candidateInformation.id
+            let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails()
             print("Success, \(loadedCandidate) has been loaded")
         } catch {
             print("Error loading candidate profile for \(candidateInformation.email): \(error)")
         }
     }
-
 
     func saveCandidate() async {
         do {
@@ -230,7 +229,7 @@ extension CandidateDetailView {
             print("isEditing: \(isEditing)")
             print("Success: Candidate updated \(updatedCandidate)")
         } catch {
-            print("Error updating candidate")
+            print("Error updating candidate: \(error)")
         }
     }
 

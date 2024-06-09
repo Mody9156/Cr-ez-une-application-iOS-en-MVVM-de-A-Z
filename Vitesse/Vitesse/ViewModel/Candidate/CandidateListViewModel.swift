@@ -3,10 +3,8 @@ import Foundation
 class CandidateListViewModel: ObservableObject {
    @Published var candidats: [CandidateInformation] = []
    @Published  var retrieveCandidateData: CandidateDataManager
-
     init(retrieveCandidateData: CandidateDataManager) {
         self.retrieveCandidateData = retrieveCandidateData
-       
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -36,7 +34,10 @@ class CandidateListViewModel: ObservableObject {
             )
             let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
             
-           
+            DispatchQueue.main.async {
+                          self.candidats = fetchCandidateData
+                      }
+            
             return fetchCandidateData
             
         } catch {
