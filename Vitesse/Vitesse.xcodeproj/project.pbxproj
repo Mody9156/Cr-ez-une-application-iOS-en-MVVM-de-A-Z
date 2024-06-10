@@ -21,7 +21,6 @@
 		23D1FE8B2BF7BDAD00F3FA1E /* CandidateInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */; };
 		23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */; };
 		23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2982BF509B1006FC31E /* RegistrationView.swift */; };
-		23D8CC612C171CC000CD025F /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8CC602C171CC000CD025F /* LoginTests.swift */; };
 		23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */; };
 		23E2DD102BF3A8D200C28A1F /* VitesseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0F2BF3A8D100C28A1F /* VitesseViewModel.swift */; };
 		23E2DD122BF3B69E00C28A1F /* CandidatesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD112BF3B69E00C28A1F /* CandidatesListView.swift */; };
@@ -35,16 +34,6 @@
 		23ED07542BF641AA006FECD3 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED07532BF641AA006FECD3 /* RegisterViewModel.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		234BDF962BEFEC8500C96E42 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 234BDF7D2BEFEC7E00C96E42 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 234BDF842BEFEC7E00C96E42;
-			remoteInfo = Vitesse;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		2333A3F02C06326C006DD812 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2333A3F12C0633F1006DD812 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
@@ -53,7 +42,6 @@
 		234BDF8A2BEFEC7E00C96E42 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		234BDF8C2BEFEC8500C96E42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		234BDF952BEFEC8500C96E42 /* VitesseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateManagement.swift; sourceTree = "<group>"; };
 		23C0FC032BFF7E98004A5D9C /* CandidateDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDataManager.swift; sourceTree = "<group>"; };
 		23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateListViewModel.swift; sourceTree = "<group>"; };
@@ -63,7 +51,6 @@
 		23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateInformation.swift; sourceTree = "<group>"; };
 		23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONAuthentification.swift; sourceTree = "<group>"; };
 		23D8A2982BF509B1006FC31E /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
-		23D8CC602C171CC000CD025F /* LoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 		23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		23E2DD0F2BF3A8D100C28A1F /* VitesseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseViewModel.swift; sourceTree = "<group>"; };
 		23E2DD112BF3B69E00C28A1F /* CandidatesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidatesListView.swift; sourceTree = "<group>"; };
@@ -85,13 +72,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		234BDF922BEFEC8500C96E42 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -99,7 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				234BDF872BEFEC7E00C96E42 /* Vitesse */,
-				234BDF982BEFEC8500C96E42 /* VitesseTests */,
 				234BDF862BEFEC7E00C96E42 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,7 +87,6 @@
 			isa = PBXGroup;
 			children = (
 				234BDF852BEFEC7E00C96E42 /* Vitesse.app */,
-				234BDF952BEFEC8500C96E42 /* VitesseTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,15 +114,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		234BDF982BEFEC8500C96E42 /* VitesseTests */ = {
-			isa = PBXGroup;
-			children = (
-				23D8CC572C171A9F00CD025F /* ViewModel */,
-				23D8CC582C171AAE00CD025F /* Model */,
-			);
-			path = VitesseTests;
-			sourceTree = "<group>";
-		};
 		23D1FE832BF7485900F3FA1E /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,69 +121,6 @@
 				23D1FE862BF74CB700F3FA1E /* TokenStore.swift */,
 			);
 			path = Keychain;
-			sourceTree = "<group>";
-		};
-		23D8CC542C1719A800CD025F /* Candidate */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Candidate;
-			sourceTree = "<group>";
-		};
-		23D8CC552C171A8A00CD025F /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				23D8CC602C171CC000CD025F /* LoginTests.swift */,
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
-		23D8CC562C171A9200CD025F /* Registre */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Registre;
-			sourceTree = "<group>";
-		};
-		23D8CC572C171A9F00CD025F /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				23D8CC5B2C171AE100CD025F /* Registre */,
-				23D8CC5A2C171AD400CD025F /* ViewModel */,
-				23D8CC592C171ACA00CD025F /* Login */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		23D8CC582C171AAE00CD025F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				23D8CC542C1719A800CD025F /* Candidate */,
-				23D8CC552C171A8A00CD025F /* Login */,
-				23D8CC562C171A9200CD025F /* Registre */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		23D8CC592C171ACA00CD025F /* Login */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
-		23D8CC5A2C171AD400CD025F /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		23D8CC5B2C171AE100CD025F /* Registre */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Registre;
 			sourceTree = "<group>";
 		};
 		23E2DD092BF3603900C28A1F /* Model */ = {
@@ -334,24 +240,6 @@
 			productReference = 234BDF852BEFEC7E00C96E42 /* Vitesse.app */;
 			productType = "com.apple.product-type.application";
 		};
-		234BDF942BEFEC8500C96E42 /* VitesseTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 234BDFAC2BEFEC8500C96E42 /* Build configuration list for PBXNativeTarget "VitesseTests" */;
-			buildPhases = (
-				234BDF912BEFEC8500C96E42 /* Sources */,
-				234BDF922BEFEC8500C96E42 /* Frameworks */,
-				234BDF932BEFEC8500C96E42 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				234BDF972BEFEC8500C96E42 /* PBXTargetDependency */,
-			);
-			name = VitesseTests;
-			productName = VitesseTests;
-			productReference = 234BDF952BEFEC8500C96E42 /* VitesseTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -364,11 +252,6 @@
 				TargetAttributes = {
 					234BDF842BEFEC7E00C96E42 = {
 						CreatedOnToolsVersion = 14.2;
-					};
-					234BDF942BEFEC8500C96E42 = {
-						CreatedOnToolsVersion = 14.2;
-						LastSwiftMigration = 1420;
-						TestTargetID = 234BDF842BEFEC7E00C96E42;
 					};
 				};
 			};
@@ -386,7 +269,6 @@
 			projectRoot = "";
 			targets = (
 				234BDF842BEFEC7E00C96E42 /* Vitesse */,
-				234BDF942BEFEC8500C96E42 /* VitesseTests */,
 			);
 		};
 /* End PBXProject section */
@@ -399,13 +281,6 @@
 				2333A3F22C0633F1006DD812 /* Storyboard.storyboard in Resources */,
 				234BDF902BEFEC8500C96E42 /* Preview Assets.xcassets in Resources */,
 				234BDF8D2BEFEC8500C96E42 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		234BDF932BEFEC8500C96E42 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,23 +316,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		234BDF912BEFEC8500C96E42 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				23D8CC612C171CC000CD025F /* LoginTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		234BDF972BEFEC8500C96E42 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 234BDF842BEFEC7E00C96E42 /* Vitesse */;
-			targetProxy = 234BDF962BEFEC8500C96E42 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		234BDFA72BEFEC8500C96E42 /* Debug */ = {
@@ -632,61 +491,6 @@
 			};
 			name = Release;
 		};
-		234BDFAD2BEFEC8500C96E42 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 99UMC25BBL;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Aimants-d-Animaux.VitesseTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "VitesseTests/Model/Login/VitesseTests-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vitesse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Vitesse";
-			};
-			name = Debug;
-		};
-		234BDFAE2BEFEC8500C96E42 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 99UMC25BBL;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Aimants-d-Animaux.VitesseTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "VitesseTests/Model/Login/VitesseTests-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vitesse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Vitesse";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -704,15 +508,6 @@
 			buildConfigurations = (
 				234BDFAA2BEFEC8500C96E42 /* Debug */,
 				234BDFAB2BEFEC8500C96E42 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		234BDFAC2BEFEC8500C96E42 /* Build configuration list for PBXNativeTarget "VitesseTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				234BDFAD2BEFEC8500C96E42 /* Debug */,
-				234BDFAE2BEFEC8500C96E42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
