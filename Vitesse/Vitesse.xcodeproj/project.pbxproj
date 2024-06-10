@@ -12,7 +12,6 @@
 		234BDF8B2BEFEC7E00C96E42 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF8A2BEFEC7E00C96E42 /* LoginView.swift */; };
 		234BDF8D2BEFEC8500C96E42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8C2BEFEC8500C96E42 /* Assets.xcassets */; };
 		234BDF902BEFEC8500C96E42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */; };
-		234BDF9A2BEFEC8500C96E42 /* VitesseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF992BEFEC8500C96E42 /* VitesseTests.swift */; };
 		23C0FC022BFF785F004A5D9C /* CandidateManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */; };
 		23C0FC042BFF7E98004A5D9C /* CandidateDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC032BFF7E98004A5D9C /* CandidateDataManager.swift */; };
 		23C0FC062BFF87D7004A5D9C /* CandidateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */; };
@@ -22,6 +21,8 @@
 		23D1FE8B2BF7BDAD00F3FA1E /* CandidateInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */; };
 		23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */; };
 		23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2982BF509B1006FC31E /* RegistrationView.swift */; };
+		23D8CC5E2C171BA400CD025F /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8CC5D2C171BA400CD025F /* LoginTests.swift */; };
+		23D8CC5F2C171BA400CD025F /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8CC5D2C171BA400CD025F /* LoginTests.swift */; };
 		23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */; };
 		23E2DD102BF3A8D200C28A1F /* VitesseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0F2BF3A8D100C28A1F /* VitesseViewModel.swift */; };
 		23E2DD122BF3B69E00C28A1F /* CandidatesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD112BF3B69E00C28A1F /* CandidatesListView.swift */; };
@@ -54,7 +55,6 @@
 		234BDF8C2BEFEC8500C96E42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		234BDF952BEFEC8500C96E42 /* VitesseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		234BDF992BEFEC8500C96E42 /* VitesseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseTests.swift; sourceTree = "<group>"; };
 		23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateManagement.swift; sourceTree = "<group>"; };
 		23C0FC032BFF7E98004A5D9C /* CandidateDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDataManager.swift; sourceTree = "<group>"; };
 		23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateListViewModel.swift; sourceTree = "<group>"; };
@@ -64,6 +64,7 @@
 		23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateInformation.swift; sourceTree = "<group>"; };
 		23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONAuthentification.swift; sourceTree = "<group>"; };
 		23D8A2982BF509B1006FC31E /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		23D8CC5D2C171BA400CD025F /* LoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 		23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		23E2DD0F2BF3A8D100C28A1F /* VitesseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseViewModel.swift; sourceTree = "<group>"; };
 		23E2DD112BF3B69E00C28A1F /* CandidatesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidatesListView.swift; sourceTree = "<group>"; };
@@ -139,7 +140,8 @@
 		234BDF982BEFEC8500C96E42 /* VitesseTests */ = {
 			isa = PBXGroup;
 			children = (
-				234BDF992BEFEC8500C96E42 /* VitesseTests.swift */,
+				23D8CC572C171A9F00CD025F /* ViewModel */,
+				23D8CC582C171AAE00CD025F /* Model */,
 			);
 			path = VitesseTests;
 			sourceTree = "<group>";
@@ -151,6 +153,69 @@
 				23D1FE862BF74CB700F3FA1E /* TokenStore.swift */,
 			);
 			path = Keychain;
+			sourceTree = "<group>";
+		};
+		23D8CC542C1719A800CD025F /* Candidate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Candidate;
+			sourceTree = "<group>";
+		};
+		23D8CC552C171A8A00CD025F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				23D8CC5D2C171BA400CD025F /* LoginTests.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		23D8CC562C171A9200CD025F /* Registre */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Registre;
+			sourceTree = "<group>";
+		};
+		23D8CC572C171A9F00CD025F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				23D8CC5B2C171AE100CD025F /* Registre */,
+				23D8CC5A2C171AD400CD025F /* ViewModel */,
+				23D8CC592C171ACA00CD025F /* Login */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		23D8CC582C171AAE00CD025F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				23D8CC542C1719A800CD025F /* Candidate */,
+				23D8CC552C171A8A00CD025F /* Login */,
+				23D8CC562C171A9200CD025F /* Registre */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		23D8CC592C171ACA00CD025F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		23D8CC5A2C171AD400CD025F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		23D8CC5B2C171AE100CD025F /* Registre */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Registre;
 			sourceTree = "<group>";
 		};
 		23E2DD092BF3603900C28A1F /* Model */ = {
@@ -303,6 +368,7 @@
 					};
 					234BDF942BEFEC8500C96E42 = {
 						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1420;
 						TestTargetID = 234BDF842BEFEC7E00C96E42;
 					};
 				};
@@ -360,6 +426,7 @@
 				234BDF8B2BEFEC7E00C96E42 /* LoginView.swift in Sources */,
 				23E2DD1D2BF3CB1900C28A1F /* LoginJSONModel.swift in Sources */,
 				23E2DD142BF3B7A300C28A1F /* HTTPService.swift in Sources */,
+				23D8CC5E2C171BA400CD025F /* LoginTests.swift in Sources */,
 				23E9EB962BFDFD09004B0366 /* CandidateDetailsView.swift in Sources */,
 				23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */,
 				234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */,
@@ -380,7 +447,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				234BDF9A2BEFEC8500C96E42 /* VitesseTests.swift in Sources */,
+				23D8CC5F2C171BA400CD025F /* LoginTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,15 +639,23 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 99UMC25BBL;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Aimants-d-Animaux.VitesseTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "VitesseTests/Model/Login/VitesseTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vitesse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Vitesse";
@@ -592,15 +667,22 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 99UMC25BBL;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Aimants-d-Animaux.VitesseTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "VitesseTests/Model/Login/VitesseTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vitesse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Vitesse";
