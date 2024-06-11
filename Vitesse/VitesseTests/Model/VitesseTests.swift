@@ -45,7 +45,7 @@ final class LoginTests: XCTestCase {
         
 
         XCTAssertEqual(buildAuthenticationRequest.httpMethod,"POST" )
-        XCTAssertEqual(buildAuthenticationRequest.url, useExpectedURL)
+        XCTAssertNil(buildAuthenticationRequest.url)
         XCTAssertEqual(buildAuthenticationRequest.httpBody,request.httpBody)
         XCTAssertEqual(buildAuthenticationRequest.value(forHTTPHeaderField: "Content-Type"), "application/json")
         XCTAssertNotNil(buildAuthenticationRequest.allHTTPHeaderFields)

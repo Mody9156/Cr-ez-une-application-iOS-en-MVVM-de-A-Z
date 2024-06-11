@@ -139,6 +139,7 @@
 		239640B52C172FDE00F123E6 /* VitesseTests */ = {
 			isa = PBXGroup;
 			children = (
+				23E8F3272C18511200008C9E /* ViewModel */,
 				239640BD2C17301900F123E6 /* Model */,
 			);
 			path = VitesseTests;
@@ -212,6 +213,13 @@
 				23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		23E8F3272C18511200008C9E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		23E9EB9B2BFE3569004B0366 /* Candidate */ = {
