@@ -7,7 +7,8 @@
 
 import XCTest
 @testable import Vitesse
-final class RegistreTest: XCTestCase {
+
+final class RegistreTests: XCTestCase {
     var registrationRequestBuilder : RegistrationRequestBuilder!
 
     override func setUp()  {
