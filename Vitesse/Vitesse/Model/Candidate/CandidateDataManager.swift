@@ -43,10 +43,8 @@ class CandidateDataManager {
     
     func fetchCandidateDetail(request: URLRequest) async throws -> CandidateInformation {
         do {
-            let (data, response) = try await httpService.request(request)
-            guard response.statusCode == 200 else {
-                        throw CandidateFetchError.httpResponseInvalid(statusCode: response.statusCode)
-                    }
+            let (data, _) = try await httpService.request(request)
+            
             let candidate = try JSONDecoder().decode(CandidateInformation.self, from: data)
             return candidate
         } catch {

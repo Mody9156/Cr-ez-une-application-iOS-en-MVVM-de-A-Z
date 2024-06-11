@@ -152,12 +152,10 @@ final class CandidateDataManagerTests: XCTestCase {
                (candidateDataManager.httpService as! MockHTTPService).mockResult = response
                
                // When
-        let fetchedCandidates = try await candidateDataManager.fetchCandidateDetail(request: request)
+       
         do{
-            
+            let fetchedCandidates = try await candidateDataManager.fetchCandidateDetail(request: request)
             //Then
-
-            
             let fetchedCandidate = fetchedCandidates
             XCTAssertNotNil(fetchedCandidate)
             XCTAssertEqual(fetchedCandidate.phone, expectedCandidate.phone)
@@ -170,10 +168,9 @@ final class CandidateDataManagerTests: XCTestCase {
             XCTAssertEqual(fetchedCandidate.lastName, expectedCandidate.lastName)
             
         } catch {
-            XCTAssertThrowsError(try await candidateDataManager.fetchCandidateData(request: request)) { error in
-                   XCTAssertTrue(error is CandidateDataManager.CandidateFetchError)
-               }
-    }
+            XCTFail("Unexpected error: \(error)")  
+        }
+ }
     
     
     func testvalidateHTTPResponse() throws {
