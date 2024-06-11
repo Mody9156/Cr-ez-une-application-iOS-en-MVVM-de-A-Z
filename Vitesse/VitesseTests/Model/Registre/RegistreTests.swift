@@ -81,37 +81,58 @@ final class RegistreTests: XCTestCase {
         
     }
     func testInvalidfulBuildRegistrationRequest() async throws {
-        //Given
-       
-        let email = "Paul.Pierce@gmail.com"
-        let password = "test"
-        let firstName = "Paul"
-        let lastName = "Pierce"
+           // Given
+           let email = "Paul.Pierce@gmail.com"
+           let password = "test"
+           let firstName = "Paul"
+           let lastName = "Pierce"
+           
+           let response = HTTPURLResponse(url: URL(string: "https://exempledelien.com")!, statusCode: 404, httpVersion: nil, headerFields: nil)!
+           let result: (Data, HTTPURLResponse) = (Data(), response)
+           (registrationRequestBuilder.httpService as! MockHTTPService).mockResult = result
+           
+           // When
+           do {
+               _ = try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
+               XCTFail("Expected invalid response error")
+           } catch let error as RegistrationRequestBuilder.HTTPResponseError {
+               // Then
+               XCTAssertEqual(error, .invalidResponse(statusCode: 404))
+           } catch {
+               XCTFail("Unexpected error: \(error)")
+           }
+       }
+    func testHTTPResponseErrorEquality() {
+        // Créer deux erreurs invalides avec le même code d'état
+        let invalidResponse1 = RegistrationRequestBuilder.HTTPResponseError.invalidResponse(statusCode: 404)
+        let invalidResponse2 = RegistrationRequestBuilder.HTTPResponseError.invalidResponse(statusCode: 404)
         
-        let response = HTTPURLResponse(url: URL(string:"https//exempledelien.com")!, statusCode: 404, httpVersion: nil, headerFields: nil)!
-        let result : (Data,HTTPURLResponse) = (Data(),response)
-        (registrationRequestBuilder.httpService as! MockHTTPService ).mockResult = result
-        //When
-        do{
-            
-            let buildRegistrationRequest =  try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
-            //Then
-            XCTFail("Expected invalid response error")
-            
-        }catch let error as RegistrationRequestBuilder.HTTPResponseError {
-           print(error)
-        } catch {
-            XCTFail("Unexpected error: \(error)")
-        }
-
+        let error1 = NSError(domain: "Test", code: 500, userInfo: nil)
+        let error2 = NSError(domain: "Test", code: 500, userInfo: nil)
+        
+        let networkError1 = RegistrationRequestBuilder.HTTPResponseError.networkError(error1)
+        let networkError2 = RegistrationRequestBuilder.HTTPResponseError.networkError(error2)
+        // Créer une erreur réseau
+        let networkError = RegistrationRequestBuilder.HTTPResponseError.networkError(NSError(domain: "Test", code: 500, userInfo: nil))
+        
+        // Test d'égalité pour les erreurs invalides
+        XCTAssertTrue(invalidResponse1 == invalidResponse2, "Les erreurs invalides avec le même code d'état doivent être égales")
+        
+        // Test d'inégalité entre une erreur invalide et une erreur réseau
+        XCTAssertFalse(invalidResponse1 == networkError1, "Les erreurs invalides et les erreurs réseau ne doivent pas être égales")
+        
+        XCTAssertTrue(networkError1 == networkError2)
+       
     }
-    
     // Mock HTTPService utilisé pour simuler les réponses HTTP
     class MockHTTPService: HTTPService {
-          
+           
           var mockResult: (Data, HTTPURLResponse)?
-          
+          var mockError: Error?
           func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
+              if let error = mockError {
+                              throw error
+                          }
               guard let result = mockResult else {
                   throw NSError(domain: "", code: 0, userInfo: nil)
               }
