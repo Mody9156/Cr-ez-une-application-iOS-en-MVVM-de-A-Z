@@ -33,8 +33,8 @@ final class LoginTests: XCTestCase {
         }
         let name = "Paul"
         let password = "test"
-        var encodeAuth = EncodingLogin(email: name, password: password)
-        var encode = try? JSONEncoder().encode(encodeAuth)
+        let encodeAuth = EncodingLogin(email: name, password: password)
+        let encode = try? JSONEncoder().encode(encodeAuth)
 
         let useExpectedURL = URL(string: "http://exemple/auh)")!
         
@@ -55,15 +55,18 @@ final class LoginTests: XCTestCase {
         let name = "Paul"
         let password = "test"
         
-        let JSONResponseDecodingModel =
+        let JSONResponse =
         """
-                    "name" : "Paul",
-                    "password" = "test"
+          "name" : "Paul",
+          "password" = "test"
         
             
-        """.data(using: .utf8)
+        """.data(using: .utf8)!
         
-//        let json = try JSONDecoder().decode(JSONResponseDecodingModel.self, from: data)
+        let mockResponse = HTTPURLResponse(url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)
+        let mockResult: (Data, HTTPURLResponse) = (JSONResponse, mockResponse)
+        (authenticationManager.httpService as! MockHTTPService).mockResult = mockResult
+//        let json = try JSONDecoder().decode(JSONResponse.self, from: JSONResponse)
 
         
         let buildAuthenticationRequest = try await authenticationManager.authenticate(username: name, password: password)
