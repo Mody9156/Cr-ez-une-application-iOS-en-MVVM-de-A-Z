@@ -54,9 +54,55 @@ final class RegistreTest: XCTestCase {
         XCTAssertNotNil(buildRegistrationURLRequest.allHTTPHeaderFields)
     }
     
-    func testBuildRegistrationRequest() async throws {
+    func testSuccessfulBuildRegistrationRequest() async throws {
+        //Given
+       
+        let email = "Paul.Pierce@gmail.com"
+        let password = "test"
+        let firstName = "Paul"
+        let lastName = "Pierce"
         
+        let response = HTTPURLResponse(url: URL(string:"https//exempledelien.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)!
+        let result : (Data,HTTPURLResponse) = (Data(),response)
+        (registrationRequestBuilder.httpService as! MockHTTPService ).mockResult = result
+       
+        //When
+        do{
+            
+            let buildRegistrationRequest =  try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
+            //Then
+            XCTAssertEqual(buildRegistrationRequest.statusCode, 201)
+        }catch let error  as RegistrationRequestBuilder.HTTPResponseError{
+            throw error
+            
+        }
+       
         
+    }
+    func testInvalidfulBuildRegistrationRequest() async throws {
+        //Given
+       
+        let email = "Paul.Pierce@gmail.com"
+        let password = "test"
+        let firstName = "Paul"
+        let lastName = "Pierce"
+        
+        let response = HTTPURLResponse(url: URL(string:"https//exempledelien.com")!, statusCode: 404, httpVersion: nil, headerFields: nil)!
+        let result : (Data,HTTPURLResponse) = (Data(),response)
+        (registrationRequestBuilder.httpService as! MockHTTPService ).mockResult = result
+        //When
+        do{
+            
+            let buildRegistrationRequest =  try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
+            //Then
+            XCTFail("Expected invalid response error")
+            
+        }catch let error as RegistrationRequestBuilder.HTTPResponseError {
+           print(error)
+        } catch {
+            XCTFail("Unexpected error: \(error)")
+        }
+
     }
     
     // Mock HTTPService utilisé pour simuler les réponses HTTP
