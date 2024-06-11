@@ -21,37 +21,110 @@ final class CandidateDataManagerTests: XCTestCase {
         candidateDataManager = nil
     }
 
-    func testFetchCandidateData() throws {
+    func testFetchCandidateData() async throws {
+        //Given
+        let candidateJSON = """
+                [{
+                    "phone" : "0122333344",
+                    "note": "Développeur en Backend",
+                    "id" : "vzbjkzjbinkjzbjkz4254",
+                    "firstName": "William",
+                    "linkedinURL": "https://www.linkedin.com/in/William-William-123456789/",
+                    "isFavorite": true,
+                    "email" : "William.Browm@gmail.com",
+                    "lastName": "Browm"
+                }]
+                """.data(using: .utf8)!
         
-        let  CandidateDecode = """
-{
-             "phone" : "0122333344",
-             "note": "Développeur en Backend",
-             "id" : "vzbjkzjbinkjzbjkz4254",
-             "firstName": "William",
-             "linkedinURL": "https://www.linkedin.com/in/William-William-123456789/
-",
-             "isFavorite": true,
-             "email" : "William.Browm@gmail.com",
-             "lastName": "Browm"
+        struct CandidateEncode: Identifiable, Decodable, Hashable {
+                   var phone, note: String?
+                   var id, firstName: String
+                   var linkedinURL: String?
+                   var isFavorite: Bool
+                   var email, lastName: String
+               }
+               
+               let expectedCandidates = try JSONDecoder().decode([CandidateEncode].self, from: candidateJSON)
+               let expectedCandidate = expectedCandidates.first
+               
+               let url = URL(string: "https://example.com")!
+               var request = URLRequest(url: url)
+               
+               let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+               let response: (Data, HTTPURLResponse) = (candidateJSON, mockResponse)
+               (candidateDataManager.httpService as! MockHTTPService).mockResult = response
+               
+               // When
+               let fetchedCandidates = try await candidateDataManager.fetchCandidateData(request: request)
+        do{
+            // When
+            let Candidates = try await candidateDataManager.fetchCandidateData(request: request)
+            
+            //Then
+            XCTAssertEqual(Candidates.count, 1)
+            
+            let fetchedCandidate = Candidates.first
+            XCTAssertNotNil(fetchedCandidate)
+            XCTAssertEqual(fetchedCandidate?.phone, expectedCandidate?.phone)
+            XCTAssertEqual(fetchedCandidate?.note, expectedCandidate?.note)
+            XCTAssertEqual(fetchedCandidate?.id, expectedCandidate?.id)
+            XCTAssertEqual(fetchedCandidate?.firstName, expectedCandidate?.firstName)
+            XCTAssertEqual(fetchedCandidate?.linkedinURL, expectedCandidate?.linkedinURL)
+            XCTAssertEqual(fetchedCandidate?.isFavorite, expectedCandidate?.isFavorite)
+            XCTAssertEqual(fetchedCandidate?.email, expectedCandidate?.email)
+            XCTAssertEqual(fetchedCandidate?.lastName, expectedCandidate?.lastName)
+        }catch let error as CandidateDataManager.CandidateFetchError{
+            XCTAssertEqual(error, .fetchCandidateDataError)
         }
-""".data(using: .utf8)!
+           }
+    
+    func testInvalidFetchCandidateData() async throws {
+        //Given
+        let candidateJSON = """
+                [{
+                    "phone" : "0122333344",
+                    "note": "Développeur en Backend",
+                    "id" : "vzbjkzjbinkjzbjkz4254",
+                    "firstName": "William",
+                    "linkedinURL": "https://www.linkedin.com/in/William-William-123456789/",
+                    "isFavorite": true,
+                    "email" : "William.Browm@gmail.com",
+                    "lastName": "Browm"
+                }]
+                """.data(using: .utf8)!
         
-        struct CandidateEncode: Identifiable, Decodable ,Hashable{
-            var phone, note: String?
-            var id, firstName: String
-            var linkedinURL: String?
-            var isFavorite: Bool
-            var email, lastName: String
+        struct CandidateEncode: Identifiable, Decodable, Hashable {
+                   var phone, note: String?
+                   var id, firstName: String
+                   var linkedinURL: String?
+                   var isFavorite: Bool
+                   var email, lastName: String
+               }
+               
+               let expectedCandidates = try JSONDecoder().decode([CandidateEncode].self, from: candidateJSON)
+               let expectedCandidate = expectedCandidates.first
+               
+               let url = URL(string: "https://example.com")!
+               var request = URLRequest(url: url)
+               
+               let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+               let response: (Data, HTTPURLResponse) = (candidateJSON, mockResponse)
+               (candidateDataManager.httpService as! MockHTTPService).mockResult = response
+               
+               // When
+               let fetchedCandidates = try await candidateDataManager.fetchCandidateData(request: request)
+        do{
+          
+            //Then
+            let candidates = try await candidateDataManager.fetchCandidateData(request: request)
+                      
+                      // Then
+                      XCTAssertEqual(candidates.count, 1, "Le nombre de candidats récupérés est incorrect")
+                      XCTFail("Expected invalid response error")
+        }catch let error as CandidateDataManager.CandidateFetchError{
+            XCTAssertEqual(error, .fetchCandidateDataError)
         }
-        
-        
-        
-        let decode = try? JSONDecoder().decode([CandidateEncode].self, from: CandidateDecode)
-        
-        
-        
-    }
+           }
 
     func testfetchCandidateDetail() throws {
       
