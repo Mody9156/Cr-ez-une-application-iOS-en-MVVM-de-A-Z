@@ -225,8 +225,10 @@ final class CandidateDataManagerTests: XCTestCase {
         do{
             let validateResponse = try await  candidateDataManager.validateHTTPResponse(request: request)
             XCTFail("Unexpected error")
-        }catch {
-            
+        } catch let error as CandidateDataManager.CandidateFetchError {
+            XCTAssertEqual(error, .httpResponseInvalid(statusCode: 404), "L'erreur retournée n'est pas celle attendue")
+        } catch {
+            XCTFail("Unexpected error: \(error)")
         }
         //Then
         
