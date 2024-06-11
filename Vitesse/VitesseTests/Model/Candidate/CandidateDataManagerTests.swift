@@ -172,8 +172,64 @@ final class CandidateDataManagerTests: XCTestCase {
         }
  }
     
+    func testInvalidFetchCandidateDetail() async throws {
+            // Given
+            let url = URL(string: "https//exemple.com")!
+            let request = URLRequest(url: url)
+        
+        let mockResponse = HTTPURLResponse(url: url, statusCode: 404, httpVersion: nil, headerFields: nil)!
+            let response: (Data, HTTPURLResponse) = (Data(), mockResponse)
+            (candidateDataManager.httpService as! MockHTTPService).mockResult = response
+            
+            // When
+            do {
+                let candidates = try await candidateDataManager.fetchCandidateDetail(request: request)
+                
+                // Then
+                XCTAssertNotNil(candidates)
+            } catch let error as CandidateDataManager.CandidateFetchError {
+                XCTAssertEqual(error, .fetchCandidateDetailError, "L'erreur retournée n'est pas celle attendue")
+            } catch {
+                XCTFail("Unexpected error: \(error)")
+            }
+        }
     
-    func testvalidateHTTPResponse() throws {
+    
+    func testvalidateHTTPResponse() async throws {
+        //Given
+        let url = URL(string: "https//exemple.com")!
+        let request = URLRequest(url: url)
+        
+        let validateHTTPResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        let data = Data()
+        let result : (Data,HTTPURLResponse) = (data,validateHTTPResponse)
+        (candidateDataManager.httpService as! MockHTTPService).mockResult = result
+        //When
+        let validateResponse = try await  candidateDataManager.validateHTTPResponse(request: request)
+        
+        //Then
+        
+        XCTAssertEqual(validateResponse.statusCode, 200)
+        
+    }
+    func testInvalideHTTPResponse() async throws {
+        //Given
+        let url = URL(string: "https//exemple.com")!
+        let request = URLRequest(url: url)
+        
+        let validateHTTPResponse = HTTPURLResponse(url: url, statusCode: 404, httpVersion: nil, headerFields: nil)!
+        let data = Data()
+        let result : (Data,HTTPURLResponse) = (data,validateHTTPResponse)
+        (candidateDataManager.httpService as! MockHTTPService).mockResult = result
+        //When
+        do{
+            let validateResponse = try await  candidateDataManager.validateHTTPResponse(request: request)
+            XCTFail("Unexpected error")
+        }catch {
+            
+        }
+        //Then
+        
         
     }
     
