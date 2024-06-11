@@ -11,7 +11,7 @@ class RegistrationRequestBuilder {
     
     let httpService : HTTPService
     
-    init(httpService: URLSessionHTTPClient) {
+    init(httpService: HTTPService = URLSessionHTTPClient()) {
         self.httpService = httpService
     }
     
