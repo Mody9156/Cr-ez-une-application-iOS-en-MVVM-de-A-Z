@@ -1,10 +1,3 @@
-//
-//  retrieveCandidateData.swift
-//  Vitesse
-//
-//  Created by KEITA on 23/05/2024.
-//
-
 import Foundation
 
 class CandidateDataManager {
@@ -15,14 +8,32 @@ class CandidateDataManager {
         self.httpService = httpService
     }
     
-    enum CandidateFetchError: Error {
-        case httpResponseInvalid, fetchCandidateDataError
-        case fetchCandidateDetailError, fetchCandidateInformationError
+    enum CandidateFetchError: Error, Equatable {
+        case httpResponseInvalid(statusCode: Int)
+        case fetchCandidateDataError
+        case fetchCandidateDetailError
+        case fetchCandidateInformationError
+        
+        static func == (lhs: CandidateFetchError, rhs: CandidateFetchError) -> Bool {
+            switch (lhs, rhs) {
+            case let (.httpResponseInvalid(statusCode1), .httpResponseInvalid(statusCode2)):
+                return statusCode1 == statusCode2
+            case (.fetchCandidateDataError, .fetchCandidateDataError),
+                 (.fetchCandidateDetailError, .fetchCandidateDetailError),
+                 (.fetchCandidateInformationError, .fetchCandidateInformationError):
+                return true
+            default:
+                return false
+            }
+        }
     }
     
     func fetchCandidateData(request: URLRequest) async throws -> [CandidateInformation] {
         do {
-            let (data, _) = try await httpService.request(request)
+            let (data, response) = try await httpService.request(request)
+            guard response.statusCode == 200 else {
+                        throw CandidateFetchError.httpResponseInvalid(statusCode: response.statusCode)
+                    }
             let candidates = try JSONDecoder().decode([CandidateInformation].self, from: data)
             return candidates
         } catch {
@@ -32,19 +43,21 @@ class CandidateDataManager {
     
     func fetchCandidateDetail(request: URLRequest) async throws -> CandidateInformation {
         do {
-            let (data, _) = try await httpService.request(request)
+            let (data, response) = try await httpService.request(request)
+            guard response.statusCode == 200 else {
+                        throw CandidateFetchError.httpResponseInvalid(statusCode: response.statusCode)
+                    }
             let candidate = try JSONDecoder().decode(CandidateInformation.self, from: data)
             return candidate
         } catch {
             throw CandidateFetchError.fetchCandidateDetailError
         }
     }
-  
     
     func validateHTTPResponse(request: URLRequest) async throws -> HTTPURLResponse {
         let (_, response) = try await httpService.request(request)
         guard response.statusCode == 200 else {
-            throw CandidateFetchError.httpResponseInvalid
+            throw CandidateFetchError.httpResponseInvalid(statusCode: response.statusCode)
         }
         return response
     }

@@ -11,6 +11,13 @@ import XCTest
 final class CandidateDataManagerTests: XCTestCase {
     var candidateDataManager : CandidateDataManager!
     
+    struct CandidateEncode: Identifiable, Decodable, Hashable {
+               var phone, note: String?
+               var id, firstName: String
+               var linkedinURL: String?
+               var isFavorite: Bool
+               var email, lastName: String
+           }
     override func setUp()  {
         super.setUp()
         candidateDataManager = CandidateDataManager(httpService: MockHTTPService())
@@ -99,10 +106,75 @@ final class CandidateDataManagerTests: XCTestCase {
             }
         }
         
-
-    func testfetchCandidateDetail() throws {
-      
+    func testHTTPResponseErrorEquality() {
+        // Given
+               let error1: CandidateDataManager.CandidateFetchError = .httpResponseInvalid(statusCode: 404)
+               let error2: CandidateDataManager.CandidateFetchError = .httpResponseInvalid(statusCode: 404)
+               let error3: CandidateDataManager.CandidateFetchError = .fetchCandidateDataError
+               let error4: CandidateDataManager.CandidateFetchError = .fetchCandidateDetailError
+               let error5: CandidateDataManager.CandidateFetchError = .fetchCandidateInformationError
+        // Then
+               XCTAssertEqual(error1, error2)
+               XCTAssertNotEqual(error1, error3)
+               XCTAssertNotEqual(error1, error4)
+               XCTAssertNotEqual(error1, error5)
+               XCTAssertNotEqual(error3, error4)
+               XCTAssertNotEqual(error3, error5)
+               XCTAssertNotEqual(error4, error5)
+       
     }
+  
+    func testfetchCandidateDetail() async throws {
+        //Given
+        let candidateJSON = """
+                {
+                    "phone" : "0122333344",
+                    "note": "Développeur en Backend",
+                    "id" : "vzbjkzjbinkjzbjkz4254",
+                    "firstName": "William",
+                    "linkedinURL": "https://www.linkedin.com/in/William-William-123456789/",
+                    "isFavorite": true,
+                    "email" : "William.Browm@gmail.com",
+                    "lastName": "Browm"
+                }
+                """.data(using: .utf8)!
+        
+      
+               
+               let expectedCandidates = try JSONDecoder().decode(CandidateEncode.self, from: candidateJSON)
+        let expectedCandidate = expectedCandidates
+               
+               let url = URL(string: "https://example.com")!
+               var request = URLRequest(url: url)
+               
+               let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+               let response: (Data, HTTPURLResponse) = (candidateJSON, mockResponse)
+               (candidateDataManager.httpService as! MockHTTPService).mockResult = response
+               
+               // When
+        let fetchedCandidates = try await candidateDataManager.fetchCandidateDetail(request: request)
+        do{
+            
+            //Then
+
+            
+            let fetchedCandidate = fetchedCandidates
+            XCTAssertNotNil(fetchedCandidate)
+            XCTAssertEqual(fetchedCandidate.phone, expectedCandidate.phone)
+            XCTAssertEqual(fetchedCandidate.note, expectedCandidate.note)
+            XCTAssertEqual(fetchedCandidate.id, expectedCandidate.id)
+            XCTAssertEqual(fetchedCandidate.firstName, expectedCandidate.firstName)
+            XCTAssertEqual(fetchedCandidate.linkedinURL, expectedCandidate.linkedinURL)
+            XCTAssertEqual(fetchedCandidate.isFavorite, expectedCandidate.isFavorite)
+            XCTAssertEqual(fetchedCandidate.email, expectedCandidate.email)
+            XCTAssertEqual(fetchedCandidate.lastName, expectedCandidate.lastName)
+            
+        } catch {
+            XCTAssertThrowsError(try await candidateDataManager.fetchCandidateData(request: request)) { error in
+                   XCTAssertTrue(error is CandidateDataManager.CandidateFetchError)
+               }
+    }
+    
     
     func testvalidateHTTPResponse() throws {
         
