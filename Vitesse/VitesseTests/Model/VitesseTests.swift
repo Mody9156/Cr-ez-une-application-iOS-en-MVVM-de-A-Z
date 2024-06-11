@@ -45,46 +45,62 @@ final class LoginTests: XCTestCase {
         
 
         XCTAssertEqual(buildAuthenticationRequest.httpMethod,"POST" )
-        XCTAssertNotNil(buildAuthenticationRequest.url)
+        XCTAssertEqual(buildAuthenticationRequest.url, useExpectedURL)
         XCTAssertEqual(buildAuthenticationRequest.httpBody,request.httpBody)
+        XCTAssertEqual(buildAuthenticationRequest.value(forHTTPHeaderField: "Content-Type"), "application/json")
         XCTAssertNotNil(buildAuthenticationRequest.allHTTPHeaderFields)
 
     }
 
     func testAuthenticate() async throws {
+        
         let name = "Paul"
         let password = "test"
         
-        let JSONResponse =
-        """
-          "name" : "Paul",
-          "password" = "test"
+        struct AuthenticationResponse: Decodable {
+                   var isAdmin: Bool
+                   var token: String
+               }
         
-            
+        let JSONResponse = """
+        {
+            "isAdmin": true,
+            "token": "someToken"
+        
+        }
         """.data(using: .utf8)!
         
-        let mockResponse = HTTPURLResponse(url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)
+        let mockResponse = HTTPURLResponse(url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
         let mockResult: (Data, HTTPURLResponse) = (JSONResponse, mockResponse)
         (authenticationManager.httpService as! MockHTTPService).mockResult = mockResult
-//        let json = try JSONDecoder().decode(JSONResponse.self, from: JSONResponse)
 
+        let decode = try JSONDecoder().decode(AuthenticationResponse.self, from: JSONResponse)
         
-        let buildAuthenticationRequest = try await authenticationManager.authenticate(username: name, password: password)
         
+        // Assuming authenticationManager.authenticate returns an AuthenticationResponse
+        do{
+            let buildAuthenticationRequest = try await authenticationManager.authenticate(username: name, password: password)
+            
+            XCTAssertEqual(buildAuthenticationRequest.isAdmin, true)
+            XCTAssertNotNil(buildAuthenticationRequest.token)
+            XCTAssertEqual(buildAuthenticationRequest.isAdmin, decode.isAdmin)
+            XCTAssertEqual(buildAuthenticationRequest.token, decode.token)
+        }catch{
+            XCTFail("Erreur inattendue: \(error)")
+        }
     }
     
     // Mock HTTPService utilisé pour simuler les réponses HTTP
-    class MockHTTPService : HTTPService {
-        
-        var mockResult: (Data, HTTPURLResponse)?
-
-        func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-            guard let result = mockResult else {
-                throw NSError(domain: "", code: 0, userInfo: nil)
-            }
-            return result
-        }
-      
-    }
+    class MockHTTPService: HTTPService {
+          
+          var mockResult: (Data, HTTPURLResponse)?
+          
+          func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
+              guard let result = mockResult else {
+                  throw NSError(domain: "", code: 0, userInfo: nil)
+              }
+              return result
+          }
+      }
 
 }
