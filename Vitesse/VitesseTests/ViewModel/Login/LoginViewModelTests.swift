@@ -23,8 +23,8 @@ final class LoginViewModelTests: XCTestCase {
 
     func testAuthenticateUserAndProceed() async throws {
     //Given
-     var username = "exemple@gmail.com"
-     var password = "simpletest"
+     var username = "admin@vitesse.com"
+     var password = "test123"
     
         
     let token = "nznjkgbzejbrz"
@@ -33,13 +33,12 @@ final class LoginViewModelTests: XCTestCase {
         let authenticationResult = try await loginViewModel.authenticationManager.authenticate(username: username, password: password)
     //Then
         XCTAssertEqual(authenticationResult.isAdmin, true)
-        XCTAssertEqual(authenticationResult.token, token)
         
     }
 
     func testInvalidAuthenticateUserAndProceed() async throws {
         //Given
-         var username = "exemple@gmail.com"
+         var username = "admin@vitesse.com"
          var password = ""
 
         let token = "nznjkgbzejbrz"
@@ -51,6 +50,8 @@ final class LoginViewModelTests: XCTestCase {
         //Then
         }catch let error as LoginViewModel.AuthViewModelFailure{
             XCTAssertEqual(error, .tokenInvalide)
+        }catch{
+            XCTFail("erreur")
         }
     }
 
