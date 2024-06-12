@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2333A3F22C0633F1006DD812 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2333A3F12C0633F1006DD812 /* Storyboard.storyboard */; };
+		233AB8862C19CB1C005DEC2B /* CandidateManagementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233AB8852C19CB1C005DEC2B /* CandidateManagementTests.swift */; };
 		234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF882BEFEC7E00C96E42 /* VitesseApp.swift */; };
 		234BDF8B2BEFEC7E00C96E42 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF8A2BEFEC7E00C96E42 /* LoginView.swift */; };
 		234BDF8D2BEFEC8500C96E42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8C2BEFEC8500C96E42 /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 /* Begin PBXFileReference section */
 		2333A3F02C06326C006DD812 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2333A3F12C0633F1006DD812 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		233AB8852C19CB1C005DEC2B /* CandidateManagementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateManagementTests.swift; sourceTree = "<group>"; };
 		234BDF852BEFEC7E00C96E42 /* Vitesse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vitesse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		234BDF882BEFEC7E00C96E42 /* VitesseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseApp.swift; sourceTree = "<group>"; };
 		234BDF8A2BEFEC7E00C96E42 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				23E8F3352C18796200008C9E /* CandidateDataManagerTests.swift */,
+				233AB8852C19CB1C005DEC2B /* CandidateManagementTests.swift */,
 			);
 			path = Candidate;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 			files = (
 				23E8F3362C18796200008C9E /* CandidateDataManagerTests.swift in Sources */,
 				23E8F3312C1855A600008C9E /* RegistreTests.swift in Sources */,
+				233AB8862C19CB1C005DEC2B /* CandidateManagementTests.swift in Sources */,
 				239640B72C172FDE00F123E6 /* LoginTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
