@@ -55,14 +55,14 @@ final class CandidateDataManagerTests: XCTestCase {
                let expectedCandidate = expectedCandidates.first
                
                let url = URL(string: "https://example.com")!
-               var request = URLRequest(url: url)
+        let request = URLRequest(url: url)
                
                let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
                let response: (Data, HTTPURLResponse) = (candidateJSON, mockResponse)
                (candidateDataManager.httpService as! MockHTTPService).mockResult = response
                
                // When
-               let fetchedCandidates = try await candidateDataManager.fetchCandidateData(request: request)
+        _ = try await candidateDataManager.fetchCandidateData(request: request)
         do{
             // When
             let Candidates = try await candidateDataManager.fetchCandidateData(request: request)
@@ -145,7 +145,7 @@ final class CandidateDataManagerTests: XCTestCase {
         let expectedCandidate = expectedCandidates
                
                let url = URL(string: "https://example.com")!
-               var request = URLRequest(url: url)
+        let request = URLRequest(url: url)
                
                let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
                let response: (Data, HTTPURLResponse) = (candidateJSON, mockResponse)
@@ -223,7 +223,7 @@ final class CandidateDataManagerTests: XCTestCase {
         (candidateDataManager.httpService as! MockHTTPService).mockResult = result
         //When
         do{
-            let validateResponse = try await  candidateDataManager.validateHTTPResponse(request: request)
+            _ = try await  candidateDataManager.validateHTTPResponse(request: request)
             XCTFail("Unexpected error")
         } catch let error as CandidateDataManager.CandidateFetchError {
             XCTAssertEqual(error, .httpResponseInvalid(statusCode: 404), "L'erreur retournée n'est pas celle attendue")

@@ -113,7 +113,7 @@ final class RegistreTests: XCTestCase {
         let networkError1 = RegistrationRequestBuilder.HTTPResponseError.networkError(error1)
         let networkError2 = RegistrationRequestBuilder.HTTPResponseError.networkError(error2)
         // Créer une erreur réseau
-        let networkError = RegistrationRequestBuilder.HTTPResponseError.networkError(NSError(domain: "Test", code: 500, userInfo: nil))
+        _ = RegistrationRequestBuilder.HTTPResponseError.networkError(NSError(domain: "Test", code: 500, userInfo: nil))
         
         // Test d'égalité pour les erreurs invalides
         XCTAssertTrue(invalidResponse1 == invalidResponse2, "Les erreurs invalides avec le même code d'état doivent être égales")
