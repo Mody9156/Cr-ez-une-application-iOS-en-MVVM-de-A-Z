@@ -290,7 +290,39 @@ final class CandidateDataManagerTests: XCTestCase {
         }
     }
 
-
+    func testInvalidfetchCandidateInformation() async throws {
+            // Given
+            let url = URL(string: "https//exemple.com")!
+            let request = URLRequest(url: url)
+        
+        let mockResponse = HTTPURLResponse(url: url, statusCode: 404, httpVersion: nil, headerFields: nil)!
+            let response: (Data, HTTPURLResponse) = (Data(), mockResponse)
+            (candidateDataManager.httpService as! MockHTTPService).mockResult = response
+        let token = "jknalekrjvnzor43245345é"
+            // When
+            do {
+              
+                let candidates = try await candidateDataManager.fetchCandidateInformation(
+                    token: token,
+                    id: "fzeklrngzergzerg",
+                    phone: "0767890034",
+                    note: "Developpeur IOS",
+                    firstName: "William",
+                    linkedinURL: "https://www.linkedin.com/in/William_Jackson/",
+                    isFavorite: true,
+                    email: "William.Jksc@gmail.com",
+                    lastName: "Jackson",
+                    request: request
+                )
+                // Then
+                XCTAssertNotNil(candidates)
+            } catch let error as CandidateDataManager.CandidateFetchError {
+                XCTAssertEqual(error, .fetchCandidateInformationError, "L'erreur retournée n'est pas celle attendue")
+            } catch {
+                XCTFail("Unexpected error: \(error)")
+            }
+        }
+    
     // Mock HTTPService utilisé pour simuler les réponses HTTP
     class MockHTTPService: HTTPService {
           
