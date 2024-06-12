@@ -234,10 +234,69 @@ final class CandidateDataManagerTests: XCTestCase {
         
         
     }
-    
-    func testfetchCandidateInformation() throws {
+    func testfetchCandidateInformation() async throws {
+        // Given
+        struct CandidateEncode: Identifiable, Codable,Hashable{
+            var phone, note: String?
+            var id, firstName: String
+            var linkedinURL: String?
+            var isFavorite: Bool
+            var email, lastName: String
+        }
         
+        
+        let candidateJSON = """
+        {
+            "id": "fzeklrngzergzerg",
+            "phone": "0767890034",
+            "note": "Developpeur IOS",
+            "firstName": "William",
+            "linkedinURL": "https://www.linkedin.com/in/William_Jackson/",
+            "isFavorite": true,
+            "email": "William.Jksc@gmail.com",
+            "lastName": "Jackson"
+        }
+        """.data(using: .utf8)!
+        
+        let url = URL(string: "https://exemple.com")!
+        let request = URLRequest(url: url)
+        
+        var expectedCandidate = try JSONDecoder().decode(CandidateEncode.self, from: candidateJSON)
+        
+        
+        // When
+        let token = "jknalekrjvnzor43245345é"
+        let fetchedCandidate = try await candidateDataManager.fetchCandidateInformation(
+            token: token,
+            id: "fzeklrngzergzerg",
+            phone: "0767890034",
+            note: "Developpeur IOS",
+            firstName: "William",
+            linkedinURL: "https://www.linkedin.com/in/William_Jackson/",
+            isFavorite: true,
+            email: "William.Jksc@gmail.com",
+            lastName: "Jackson",
+            request: request
+        )
+        
+        // Then
+        XCTAssertNotNil(fetchedCandidate)
+        XCTAssertEqual(fetchedCandidate.phone, expectedCandidate.phone)
+        XCTAssertEqual(fetchedCandidate.note, expectedCandidate.note)
+        XCTAssertEqual(fetchedCandidate.id, expectedCandidate.id)
+        XCTAssertEqual(fetchedCandidate.firstName, expectedCandidate.firstName)
+        XCTAssertEqual(fetchedCandidate.linkedinURL, expectedCandidate.linkedinURL)
+        XCTAssertEqual(fetchedCandidate.isFavorite, expectedCandidate.isFavorite)
+        XCTAssertEqual(fetchedCandidate.email, expectedCandidate.email)
+        XCTAssertEqual(fetchedCandidate.lastName, expectedCandidate.lastName)
+        do{
+            
+        }catch {
+            
+        }
     }
+
+
     // Mock HTTPService utilisé pour simuler les réponses HTTP
     class MockHTTPService: HTTPService {
           
