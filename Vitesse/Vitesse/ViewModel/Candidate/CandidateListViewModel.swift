@@ -13,7 +13,7 @@ class CandidateListViewModel: ObservableObject {
     }
     
     // Get token
-    private func token() throws -> String {
+     func token() throws -> String {
         let keychain = try Keychain().get(forKey: "token")
         guard let encodingToken = String(data: keychain, encoding: .utf8) else {
             throw CandidateManagementError.fetchTokenError
