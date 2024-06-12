@@ -31,6 +31,6 @@ class VitesseViewModel: ObservableObject {
     
     // Create and return a new instance of CandidateListViewModel
     var candidateListViewModel: CandidateListViewModel {
-        return CandidateListViewModel(retrieveCandidateData: CandidateDataManager(), keychain: Keychain())
+        return CandidateListViewModel(retrieveCandidateData: CandidateDataManager())
     }
 }
