@@ -11,12 +11,10 @@ import XCTest
 final class CandidateListViewModelTests: XCTestCase {
     var candidateListViewModel : CandidateListViewModel!
     var mockKey : MockKey!
-    var mockRetrieveCandidateData: MockRetrieveCandidateData!
 
     override func setUp()  {
         candidateListViewModel = CandidateListViewModel(retrieveCandidateData: CandidateDataManager())
         mockKey = MockKey()
-        mockRetrieveCandidateData = MockRetrieveCandidateData()
 
         super.setUp()
     }
@@ -24,7 +22,6 @@ final class CandidateListViewModelTests: XCTestCase {
     override func tearDown()  {
         candidateListViewModel = nil
         mockKey = nil
-        mockRetrieveCandidateData = nil
 
       super.tearDown()
     }
@@ -67,9 +64,7 @@ final class CandidateListViewModelTests: XCTestCase {
 class MockKey: Keychain {
     var stubbedToken: String?
     var stubbedkey: Data?
-    
   
-
        override func get(forKey key: String) throws -> Data {
            guard let token = stubbedkey else {
                throw NSError(domain: "", code: 0, userInfo: nil)
