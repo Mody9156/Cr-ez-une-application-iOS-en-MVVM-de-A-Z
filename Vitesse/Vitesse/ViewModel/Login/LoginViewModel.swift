@@ -27,9 +27,7 @@ class LoginViewModel: ObservableObject {
     func authenticateUserAndProceed() async throws -> JSONResponseDecodingModel {
         do{
             let authenticationResult = try await authenticationManager.authenticate(username: username, password: password)
-                    print("Authentification réussie!")
-                    print("\(authenticationResult.isAdmin)")
-                
+                   
                 try keychain.add(authenticationResult.token, forKey: "token")
             
             self.isLoggedIn = true

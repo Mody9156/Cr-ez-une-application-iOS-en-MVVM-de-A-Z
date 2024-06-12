@@ -72,8 +72,6 @@ final class LoginViewModelTests: XCTestCase {
             XCTFail("Expected an error to be thrown, but no error was thrown.")
         } catch let error as LoginViewModel.AuthViewModelFailure {
             XCTAssertEqual(error, .tokenInvalide)
-        } catch {
-            XCTFail("Unexpected error type: \(error)")
         }
     }
 
