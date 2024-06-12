@@ -26,7 +26,7 @@ struct CandidateDetailView: View {
                         if isButtonVisible {
                             Button {
                                 Task {
-                                    try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                    try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
                                     withAnimation {
                                         isButtonVisible = false
                                     }
