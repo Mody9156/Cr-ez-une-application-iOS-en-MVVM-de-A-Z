@@ -1,35 +1,76 @@
-//
-//  RegisterViewModelTests.swift
-//  VitesseTests
-//
-//  Created by KEITA on 12/06/2024.
-//
-
 import XCTest
+@testable import Vitesse
 
 final class RegisterViewModelTests: XCTestCase {
+    var registerViewModel: RegisterViewModel!
+    var registrationRequestBuilder: MockRegistrationRequestBuilder!
+    var loginViewModel: MockLoginViewModel!
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func setUp() {
+        super.setUp()
+        registrationRequestBuilder = MockRegistrationRequestBuilder()
+        loginViewModel = MockLoginViewModel({})
+        registerViewModel = RegisterViewModel(registrationRequestBuilder: registrationRequestBuilder, loginViewModel: loginViewModel)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    override func tearDown() {
+        registerViewModel = nil
+        registrationRequestBuilder = nil
+        loginViewModel = nil
+        super.tearDown()
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func testHandleRegistrationViewModel() async throws {
+        // Given
+        let email = "test@example.com"
+        let password = "securePassword123"
+        let firstName = "John"
+        let lastName = "Doe"
+        registerViewModel.email = email
+        registerViewModel.password = password
+        registerViewModel.firstName = firstName
+        registerViewModel.lastName = lastName
+
+        // When
+        try await registerViewModel.handleRegistrationViewModel()
+
+        // Then
+        XCTAssertEqual(registrationRequestBuilder.lastRequest?.email, email)
+        XCTAssertEqual(registrationRequestBuilder.lastRequest?.password, password)
+        XCTAssertEqual(registrationRequestBuilder.lastRequest?.firstName, firstName)
+        XCTAssertEqual(registrationRequestBuilder.lastRequest?.lastName, lastName)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testInvalidHandleRegistrationViewModel() async throws {
+        // Given
+        registrationRequestBuilder.shouldThrowError = true
+
+        // When & Then
+        do {
+            try await registerViewModel.handleRegistrationViewModel()
+            XCTFail("Expected an error to be thrown, but no error was thrown.")
+        } catch {
+            // Ensure the error is handled correctly
+            XCTAssertTrue(error is MockRegistrationRequestBuilder.MockError)
         }
     }
+}
 
+class MockRegistrationRequestBuilder: RegistrationRequestBuilder {
+    struct MockError: Error {}
+    var shouldThrowError = false
+    var lastRequest: RegistrationRequestBody?
+
+     func buildRegistrationRequest(email: String, password: String, firstName: String, lastName: String) async throws -> RegistrationRequestBody {
+        if shouldThrowError {
+            throw MockError()
+        }
+        let request = RegistrationRequestBody(email: email, password: password, firstName: firstName, lastName: lastName)
+        lastRequest = request
+        return request
+    }
+}
+
+class MockLoginViewModel: LoginViewModel {
+    // Mock implementation if needed
 }
