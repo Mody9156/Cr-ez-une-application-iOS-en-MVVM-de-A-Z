@@ -46,6 +46,8 @@ final class LoginTests: XCTestCase {
         XCTAssertNotNil(buildAuthenticationRequest.allHTTPHeaderFields)
     }
 
+  
+    
     func testAuthenticate() async throws {
         // Given
         let name = "Paul"

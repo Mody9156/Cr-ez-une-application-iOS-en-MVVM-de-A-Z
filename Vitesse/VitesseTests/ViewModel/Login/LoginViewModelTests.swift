@@ -74,7 +74,7 @@ final class LoginViewModelTests: XCTestCase {
             XCTAssertEqual(error, .tokenInvalide)
         }
     }
-
+   
     func testInvalidUsernameAuthenticateUserAndProceed() async throws {
         // Given
         let username = ""
