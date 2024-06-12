@@ -11,16 +11,21 @@ import XCTest
 final class CandidateListViewModelTests: XCTestCase {
     var candidateListViewModel : CandidateListViewModel!
     var mockKey : MockKey!
-    
+    var mockRetrieveCandidateData: MockRetrieveCandidateData!
+
     override func setUp()  {
         candidateListViewModel = CandidateListViewModel(retrieveCandidateData: CandidateDataManager())
         mockKey = MockKey()
+        mockRetrieveCandidateData = MockRetrieveCandidateData()
+
         super.setUp()
     }
 
     override func tearDown()  {
         candidateListViewModel = nil
         mockKey = nil
+        mockRetrieveCandidateData = nil
+
       super.tearDown()
     }
 
@@ -40,11 +45,9 @@ final class CandidateListViewModelTests: XCTestCase {
     }
   
    
-    func testDisplayCandidatesList() throws {
-       //Given
-        let expectedToken = "validToken"
-                mockKeychain.stubbedToken = expectedToken.data(using: .utf8)
-                
+    func testDisplayCandidatesList() async throws {
+
+        
        
     }
     func testDeleteCandidate() throws {
@@ -58,13 +61,19 @@ final class CandidateListViewModelTests: XCTestCase {
     }
 
 }
+
+
+
 class MockKey: Keychain {
     var stubbedToken: String?
+    var stubbedkey: Data?
+    
+  
 
-    override func get(forKey key: String) throws -> Data {
-        guard let token = stubbedToken else {
-            throw NSError(domain: "", code: 0, userInfo: nil) // Handle appropriately
-        }
-        return token.data(using: .utf8)!
-    }
+       override func get(forKey key: String) throws -> Data {
+           guard let token = stubbedkey else {
+               throw NSError(domain: "", code: 0, userInfo: nil)
+           }
+           return token
+       }
 }
