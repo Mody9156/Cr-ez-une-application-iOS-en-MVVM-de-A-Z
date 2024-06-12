@@ -236,15 +236,7 @@ final class CandidateDataManagerTests: XCTestCase {
     }
     func testfetchCandidateInformation() async throws {
         // Given
-        struct CandidateEncode: Identifiable, Codable,Hashable{
-            var phone, note: String?
-            var id, firstName: String
-            var linkedinURL: String?
-            var isFavorite: Bool
-            var email, lastName: String
-        }
-        
-        
+      
         let candidateJSON = """
         {
             "id": "fzeklrngzergzerg",
@@ -266,6 +258,8 @@ final class CandidateDataManagerTests: XCTestCase {
         
         // When
         let token = "jknalekrjvnzor43245345é"
+        do{
+            
         let fetchedCandidate = try await candidateDataManager.fetchCandidateInformation(
             token: token,
             id: "fzeklrngzergzerg",
@@ -289,10 +283,10 @@ final class CandidateDataManagerTests: XCTestCase {
         XCTAssertEqual(fetchedCandidate.isFavorite, expectedCandidate.isFavorite)
         XCTAssertEqual(fetchedCandidate.email, expectedCandidate.email)
         XCTAssertEqual(fetchedCandidate.lastName, expectedCandidate.lastName)
-        do{
+    
             
         }catch {
-            
+             print("error")
         }
     }
 
