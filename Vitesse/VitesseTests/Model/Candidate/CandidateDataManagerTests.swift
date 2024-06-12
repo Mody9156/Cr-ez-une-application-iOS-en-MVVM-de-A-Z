@@ -253,7 +253,7 @@ final class CandidateDataManagerTests: XCTestCase {
         let url = URL(string: "https://exemple.com")!
         let request = URLRequest(url: url)
         
-        var expectedCandidate = try JSONDecoder().decode(CandidateEncode.self, from: candidateJSON)
+        let expectedCandidate = try JSONDecoder().decode(CandidateEncode.self, from: candidateJSON)
         
         
         // When
