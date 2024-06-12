@@ -42,6 +42,7 @@ final class LoginViewModelTests: XCTestCase {
         XCTAssertEqual(authenticationResult.isAdmin, true)
         XCTAssertEqual(keychain.storedToken, "valid_token")
         XCTAssertTrue(loginViewModel.isLoggedIn)
+
     }
 
     func testOnLoginSucceed() async throws {
@@ -69,8 +70,12 @@ final class LoginViewModelTests: XCTestCase {
         do {
             let _ = try await loginViewModel.authenticateUserAndProceed()
             XCTFail("Expected an error to be thrown, but no error was thrown.")
+            XCTAssertFalse(loginViewModel.isLoggedIn, false)
+
         } catch let error as LoginViewModel.AuthViewModelFailure {
             XCTAssertEqual(error, .tokenInvalide)
+            XCTAssertFalse(loginViewModel.isLoggedIn)
+
         } catch {
             XCTFail("Unexpected error type: \(error)")
         }
@@ -88,8 +93,11 @@ final class LoginViewModelTests: XCTestCase {
         do {
             let _ = try await loginViewModel.authenticateUserAndProceed()
             XCTFail("Expected an error to be thrown, but no error was thrown.")
+            XCTAssertFalse(loginViewModel.isLoggedIn)
+
         } catch let error as LoginViewModel.AuthViewModelFailure {
             XCTAssertEqual(error, .tokenInvalide)
+            XCTAssertFalse(loginViewModel.isLoggedIn)
         } catch {
             XCTFail("Unexpected error type: \(error)")
         }
