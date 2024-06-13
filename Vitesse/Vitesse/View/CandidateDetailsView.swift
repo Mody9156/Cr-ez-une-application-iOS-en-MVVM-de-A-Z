@@ -170,9 +170,9 @@ struct CandidateDetailView: View {
             } else {
                 Button {
                     Task{
+                        
                         presentationMode.wrappedValue.dismiss()
-                        await loadCandidateProfile()
-                        initialiseEditingFields()
+                        
                     }
                 } label: {
                     Image(systemName: "arrow.left.circle")
