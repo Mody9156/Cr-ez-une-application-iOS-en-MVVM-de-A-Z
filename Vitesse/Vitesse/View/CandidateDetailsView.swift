@@ -51,7 +51,7 @@ struct CandidateDetailView: View {
                             .fontWeight(.bold)
                     }
                     Spacer()
-                    if candidateInformation.isFavorite && isButtonVisible && !isEditing{
+                    if candidateInformation.isFavorite && isButtonVisible{
                         Button {
                             Task {
                                 try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
@@ -164,7 +164,9 @@ struct CandidateDetailView: View {
         ToolbarItem(placement: .navigationBarLeading) {
             if isEditing {
                 Button("Cancel") {
-                    isEditing = false
+                    
+                        isEditing = false
+                        
                 }
                 .foregroundColor(.orange)
             } else {
@@ -172,6 +174,8 @@ struct CandidateDetailView: View {
                     Task{
                         
                         presentationMode.wrappedValue.dismiss()
+                        await loadCandidateProfile()
+                        initialiseEditingFields()
                         
                     }
                 } label: {

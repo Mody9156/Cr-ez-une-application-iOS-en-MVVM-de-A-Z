@@ -6,9 +6,7 @@ class CandidateListViewModel: ObservableObject {
     
     init(retrieveCandidateData: CandidateDataManager) {
         self.retrieveCandidateData = retrieveCandidateData
-        Task{
-            try await displayCandidatesList()
-        }
+        
     }
     
     enum CandidateManagementError: Error, LocalizedError {
