@@ -3,6 +3,7 @@ import Foundation
 class CandidateListViewModel: ObservableObject {
    @Published var candidats: [CandidateInformation] = []
    @Published  var retrieveCandidateData: CandidateDataManager
+    
     init(retrieveCandidateData: CandidateDataManager) {
         self.retrieveCandidateData = retrieveCandidateData
     }
@@ -13,7 +14,7 @@ class CandidateListViewModel: ObservableObject {
     }
     
     // Get token
-    private func token() throws -> String {
+     func token() throws -> String {
         let keychain = try Keychain().get(forKey: "token")
         guard let encodingToken = String(data: keychain, encoding: .utf8) else {
             throw CandidateManagementError.fetchTokenError
