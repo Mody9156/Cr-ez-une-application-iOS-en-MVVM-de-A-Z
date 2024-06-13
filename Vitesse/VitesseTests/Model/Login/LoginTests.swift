@@ -68,8 +68,9 @@ final class LoginTests: XCTestCase {
         do{
             // When
             let buildAuthenticationRequest =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
-        }catch let error as AuthenticationManager{
-           XCTAssertEqual(error, <#T##expression2: Equatable##Equatable#>)
+            
+        }catch {
+            XCTFail("Erreur inattendue: \(error)")
         }
         
         

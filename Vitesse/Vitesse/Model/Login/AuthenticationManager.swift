@@ -20,7 +20,7 @@ class AuthenticationManager {
         case requestFailed(Error)
         case decodingFailed(Error)
         case unknownError
-    }
+         }
     
     func buildAuthenticationRequest(username: String, password: String) throws -> URLRequest {
         
