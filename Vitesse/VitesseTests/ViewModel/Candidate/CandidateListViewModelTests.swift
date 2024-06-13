@@ -43,9 +43,12 @@ final class CandidateListViewModelTests: XCTestCase {
   
    
     func testDisplayCandidatesList() async throws {
-
+        //Given
+        let DisplayCandidatesList = try await candidateListViewModel.displayCandidatesList()
+        //When
         
-       
+        //Then
+        XCTAssertNotNil(DisplayCandidatesList)
     }
     func testDeleteCandidate() throws {
        
@@ -71,4 +74,8 @@ class MockKey: Keychain {
            }
            return token
        }
+}
+
+class MockArray: CandidateInformation {
+    
 }
