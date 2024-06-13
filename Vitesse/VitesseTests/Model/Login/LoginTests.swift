@@ -47,7 +47,7 @@ final class LoginTests: XCTestCase {
         XCTAssertNotNil(buildAuthenticationRequest.allHTTPHeaderFields)
     }
 
-    func test_buildAuthenticationRequest_failure() throws {
+    func test_buildAuthenticationRequest_failure_Url() throws {
         
         // Given
         struct EncodingLogin :Encodable {
@@ -56,11 +56,11 @@ final class LoginTests: XCTestCase {
         }
         
         let name = "Paul"
-        let password = ""
+        let password = "test"
         let encodeAuth = EncodingLogin(email: name, password: password)
         let encode = try? JSONEncoder().encode(encodeAuth)
 
-        let useExpectedURL = URL(string: "http://exemple/auh)")!
+        let useExpectedURL = URL(string: "")!
         
         var request = URLRequest(url: useExpectedURL)
         request.httpBody = encode
@@ -68,8 +68,8 @@ final class LoginTests: XCTestCase {
         do{
             // When
             let buildAuthenticationRequest =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
-        }catch{
-            XCTFail("Erreur inattendue: \(error)")
+        }catch let error as AuthenticationManager{
+           XCTAssertEqual(error, <#T##expression2: Equatable##Equatable#>)
         }
         
         

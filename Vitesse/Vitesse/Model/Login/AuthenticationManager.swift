@@ -6,20 +6,20 @@
 
 import Foundation
 
-enum AuthenticationError: Error {
-    case invalidURL
-    case encodingFailed
-    case requestFailed(Error)
-    case decodingFailed(Error)
-    case unknownError
-}
-
 class AuthenticationManager {
     
     let httpService: HTTPService
     
     init(httpService: HTTPService = URLSessionHTTPClient()) {
         self.httpService = httpService
+    }
+    
+    enum AuthenticationError: Error {
+        case invalidURL
+        case encodingFailed
+        case requestFailed(Error)
+        case decodingFailed(Error)
+        case unknownError
     }
     
     func buildAuthenticationRequest(username: String, password: String) throws -> URLRequest {
