@@ -13,6 +13,7 @@ struct CandidateDetailView: View {
     @State var candidateInformation: CandidateInformation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var isButtonVisible = true
+    @State private var buttonForStart = true
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -51,7 +52,7 @@ struct CandidateDetailView: View {
                             .fontWeight(.bold)
                     }
                     Spacer()
-                    if candidateInformation.isFavorite && isButtonVisible {
+                    if candidateInformation.isFavorite && buttonForStart {
                         Button {
                             Task {
                                 try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
