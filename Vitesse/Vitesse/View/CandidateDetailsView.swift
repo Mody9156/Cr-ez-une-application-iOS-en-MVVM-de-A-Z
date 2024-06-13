@@ -54,7 +54,7 @@ struct CandidateDetailView: View {
                     if candidateInformation.isFavorite && isButtonVisible{
                         Button {
                             Task {
-                                try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                try await  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
                                await loadCandidateProfile()
                                 initialiseEditingFields()
                                 withAnimation {

@@ -79,6 +79,7 @@ class CandidateListViewModel: ObservableObject {
     
     // Add  candidates in favorite
     @MainActor
+    @discardableResult//
     func showFavoriteCandidates(selectedCandidateId: String) async throws -> CandidateInformation {
         do {
             let token = try token()

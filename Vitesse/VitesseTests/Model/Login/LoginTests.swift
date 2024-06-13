@@ -18,13 +18,14 @@ final class LoginTests: XCTestCase {
         super.tearDown()
     }
     
-    func testBuildAuthenticationRequest() throws {
+    func test_buildAuthenticationRequest_Success() throws {
         // Given
         
         struct EncodingLogin :Encodable {
             var email: String
             var password: String
         }
+        
         let name = "Paul"
         let password = "test"
         let encodeAuth = EncodingLogin(email: name, password: password)
@@ -36,7 +37,7 @@ final class LoginTests: XCTestCase {
         request.httpBody = encode
         
         // When
-        let buildAuthenticationRequest =  authenticationManager.buildAuthenticationRequest(username: name, password: password)
+        let buildAuthenticationRequest =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
         
         // Then
         XCTAssertEqual(buildAuthenticationRequest.httpMethod,"POST" )
@@ -46,9 +47,35 @@ final class LoginTests: XCTestCase {
         XCTAssertNotNil(buildAuthenticationRequest.allHTTPHeaderFields)
     }
 
-  
+    func test_buildAuthenticationRequest_failure() throws {
+        
+        // Given
+        struct EncodingLogin :Encodable {
+            var email: String
+            var password: String
+        }
+        
+        let name = "Paul"
+        let password = ""
+        let encodeAuth = EncodingLogin(email: name, password: password)
+        let encode = try? JSONEncoder().encode(encodeAuth)
+
+        let useExpectedURL = URL(string: "http://exemple/auh)")!
+        
+        var request = URLRequest(url: useExpectedURL)
+        request.httpBody = encode
+        
+        do{
+            // When
+            let buildAuthenticationRequest =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
+        }catch{
+            XCTFail("Erreur inattendue: \(error)")
+        }
+        
+        
+    }
     
-    func testAuthenticate() async throws {
+    func test_authenticate() async throws {
         // Given
         let name = "Paul"
         let password = "test"

@@ -22,7 +22,7 @@ final class CandidateManagementTests: XCTestCase {
         candidateManagement = nil
     }
 
-    func testcreateURLRequest() throws {
+    func testCreateURLRequest() throws {
         //Given
         let url = "https://example.com/createCandidate"
             let method = "POST"
@@ -39,7 +39,7 @@ final class CandidateManagementTests: XCTestCase {
         XCTAssertEqual(createURLRequest.allHTTPHeaderFields?["Content-Type"], "application/json")
         
     }
-    func testInvalidcreateURLRequest() throws {
+    func testInvalidCreateURLRequest() throws {
         //Given
             let url = ""
             let method = "POST"
@@ -70,6 +70,7 @@ final class CandidateManagementTests: XCTestCase {
         XCTAssertEqual(loadCandidatesFromURL.allHTTPHeaderFields?["Authorization"], "Bearer \(token)")
         XCTAssertEqual(loadCandidatesFromURL.allHTTPHeaderFields?["Content-Type"], "application/json")
     }
+    
     func testInvalidloadCandidatesFromURL() throws {
         //Given
             let url = ""
@@ -78,11 +79,12 @@ final class CandidateManagementTests: XCTestCase {
         _ = "123456"
             
             //When
-        XCTAssertThrowsError(try CandidateManagement.loadCandidatesFromURL(url: url, method: method, token: token)){ error in
+        XCTAssertThrowsError(try CandidateManagement.loadCandidatesFromURL(url: url, method: method, token: token)){ error in //!
             //Then
             XCTAssertEqual((error as Error)._code, URLError.badURL.rawValue)
         }
     }
+    
     func testCreateNewCandidateRequest() throws {
         // Given
         let url =  "https://example.com/createCandidate"
@@ -113,7 +115,7 @@ final class CandidateManagementTests: XCTestCase {
         
     }
 
-    func testInvalidCreateNewCandidateRequest() throws {
+    func testInvalidCreateNewCandidateRequest() throws {//!
         //Given
             let url = ""
             let method = "POST"

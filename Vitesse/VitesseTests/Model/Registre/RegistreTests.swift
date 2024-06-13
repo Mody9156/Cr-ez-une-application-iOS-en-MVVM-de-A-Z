@@ -75,17 +75,17 @@ final class RegistreTests: XCTestCase {
             XCTAssertEqual(buildRegistrationRequest.statusCode, 201)
         }catch let error  as RegistrationRequestBuilder.HTTPResponseError{
             throw error
-            
+            //fail
         }
        
         
     }
-    func testInvalidfulBuildRegistrationRequest() async throws {
+    func testInvalidBuildRegistrationRequest() async throws {
            // Given
            let email = "Paul.Pierce@gmail.com"
            let password = "test"
            let firstName = "Paul"
-           let lastName = "Pierce"
+           let lastName = ""
            
            let response = HTTPURLResponse(url: URL(string: "https://exempledelien.com")!, statusCode: 404, httpVersion: nil, headerFields: nil)!
            let result: (Data, HTTPURLResponse) = (Data(), response)
