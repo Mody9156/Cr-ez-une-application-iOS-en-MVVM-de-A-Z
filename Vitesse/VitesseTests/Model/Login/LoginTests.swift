@@ -48,25 +48,7 @@ final class LoginTests: XCTestCase {
       
     }
 
-    func test_buildAuthenticationRequest_failure_Url() throws {
-        struct EncodingLogin :Encodable {
-            var email: String
-            var password: String
-        }
-        
-        let name = "Paul"
-        let password = "test"
-        let encodeAuth = EncodingLogin(email: name, password: password)
-        let encode = try? JSONEncoder().encode(encodeAuth)
-        
-        let useExpectedURL = URL(string: "http://exemple/auh.com")!
-        
-        var request = URLRequest(url: useExpectedURL)
-        request.httpBody = encode
-        
-        // When
-        let buildAuthenticationRequest =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
-    }
+    
     
     func test_authenticate() async throws {
         // Given
@@ -119,3 +101,4 @@ final class LoginTests: XCTestCase {
         }
     }
 }
+

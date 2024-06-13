@@ -65,7 +65,6 @@ final class CandidateListViewModelTests: XCTestCase {
 
 
 class MockKey: Keychain {
-    var stubbedToken: String?
     var stubbedkey: Data?
   
        override func get(forKey key: String) throws -> Data {
