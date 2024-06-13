@@ -10,35 +10,42 @@ import XCTest
 
 final class CandidateListViewModelTests: XCTestCase {
     var candidateListViewModel : CandidateListViewModel!
-    var mockKey : MockKey!
 
     override func setUp()  {
         candidateListViewModel = CandidateListViewModel(retrieveCandidateData: CandidateDataManager())
-        mockKey = MockKey()
 
         super.setUp()
     }
 
     override func tearDown()  {
         candidateListViewModel = nil
-        mockKey = nil
 
       super.tearDown()
     }
 
-    func testToken() async throws {
-        //Given
-        
-        do{
-            //When
-            let token = try candidateListViewModel.token()
-                
-                //Then
-            XCTAssertNotNil(token)
-            
-        }catch let error as CandidateListViewModel.CandidateManagementError{
-            XCTAssertEqual(error, .fetchTokenError)
-        }
+    func testTokenSuccess() async throws {
+        // Given
+               let mockTokenString = "mockTokenString"
+               let mockTokenData = mockTokenString.data(using: .utf8)!
+               
+               let mockKey = MockKey()
+                mockKey.mockTokenData = mockTokenData
+               
+               let authenticationManager = AuthenticationManager(keychain: mockKeychain)
+               
+               // When
+               do {
+                   let token = try authenticationManager.token()
+                   
+                   // Then
+                   XCTAssertEqual(token, mockTokenString)
+               } catch {
+                   XCTFail("Unexpected error: \(error)")
+               }
+    }
+    
+    func token_failure() async throws {
+ 
     }
   
    
@@ -63,14 +70,17 @@ final class CandidateListViewModelTests: XCTestCase {
 }
 
 
-
 class MockKey: Keychain {
-    var stubbedkey: Data?
-  
-       override func get(forKey key: String) throws -> Data {
-           guard let token = stubbedkey else {
-               throw NSError(domain: "", code: 0, userInfo: nil)
+       var mockTokenData: Data?
+       var shouldThrowError = false
+       
+    override func get(forKey key: String) throws -> Data {
+           if shouldThrowError {
+               throw CandidateManagementError.fetchTokenError
            }
-           return token
+           guard let tokenData = mockTokenData else {
+               throw CandidateManagementError.fetchTokenError
+           }
+           return tokenData
        }
-}
+   }

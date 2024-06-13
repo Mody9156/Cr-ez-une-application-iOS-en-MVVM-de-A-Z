@@ -1,18 +1,19 @@
 import Foundation
 
+enum CandidateManagementError: Error, LocalizedError {
+    case displayCandidatesListError, fetchTokenError, deleteCandidateError
+    case processCandidateElementsError, createCandidateError
+}
+
 class CandidateListViewModel: ObservableObject {
    @Published var candidats: [CandidateInformation] = []
    @Published  var retrieveCandidateData: CandidateDataManager
-    
-    init(retrieveCandidateData: CandidateDataManager) {
+    let keychain : Keychain
+    init(retrieveCandidateData: CandidateDataManager,keychain : Keychain()) {
         self.retrieveCandidateData = retrieveCandidateData
-        
+        self.keychain = keychain
     }
-    
-    enum CandidateManagementError: Error, LocalizedError {
-        case displayCandidatesListError, fetchTokenError, deleteCandidateError
-        case processCandidateElementsError, createCandidateError
-    }
+   
     
     // Get token
      func token() throws -> String {
