@@ -12,7 +12,7 @@ final class CandidateListViewModelTests: XCTestCase {
     var candidateListViewModel : CandidateListViewModel!
 
     override func setUp()  {
-        candidateListViewModel = CandidateListViewModel(retrieveCandidateData: CandidateDataManager())
+        candidateListViewModel = CandidateListViewModel(retrieveCandidateData: CandidateDataManager(),keychain: MockKey())
 
         super.setUp()
     }
@@ -25,17 +25,16 @@ final class CandidateListViewModelTests: XCTestCase {
 
     func testTokenSuccess() async throws {
         // Given
-               let mockTokenString = "mockTokenString"
+               let mockTokenString = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4ZW1wbGUyMjMxMkBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZX0.t3ec7oA3gEQJT1gh_qahIPzawLN4o_bTkAsE0iHg3rg"
                let mockTokenData = mockTokenString.data(using: .utf8)!
                
                let mockKey = MockKey()
                 mockKey.mockTokenData = mockTokenData
-               
-               let authenticationManager = AuthenticationManager(keychain: mockKeychain)
+             
                
                // When
                do {
-                   let token = try authenticationManager.token()
+                   let token = try candidateListViewModel.token()
                    
                    // Then
                    XCTAssertEqual(token, mockTokenString)
@@ -45,7 +44,20 @@ final class CandidateListViewModelTests: XCTestCase {
     }
     
     func token_failure() async throws {
- 
+        // Given
+             let invalidTokenData = Data() // Invalid data that cannot be decoded to String
+             
+             // When
+             do {
+                 _ = try candidateListViewModel.token()
+                 
+                 // Then
+                 XCTFail("Expected decoding error")
+             } catch CandidateManagementError.fetchTokenError {
+                 // Expected error
+             } catch {
+                 XCTFail("Unexpected error: \(error)")
+             }
     }
   
    
