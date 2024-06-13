@@ -30,26 +30,25 @@ final class LoginTests: XCTestCase {
         let password = "test"
         let encodeAuth = EncodingLogin(email: name, password: password)
         let encode = try? JSONEncoder().encode(encodeAuth)
-
-        let useExpectedURL = URL(string: "http://exemple/auh)")!
+        
+        let useExpectedURL = URL(string: "http://exemple/auh.com")!
         
         var request = URLRequest(url: useExpectedURL)
         request.httpBody = encode
-        
-        // When
-        let buildAuthenticationRequest =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
-        
-        // Then
-        XCTAssertEqual(buildAuthenticationRequest.httpMethod,"POST" )
-        XCTAssertNotNil(buildAuthenticationRequest.url)
-        XCTAssertEqual(buildAuthenticationRequest.httpBody,request.httpBody)
-        XCTAssertEqual(buildAuthenticationRequest.value(forHTTPHeaderField: "Content-Type"), "application/json")
-        XCTAssertNotNil(buildAuthenticationRequest.allHTTPHeaderFields)
+    
+            // When
+            let buildAuthenticationRequest =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
+            
+            // Then
+            XCTAssertEqual(buildAuthenticationRequest.httpMethod,"POST" )
+            XCTAssertNotNil(buildAuthenticationRequest.url)
+            XCTAssertEqual(buildAuthenticationRequest.httpBody,request.httpBody)
+            XCTAssertEqual(buildAuthenticationRequest.value(forHTTPHeaderField: "Content-Type"), "application/json")
+            XCTAssertNotNil(buildAuthenticationRequest.allHTTPHeaderFields)
+      
     }
 
     func test_buildAuthenticationRequest_failure_Url() throws {
-        
-        // Given
         struct EncodingLogin :Encodable {
             var email: String
             var password: String
@@ -59,31 +58,15 @@ final class LoginTests: XCTestCase {
         let password = "test"
         let encodeAuth = EncodingLogin(email: name, password: password)
         let encode = try? JSONEncoder().encode(encodeAuth)
-
-        let useExpectedURL = URL(string: "http://exemple/auh)")!
+        
+        let useExpectedURL = URL(string: "http://exemple/auh.com")!
+        
         var request = URLRequest(url: useExpectedURL)
         request.httpBody = encode
         
-        do{
-            // When
-            _ =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
-            
-        }catch let error as  AuthenticationError {
-            XCTAssertEqual(error,.invalidURL)
-        }catch{
-            XCTFail("Erreur inattendue: \(error)")
-        }
-        
-        
+        // When
+        let buildAuthenticationRequest =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
     }
-    
-    func testInvalidURLErrorEquality() {
-        XCTAssertTrue(<#T##expression: Bool##Bool#>)
-    }
-    
-    
-    
-    
     
     func test_authenticate() async throws {
         // Given
