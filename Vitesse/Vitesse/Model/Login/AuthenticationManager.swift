@@ -6,6 +6,31 @@
 
 import Foundation
 
+enum AuthenticationError: Error ,Equatable {
+  
+  
+    static func == (lhs:AuthenticationError, rhs: AuthenticationError) -> Bool {
+        switch (lhs, rhs) {
+        case (.invalidURL, .invalidURL),
+             (.encodingFailed, .encodingFailed),
+             (.unknownError, .unknownError):
+            return true
+        case (.requestFailed(let lhsError), .requestFailed(let rhsError)):
+            return (lhsError as NSError).domain == (rhsError as NSError).domain && (lhsError as NSError).code == (rhsError as NSError).code
+        case (.decodingFailed(let lhsError), .decodingFailed(let rhsError)):
+            return (lhsError as NSError).domain == (rhsError as NSError).domain && (lhsError as NSError).code == (rhsError as NSError).code
+        default:
+            return false
+        }
+    }
+    
+    case invalidURL
+    case encodingFailed
+    case requestFailed(Error)
+    case decodingFailed(Error)
+    case unknownError
+}
+
 class AuthenticationManager {
     
     let httpService: HTTPService
@@ -14,13 +39,7 @@ class AuthenticationManager {
         self.httpService = httpService
     }
     
-    enum AuthenticationError: Error {
-        case invalidURL
-        case encodingFailed
-        case requestFailed(Error)
-        case decodingFailed(Error)
-        case unknownError
-         }
+ 
     
     func buildAuthenticationRequest(username: String, password: String) throws -> URLRequest {
         

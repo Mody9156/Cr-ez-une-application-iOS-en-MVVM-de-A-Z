@@ -60,21 +60,30 @@ final class LoginTests: XCTestCase {
         let encodeAuth = EncodingLogin(email: name, password: password)
         let encode = try? JSONEncoder().encode(encodeAuth)
 
-        let useExpectedURL = URL(string: "")!
-        
+        let useExpectedURL = URL(string: "http://exemple/auh)")!
         var request = URLRequest(url: useExpectedURL)
         request.httpBody = encode
         
         do{
             // When
-            let buildAuthenticationRequest =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
+            _ =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
             
-        }catch {
+        }catch let error as  AuthenticationError {
+            XCTAssertEqual(error,.invalidURL)
+        }catch{
             XCTFail("Erreur inattendue: \(error)")
         }
         
         
     }
+    
+    func testInvalidURLErrorEquality() {
+        XCTAssertTrue(<#T##expression: Bool##Bool#>)
+    }
+    
+    
+    
+    
     
     func test_authenticate() async throws {
         // Given
