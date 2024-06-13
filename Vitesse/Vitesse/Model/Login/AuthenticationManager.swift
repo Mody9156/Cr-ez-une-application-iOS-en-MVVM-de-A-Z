@@ -23,6 +23,7 @@ class AuthenticationManager {
     }
     
     func buildAuthenticationRequest(username: String, password: String) throws -> URLRequest {
+        
         guard let url = URL(string: "http://127.0.0.1:8080/user/auth") else {
             throw AuthenticationError.invalidURL
         }
