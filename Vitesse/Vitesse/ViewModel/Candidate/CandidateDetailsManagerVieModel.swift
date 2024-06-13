@@ -14,6 +14,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         case displayCandidateDetailsError, fetchTokenError, candidateUpdaterError
     }
    
+    // Get token
     private func token() throws -> String {
         let keychain = try Keychain().get(forKey: "token")
         guard let encodingToken = String(data: keychain, encoding: .utf8) else {
@@ -44,8 +45,18 @@ class CandidateDetailsManagerViewModel: ObservableObject {
             throw CandidateManagementError.displayCandidateDetailsError
         }
     }
-
-    func candidateUpdater(phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String, id: String) async throws -> CandidateInformation {
+    
+    // Update candidate
+    func candidateUpdater(
+        phone: String?,
+        note: String?,
+        firstName: String,
+        linkedinURL: String?,
+        isFavorite: Bool,
+        email: String,
+        lastName: String,
+        id: String
+    ) async throws -> CandidateInformation {
         do {
             let token = try token()
             
