@@ -27,6 +27,7 @@ struct CandidateDetailView: View {
                             Button {
                                 Task {
                                     try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                    try await loadCandidateProfile()
                                     withAnimation {
                                         isButtonVisible = false
                                     }
@@ -57,6 +58,7 @@ struct CandidateDetailView: View {
                                 try await  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
                                 try  await loadCandidateProfile()
                                 initialiseEditingFields()
+                                try await loadCandidateProfile()
                                 withAnimation {
                                     isButtonVisible = false
                                 }
@@ -180,7 +182,7 @@ struct CandidateDetailView: View {
                         presentationMode.wrappedValue.dismiss()
                         try await loadCandidateProfile()
                         initialiseEditingFields()
-                        
+                        try await saveCandidate()
                     }
                 } label: {
                     Image(systemName: "arrow.left.circle")
