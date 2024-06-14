@@ -6,18 +6,18 @@ struct CandidatesListView: View {
     @State private var showFavorites: Bool = false
     @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
     @State var CandidateInformation: CandidateInformation
-
+    
     var body: some View {
         NavigationStack {
             VStack {
-             
+                
                 // Candidates list
                 List {
                     ForEach(searchResult, id: \.id) { candidate in
                         NavigationLink(
                             // Candidate details
                             destination: CandidateDetailView(
-                                candidateDetailsManagerViewModel: candidateDetailsManagerViewModel, candidateListViewModel: CandidateListViewModel(retrieveCandidateData: CandidateDataManager()), candidateInformation: candidate
+                                candidateDetailsManagerViewModel: candidateDetailsManagerViewModel, candidateListViewModel: CandidateListViewModel(retrieveCandidateData: CandidateDataManager(), keychain: Keychain()), candidateInformation: candidate
                             )
                         ) {
                             HStack {
@@ -30,15 +30,15 @@ struct CandidatesListView: View {
                                     .foregroundColor(candidate.isFavorite ? .yellow : .black)
                             }
                         }
-
+                        
                         .listRowSeparator(.visible)
                         .listRowBackground(Color.clear)
                         .listSectionSeparatorTint(.orange)
                     }
                     .onDelete(perform: candidateListViewModel.removeCandidate)
                 }.searchable(text: $search)
-                .listStyle(PlainListStyle())
-                .background(Color.white)
+                    .listStyle(PlainListStyle())
+                    .background(Color.white)
                 
                 
                 
@@ -46,12 +46,12 @@ struct CandidatesListView: View {
                 
                 toolbarContent
             }.background(Color.white)
-//                .searchable(text: $search)
+            //                .searchable(text: $search)
         }.task {
             await loadCandidates()
         }
     }
-
+    
     // Search results
     var searchResult: [CandidateInformation] {
         if search.isEmpty {
@@ -67,12 +67,12 @@ struct CandidatesListView: View {
                 return (lowercaseFullName.contains(lowercaseSearch) ||
                         candidate.firstName.lowercased().contains(lowercaseSearch) ||
                         candidate.lastName.lowercased().contains(lowercaseSearch)) &&
-                       (!showFavorites || candidate.isFavorite)
+                (!showFavorites || candidate.isFavorite)
             }
         }
     }
     
-  
+    
     // Load candidates
     func loadCandidates() async {
         do {
@@ -97,14 +97,14 @@ struct CandidatesListView: View {
             EditButton()
                 .foregroundColor(.orange)
         }
-       
-       
+        
+        
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: toggleShowFavorites) {
                 Image(systemName: showFavorites ? "star.fill" : "star")
                     .foregroundColor(showFavorites ? .yellow : .orange)
             }
         }
-       
+        
     }
 }

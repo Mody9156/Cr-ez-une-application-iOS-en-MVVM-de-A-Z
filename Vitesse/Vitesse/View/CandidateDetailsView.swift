@@ -13,7 +13,7 @@ struct CandidateDetailView: View {
     @State var candidateInformation: CandidateInformation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var isButtonVisible = true
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             Section {
@@ -22,15 +22,16 @@ struct CandidateDetailView: View {
                         TextFieldManager(textField: "First Name", text: $editedFirstName)
                         TextFieldManager(textField: "Last Name", text: $editedLastName)
                         Spacer()
-
+                        
                         if isButtonVisible {
                             Button {
                                 Task {
                                     try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                    try await loadCandidateProfile()
                                     withAnimation {
                                         isButtonVisible = false
                                     }
-                                    await loadCandidateProfile()
+                                    try   await loadCandidateProfile()
                                     initialiseEditingFields()
                                 }
                             } label: {
@@ -51,12 +52,13 @@ struct CandidateDetailView: View {
                             .fontWeight(.bold)
                     }
                     Spacer()
-                    if candidateInformation.isFavorite && isButtonVisible{
+                    if candidateInformation.isFavorite && isButtonVisible && !isEditing{
                         Button {
                             Task {
                                 try await  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                               await loadCandidateProfile()
+                                try  await loadCandidateProfile()
                                 initialiseEditingFields()
+                                try await loadCandidateProfile()
                                 withAnimation {
                                     isButtonVisible = false
                                 }
@@ -70,7 +72,7 @@ struct CandidateDetailView: View {
                     }
                 }
                 .padding()
-
+                
                 HStack {
                     Text("Phone:")
                     if isEditing {
@@ -88,7 +90,7 @@ struct CandidateDetailView: View {
                     }
                 }
                 .padding()
-
+                
                 HStack {
                     Text("Email:")
                     if isEditing {
@@ -98,7 +100,7 @@ struct CandidateDetailView: View {
                     }
                 }
                 .padding()
-
+                
                 HStack {
                     Text("LinkedIn:")
                     if isEditing {
@@ -122,7 +124,7 @@ struct CandidateDetailView: View {
                     }
                 }
                 .padding()
-
+                
                 VStack(alignment: .leading) {
                     Text("Note:")
                     if isEditing {
@@ -151,13 +153,17 @@ struct CandidateDetailView: View {
         }
         .navigationBarBackButtonHidden()
         .task {
-            await loadCandidateProfile()
+            do {
+                try await loadCandidateProfile()
+            } catch {
+                NotificationCenter.default.post(name: Notification.Name("LoadCandidateProfileError"), object: error)
+            }
         }
         .toolbar {
             toolbarContent
         }
     }
-
+    
     // Toolbar content
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
@@ -165,8 +171,8 @@ struct CandidateDetailView: View {
             if isEditing {
                 Button("Cancel") {
                     
-                        isEditing = false
-                        
+                    isEditing = false
+                    
                 }
                 .foregroundColor(.orange)
             } else {
@@ -174,9 +180,9 @@ struct CandidateDetailView: View {
                     Task{
                         
                         presentationMode.wrappedValue.dismiss()
-                        await loadCandidateProfile()
+                        try await loadCandidateProfile()
                         initialiseEditingFields()
-                        
+                        try await saveCandidate()
                     }
                 } label: {
                     Image(systemName: "arrow.left.circle")
@@ -188,8 +194,8 @@ struct CandidateDetailView: View {
             if isEditing {
                 Button("Done") {
                     Task {
-                        await saveCandidate()
-                        await loadCandidateProfile()
+                        try await saveCandidate()
+                        try await loadCandidateProfile()
                         initialiseEditingFields()
                     }
                 }
@@ -215,39 +221,32 @@ struct TextFieldManager: View {
 }
 
 extension CandidateDetailView {
-    func loadCandidateProfile() async {
-        do {
-            candidateDetailsManagerViewModel.selectedCandidateId = candidateInformation.id
-            let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails(at: IndexSet())
-            updateView(with: loadedCandidate)
-            print("Success, \(loadedCandidate) has been loaded")
-        } catch {
-            print("Error loading candidate profile for \(candidateInformation.email): \(error)")
-        }
+    func loadCandidateProfile() async throws {
+        
+        candidateDetailsManagerViewModel.selectedCandidateId = candidateInformation.id
+        let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails(at: IndexSet())
+        updateView(with: loadedCandidate)
+        
     }
-
-    func saveCandidate() async {
-        do {
-            let updatedCandidate = try await candidateDetailsManagerViewModel.candidateUpdater(
-                phone: editedPhone,
-                note: editedNote,
-                firstName: editedFirstName,
-                linkedinURL: editedLinkedIn,
-                isFavorite: candidateInformation.isFavorite,
-                email: editedEmail,
-                lastName: editedLastName,
-                id: candidateInformation.id
-            )
-            candidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
-            candidateInformation = updatedCandidate
-            isEditing.toggle()
-            print("isEditing: \(isEditing)")
-            print("Success: Candidate updated \(updatedCandidate)")
-        } catch {
-            print("Error updating candidate: \(error)")
-        }
+    
+    func saveCandidate() async throws {
+        
+        let updatedCandidate = try await candidateDetailsManagerViewModel.candidateUpdater(
+            phone: editedPhone,
+            note: editedNote,
+            firstName: editedFirstName,
+            linkedinURL: editedLinkedIn,
+            isFavorite: candidateInformation.isFavorite,
+            email: editedEmail,
+            lastName: editedLastName,
+            id: candidateInformation.id
+        )
+        candidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
+        candidateInformation = updatedCandidate
+        isEditing.toggle()
+        
     }
-
+    
     func initialiseEditingFields() {
         editedNote = candidateInformation.note ?? ""
         editedFirstName = candidateInformation.firstName
@@ -256,7 +255,7 @@ extension CandidateDetailView {
         editedEmail = candidateInformation.email
         editedLinkedIn = candidateInformation.linkedinURL
     }
-
+    
     func updateView(with candidate: CandidateInformation) {
         candidateInformation = candidate
         initialiseEditingFields()

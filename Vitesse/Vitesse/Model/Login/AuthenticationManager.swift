@@ -6,13 +6,7 @@
 
 import Foundation
 
-enum AuthenticationError: Error {
-    case invalidURL
-    case encodingFailed
-    case requestFailed(Error)
-    case decodingFailed(Error)
-    case unknownError
-}
+
 
 class AuthenticationManager {
     
@@ -22,31 +16,27 @@ class AuthenticationManager {
         self.httpService = httpService
     }
     
+    
+    
     func buildAuthenticationRequest(username: String, password: String) throws -> URLRequest {
-        guard let url = URL(string: "http://127.0.0.1:8080/user/auth") else {
-            throw AuthenticationError.invalidURL
-        }
+        
+        let url = URL(string: "http://127.0.0.1:8080/user/auth")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         let authentificationModel = URLRequestEncodingModel(email: username, password: password)
-        guard let data = try? JSONEncoder().encode(authentificationModel) else {
-            throw AuthenticationError.encodingFailed
-        }
+        let data = try? JSONEncoder().encode(authentificationModel)
         request.httpBody = data
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
     
     func authenticate(username: String, password: String) async throws -> JSONResponseDecodingModel {
-        do {
-            let request = try buildAuthenticationRequest(username: username, password: password)
-            let (data, _) = try await httpService.request(request)
-            let json = try JSONDecoder().decode(JSONResponseDecodingModel.self, from: data)
-            return json
-        } catch let error as AuthenticationError {
-            throw error
-        } catch let error {
-            throw AuthenticationError.requestFailed(error)
-        }
+        
+        let request = try buildAuthenticationRequest(username: username, password: password)
+        let (data, _) = try await httpService.request(request)
+        let json = try JSONDecoder().decode(JSONResponseDecodingModel.self, from: data)
+        return json
     }
+    
 }
+

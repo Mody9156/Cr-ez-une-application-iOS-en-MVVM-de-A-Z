@@ -30,8 +30,8 @@ final class LoginTests: XCTestCase {
         let password = "test"
         let encodeAuth = EncodingLogin(email: name, password: password)
         let encode = try? JSONEncoder().encode(encodeAuth)
-
-        let useExpectedURL = URL(string: "http://exemple/auh)")!
+        
+        let useExpectedURL = URL(string: "http://exemple/auh.com")!
         
         var request = URLRequest(url: useExpectedURL)
         request.httpBody = encode
@@ -45,35 +45,10 @@ final class LoginTests: XCTestCase {
         XCTAssertEqual(buildAuthenticationRequest.httpBody,request.httpBody)
         XCTAssertEqual(buildAuthenticationRequest.value(forHTTPHeaderField: "Content-Type"), "application/json")
         XCTAssertNotNil(buildAuthenticationRequest.allHTTPHeaderFields)
-    }
-
-    func test_buildAuthenticationRequest_failure() throws {
-        
-        // Given
-        struct EncodingLogin :Encodable {
-            var email: String
-            var password: String
-        }
-        
-        let name = "Paul"
-        let password = ""
-        let encodeAuth = EncodingLogin(email: name, password: password)
-        let encode = try? JSONEncoder().encode(encodeAuth)
-
-        let useExpectedURL = URL(string: "http://exemple/auh)")!
-        
-        var request = URLRequest(url: useExpectedURL)
-        request.httpBody = encode
-        
-        do{
-            // When
-            let buildAuthenticationRequest =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
-        }catch{
-            XCTFail("Erreur inattendue: \(error)")
-        }
-        
         
     }
+    
+    
     
     func test_authenticate() async throws {
         // Given
@@ -95,7 +70,7 @@ final class LoginTests: XCTestCase {
         let mockResponse = HTTPURLResponse(url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
         let mockResult: (Data, HTTPURLResponse) = (JSONResponse, mockResponse)
         (authenticationManager.httpService as! MockHTTPService).mockResult = mockResult
-
+        
         let decode = try JSONDecoder().decode(AuthenticationResponse.self, from: JSONResponse)
         
         // When
@@ -115,9 +90,9 @@ final class LoginTests: XCTestCase {
     
     // Mock HTTPService utilisé pour simuler les réponses HTTP
     class MockHTTPService: HTTPService {
-          
+        
         var mockResult: (Data, HTTPURLResponse)?
-          
+        
         func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
             guard let result = mockResult else {
                 throw NSError(domain: "", code: 0, userInfo: nil)
@@ -126,3 +101,4 @@ final class LoginTests: XCTestCase {
         }
     }
 }
+

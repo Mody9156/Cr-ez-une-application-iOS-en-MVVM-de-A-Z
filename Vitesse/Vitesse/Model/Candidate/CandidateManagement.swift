@@ -17,11 +17,11 @@ struct CandidateManagement {
         request.httpMethod = method
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         return request
     }
-  
-
+    
+    
     static func loadCandidatesFromURL(url: String, method: String, token: String) throws -> URLRequest {
         guard let url = URL(string: url) else {
             throw URLError(.badURL)
@@ -47,7 +47,7 @@ struct CandidateManagement {
         let authHeader = "Bearer \(token)"
         request.setValue(authHeader, forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         return request
     }
 }
