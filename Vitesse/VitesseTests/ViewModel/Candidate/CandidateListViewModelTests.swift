@@ -46,14 +46,19 @@ final class CandidateListViewModelTests: XCTestCase {
     func testDisplayCandidatesList() async throws {
         //Given
         let token = "tknfarnkjzenbj345234"
-        
+        (candidateListViewModel.retrieveCandidateData as MockCandidateDataManager).mockCandidates = 
        
+        let mockKey = MockKey()
+        candidateListViewModel.keychain = mockKey
+
+        
+
         //When
         let DisplayCandidatesList = try await candidateListViewModel.displayCandidatesList()
         //Then
         XCTFail("erreur")
     }
-    
+
     
     
     func testDeleteCandidate() throws {
@@ -104,3 +109,28 @@ class MockKey: Keychain {
     }
     
    }
+
+
+
+protocol CandidateManagement {
+    static func createURLRequest(url: String, method: String, token: String, id: String) throws -> URLRequest
+}
+
+class MockCandidates : CandidateManagement {
+  
+    static var candidate_url: String?
+    
+    static func createURLRequest(url: String, method: String, token: String, id: String) throws -> URLRequest {
+        candidate_url = url
+        return URLRequest(url: URL(string:  url)!)
+    }
+}
+
+
+class MockCandidateDataManager: CandidateDataManager {
+    var mockCandidates: [CandidateInformation] = []
+    
+    override func fetchCandidateData(request: URLRequest) async throws -> [CandidateInformation] {
+        return mockCandidates
+    }
+}

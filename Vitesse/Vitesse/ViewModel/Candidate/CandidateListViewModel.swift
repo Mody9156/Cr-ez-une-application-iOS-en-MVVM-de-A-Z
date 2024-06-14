@@ -37,7 +37,7 @@ class CandidateListViewModel: ObservableObject {
             )
             let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
             
-            DispatchQueue.main.async {
+                DispatchQueue.main.async {
                           self.candidats = fetchCandidateData
                       }
             
@@ -117,8 +117,3 @@ class CandidateListViewModel: ObservableObject {
     }
 }
 
-class MockCandidateManagement : CandidateManagement {
-    var getToken: String?
-    
-    
-}
