@@ -10,16 +10,13 @@ import XCTest
 
 final class CandidateListViewModelTests: XCTestCase {
     var candidateListViewModel : CandidateListViewModel!
-
     override func setUp()  {
         candidateListViewModel = CandidateListViewModel(retrieveCandidateData: CandidateDataManager(),keychain: MockKey())
-
         super.setUp()
     }
 
     override func tearDown()  {
         candidateListViewModel = nil
-
       super.tearDown()
     }
 
@@ -48,12 +45,17 @@ final class CandidateListViewModelTests: XCTestCase {
    
     func testDisplayCandidatesList() async throws {
         //Given
-      
+        let token = "tknfarnkjzenbj345234"
+        
+       
         //When
         let DisplayCandidatesList = try await candidateListViewModel.displayCandidatesList()
         //Then
         XCTFail("erreur")
     }
+    
+    
+    
     func testDeleteCandidate() throws {
        
     }
@@ -69,5 +71,36 @@ final class CandidateListViewModelTests: XCTestCase {
 
 class MockKey: Keychain {
     
-    private var keychain  : [String:String]
+    var mockTokenData: Data?
+    
+    enum KeychainError: Error, LocalizedError {
+        case getFailed
+        
+        var errorDescription: String? {
+            switch self {
+           
+            case .getFailed:
+                return "Failed to get item from keychain."
+            }
+        }
+    }
+    
+    override func add(_ data: String, forKey key: String) throws {
+        mockTokenData = data.data(using: .utf8)
+        print("Mock: Password added to Keychain successfully.")
+    }
+    
+    override func get(forKey key: String) throws -> Data {
+        guard let data = mockTokenData else {
+            throw KeychainError.getFailed
+        }
+        print("Mock: Password retrieved from Keychain successfully.")
+        return data
+    }
+    
+    override func delete(forKey key: String) throws {
+        mockTokenData = nil
+        print("Mock: Password deleted from Keychain successfully.")
+    }
+    
    }

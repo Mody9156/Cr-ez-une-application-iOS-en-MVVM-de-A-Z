@@ -116,3 +116,9 @@ class CandidateListViewModel: ObservableObject {
         }
     }
 }
+
+class MockCandidateManagement : CandidateManagement {
+    var getToken: String?
+    
+    
+}
