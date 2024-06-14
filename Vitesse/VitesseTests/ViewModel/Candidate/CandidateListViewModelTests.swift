@@ -10,63 +10,69 @@ import XCTest
 
 final class CandidateListViewModelTests: XCTestCase {
     var candidateListViewModel : CandidateListViewModel!
+    var mockCandidateDataManager: MockCandidateDataManager!
+    
+    
     override func setUp()  {
-        candidateListViewModel = CandidateListViewModel(retrieveCandidateData: MockCandidateDataManager(),keychain: MockKey())
+        candidateListViewModel = CandidateListViewModel(retrieveCandidateData: mockCandidateDataManager,keychain: MockKey())
+        mockCandidateDataManager = MockCandidateDataManager()
+        
         super.setUp()
     }
     
     override func tearDown()  {
         candidateListViewModel = nil
+        mockCandidateDataManager = nil
         super.tearDown()
     }
     
     func testTokenSuccess() async throws {
-           // Given
-           let mockTokenString = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4ZW1wbGUyMjMxMkBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZX0.t3ec7oA3gEQJT1gh_qahIPzawLN4o_bTkAsE0iHg3rg"
-           let mockTokenData = mockTokenString.data(using: .utf8)!
-           let mockKey = MockKey()
-           mockKey.mockTokenData = mockTokenData
-           candidateListViewModel.keychain = mockKey
-
-           // When
-           let token = try candidateListViewModel.token()
-
-           // Then
-           XCTAssertEqual(token, mockTokenString)
-       }
+        // Given
+        let mockTokenString = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4ZW1wbGUyMjMxMkBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZX0.t3ec7oA3gEQJT1gh_qahIPzawLN4o_bTkAsE0iHg3rg"
+        let mockTokenData = mockTokenString.data(using: .utf8)!
+        let mockKey = MockKey()
+        mockKey.mockTokenData = mockTokenData
+        candidateListViewModel.keychain = mockKey
+        
+        // When
+        let token = try candidateListViewModel.token()
+        
+        // Then
+        XCTAssertEqual(token, mockTokenString)
+    }
     
     func testTokenFail() async throws {
-            // Given
-            let mockKey = MockKey()
-            mockKey.mockTokenData = Data([0xFF,0xFE]) //Invalid UTF-8
-            candidateListViewModel.keychain = mockKey
-
-           
-            // When && Then
-            do {
-                _ = try candidateListViewModel.token()
-            } catch let error as CandidateManagementError {
-                XCTAssertEqual(error, .fetchTokenError)
-            } catch {
-                XCTFail("Unexpected error: \(error)")
-            }
+        // Given
+        let mockKey = MockKey()
+        mockKey.mockTokenData = Data([0xFF,0xFE]) //Invalid UTF-8
+        candidateListViewModel.keychain = mockKey
+        
+        
+        // When && Then
+        do {
+            _ = try candidateListViewModel.token()
+        } catch let error as CandidateManagementError {
+            XCTAssertEqual(error, .fetchTokenError)
+        } catch {
+            XCTFail("Unexpected error: \(error)")
         }
+    }
     
     func testTokenFail_missingTokenData() async throws {
-           // Given
-           let mockKey = MockKey()
-           mockKey.mockTokenData = nil
-           candidateListViewModel.keychain = mockKey
-
-           // When && Then
-           do {
-               _ = try candidateListViewModel.token()
-           } catch let error as CandidateManagementError {
-               XCTAssertEqual(error, .fetchTokenError)
-           } catch {
-               XCTFail("Unexpected error: \(error)")
-           }
-       }
+        // Given
+        let mockKey = MockKey()
+        mockKey.mockTokenData = nil
+        candidateListViewModel.keychain = mockKey
+        
+        // When && Then
+        do {
+            _ = try candidateListViewModel.token()
+        } catch let error as CandidateManagementError {
+            XCTAssertEqual(error, .fetchTokenError)
+        } catch {
+            XCTFail("Unexpected error: \(error)")
+        }
+    }
     
     func testDisplayCandidatesList() async throws {
         //Given
@@ -97,14 +103,14 @@ final class CandidateListViewModelTests: XCTestCase {
         XCTAssertTrue(candidatesList.isEmpty)
     }
     
-   
+    
     
     func testDeleteCandidate() async throws {
         //Given
         let expectedCandidates = [
-        CandidateInformation(id: "1", firstName: "John", isFavorite: false, email: "john@example.com", lastName: "Doe"),
-        CandidateInformation(id: "2", firstName: "Jane", isFavorite: true, email: "jane@example.com", lastName: "Doe")
-                ]
+            CandidateInformation(id: "1", firstName: "John", isFavorite: false, email: "john@example.com", lastName: "Doe"),
+            CandidateInformation(id: "2", firstName: "Jane", isFavorite: true, email: "jane@example.com", lastName: "Doe")
+        ]
         
         candidateListViewModel.candidats = expectedCandidates
         
@@ -112,15 +118,16 @@ final class CandidateListViewModelTests: XCTestCase {
         let mockTokenData = "fkzerjzehrighze3434"
         mockKey.mockTokenData = mockTokenData.data(using: .utf8)!
         
-        let mockCandidateDataManager = candidateListViewModel.retrieveCandidateData as! MockCandidateDataManager
+        let mockCandidateDataManager = candidateListViewModel.retrieveCandidateData as! MockCandidatesDataManager
+        
+        mockCandidateDataManager.mockResponse = HTTPURLResponse(url: URL(string:""), statusCode: <#T##Int#>, httpVersion: <#T##String?#>, headerFields: <#T##[String : String]?#>)
         
         
-
-
+        
         
         //When
         let response = try await candidateListViewModel.deleteCandidate(at: IndexSet(integer: 0))
-
+        
         //Then
         
         
@@ -198,16 +205,16 @@ class MockCandidateDataManager: CandidateDataManager {
     override func fetchCandidateData(request: URLRequest) async throws -> [CandidateInformation] {
         return mockCandidates
     }
-   
-     func deleteCandidate(withId id: String) async throws {
+    
+    func deleteCandidate(withId id: String) async throws {
         mockCandidates.removeAll { $0.id == id }
     }
-
-     func fetchFavoriteCandidates() async throws -> [CandidateInformation] {
+    
+    func fetchFavoriteCandidates() async throws -> [CandidateInformation] {
         return mockCandidates.filter { $0.isFavorite }
     }
-
-     func removeCandidate(withId id: String) async throws {
+    
+    func removeCandidate(withId id: String) async throws {
         mockCandidates.removeAll { $0.id == id }
     }
     
@@ -239,5 +246,62 @@ class MockCandidatess {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         return request
+    }
+}
+
+
+class MockCandidatesDataManager: CandidateDataManager {
+    
+    var mockCandidates: [CandidateInformation] = []
+    var mockCandidate: CandidateInformation?
+    var mockResponse: HTTPURLResponse?
+    var shouldThrowError: Bool = false
+    var errorToThrow: CandidateFetchError?
+    
+    override init(httpService: HTTPService = URLSessionHTTPClient()) {
+        super.init(httpService: httpService)
+    }
+    
+    override func fetchCandidateData(request: URLRequest) async throws -> [CandidateInformation] {
+        if shouldThrowError {
+            throw errorToThrow ?? CandidateFetchError.fetchCandidateDataError
+        }
+        guard let response = mockResponse, response.statusCode == 200 else {
+            throw CandidateFetchError.httpResponseInvalid(statusCode: mockResponse?.statusCode ?? 500)
+        }
+        return mockCandidates
+    }
+    
+    override func fetchCandidateDetail(request: URLRequest) async throws -> CandidateInformation {
+        if shouldThrowError {
+            throw errorToThrow ?? CandidateFetchError.fetchCandidateDetailError
+        }
+        guard let response = mockResponse, response.statusCode == 200 else {
+            throw CandidateFetchError.httpResponseInvalid(statusCode: mockResponse?.statusCode ?? 500)
+        }
+        guard let candidate = mockCandidate else {
+            throw CandidateFetchError.fetchCandidateDetailError
+        }
+        return candidate
+    }
+    
+    override func validateHTTPResponse(request: URLRequest) async throws -> HTTPURLResponse {
+        if shouldThrowError {
+            throw errorToThrow ?? CandidateFetchError.httpResponseInvalid(statusCode: mockResponse?.statusCode ?? 500)
+        }
+        guard let response = mockResponse, response.statusCode == 200 else {
+            throw CandidateFetchError.httpResponseInvalid(statusCode: mockResponse?.statusCode ?? 500)
+        }
+        return response
+    }
+    
+    override func fetchCandidateInformation(token: String, id: String, phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String, request: URLRequest) async throws -> CandidateInformation {
+        if shouldThrowError {
+            throw errorToThrow ?? CandidateFetchError.fetchCandidateInformationError
+        }
+        guard let candidate = mockCandidate else {
+            throw CandidateFetchError.fetchCandidateInformationError
+        }
+        return candidate
     }
 }
