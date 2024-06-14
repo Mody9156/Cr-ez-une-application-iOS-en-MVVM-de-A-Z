@@ -8,7 +8,7 @@ enum CandidateManagementError: Error, LocalizedError {
 class CandidateListViewModel: ObservableObject {
    @Published var candidats: [CandidateInformation] = []
    @Published  var retrieveCandidateData: CandidateDataManager
-    let keychain : Keychain
+    var keychain : Keychain
     init(retrieveCandidateData: CandidateDataManager,keychain : Keychain )  {
         self.retrieveCandidateData = retrieveCandidateData
         self.keychain = keychain

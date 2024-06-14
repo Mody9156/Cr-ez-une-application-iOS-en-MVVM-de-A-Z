@@ -48,8 +48,9 @@ final class CandidateListViewModelTests: XCTestCase {
         let token = "tknfarnkjzenbj345234"
         (candidateListViewModel.retrieveCandidateData as MockCandidateDataManager).mockCandidates = 
        
+        
         let mockKey = MockKey()
-        candidateListViewModel.keychain = mockKey
+        (candidateListViewModel.keychain) = mockKey
 
         
 
