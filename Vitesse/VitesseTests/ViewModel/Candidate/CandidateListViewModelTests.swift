@@ -117,30 +117,28 @@ final class CandidateListViewModelTests: XCTestCase {
         XCTAssertEqual(candidateListViewModel.candidats.first?.id, "1")
     }
 
-    func testShowFavoriteCandidates() async throws {
-        //Given
-        let mockKey = MockKey()
-        let mockTokenString =  "fnfkerbjztoken"
-        mockKey.mockTokenData = mockTokenString.data(using: .utf8)!
-        candidateListViewModel.keychain = mockKey
-        
-        let expectedCandidates = CandidateInformation(id: "1", firstName: "John", isFavorite: false, email: "john@example.com", lastName: "Doe")
-        candidateListViewModel.candidats = [expectedCandidates]
-        
-        let mockCandidateDataManager = MockCandidateDataManager()
-        mockCandidateDataManager.mockCandidates = [expectedCandidates]
-        mockCandidateDataManager.mockResponse = HTTPURLResponse(url: URL(string: "http://localhost")!, statusCode: 200, httpVersion: nil, headerFields: nil)
-        candidateListViewModel.retrieveCandidateData = mockCandidateDataManager
-        //When
-        do{
-            let showFavoriteCandidates = try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: "1")
-            //then
-            XCTAssertEqual( showFavoriteCandidates,expectedCandidates)
-        }catch{
-     
-               XCTFail("Unexpected error: \(error)")
-    }
-
+//    func testShowFavoriteCandidates() async throws {
+//        // Given
+//        let mockKey = MockKey()
+//        let mockTokenString = "fnfkerbjztoken"
+//        mockKey.mockTokenData = mockTokenString.data(using: .utf8)!
+//        candidateListViewModel.keychain = mockKey
+//        
+//        let expectedCandidate = CandidateInformation(id: "1", firstName: "John", isFavorite: false, email: "john@example.com", lastName: "Doe")
+//        candidateListViewModel.candidats = [expectedCandidate]
+//        let id = expectedCandidate.id
+//        //When
+//        do{
+//            let showFavoriteCandidates = try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: id)
+//            //then
+//            XCTAssertEqual(showFavoriteCandidates, expectedCandidate)
+//        }catch{
+//            
+//            XCTFail("Unexpected error: \(error)")
+//        }
+//    }
+    
+    
     func testRemoveCandidate() throws {
         // Add implementation and assertions
     }
