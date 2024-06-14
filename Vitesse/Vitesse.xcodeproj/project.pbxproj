@@ -16,7 +16,6 @@
 		234BDF902BEFEC8500C96E42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */; };
 		238F3B832C1A2D70000269ED /* CandidateListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238F3B822C1A2D70000269ED /* CandidateListViewModelTests.swift */; };
 		239640B72C172FDE00F123E6 /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239640B62C172FDE00F123E6 /* LoginTests.swift */; };
-		23A88DF02C1C8CC700D1476A /* MockCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A88DEF2C1C8CC700D1476A /* MockCandidate.swift */; };
 		23C0FC022BFF785F004A5D9C /* CandidateManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */; };
 		23C0FC042BFF7E98004A5D9C /* CandidateDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC032BFF7E98004A5D9C /* CandidateDataManager.swift */; };
 		23C0FC062BFF87D7004A5D9C /* CandidateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */; };
@@ -65,7 +64,6 @@
 		238F3B822C1A2D70000269ED /* CandidateListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateListViewModelTests.swift; sourceTree = "<group>"; };
 		239640B42C172FDE00F123E6 /* VitesseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		239640B62C172FDE00F123E6 /* LoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
-		23A88DEF2C1C8CC700D1476A /* MockCandidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCandidate.swift; sourceTree = "<group>"; };
 		23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateManagement.swift; sourceTree = "<group>"; };
 		23C0FC032BFF7E98004A5D9C /* CandidateDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDataManager.swift; sourceTree = "<group>"; };
 		23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateListViewModel.swift; sourceTree = "<group>"; };
@@ -129,7 +127,6 @@
 			isa = PBXGroup;
 			children = (
 				238F3B822C1A2D70000269ED /* CandidateListViewModelTests.swift */,
-				23A88DEF2C1C8CC700D1476A /* MockCandidate.swift */,
 			);
 			path = Candidate;
 			sourceTree = "<group>";
@@ -472,7 +469,6 @@
 				233AB8862C19CB1C005DEC2B /* CandidateManagementTests.swift in Sources */,
 				239640B72C172FDE00F123E6 /* LoginTests.swift in Sources */,
 				238F3B832C1A2D70000269ED /* CandidateListViewModelTests.swift in Sources */,
-				23A88DF02C1C8CC700D1476A /* MockCandidate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
