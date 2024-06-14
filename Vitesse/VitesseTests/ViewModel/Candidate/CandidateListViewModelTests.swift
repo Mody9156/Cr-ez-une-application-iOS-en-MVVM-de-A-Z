@@ -120,7 +120,7 @@ final class CandidateListViewModelTests: XCTestCase {
         
         let mockCandidateDataManager = candidateListViewModel.retrieveCandidateData as! MockCandidatesDataManager
         
-        mockCandidateDataManager.mockResponse = HTTPURLResponse(url: URL(string:""), statusCode: <#T##Int#>, httpVersion: <#T##String?#>, headerFields: <#T##[String : String]?#>)
+        mockCandidateDataManager.mockResponse = HTTPURLResponse(url: URL(string:"http://localhost")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
         
         
         
