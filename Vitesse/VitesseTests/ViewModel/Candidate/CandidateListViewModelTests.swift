@@ -99,7 +99,30 @@ final class CandidateListViewModelTests: XCTestCase {
     
    
     
-    func testDeleteCandidate() throws {
+    func testDeleteCandidate() async throws {
+        //Given
+        let expectedCandidates = [
+        CandidateInformation(id: "1", firstName: "John", isFavorite: false, email: "john@example.com", lastName: "Doe"),
+        CandidateInformation(id: "2", firstName: "Jane", isFavorite: true, email: "jane@example.com", lastName: "Doe")
+                ]
+        
+        candidateListViewModel.candidats = expectedCandidates
+        
+        let mockKey = MockKey()
+        let mockTokenData = "fkzerjzehrighze3434"
+        mockKey.mockTokenData = mockTokenData.data(using: .utf8)!
+        
+        let mockCandidateDataManager = candidateListViewModel.retrieveCandidateData as! MockCandidateDataManager
+        
+        
+
+
+        
+        //When
+        let response = try await candidateListViewModel.deleteCandidate(at: IndexSet(integer: 0))
+
+        //Then
+        
         
     }
     func testShowFavoriteCandidates() throws {
@@ -111,6 +134,8 @@ final class CandidateListViewModelTests: XCTestCase {
     
 }
 
+
+//Mock
 
 class MockKey: Keychain {
     
@@ -173,6 +198,19 @@ class MockCandidateDataManager: CandidateDataManager {
     override func fetchCandidateData(request: URLRequest) async throws -> [CandidateInformation] {
         return mockCandidates
     }
+   
+     func deleteCandidate(withId id: String) async throws {
+        mockCandidates.removeAll { $0.id == id }
+    }
+
+     func fetchFavoriteCandidates() async throws -> [CandidateInformation] {
+        return mockCandidates.filter { $0.isFavorite }
+    }
+
+     func removeCandidate(withId id: String) async throws {
+        mockCandidates.removeAll { $0.id == id }
+    }
+    
 }
 
 class MockCandidatess {
