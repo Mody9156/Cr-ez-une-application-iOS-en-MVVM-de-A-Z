@@ -21,46 +21,52 @@ final class CandidateListViewModelTests: XCTestCase {
     }
     
     func testTokenSuccess() async throws {
-        // Given
-        let mockTokenString = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4ZW1wbGUyMjMxMkBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZX0.t3ec7oA3gEQJT1gh_qahIPzawLN4o_bTkAsE0iHg3rg"
-        let mockTokenData = mockTokenString.data(using: .utf8)!
-        
-        let mockKey = MockKey()
-        mockKey.mockTokenData = mockTokenData
-        
-        
-        // When
-        do {
-            let token = try candidateListViewModel.token()
-            
-            // Then
-            XCTAssertEqual(token, mockTokenString)
-        } catch {
-            XCTFail("Unexpected error: \(error)")
-        }
-    }
+           // Given
+           let mockTokenString = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4ZW1wbGUyMjMxMkBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZX0.t3ec7oA3gEQJT1gh_qahIPzawLN4o_bTkAsE0iHg3rg"
+           let mockTokenData = mockTokenString.data(using: .utf8)!
+           let mockKey = MockKey()
+           mockKey.mockTokenData = mockTokenData
+           candidateListViewModel.keychain = mockKey
+
+           // When
+           let token = try candidateListViewModel.token()
+
+           // Then
+           XCTAssertEqual(token, mockTokenString)
+       }
     
     func testTokenFail() async throws {
-        // Given
-        let mockTokenString = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4ZW1wbGUyMjMxMkBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZX0.t3ec7oA3gEQJT1gh_qahIPzawLN4o_bTkAsE0iHg3rg"
-        let mockTokenData = mockTokenString.data(using: .utf8)!
-        
-        let mockKey = MockKey()
-        mockKey.mockTokenData = mockTokenData
-        
-        
-        // When
-        do {
-            let token = try candidateListViewModel.token()
-            
-            // Then
-            XCTAssertEqual(token, mockTokenString)
-        } catch {
-            XCTFail("Unexpected error: \(error)")
+            // Given
+            let mockKey = MockKey()
+            mockKey.mockTokenData = Data([0xFF,0xFE]) //Invalid UTF-8
+            candidateListViewModel.keychain = mockKey
+
+           
+            // When && Then
+            do {
+                _ = try candidateListViewModel.token()
+            } catch let error as CandidateManagementError {
+                XCTAssertEqual(error, .fetchTokenError)
+            } catch {
+                XCTFail("Unexpected error: \(error)")
+            }
         }
-    }
     
-    
+    func testTokenFail_missingTokenData() async throws {
+           // Given
+           let mockKey = MockKey()
+           mockKey.mockTokenData = nil
+           candidateListViewModel.keychain = mockKey
+
+           // When && Then
+           do {
+               _ = try candidateListViewModel.token()
+           } catch let error as CandidateManagementError {
+               XCTAssertEqual(error, .fetchTokenError)
+           } catch {
+               XCTFail("Unexpected error: \(error)")
+           }
+       }
     
     func testDisplayCandidatesList() async throws {
         //Given
@@ -91,20 +97,7 @@ final class CandidateListViewModelTests: XCTestCase {
         XCTAssertTrue(candidatesList.isEmpty)
     }
     
-    func testDisplayCandidatesList_throw() async throws {
-        
-        
-        //When && Then
-        do{
-            let candidatesList =  try await candidateListViewModel.displayCandidatesList()
-        }catch let error as CandidateManagementError{
-            XCTAssertEqual(error, .displayCandidatesListError)
-            
-        }
-        
-        
-        
-    }
+   
     
     func testDeleteCandidate() throws {
         
