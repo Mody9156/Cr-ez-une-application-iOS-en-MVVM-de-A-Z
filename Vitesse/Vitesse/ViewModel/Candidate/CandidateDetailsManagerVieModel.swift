@@ -4,7 +4,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     @Published var candidats: [CandidateInformation]
     @Published var retrieveCandidateData: CandidateDataManager
     @Published var selectedCandidateId: String?
-
+    
     init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation]) {
         self.retrieveCandidateData = retrieveCandidateData
         self.candidats = candidats
@@ -13,7 +13,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     enum CandidateManagementError: Error, LocalizedError {
         case displayCandidateDetailsError, fetchTokenError, candidateUpdaterError
     }
-   
+    
     // Get token
     private func token() throws -> String {
         let keychain = try Keychain().get(forKey: "token")
@@ -22,7 +22,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         }
         return encodingToken
     }
-
+    
     @MainActor
     func displayCandidateDetails(at offsets: IndexSet) async throws -> CandidateInformation {
         guard let selectedCandidateId = selectedCandidateId else {
@@ -39,7 +39,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
             )
             
             let fetchCandidateDetail = try await retrieveCandidateData.fetchCandidateDetail(request: request)
-
+            
             return fetchCandidateDetail
         } catch {
             throw CandidateManagementError.displayCandidateDetailsError
@@ -86,7 +86,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
                 lastName: lastName,
                 request: request
             )
-          
+            
             return fetchCandidateInformation
         } catch {
             throw CandidateManagementError.candidateUpdaterError

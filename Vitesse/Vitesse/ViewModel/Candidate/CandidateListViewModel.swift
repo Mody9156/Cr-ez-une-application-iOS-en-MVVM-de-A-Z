@@ -6,17 +6,17 @@ enum CandidateManagementError: Error, LocalizedError {
 }
 
 class CandidateListViewModel: ObservableObject {
-   @Published var candidats: [CandidateInformation] = []
-   @Published  var retrieveCandidateData: CandidateDataManager
+    @Published var candidats: [CandidateInformation] = []
+    @Published  var retrieveCandidateData: CandidateDataManager
     var keychain : Keychain
     init(retrieveCandidateData: CandidateDataManager,keychain : Keychain )  {
         self.retrieveCandidateData = retrieveCandidateData
         self.keychain = keychain
     }
-   
+    
     
     // Get token
-     func token() throws -> String {
+    func token() throws -> String {
         let keychain = try Keychain().get(forKey: "token")
         guard let encodingToken = String(data: keychain, encoding: .utf8) else {
             throw CandidateManagementError.fetchTokenError
@@ -38,9 +38,9 @@ class CandidateListViewModel: ObservableObject {
             
             let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
             
-                DispatchQueue.main.async {
-                          self.candidats = fetchCandidateData
-                      }
+            DispatchQueue.main.async {
+                self.candidats = fetchCandidateData
+            }
             
             return fetchCandidateData
             
@@ -96,8 +96,8 @@ class CandidateListViewModel: ObservableObject {
             
             let response = try await retrieveCandidateData.fetchCandidateDetail(request: request)
             print("Favorite status update for the candidate was successful: \(String(describing: response))")
-         
-
+            
+            
             return response
         } catch {
             print("There are errors in function showFavoriteCandidates()")

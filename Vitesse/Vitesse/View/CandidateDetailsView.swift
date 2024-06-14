@@ -13,7 +13,7 @@ struct CandidateDetailView: View {
     @State var candidateInformation: CandidateInformation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var isButtonVisible = true
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             Section {
@@ -22,7 +22,7 @@ struct CandidateDetailView: View {
                         TextFieldManager(textField: "First Name", text: $editedFirstName)
                         TextFieldManager(textField: "Last Name", text: $editedLastName)
                         Spacer()
-
+                        
                         if isButtonVisible {
                             Button {
                                 Task {
@@ -55,7 +55,7 @@ struct CandidateDetailView: View {
                         Button {
                             Task {
                                 try await  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                               await loadCandidateProfile()
+                                await loadCandidateProfile()
                                 initialiseEditingFields()
                                 withAnimation {
                                     isButtonVisible = false
@@ -70,7 +70,7 @@ struct CandidateDetailView: View {
                     }
                 }
                 .padding()
-
+                
                 HStack {
                     Text("Phone:")
                     if isEditing {
@@ -88,7 +88,7 @@ struct CandidateDetailView: View {
                     }
                 }
                 .padding()
-
+                
                 HStack {
                     Text("Email:")
                     if isEditing {
@@ -98,7 +98,7 @@ struct CandidateDetailView: View {
                     }
                 }
                 .padding()
-
+                
                 HStack {
                     Text("LinkedIn:")
                     if isEditing {
@@ -122,7 +122,7 @@ struct CandidateDetailView: View {
                     }
                 }
                 .padding()
-
+                
                 VStack(alignment: .leading) {
                     Text("Note:")
                     if isEditing {
@@ -157,7 +157,7 @@ struct CandidateDetailView: View {
             toolbarContent
         }
     }
-
+    
     // Toolbar content
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
@@ -165,8 +165,8 @@ struct CandidateDetailView: View {
             if isEditing {
                 Button("Cancel") {
                     
-                        isEditing = false
-                        
+                    isEditing = false
+                    
                 }
                 .foregroundColor(.orange)
             } else {
@@ -225,7 +225,7 @@ extension CandidateDetailView {
             print("Error loading candidate profile for \(candidateInformation.email): \(error)")
         }
     }
-
+    
     func saveCandidate() async {
         do {
             let updatedCandidate = try await candidateDetailsManagerViewModel.candidateUpdater(
@@ -247,7 +247,7 @@ extension CandidateDetailView {
             print("Error updating candidate: \(error)")
         }
     }
-
+    
     func initialiseEditingFields() {
         editedNote = candidateInformation.note ?? ""
         editedFirstName = candidateInformation.firstName
@@ -256,7 +256,7 @@ extension CandidateDetailView {
         editedEmail = candidateInformation.email
         editedLinkedIn = candidateInformation.linkedinURL
     }
-
+    
     func updateView(with candidate: CandidateInformation) {
         candidateInformation = candidate
         initialiseEditingFields()

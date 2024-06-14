@@ -5,20 +5,20 @@ struct LoginView: View {
     @StateObject var loginViewModel: LoginViewModel
     var vitesseViewModel: VitesseViewModel
     @State private var rotationAngle: Double = 0
-
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.orange.opacity(0.2) // Fond orange clair
                     .ignoresSafeArea()
-
+                
                 VStack {
                     Text("Login")
                         .font(.largeTitle)
                         .fontWeight(.semibold)
                         .foregroundColor(.orange)
                         .padding(.bottom, 20)
-
+                    
                     Image("Vitesse")
                         .resizable()
                         .frame(width: 150, height: 150)
@@ -30,16 +30,16 @@ struct LoginView: View {
                             }
                         }
                         .padding(.bottom, 20)
-
+                    
                     VStack(alignment: .leading) {
                         AuthExtractor(loginViewModel: loginViewModel, textField: "Entrez un Email ou Username valide", textName: "Email/Username")
                         
                         AuthExtractor(loginViewModel: loginViewModel, textField: "Veuillez entrez un mot de passe valide", textName: "Password")
                     }
                     .padding(.bottom, 20)
-
+                    
                     AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register)
-
+                    
                     AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register)
                         .sheet(isPresented: $register) {
                             RegistrationView(
@@ -58,7 +58,7 @@ struct AuthExtractor: View {
     @ObservedObject var loginViewModel: LoginViewModel
     var textField: String = ""
     var textName: String = ""
-
+    
     var body: some View {
         Text(textName)
             .foregroundColor(.orange)
@@ -88,7 +88,7 @@ struct AuthButton: View {
     var title: String = ""
     @ObservedObject var loginViewModel: LoginViewModel
     @Binding var register: Bool
-
+    
     var body: some View {
         Button(title) {
             if title == "Sign in" {

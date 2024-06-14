@@ -4,7 +4,7 @@ struct RegistrationView: View {
     @StateObject var registerViewModel: RegisterViewModel
     @State private var registre: Bool = false
     @StateObject var loginViewModel: LoginViewModel
-
+    
     var body: some View {
         ZStack {
             Color.orange.opacity(0.2) // Light orange background
@@ -15,7 +15,7 @@ struct RegistrationView: View {
                     .fontWeight(.semibold)
                     .foregroundColor(.orange)
                     .padding(.bottom, 20)
-
+                
                 VStack(alignment: .leading) {
                     LabeledTextField(
                         textNames: "First Name",
@@ -44,7 +44,7 @@ struct RegistrationView: View {
                     )
                 }
                 .padding()
-
+                
                 Button("Create") {
                     Task {
                         do {

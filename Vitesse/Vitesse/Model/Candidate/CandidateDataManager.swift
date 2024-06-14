@@ -19,8 +19,8 @@ class CandidateDataManager {
             case let (.httpResponseInvalid(statusCode1), .httpResponseInvalid(statusCode2)):
                 return statusCode1 == statusCode2
             case (.fetchCandidateDataError, .fetchCandidateDataError),
-                 (.fetchCandidateDetailError, .fetchCandidateDetailError),
-                 (.fetchCandidateInformationError, .fetchCandidateInformationError):
+                (.fetchCandidateDetailError, .fetchCandidateDetailError),
+                (.fetchCandidateInformationError, .fetchCandidateInformationError):
                 return true
             default:
                 return false
@@ -32,8 +32,8 @@ class CandidateDataManager {
         do {
             let (data, response) = try await httpService.request(request)
             guard response.statusCode == 200 else {
-                        throw CandidateFetchError.httpResponseInvalid(statusCode: response.statusCode)
-                    }
+                throw CandidateFetchError.httpResponseInvalid(statusCode: response.statusCode)
+            }
             let candidates = try JSONDecoder().decode([CandidateInformation].self, from: data)
             return candidates
         } catch {
@@ -45,8 +45,8 @@ class CandidateDataManager {
         do {
             let (data,response) = try await httpService.request(request)
             guard response.statusCode == 200 else {
-                        throw CandidateFetchError.httpResponseInvalid(statusCode: response.statusCode)
-                    }
+                throw CandidateFetchError.httpResponseInvalid(statusCode: response.statusCode)
+            }
             let candidate = try JSONDecoder().decode(CandidateInformation.self, from: data)
             return candidate
         } catch {

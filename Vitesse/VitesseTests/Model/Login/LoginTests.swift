@@ -35,19 +35,19 @@ final class LoginTests: XCTestCase {
         
         var request = URLRequest(url: useExpectedURL)
         request.httpBody = encode
-    
-            // When
-            let buildAuthenticationRequest =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
-            
-            // Then
-            XCTAssertEqual(buildAuthenticationRequest.httpMethod,"POST" )
-            XCTAssertNotNil(buildAuthenticationRequest.url)
-            XCTAssertEqual(buildAuthenticationRequest.httpBody,request.httpBody)
-            XCTAssertEqual(buildAuthenticationRequest.value(forHTTPHeaderField: "Content-Type"), "application/json")
-            XCTAssertNotNil(buildAuthenticationRequest.allHTTPHeaderFields)
-      
+        
+        // When
+        let buildAuthenticationRequest =  try authenticationManager.buildAuthenticationRequest(username: name, password: password)
+        
+        // Then
+        XCTAssertEqual(buildAuthenticationRequest.httpMethod,"POST" )
+        XCTAssertNotNil(buildAuthenticationRequest.url)
+        XCTAssertEqual(buildAuthenticationRequest.httpBody,request.httpBody)
+        XCTAssertEqual(buildAuthenticationRequest.value(forHTTPHeaderField: "Content-Type"), "application/json")
+        XCTAssertNotNil(buildAuthenticationRequest.allHTTPHeaderFields)
+        
     }
-
+    
     
     
     func test_authenticate() async throws {
@@ -70,7 +70,7 @@ final class LoginTests: XCTestCase {
         let mockResponse = HTTPURLResponse(url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
         let mockResult: (Data, HTTPURLResponse) = (JSONResponse, mockResponse)
         (authenticationManager.httpService as! MockHTTPService).mockResult = mockResult
-
+        
         let decode = try JSONDecoder().decode(AuthenticationResponse.self, from: JSONResponse)
         
         // When
@@ -90,9 +90,9 @@ final class LoginTests: XCTestCase {
     
     // Mock HTTPService utilisé pour simuler les réponses HTTP
     class MockHTTPService: HTTPService {
-          
+        
         var mockResult: (Data, HTTPURLResponse)?
-          
+        
         func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
             guard let result = mockResult else {
                 throw NSError(domain: "", code: 0, userInfo: nil)

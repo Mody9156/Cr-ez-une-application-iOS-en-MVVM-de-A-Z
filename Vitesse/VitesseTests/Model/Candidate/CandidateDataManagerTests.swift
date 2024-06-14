@@ -230,7 +230,7 @@ final class CandidateDataManagerTests: XCTestCase {
         } catch {
             XCTFail("Unexpected error: \(error)")
         }
-
+        
         
         
     }

@@ -22,16 +22,16 @@ class RegistrationRequestBuilder {
         
         static func == (lhs: RegistrationRequestBuilder.HTTPResponseError, rhs: RegistrationRequestBuilder.HTTPResponseError) -> Bool {
             switch (lhs, rhs) {
-                   case let (.invalidResponse(statusCode1), .invalidResponse(statusCode2)):
-                       return statusCode1 == statusCode2
-                   case (.networkError, .networkError):
-                       return true // Les erreurs de réseau sont considérées comme égales
-                   default:
-                       return false
-                }
+            case let (.invalidResponse(statusCode1), .invalidResponse(statusCode2)):
+                return statusCode1 == statusCode2
+            case (.networkError, .networkError):
+                return true // Les erreurs de réseau sont considérées comme égales
+            default:
+                return false
+            }
         }
     }
-
+    
     
     func buildRegistrationURLRequest(email: String, password: String, firstName: String, lastName: String) -> URLRequest {
         
