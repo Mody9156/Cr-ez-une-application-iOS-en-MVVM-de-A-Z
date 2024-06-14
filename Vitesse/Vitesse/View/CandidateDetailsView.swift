@@ -30,7 +30,7 @@ struct CandidateDetailView: View {
                                     withAnimation {
                                         isButtonVisible = false
                                     }
-                                 try   await loadCandidateProfile()
+                                    try   await loadCandidateProfile()
                                     initialiseEditingFields()
                                 }
                             } label: {
@@ -51,7 +51,7 @@ struct CandidateDetailView: View {
                             .fontWeight(.bold)
                     }
                     Spacer()
-                    if candidateInformation.isFavorite && isButtonVisible{
+                    if candidateInformation.isFavorite && isButtonVisible && !isEditing{
                         Button {
                             Task {
                                 try await  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
@@ -152,10 +152,10 @@ struct CandidateDetailView: View {
         .navigationBarBackButtonHidden()
         .task {
             do {
-                    try await loadCandidateProfile()
-                } catch {
-                    NotificationCenter.default.post(name: Notification.Name("LoadCandidateProfileError"), object: error)
-                }
+                try await loadCandidateProfile()
+            } catch {
+                NotificationCenter.default.post(name: Notification.Name("LoadCandidateProfileError"), object: error)
+            }
         }
         .toolbar {
             toolbarContent
@@ -192,8 +192,8 @@ struct CandidateDetailView: View {
             if isEditing {
                 Button("Done") {
                     Task {
-                      try await saveCandidate()
-                       try await loadCandidateProfile()
+                        try await saveCandidate()
+                        try await loadCandidateProfile()
                         initialiseEditingFields()
                     }
                 }
@@ -220,28 +220,28 @@ struct TextFieldManager: View {
 
 extension CandidateDetailView {
     func loadCandidateProfile() async throws {
- 
-            candidateDetailsManagerViewModel.selectedCandidateId = candidateInformation.id
-            let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails(at: IndexSet())
-            updateView(with: loadedCandidate)
-           
+        
+        candidateDetailsManagerViewModel.selectedCandidateId = candidateInformation.id
+        let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails(at: IndexSet())
+        updateView(with: loadedCandidate)
+        
     }
     
     func saveCandidate() async throws {
-       
-            let updatedCandidate = try await candidateDetailsManagerViewModel.candidateUpdater(
-                phone: editedPhone,
-                note: editedNote,
-                firstName: editedFirstName,
-                linkedinURL: editedLinkedIn,
-                isFavorite: candidateInformation.isFavorite,
-                email: editedEmail,
-                lastName: editedLastName,
-                id: candidateInformation.id
-            )
-            candidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
-            candidateInformation = updatedCandidate
-            isEditing.toggle()
+        
+        let updatedCandidate = try await candidateDetailsManagerViewModel.candidateUpdater(
+            phone: editedPhone,
+            note: editedNote,
+            firstName: editedFirstName,
+            linkedinURL: editedLinkedIn,
+            isFavorite: candidateInformation.isFavorite,
+            email: editedEmail,
+            lastName: editedLastName,
+            id: candidateInformation.id
+        )
+        candidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
+        candidateInformation = updatedCandidate
+        isEditing.toggle()
         
     }
     
