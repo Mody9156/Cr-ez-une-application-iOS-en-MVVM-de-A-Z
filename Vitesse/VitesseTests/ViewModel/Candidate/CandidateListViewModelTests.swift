@@ -43,31 +43,16 @@ final class CandidateListViewModelTests: XCTestCase {
                }
     }
     
-    func token_failure() async throws {
-        // Given
-             let invalidTokenData = Data() // Invalid data that cannot be decoded to String
-             
-             // When
-             do {
-                 _ = try candidateListViewModel.token()
-                 
-                 // Then
-                 XCTFail("Expected decoding error")
-             } catch CandidateManagementError.fetchTokenError {
-                 // Expected error
-             } catch {
-                 XCTFail("Unexpected error: \(error)")
-             }
-    }
+  
   
    
     func testDisplayCandidatesList() async throws {
-//        //Given
-//        let DisplayCandidatesList = try await candidateListViewModel.displayCandidatesList()
-//        //When
-//        
-//        //Then
-//        XCTAssertNotNil(DisplayCandidatesList)
+        //Given
+      
+        //When
+        let DisplayCandidatesList = try await candidateListViewModel.displayCandidatesList()
+        //Then
+        XCTFail("erreur")
     }
     func testDeleteCandidate() throws {
        
@@ -83,16 +68,6 @@ final class CandidateListViewModelTests: XCTestCase {
 
 
 class MockKey: Keychain {
-       var mockTokenData: Data?
-       var shouldThrowError = false
-       
-    override func get(forKey key: String) throws -> Data {
-           if shouldThrowError {
-               throw CandidateManagementError.fetchTokenError
-           }
-           guard let tokenData = mockTokenData else {
-               throw CandidateManagementError.fetchTokenError
-           }
-           return tokenData
-       }
+    
+    private var keychain  : [String:String]
    }
