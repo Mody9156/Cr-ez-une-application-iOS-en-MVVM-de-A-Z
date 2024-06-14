@@ -35,6 +35,7 @@ class CandidateListViewModel: ObservableObject {
                 method: "GET",
                 token: token
             )
+            
             let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
             
                 DispatchQueue.main.async {
