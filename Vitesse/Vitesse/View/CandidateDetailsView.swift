@@ -30,7 +30,7 @@ struct CandidateDetailView: View {
                                     withAnimation {
                                         isButtonVisible = false
                                     }
-                                   
+                                    updateView(with: candidateInformation)
                                     
                                 }
                             } label: {
@@ -59,6 +59,8 @@ struct CandidateDetailView: View {
                                 withAnimation {
                                     isButtonVisible = false
                                 }
+                               
+                                updateView(with: candidateInformation)
                             }
                         } label: {
                             Image(systemName: "star.fill")
