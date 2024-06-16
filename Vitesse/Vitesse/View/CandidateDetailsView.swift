@@ -133,7 +133,7 @@ struct CandidateDetailView: View {
         .task {
             do {
                 try await loadCandidateProfile()
-                
+                initialiseEditingFields()
             } catch {
                 NotificationCenter.default.post(name: Notification.Name("LoadCandidateProfileError"), object: error)
             }
