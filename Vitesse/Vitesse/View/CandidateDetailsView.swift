@@ -159,8 +159,6 @@ struct CandidateDetailView: View {
                     Task{
                         
                         presentationMode.wrappedValue.dismiss()
-                        try await loadCandidateProfile()
-                        initialiseEditingFields()
                         
                     }
                 } label: {

@@ -51,7 +51,6 @@ struct CandidatesListView: View {
             //
             Task{
                 await loadCandidates()
-                
             }
         }
     }
@@ -80,7 +79,9 @@ struct CandidatesListView: View {
     // Load candidates
     func loadCandidates() async {
         if  let candidates = try? await candidateListViewModel.displayCandidatesList(){
+            
             candidateListViewModel.candidats = candidates
+            
         }
     }
     
