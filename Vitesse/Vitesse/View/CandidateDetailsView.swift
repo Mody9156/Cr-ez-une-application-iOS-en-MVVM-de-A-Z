@@ -12,7 +12,6 @@ struct CandidateDetailView: View {
     @State private var editedLinkedIn: String?
     @State var candidateInformation: CandidateInformation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State private var isButtonVisible = true
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,24 +22,7 @@ struct CandidateDetailView: View {
                         TextFieldManager(textField: "Last Name", text: $editedLastName)
                         Spacer()
                         
-                        if isButtonVisible {
-                            Button {
-                                Task {
-                                    try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                                    
-                                    try await loadCandidateProfile()
-                                    initialiseEditingFields()
-                                   
-                                }
-                            } label: {
-                                Text(candidateInformation.isFavorite ? "Remove from favorites" : "Add to favorites")
-                                    .foregroundColor(.orange)
-                                    .padding()
-                                    .background(Color.orange.opacity(0.2))
-                                    .cornerRadius(10)
-                            }
-                            .transition(.opacity)
-                        }
+                      
                     } else {
                         Text(candidateInformation.firstName)
                             .font(.largeTitle)
@@ -48,21 +30,22 @@ struct CandidateDetailView: View {
                         Text(candidateInformation.lastName)
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                    }
-                    Spacer()
-                    if candidateInformation.isFavorite && isButtonVisible && !isEditing{
-                        Button {
-                            Task {
-                                try await  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                              
-                                
+                        Spacer()
+                      
+                            Button {
+                                Task {
+                                    try await  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                    try await  loadCandidateProfile()
+                                    initialiseEditingFields()
+                                }
+                            } label: {
+                                Image(systemName: candidateInformation.isFavorite ? "star.fill":"star")
+                                    .foregroundColor(candidateInformation.isFavorite ? .yellow : .black)
+                                    .font(.title2)
                             }
-                        } label: {
-                            Image(systemName: candidateInformation.isFavorite ? "star.fill":"star")
-                                .foregroundColor(candidate.isFavorite ? .yellow : .black)
-                                .font(.title2)
-                        }
-                        .transition(.opacity)
+                        
+                    
+                    
                     }
                 }
                 .padding()
