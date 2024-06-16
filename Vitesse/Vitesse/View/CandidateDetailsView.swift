@@ -13,6 +13,7 @@ struct CandidateDetailView: View {
     @State var candidateInformation: CandidateInformation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    
     var body: some View {
         VStack(alignment: .leading) {
             Section {
@@ -132,6 +133,7 @@ struct CandidateDetailView: View {
         .task {
             do {
                 try await loadCandidateProfile()
+                
             } catch {
                 NotificationCenter.default.post(name: Notification.Name("LoadCandidateProfileError"), object: error)
             }
@@ -149,7 +151,7 @@ struct CandidateDetailView: View {
                 Button("Cancel") {
                     
                     isEditing = false
-                    
+                    initialiseEditingFields()
                 }
                 .foregroundColor(.orange)
             } else {
@@ -159,7 +161,7 @@ struct CandidateDetailView: View {
                         presentationMode.wrappedValue.dismiss()
                         try await loadCandidateProfile()
                         initialiseEditingFields()
-                       
+                        
                     }
                 } label: {
                     Image(systemName: "arrow.left.circle")
@@ -204,7 +206,7 @@ extension CandidateDetailView {
     func loadCandidateProfile() async throws {
         
         candidateDetailsManagerViewModel.selectedCandidateId = candidateInformation.id
-        let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails(at: IndexSet())
+        let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails()
         updateView(with: loadedCandidate)
         
     }

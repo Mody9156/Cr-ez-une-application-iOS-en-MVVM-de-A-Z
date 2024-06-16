@@ -47,8 +47,12 @@ struct CandidatesListView: View {
                 toolbarContent
             }.background(Color.white)
             //                .searchable(text: $search)
-        }.task {
-            await loadCandidates()
+        }.onAppear {
+            //
+            Task{
+                await loadCandidates()
+                
+            }
         }
     }
     
@@ -75,13 +79,8 @@ struct CandidatesListView: View {
     
     // Load candidates
     func loadCandidates() async {
-        do {
-            let candidates = try await candidateListViewModel.displayCandidatesList()
+        if  let candidates = try? await candidateListViewModel.displayCandidatesList(){
             candidateListViewModel.candidats = candidates
-          try await candidateDetailsManagerViewModel.displayCandidateDetails(at: IndexSet())
-            print("super bien ")
-        } catch {
-            print("Error loading candidates")
         }
     }
     
