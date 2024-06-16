@@ -11,7 +11,7 @@ struct VitesseApp: App {
                     TabView {
                         CandidatesListView(
                             candidateListViewModel: vitesseViewModel.candidateListViewModel,
-                            candidateDetailsManagerViewModel: vitesseViewModel.candidateDetailsManager, CandidateInformation: CandidateInformation(id: "", firstName: "é", isFavorite: true, email: "", lastName: ""))
+                            candidateDetailsManagerViewModel: vitesseViewModel.candidateDetailsManager)
                     }
                     .onAppear {
                         // Créer un nouveau candidat

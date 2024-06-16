@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CandidateDetailView: View {
     @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
-    @StateObject var candidateListViewModel: CandidateListViewModel
+    var candidateListViewModel: CandidateListViewModel
     @State private var isEditing = false
     @State private var editedNote: String?
     @State private var editedFirstName: String = ""
@@ -12,7 +12,7 @@ struct CandidateDetailView: View {
     @State private var editedLinkedIn: String?
     @State var candidateInformation: CandidateInformation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State private var isButtonVisible = true
+    
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,26 +23,7 @@ struct CandidateDetailView: View {
                         TextFieldManager(textField: "Last Name", text: $editedLastName)
                         Spacer()
                         
-                        if isButtonVisible {
-                            Button {
-                                Task {
-                                    try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                                    try await loadCandidateProfile()
-                                    withAnimation {
-                                        isButtonVisible = false
-                                    }
-                                    try   await loadCandidateProfile()
-                                    initialiseEditingFields()
-                                }
-                            } label: {
-                                Text(candidateInformation.isFavorite ? "Remove from favorites" : "Add to favorites")
-                                    .foregroundColor(.orange)
-                                    .padding()
-                                    .background(Color.orange.opacity(0.2))
-                                    .cornerRadius(10)
-                            }
-                            .transition(.opacity)
-                        }
+                        
                     } else {
                         Text(candidateInformation.firstName)
                             .font(.largeTitle)
@@ -50,25 +31,22 @@ struct CandidateDetailView: View {
                         Text(candidateInformation.lastName)
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                    }
-                    Spacer()
-                    if candidateInformation.isFavorite && isButtonVisible && !isEditing{
+                        Spacer()
+                        
                         Button {
                             Task {
                                 try await  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                                try  await loadCandidateProfile()
+                                try await  loadCandidateProfile()
                                 initialiseEditingFields()
-                                try await loadCandidateProfile()
-                                withAnimation {
-                                    isButtonVisible = false
-                                }
                             }
                         } label: {
-                            Image(systemName: "star.fill")
-                                .foregroundColor(.yellow)
+                            Image(systemName: candidateInformation.isFavorite ? "star.fill":"star")
+                                .foregroundColor(candidateInformation.isFavorite ? .yellow : .black)
                                 .font(.title2)
                         }
-                        .transition(.opacity)
+                        
+                        
+                        
                     }
                 }
                 .padding()
@@ -155,6 +133,7 @@ struct CandidateDetailView: View {
         .task {
             do {
                 try await loadCandidateProfile()
+                initialiseEditingFields()
             } catch {
                 NotificationCenter.default.post(name: Notification.Name("LoadCandidateProfileError"), object: error)
             }
@@ -172,7 +151,7 @@ struct CandidateDetailView: View {
                 Button("Cancel") {
                     
                     isEditing = false
-                    
+                    initialiseEditingFields()
                 }
                 .foregroundColor(.orange)
             } else {
@@ -180,9 +159,6 @@ struct CandidateDetailView: View {
                     Task{
                         
                         presentationMode.wrappedValue.dismiss()
-                        try await loadCandidateProfile()
-                        initialiseEditingFields()
-                        try await saveCandidate()
                     }
                 } label: {
                     Image(systemName: "arrow.left.circle")
@@ -190,6 +166,7 @@ struct CandidateDetailView: View {
                 }
             }
         }
+        
         ToolbarItem(placement: .navigationBarTrailing) {
             if isEditing {
                 Button("Done") {
@@ -202,7 +179,10 @@ struct CandidateDetailView: View {
                 .foregroundColor(.orange)
             } else {
                 Button("Edit") {
-                    isEditing.toggle()
+                    Task{
+                        isEditing.toggle()
+                        
+                    }
                 }
                 .foregroundColor(.orange)
             }
@@ -224,8 +204,14 @@ extension CandidateDetailView {
     func loadCandidateProfile() async throws {
         
         candidateDetailsManagerViewModel.selectedCandidateId = candidateInformation.id
+<<<<<<< HEAD
         let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails()
+=======
+        let loadedCandidate = try await  candidateDetailsManagerViewModel.displayCandidateDetails()
+>>>>>>> favoris
         updateView(with: loadedCandidate)
+        try await candidateListViewModel.displayCandidatesList()
+        
         
     }
     
@@ -244,7 +230,7 @@ extension CandidateDetailView {
         candidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
         candidateInformation = updatedCandidate
         isEditing.toggle()
-        
+        initialiseEditingFields()
     }
     
     func initialiseEditingFields() {

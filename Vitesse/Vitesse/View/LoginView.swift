@@ -3,8 +3,8 @@ import SwiftUI
 struct LoginView: View {
     @State var register: Bool = false
     @StateObject var loginViewModel: LoginViewModel
-    var vitesseViewModel: VitesseViewModel
     @State private var rotationAngle: Double = 0
+    var vitesseViewModel: VitesseViewModel
     
     var body: some View {
         NavigationStack {
@@ -39,6 +39,8 @@ struct LoginView: View {
                     .padding(.bottom, 20)
                     
                     AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register)
+                    //insérer un text
+                    
                     
                     AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register)
                         .sheet(isPresented: $register) {
@@ -47,6 +49,7 @@ struct LoginView: View {
                                 loginViewModel: LoginViewModel({})
                             )
                         }
+                    //insérer un text 
                 }
                 .padding()
             }

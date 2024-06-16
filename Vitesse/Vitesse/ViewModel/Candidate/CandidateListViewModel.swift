@@ -26,6 +26,7 @@ class CandidateListViewModel: ObservableObject {
     
     // Fetch candidates list
     @MainActor
+    @discardableResult
     func displayCandidatesList() async throws -> [CandidateInformation] {
         do {
             let token = try token()
