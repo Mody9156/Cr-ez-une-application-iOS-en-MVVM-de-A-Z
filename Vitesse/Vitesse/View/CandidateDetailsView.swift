@@ -22,7 +22,7 @@ struct CandidateDetailView: View {
                         TextFieldManager(textField: "Last Name", text: $editedLastName)
                         Spacer()
                         
-                      
+                        
                     } else {
                         Text(candidateInformation.firstName)
                             .font(.largeTitle)
@@ -31,21 +31,21 @@ struct CandidateDetailView: View {
                             .font(.largeTitle)
                             .fontWeight(.bold)
                         Spacer()
-                      
-                            Button {
-                                Task {
-                                    try await  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                                    try await  loadCandidateProfile()
-                                    initialiseEditingFields()
-                                }
-                            } label: {
-                                Image(systemName: candidateInformation.isFavorite ? "star.fill":"star")
-                                    .foregroundColor(candidateInformation.isFavorite ? .yellow : .black)
-                                    .font(.title2)
-                            }
                         
-                    
-                    
+                        Button {
+                            Task {
+                                try await  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                try await  loadCandidateProfile()
+                                initialiseEditingFields()
+                            }
+                        } label: {
+                            Image(systemName: candidateInformation.isFavorite ? "star.fill":"star")
+                                .foregroundColor(candidateInformation.isFavorite ? .yellow : .black)
+                                .font(.title2)
+                        }
+                        
+                        
+                        
                     }
                 }
                 .padding()
@@ -159,7 +159,7 @@ struct CandidateDetailView: View {
                         presentationMode.wrappedValue.dismiss()
                         try await loadCandidateProfile()
                         initialiseEditingFields()
-                        try await saveCandidate()
+                       
                     }
                 } label: {
                     Image(systemName: "arrow.left.circle")
@@ -167,6 +167,7 @@ struct CandidateDetailView: View {
                 }
             }
         }
+        
         ToolbarItem(placement: .navigationBarTrailing) {
             if isEditing {
                 Button("Done") {
@@ -182,7 +183,6 @@ struct CandidateDetailView: View {
                         isEditing.toggle()
                         
                     }
-                   
                 }
                 .foregroundColor(.orange)
             }

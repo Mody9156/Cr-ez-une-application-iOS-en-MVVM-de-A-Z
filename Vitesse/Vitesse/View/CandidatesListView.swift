@@ -47,8 +47,6 @@ struct CandidatesListView: View {
                 toolbarContent
             }.background(Color.white)
             //                .searchable(text: $search)
-        }.task {
-            await loadCandidates()
         }
     }
     
