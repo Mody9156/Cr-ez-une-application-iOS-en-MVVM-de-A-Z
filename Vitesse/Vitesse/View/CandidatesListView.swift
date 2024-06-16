@@ -5,7 +5,6 @@ struct CandidatesListView: View {
     @State private var search = ""
     @State private var showFavorites: Bool = false
     @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
-    @State var CandidateInformation: CandidateInformation
     
     var body: some View {
         NavigationStack {
