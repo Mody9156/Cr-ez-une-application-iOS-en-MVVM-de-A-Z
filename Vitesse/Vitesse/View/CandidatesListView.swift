@@ -44,10 +44,10 @@ struct CandidatesListView: View {
                 toolbarContent
             }
             .background(Color.white)
-        }
-        .onAppear {
-            Task {
-                await loadCandidates()
+            .onAppear {
+                Task {
+                    await loadCandidates()
+                }
             }
         }
     }

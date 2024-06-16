@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CandidateDetailView: View {
     @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
-    @StateObject var candidateListViewModel: CandidateListViewModel
+     var candidateListViewModel: CandidateListViewModel
     @State private var isEditing = false
     @State private var editedNote: String?
     @State private var editedFirstName: String = ""
@@ -159,7 +159,6 @@ struct CandidateDetailView: View {
                     Task{
                         
                         presentationMode.wrappedValue.dismiss()
-                        
                     }
                 } label: {
                     Image(systemName: "arrow.left.circle")
@@ -174,6 +173,7 @@ struct CandidateDetailView: View {
                     Task {
                         try await saveCandidate()
                         try await loadCandidateProfile()
+                        initialiseEditingFields()
                     }
                 }
                 .foregroundColor(.orange)
@@ -204,8 +204,10 @@ extension CandidateDetailView {
     func loadCandidateProfile() async throws {
         
         candidateDetailsManagerViewModel.selectedCandidateId = candidateInformation.id
-        let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails()
+        let loadedCandidate = try await  candidateDetailsManagerViewModel.displayCandidateDetails()
         updateView(with: loadedCandidate)
+        try await candidateListViewModel.displayCandidatesList()
+
         
     }
     
