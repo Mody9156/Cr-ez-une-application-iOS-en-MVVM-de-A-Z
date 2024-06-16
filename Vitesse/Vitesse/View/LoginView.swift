@@ -39,6 +39,10 @@ struct LoginView: View {
                     .padding(.bottom, 20)
                     
                     AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register)
+                    //insérer un text
+                    if !loginViewModel.isLoggedIn {
+                        Text("erreur").foregroundColor(.red)
+                    }
                     
                     AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register)
                         .sheet(isPresented: $register) {
@@ -47,6 +51,7 @@ struct LoginView: View {
                                 loginViewModel: LoginViewModel({})
                             )
                         }
+                    //insérer un text 
                 }
                 .padding()
             }
