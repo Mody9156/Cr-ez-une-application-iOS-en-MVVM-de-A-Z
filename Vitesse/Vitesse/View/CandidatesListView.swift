@@ -5,18 +5,19 @@ struct CandidatesListView: View {
     @State private var search = ""
     @State private var showFavorites: Bool = false
     @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
-    
+
     var body: some View {
         NavigationStack {
             VStack {
-                
-                // Candidates list
+                // Liste des candidats
                 List {
                     ForEach(searchResult, id: \.id) { candidate in
                         NavigationLink(
-                            // Candidate details
+                            // Détails du candidat
                             destination: CandidateDetailView(
-                                candidateDetailsManagerViewModel: candidateDetailsManagerViewModel, candidateListViewModel:candidateListViewModel, candidateInformation: candidate
+                                candidateDetailsManagerViewModel: candidateDetailsManagerViewModel,
+                                candidateListViewModel: candidateListViewModel, // Utilisez le même ViewModel
+                                candidateInformation: candidate
                             )
                         ) {
                             HStack {
@@ -29,32 +30,29 @@ struct CandidatesListView: View {
                                     .foregroundColor(candidate.isFavorite ? .yellow : .black)
                             }
                         }
-                        
                         .listRowSeparator(.visible)
                         .listRowBackground(Color.clear)
                         .listSectionSeparatorTint(.orange)
                     }
                     .onDelete(perform: candidateListViewModel.removeCandidate)
-                }.searchable(text: $search)
-                    .listStyle(PlainListStyle())
-                    .background(Color.white)
-                
-                
-                
-            }.toolbar {
-                
+                }
+                .searchable(text: $search)
+                .listStyle(PlainListStyle())
+                .background(Color.white)
+            }
+            .toolbar {
                 toolbarContent
-            }.background(Color.white)
-            //                .searchable(text: $search)
-        }.onAppear {
-            //
-            Task{
+            }
+            .background(Color.white)
+        }
+        .onAppear {
+            Task {
                 await loadCandidates()
             }
         }
     }
-    
-    // Search results
+
+    // Résultats de la recherche
     var searchResult: [CandidateInformation] {
         if search.isEmpty {
             return candidateListViewModel.candidats.filter { candidate in
@@ -73,23 +71,20 @@ struct CandidatesListView: View {
             }
         }
     }
-    
-    
-    // Load candidates
+
+    // Charger les candidats
     func loadCandidates() async {
-        if  let candidates = try? await candidateListViewModel.displayCandidatesList(){
-            
+        if let candidates = try? await candidateListViewModel.displayCandidatesList() {
             candidateListViewModel.candidats = candidates
-            
         }
     }
-    
-    // Toggle favorites view
+
+    // Basculer l'affichage des favoris
     func toggleShowFavorites() {
         showFavorites.toggle()
     }
-    
-    // Toolbar content
+
+    // Contenu de la barre d'outils
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
@@ -97,13 +92,11 @@ struct CandidatesListView: View {
                 .foregroundColor(.orange)
         }
         
-        
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: toggleShowFavorites) {
                 Image(systemName: showFavorites ? "star.fill" : "star")
                     .foregroundColor(showFavorites ? .yellow : .black)
             }
         }
-        
     }
 }
