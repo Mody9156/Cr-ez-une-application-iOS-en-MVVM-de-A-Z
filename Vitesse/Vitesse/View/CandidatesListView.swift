@@ -102,7 +102,7 @@ struct CandidatesListView: View {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: toggleShowFavorites) {
                 Image(systemName: showFavorites ? "star.fill" : "star")
-                    .foregroundColor(showFavorites ? .yellow : .orange)
+                    .foregroundColor(showFavorites ? .yellow : .black)
             }
         }
         

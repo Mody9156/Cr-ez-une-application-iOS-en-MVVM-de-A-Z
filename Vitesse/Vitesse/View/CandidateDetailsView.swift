@@ -27,11 +27,10 @@ struct CandidateDetailView: View {
                             Button {
                                 Task {
                                     try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                                    withAnimation {
-                                        isButtonVisible = false
-                                    }
-                                    updateView(with: candidateInformation)
                                     
+                                    try await loadCandidateProfile()
+                                    initialiseEditingFields()
+                                   
                                 }
                             } label: {
                                 Text(candidateInformation.isFavorite ? "Remove from favorites" : "Add to favorites")
@@ -55,16 +54,12 @@ struct CandidateDetailView: View {
                         Button {
                             Task {
                                 try await  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                             
-                                withAnimation {
-                                    isButtonVisible = false
-                                }
-                               
-                                updateView(with: candidateInformation)
+                              
+                                
                             }
                         } label: {
-                            Image(systemName: "star.fill")
-                                .foregroundColor(.yellow)
+                            Image(systemName: candidateInformation.isFavorite ? "star.fill":"star")
+                                .foregroundColor(candidate.isFavorite ? .yellow : .black)
                                 .font(.title2)
                         }
                         .transition(.opacity)
@@ -195,13 +190,16 @@ struct CandidateDetailView: View {
                     Task {
                         try await saveCandidate()
                         try await loadCandidateProfile()
-                        initialiseEditingFields()
                     }
                 }
                 .foregroundColor(.orange)
             } else {
                 Button("Edit") {
-                    isEditing.toggle()
+                    Task{
+                        isEditing.toggle()
+                        
+                    }
+                   
                 }
                 .foregroundColor(.orange)
             }
@@ -243,7 +241,7 @@ extension CandidateDetailView {
         candidateDetailsManagerViewModel.updateCandidateInformation(with: updatedCandidate)
         candidateInformation = updatedCandidate
         isEditing.toggle()
-        
+        initialiseEditingFields()
     }
     
     func initialiseEditingFields() {
