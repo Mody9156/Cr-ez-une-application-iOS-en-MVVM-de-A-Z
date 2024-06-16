@@ -3,8 +3,8 @@ import SwiftUI
 struct LoginView: View {
     @State var register: Bool = false
     @StateObject var loginViewModel: LoginViewModel
-    var vitesseViewModel: VitesseViewModel
     @State private var rotationAngle: Double = 0
+    var vitesseViewModel: VitesseViewModel
     
     var body: some View {
         NavigationStack {

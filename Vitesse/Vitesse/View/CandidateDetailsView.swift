@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CandidateDetailView: View {
     @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
-     var candidateListViewModel: CandidateListViewModel
+    var candidateListViewModel: CandidateListViewModel
     @State private var isEditing = false
     @State private var editedNote: String?
     @State private var editedFirstName: String = ""
@@ -207,7 +207,7 @@ extension CandidateDetailView {
         let loadedCandidate = try await  candidateDetailsManagerViewModel.displayCandidateDetails()
         updateView(with: loadedCandidate)
         try await candidateListViewModel.displayCandidatesList()
-
+        
         
     }
     
