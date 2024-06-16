@@ -224,7 +224,7 @@ extension CandidateDetailView {
     func loadCandidateProfile() async throws {
         
         candidateDetailsManagerViewModel.selectedCandidateId = candidateInformation.id
-        let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails(at: IndexSet())
+        let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails()
         updateView(with: loadedCandidate)
         
     }
