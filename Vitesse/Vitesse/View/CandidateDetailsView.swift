@@ -27,12 +27,11 @@ struct CandidateDetailView: View {
                             Button {
                                 Task {
                                     try await _ = candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                                    try await loadCandidateProfile()
                                     withAnimation {
                                         isButtonVisible = false
                                     }
-                                    try   await loadCandidateProfile()
-                                    initialiseEditingFields()
+                                   
+                                    
                                 }
                             } label: {
                                 Text(candidateInformation.isFavorite ? "Remove from favorites" : "Add to favorites")
@@ -56,9 +55,7 @@ struct CandidateDetailView: View {
                         Button {
                             Task {
                                 try await  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                                try  await loadCandidateProfile()
-                                initialiseEditingFields()
-                                try await loadCandidateProfile()
+                             
                                 withAnimation {
                                     isButtonVisible = false
                                 }
