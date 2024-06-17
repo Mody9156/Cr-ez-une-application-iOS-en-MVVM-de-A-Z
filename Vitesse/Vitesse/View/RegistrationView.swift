@@ -30,6 +30,7 @@ struct RegistrationView: View {
                     
                     Email(textNames: "Email", textField: "Use a valid Email", registerViewModel: registerViewModel).keyboardType(.emailAddress).keyboardType(.emailAddress)
                     
+                    Email(textNames: "Password", textField: "Enter your password", registerViewModel: registerViewModel)
                     
                     PasswordInputField(
                         textField: "Enter your password",
@@ -90,9 +91,9 @@ struct Email: View {
     @State var isEmailValid: Bool = true
     @State var isPasswordValid : Bool = true
     var body: some View {
-        
+        Text(textNames).foregroundColor(.orange)
         if textNames == "Email" {
-            Text(textNames).foregroundColor(.orange)
+           
             TextField(textField, text: $text, onEditingChanged: { (isChanged) in
                 if (isChanged) {
                     self.isEmailValid = registerViewModel.textFieldValidatorEmail( self.registerViewModel.email)
