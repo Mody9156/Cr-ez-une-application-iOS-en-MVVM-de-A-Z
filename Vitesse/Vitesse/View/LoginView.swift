@@ -9,7 +9,7 @@ struct LoginView: View {
     @State private var isEmailValid: Bool = true
     @State private var alertMessage = ""
     @State private var isPasswordValid: Bool = true
-
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -46,8 +46,8 @@ struct LoginView: View {
                     AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert)
                         .alert(isPresented: $showingAlert) {
                             Alert(title: Text("Erreur"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-                                                }
-                                               
+                        }
+                    
                         .padding(.bottom, 10)
                     
                     AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert)
@@ -114,12 +114,13 @@ struct AuthExtractor: View {
                         .padding(.top, 5)
                 }
             } else {
-                SecureField(textField, text: $loginViewModel.password, onCommit: {
+                SecureField(textField, text: $loginViewModel.password) {
+                    // On commit, validate password
                     self.isPasswordValid = loginViewModel.textFieldValidatorPassword(self.loginViewModel.password)
                     if !self.isPasswordValid {
                         self.loginViewModel.password = ""
                     }
-                })
+                }
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)

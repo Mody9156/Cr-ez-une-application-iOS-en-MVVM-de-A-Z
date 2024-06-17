@@ -18,7 +18,10 @@ class LoginViewModel: ObservableObject {
     
     func textFieldValidatorPassword(_ string: String) -> Bool {
       
-        return string.count >= 8
+        if string.count >= 8 {
+            return true
+        }
+        return false
     }
     
     func textFieldValidatorEmail(_ string: String) -> Bool {
