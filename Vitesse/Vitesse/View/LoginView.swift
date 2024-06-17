@@ -7,7 +7,7 @@ struct LoginView: View {
     var vitesseViewModel: VitesseViewModel
     @State private var showingAlert = false
     @State private var isEmailValid: Bool = true
-    
+    @State private var alertMessage = ""
     var body: some View {
         NavigationStack {
             ZStack {
@@ -35,15 +35,18 @@ struct LoginView: View {
                     
                     VStack(alignment: .leading) {
                         AuthExtractor(loginViewModel: loginViewModel, textField: "Entrez un Email ou Username valide", textName: "Email/Username", isEmailValid: $isEmailValid)
+                            .padding(.bottom, 20)
                         
                         AuthExtractor(loginViewModel: loginViewModel, textField: "Veuillez entrez un mot de passe valide", textName: "Password", isEmailValid: $isEmailValid)
+                            .padding(.bottom, 20)
                     }
-                    .padding(.bottom, 20)
                     
                     AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert)
-                        .alert(loginViewModel.message, isPresented: $showingAlert) {
-                            Button("OK", role: .cancel) { }
-                        }.padding()
+                        .alert(isPresented: $showingAlert) {
+                            Alert(title: Text("Erreur"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                                                }
+                                               
+                        .padding(.bottom, 10)
                     
                     AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert)
                         .sheet(isPresented: $register) {
@@ -51,9 +54,17 @@ struct LoginView: View {
                                 registerViewModel: vitesseViewModel.registerViewModel,
                                 loginViewModel: LoginViewModel({})
                             )
-                        }.padding()
+                        }
+                        .padding(.bottom, 10)
                 }
                 .padding()
+            }
+        }.onReceive(loginViewModel.$message) { message in
+            if message.isEmpty {
+                showingAlert = false
+            } else {
+                alertMessage = message
+                showingAlert = true
             }
         }
     }
@@ -67,39 +78,19 @@ struct AuthExtractor: View {
     @State private var isPasswordValid: Bool = true
     
     var body: some View {
-        Text(textName)
-            .foregroundColor(.orange)
-        
-        if textName == "Email/Username" {
-            TextField(textField, text: $loginViewModel.username, onEditingChanged: { (isChanged) in
-                if !isChanged {
-                    self.isEmailValid = loginViewModel.textFieldValidatorEmail(self.loginViewModel.username)
-                    if !self.isEmailValid {
-                        self.loginViewModel.username = ""
-                    }
-                }
-            })
-            .padding()
-            .cornerRadius(5.0)
-            .foregroundColor(.black)
-            .overlay(
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(Color.black, lineWidth: 2)
-            )
+        VStack {
+            Text(textName)
+                .foregroundColor(.orange)
             
-            if !self.isEmailValid && !self.loginViewModel.username.isEmpty {
-                Text("Email is Not Valid")
-                    .font(.callout)
-                    .foregroundColor(Color.red)
-            }
-        } else {
-            SecureField(textField, text: $loginViewModel.password,onCommit: {
-                self.isPasswordValid = loginViewModel.textFieldValidatorPassword(self.loginViewModel.password)
-                
-                if !self.isPasswordValid {
-                    self.loginViewModel.password = ""
-                }
-            })
+            if textName == "Email/Username" {
+                TextField(textField, text: $loginViewModel.username, onEditingChanged: { (isChanged) in
+                    if !isChanged {
+                        self.isEmailValid = loginViewModel.textFieldValidatorEmail(self.loginViewModel.username)
+                        if !self.isEmailValid {
+                            self.loginViewModel.username = ""
+                        }
+                    }
+                })
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
@@ -107,13 +98,35 @@ struct AuthExtractor: View {
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.black, lineWidth: 2)
                 )
-            
-            if !self.isPasswordValid && !self.loginViewModel.password.isEmpty{
-                Text("Password must be at least 8 characters long")
-                                    .font(.callout)
-                                    .foregroundColor(Color.red)
+                
+                if !self.isEmailValid && !self.loginViewModel.username.isEmpty {
+                    Text("Email is Not Valid")
+                        .font(.callout)
+                        .foregroundColor(Color.red)
+                        .padding(.top, 5)
+                }
+            } else {
+                SecureField(textField, text: $loginViewModel.password, onCommit: {
+                    self.isPasswordValid = loginViewModel.textFieldValidatorPassword(self.loginViewModel.password)
+                    if !self.isPasswordValid {
+                        self.loginViewModel.password = ""
+                    }
+                })
+                .padding()
+                .cornerRadius(5.0)
+                .foregroundColor(.black)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.black, lineWidth: 2)
+                )
+                
+                if !self.isPasswordValid && !self.loginViewModel.password.isEmpty {
+                    Text("Password must be at least 8 characters long")
+                        .font(.callout)
+                        .foregroundColor(Color.red)
+                        .padding(.top, 5)
+                }
             }
-            
         }
     }
 }
