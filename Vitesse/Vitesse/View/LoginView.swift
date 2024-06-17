@@ -78,7 +78,6 @@ struct AuthExtractor: View {
     var textName: String = ""
     @Binding var isEmailValid: Bool
     @Binding  var isPasswordValid: Bool
-    
     var body: some View {
         VStack {
             Text(textName)
@@ -99,6 +98,13 @@ struct AuthExtractor: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.black, lineWidth: 2)
+                ) .overlay(
+                    Image(systemName: "exclamationmark.circle.fill")
+                        .foregroundColor(.red)
+                        .padding(.trailing, 8)
+                        .opacity(self.isEmailValid ? 0 : 1)
+                        .animation(.default)
+                    , alignment: .trailing
                 )
                 
                 if !self.isEmailValid && !self.loginViewModel.username.isEmpty {
@@ -120,6 +126,13 @@ struct AuthExtractor: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.black, lineWidth: 2)
+                ).overlay(
+                    Image(systemName: "exclamationmark.circle.fill")
+                        .foregroundColor(.red)
+                        .padding(.trailing, 8)
+                        .opacity(self.isPasswordValid ? 0 : 1)
+                        .animation(.default)
+                    , alignment: .trailing
                 )
                 
                 if !self.isPasswordValid && !self.loginViewModel.password.isEmpty {
