@@ -43,7 +43,7 @@ struct LoginView: View {
                     AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert)
                         .alert(loginViewModel.message, isPresented: $showingAlert) {
                             Button("OK", role: .cancel) { }
-                        }
+                        }.padding()
                     
                     AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert)
                         .sheet(isPresented: $register) {
@@ -51,7 +51,7 @@ struct LoginView: View {
                                 registerViewModel: vitesseViewModel.registerViewModel,
                                 loginViewModel: LoginViewModel({})
                             )
-                        }
+                        }.padding()
                 }
                 .padding()
             }
@@ -64,6 +64,7 @@ struct AuthExtractor: View {
     var textField: String = ""
     var textName: String = ""
     @Binding var isEmailValid: Bool
+    @State private var isPasswordValid: Bool = true
     
     var body: some View {
         Text(textName)
@@ -92,7 +93,13 @@ struct AuthExtractor: View {
                     .foregroundColor(Color.red)
             }
         } else {
-            SecureField(textField, text: $loginViewModel.password)
+            SecureField(textField, text: $loginViewModel.password,onCommit: {
+                self.isPasswordValid = loginViewModel.textFieldValidatorPassword(self.loginViewModel.password)
+                
+                if !self.isPasswordValid {
+                    self.loginViewModel.password = ""
+                }
+            })
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
@@ -100,6 +107,13 @@ struct AuthExtractor: View {
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.black, lineWidth: 2)
                 )
+            
+            if !self.isPasswordValid && !self.loginViewModel.password.isEmpty{
+                Text("Password must be at least 8 characters long")
+                                    .font(.callout)
+                                    .foregroundColor(Color.red)
+            }
+            
         }
     }
 }
