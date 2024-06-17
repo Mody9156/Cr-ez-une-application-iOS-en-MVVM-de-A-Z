@@ -6,9 +6,9 @@
 //
 
 import Foundation
-
+//admin@vitesse.com
 class LoginViewModel: ObservableObject {
-    @Published var username: String = "admin@vitesse.com"
+    @Published var username: String = ""
     @Published var password: String = "test123"
     @Published var isLoggedIn: Bool = false
     @Published var message : String = ""
@@ -22,6 +22,12 @@ class LoginViewModel: ObservableObject {
         self.authenticationManager = authenticationManager
         self.keychain = keychain
     }
+    
+    func textFieldValidatorPassword(_ string: String) -> Bool {
+          // Example validation: password must be at least 8 characters long
+          return string.count >= 8
+      }
+    
     func textFieldValidatorEmail(_ string: String) -> Bool {
         if string.count > 100 {
             return false
@@ -48,6 +54,8 @@ class LoginViewModel: ObservableObject {
             message = "Veuillez entrez un mot de passe valide"
         }else  if password.isEmpty && username.isEmpty{
             message = "veuillez entrez un email/utilisateur et un mot de passe valide"
+        }else {
+            message = ""
         }
         
         
