@@ -4,7 +4,7 @@ struct RegistrationView: View {
     @StateObject var registerViewModel: RegisterViewModel
     @State private var registre: Bool = false
     @StateObject var loginViewModel: LoginViewModel
-    
+
     var body: some View {
         ZStack {
             Color.orange.opacity(0.2) // Light orange background
@@ -27,11 +27,10 @@ struct RegistrationView: View {
                         text: registerViewModel.lastName,
                         textField: "Enter your name"
                     )
-                    LabeledTextField(
-                        textNames: "Email",
-                        text: registerViewModel.email,
-                        textField: "Use a valid Email"
-                    ).keyboardType(.emailAddress)
+                 
+                    Email(textNames: "Email", textField: "Use a valid Email", registerViewModel: registerViewModel).keyboardType(.emailAddress).keyboardType(.emailAddress)
+                    
+                    
                     PasswordInputField(
                         textField: "Enter your password",
                         text: registerViewModel.password,
@@ -69,11 +68,38 @@ struct LabeledTextField: View {
     @State var textNames: String = ""
     @State var text: String = ""
     @State var textField: String = ""
-    
     var body: some View {
         Group {
             Text(textNames).foregroundColor(.orange)
             TextField(textField, text: $text)
+                .padding()
+                .cornerRadius(5.0)
+                .foregroundColor(.black)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.black, lineWidth: 2)
+                )
+        }
+    }
+}
+struct Email: View {
+    @State var textNames: String = ""
+    @State var text: String = ""
+    @State var textField: String = ""
+    @ObservedObject var registerViewModel: RegisterViewModel
+    @State var isEmailValid: Bool = true
+
+    var body: some View {
+        Group {
+            Text(textNames).foregroundColor(.orange)
+            TextField(textField, text: $text, onEditingChanged: { (isChanged) in
+                if !isChanged {
+                    self.isEmailValid = registerViewModel.textFieldValidatorEmail( self.registerViewModel.email)
+                    if !self.isEmailValid {
+                        self.registerViewModel.email = ""
+                    }
+                }
+            })
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
