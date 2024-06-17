@@ -161,15 +161,16 @@ struct AuthButton: View {
                 Task { @MainActor in
                     try? await loginViewModel.authenticateUserAndProceed()
                 }
-                if loginViewModel.isLoggedIn {
-                    showingAlert = false
-                } else {
-                    showingAlert = true
-                }
+                                if loginViewModel.isLoggedIn {
+                                    showingAlert = false
+                                } else {
+                                    showingAlert = true
+                                }
                 
-            } else {
-                register = true
-            }
+                            } else {
+                                register = true
+                            }
+            
         }
         .font(.headline)
         .foregroundColor(.white)

@@ -21,7 +21,7 @@ class LoginViewModel: ObservableObject {
         
         return string.count >= 8
     }
-    
+    @discardableResult
     func textFieldValidatorEmail(_ string: String) -> Bool {
         if string.count > 100 {
             return false

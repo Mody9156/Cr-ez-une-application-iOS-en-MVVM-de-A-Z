@@ -4,7 +4,7 @@ struct RegistrationView: View {
     @StateObject var registerViewModel: RegisterViewModel
     @State private var registre: Bool = false
     @StateObject var loginViewModel: LoginViewModel
-
+    
     var body: some View {
         ZStack {
             Color.orange.opacity(0.2) // Light orange background
@@ -27,7 +27,7 @@ struct RegistrationView: View {
                         text: registerViewModel.lastName,
                         textField: "Enter your name"
                     )
-                 
+                    
                     Email(textNames: "Email", textField: "Use a valid Email", registerViewModel: registerViewModel).keyboardType(.emailAddress).keyboardType(.emailAddress)
                     
                     
@@ -88,18 +88,47 @@ struct Email: View {
     @State var textField: String = ""
     @ObservedObject var registerViewModel: RegisterViewModel
     @State var isEmailValid: Bool = true
-
+    @State var isPasswordValid : Bool = true
     var body: some View {
-        Group {
+        
+        if textNames == "Email" {
             Text(textNames).foregroundColor(.orange)
             TextField(textField, text: $text, onEditingChanged: { (isChanged) in
-                if !isChanged {
+                if (isChanged) {
                     self.isEmailValid = registerViewModel.textFieldValidatorEmail( self.registerViewModel.email)
                     if !self.isEmailValid {
                         self.registerViewModel.email = ""
                     }
                 }
             })
+            .padding()
+            .cornerRadius(5.0)
+            .foregroundColor(.black)
+            .overlay(
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(Color.black, lineWidth: 2)
+            )
+            .overlay(
+                Image(systemName: "exclamationmark.circle.fill")
+                    .foregroundColor(.red)
+                    .padding(.trailing, 8)
+                    .opacity(self.isEmailValid ? 0 : 1)
+                    .animation(.default)
+                , alignment: .trailing
+            )
+            if !self.isEmailValid && !self.registerViewModel.email.isEmpty {
+                Text("Email is Not Valid")
+                    .font(.callout)
+                    .foregroundColor(Color.red)
+                    .padding(.top, 5)
+            }else{
+                SecureField(textField, text: $registerViewModel.password) {
+                    // On commit, validate password
+                    self.isPasswordValid = registerViewModel.textFieldValidatorPassword(self.registerViewModel.password)
+                    if !self.isPasswordValid {
+                        self.registerViewModel.password = ""
+                    }
+                }
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
@@ -107,7 +136,24 @@ struct Email: View {
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.black, lineWidth: 2)
                 )
+                .overlay(
+                    Image(systemName: "exclamationmark.circle.fill")
+                        .foregroundColor(.red)
+                        .padding(.trailing, 8)
+                        .opacity(self.isPasswordValid ? 0 : 1)
+                        .animation(.default)
+                    , alignment: .trailing
+                )
+                
+                if !self.isPasswordValid && !self.registerViewModel.password.isEmpty {
+                    Text("Password must be at least 8 characters long")
+                        .font(.callout)
+                        .foregroundColor(Color.red)
+                        .padding(.top, 5)
+                }
+            }
         }
+            
     }
 }
 
