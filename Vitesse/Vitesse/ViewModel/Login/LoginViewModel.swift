@@ -11,6 +11,7 @@ class LoginViewModel: ObservableObject {
     @Published var username: String = "admin@vitesse.com"
     @Published var password: String = "test123"
     @Published var isLoggedIn: Bool = false
+    @Published var message : String = ""
     
     let keychain: Keychain
     let authenticationManager: AuthenticationManager
@@ -29,6 +30,14 @@ class LoginViewModel: ObservableObject {
     // Authenticate user and proceed
     @MainActor
     func authenticateUserAndProceed() async throws -> JSONResponseDecodingModel {
+        
+        if username.isEmpty{
+            message =  "veuillez vérifier l'émail ou de nom d'utilisateur"
+        }else if password.isEmpty{
+            message = "Veuillez entrez un mot de passe valide"
+        }
+        
+        
         do {
             // Authenticate user with username and password
             let authenticationResult = try await authenticationManager.authenticate(username: username, password: password)
@@ -39,9 +48,10 @@ class LoginViewModel: ObservableObject {
             // Update login status and call success callback
             self.isLoggedIn = true
             onLoginSucceed()
-            
+          
             return authenticationResult
         } catch {
+            
             // Handle authentication error
             throw AuthViewModelFailure.tokenInvalide
         }

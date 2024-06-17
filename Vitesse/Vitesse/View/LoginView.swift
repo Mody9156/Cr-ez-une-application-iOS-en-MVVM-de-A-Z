@@ -5,6 +5,7 @@ struct LoginView: View {
     @StateObject var loginViewModel: LoginViewModel
     @State private var rotationAngle: Double = 0
     var vitesseViewModel: VitesseViewModel
+    @State private var showingAlert = false
     
     var body: some View {
         NavigationStack {
@@ -38,11 +39,14 @@ struct LoginView: View {
                     }
                     .padding(.bottom, 20)
                     
-                    AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register)
+                    AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert)
+                        .alert(loginViewModel.message, isPresented: $showingAlert) {
+                        Button("OK", role: .cancel) { }
+                    }
                     //insérer un text
                     
                     
-                    AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register)
+                    AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert)
                         .sheet(isPresented: $register) {
                             RegistrationView(
                                 registerViewModel: vitesseViewModel.registerViewModel,
@@ -63,6 +67,7 @@ struct AuthExtractor: View {
     var textName: String = ""
     
     var body: some View {
+      
         Text(textName)
             .foregroundColor(.orange)
         if textName == "Email/Username" {
@@ -91,13 +96,19 @@ struct AuthButton: View {
     var title: String = ""
     @ObservedObject var loginViewModel: LoginViewModel
     @Binding var register: Bool
-    
+    @Binding var showingAlert : Bool
     var body: some View {
         Button(title) {
             if title == "Sign in" {
                 Task { @MainActor in
                     try? await loginViewModel.authenticateUserAndProceed()
                 }
+                if loginViewModel.isLoggedIn {
+                    showingAlert = false
+                }else{
+                    showingAlert = true
+                }
+                
             } else {
                 register = true
             }
@@ -107,6 +118,7 @@ struct AuthButton: View {
         .padding()
         .background(Color.orange)
         .cornerRadius(10)
-        .frame(maxWidth: .infinity) // Ajustement de la largeur du bouton
+        .frame(maxWidth: .infinity)
+        // Ajustement de la largeur du bouton
     }
 }
