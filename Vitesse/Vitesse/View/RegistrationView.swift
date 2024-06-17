@@ -37,7 +37,7 @@ struct RegistrationView: View {
                     PasswordInputField(
                         textField: "Enter your password",
                         text: $registerViewModel.password,
-                        textNames: "Password", registerViewModel: $registerViewModel
+                        textNames: "Password", registerViewModel: registerViewModel
                     )
                 }
                 .padding()
@@ -149,16 +149,14 @@ struct PasswordInputField: View {
                         .animation(.default)
                     , alignment: .trailing
                 )
-                .onChange(of: text) { newValue in
-                    // Ajoutez votre logique ici pour vérifier le mot de passe
-                    print("Password field changed to: \(newValue)")
-                    if !self.isPasswordValid && !self.registerViewModel.password.isEmpty {
-                        Text("Password must be at least 8 characters long")
-                            .font(.callout)
-                            .foregroundColor(Color.red)
-                            .padding(.top, 5)
-                    }
-                }
+            
+            if !self.isPasswordValid && !self.registerViewModel.password.isEmpty {
+                Text("Password must be at least 8 characters long")
+                    .font(.callout)
+                    .foregroundColor(Color.red)
+                    .padding(.top, 5)
+            }
+                
         }
     }
 }

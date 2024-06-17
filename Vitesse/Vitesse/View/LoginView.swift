@@ -89,12 +89,13 @@ struct AuthExtractor: View {
                         self.isEmailValid = loginViewModel.textFieldValidatorEmail(self.loginViewModel.username)
                         if !self.isEmailValid {
                             self.loginViewModel.username = ""
+                            loginViewModel.message = "Please check the email or username"
                         }
                     }
                 })
                 .padding()
-                .textContentType(.emailAddress)     
-                .disableAutocorrection(true)          
+                .textContentType(.emailAddress)
+                .disableAutocorrection(true)
                 .textInputAutocapitalization(.never)
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
@@ -123,6 +124,7 @@ struct AuthExtractor: View {
                     self.isPasswordValid = loginViewModel.textFieldValidatorPassword(self.loginViewModel.password)
                     if !self.isPasswordValid {
                         self.loginViewModel.password = ""
+                        loginViewModel.message = "Please enter a valid password"
                     }
                 }
                 .padding()
@@ -164,16 +166,15 @@ struct AuthButton: View {
                 Task { @MainActor in
                     try? await loginViewModel.authenticateUserAndProceed()
                 }
-                                if loginViewModel.isLoggedIn {
-                                    showingAlert = false
-                                } else {
-                                    showingAlert = true
-                                }
+                if loginViewModel.isLoggedIn {
+                    showingAlert = false
+                } else {
+                    showingAlert = true
+                }
                 
-                            } else {
-                                register = true
-                            }
-            
+            } else {
+                register = true
+            }
         }
         .font(.headline)
         .foregroundColor(.white)
