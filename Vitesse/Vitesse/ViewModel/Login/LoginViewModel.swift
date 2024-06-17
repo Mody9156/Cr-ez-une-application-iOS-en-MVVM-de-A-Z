@@ -5,10 +5,11 @@ class LoginViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var isLoggedIn: Bool = false
     @Published var message: String = ""
-    
+
     let keychain: Keychain
     let authenticationManager: AuthenticationManager
     var onLoginSucceed: (() -> ())
+    
     
     init(_ callback: @escaping () -> (), authenticationManager: AuthenticationManager = AuthenticationManager(), keychain: Keychain = Keychain()) {
         self.onLoginSucceed = callback

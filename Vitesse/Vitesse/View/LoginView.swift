@@ -47,7 +47,6 @@ struct LoginView: View {
                         .alert(isPresented: $showingAlert) {
                             Alert(title: Text("Erreur"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                         }
-                    
                         .padding(.bottom, 10)
                     
                     AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert)
@@ -77,7 +76,8 @@ struct AuthExtractor: View {
     var textField: String = ""
     var textName: String = ""
     @Binding var isEmailValid: Bool
-    @Binding  var isPasswordValid: Bool
+    @Binding var isPasswordValid: Bool
+    
     var body: some View {
         VStack {
             Text(textName)
@@ -98,7 +98,8 @@ struct AuthExtractor: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.black, lineWidth: 2)
-                ) .overlay(
+                )
+                .overlay(
                     Image(systemName: "exclamationmark.circle.fill")
                         .foregroundColor(.red)
                         .padding(.trailing, 8)
@@ -115,7 +116,7 @@ struct AuthExtractor: View {
                 }
             } else {
                 SecureField(textField, text: $loginViewModel.password) {
-                    
+                    // On commit, validate password
                     self.isPasswordValid = loginViewModel.textFieldValidatorPassword(self.loginViewModel.password)
                     if !self.isPasswordValid {
                         self.loginViewModel.password = ""
@@ -127,7 +128,8 @@ struct AuthExtractor: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.black, lineWidth: 2)
-                ).overlay(
+                )
+                .overlay(
                     Image(systemName: "exclamationmark.circle.fill")
                         .foregroundColor(.red)
                         .padding(.trailing, 8)
@@ -159,7 +161,11 @@ struct AuthButton: View {
                 Task { @MainActor in
                     try? await loginViewModel.authenticateUserAndProceed()
                 }
-               
+                if loginViewModel.isLoggedIn {
+                    showingAlert = false
+                } else {
+                    showingAlert = true
+                }
                 
             } else {
                 register = true
