@@ -204,11 +204,8 @@ extension CandidateDetailView {
     func loadCandidateProfile() async throws {
         
         candidateDetailsManagerViewModel.selectedCandidateId = candidateInformation.id
-<<<<<<< HEAD
         let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails()
-=======
-        let loadedCandidate = try await  candidateDetailsManagerViewModel.displayCandidateDetails()
->>>>>>> favoris
+       try await  candidateDetailsManagerViewModel.displayCandidateDetails()
         updateView(with: loadedCandidate)
         try await candidateListViewModel.displayCandidatesList()
         
