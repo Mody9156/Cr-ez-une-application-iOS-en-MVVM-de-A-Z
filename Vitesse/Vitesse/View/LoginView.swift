@@ -6,6 +6,7 @@ struct LoginView: View {
     @State private var rotationAngle: Double = 0
     var vitesseViewModel: VitesseViewModel
     @State private var showingAlert = false
+    @State private var isEmailValid : Bool   = true
     
     var body: some View {
         NavigationStack {
@@ -33,9 +34,10 @@ struct LoginView: View {
                         .padding(.bottom, 20)
                     
                     VStack(alignment: .leading) {
-                        AuthExtractor(loginViewModel: loginViewModel, textField: "Entrez un Email ou Username valide", textName: "Email/Username")
+                        AuthExtractor(loginViewModel: loginViewModel, textField: "Entrez un Email ou Username valide", textName: "Email/Username", isEmailValid: $isEmailValid)
                         
-                        AuthExtractor(loginViewModel: loginViewModel, textField: "Veuillez entrez un mot de passe valide", textName: "Password")
+                        
+                        AuthExtractor(loginViewModel: loginViewModel, textField: "Veuillez entrez un mot de passe valide", textName: "Password", isEmailValid: $isEmailValid)
                     }
                     .padding(.bottom, 20)
                     
@@ -65,13 +67,21 @@ struct AuthExtractor: View {
     @ObservedObject var loginViewModel: LoginViewModel
     var textField: String = ""
     var textName: String = ""
-    
+    @Binding var isEmailValid: Bool
     var body: some View {
       
         Text(textName)
             .foregroundColor(.orange)
         if textName == "Email/Username" {
-            TextField(textField, text: $loginViewModel.username)
+            TextField(textField, text: $loginViewModel.username,onEditingChanged: { (isChanged) in
+                if isChanged {
+                           // Reset seulement à la fin de l'édition
+                           self.isEmailValid = loginViewModel.textFieldValidatorEmail(self.loginViewModel.username)
+                           if !self.isEmailValid {
+                               self.loginViewModel.username = ""
+                           }
+                       }
+            })
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
@@ -79,6 +89,11 @@ struct AuthExtractor: View {
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.black, lineWidth: 2)
                 )
+            if !self.isEmailValid && !self.loginViewModel.username.isEmpty {
+                    Text("Email is Not Valid")
+                        .font(.callout)
+                        .foregroundColor(Color.red)
+                }
         } else {
             SecureField(textField, text: $loginViewModel.password)
                 .padding()
