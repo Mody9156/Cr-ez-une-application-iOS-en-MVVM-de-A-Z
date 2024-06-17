@@ -79,7 +79,7 @@ struct LabeledTextField: View {
                 .foregroundColor(.black)
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.orange, lineWidth: 2)
+                        .stroke(Color.black, lineWidth: 2)
                 )
         }
     }
@@ -99,7 +99,7 @@ struct PasswordInputField: View {
                 .foregroundColor(.black)
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.orange, lineWidth: 2)
+                        .stroke(Color.black, lineWidth: 2)
                 )
         }
     }
