@@ -93,6 +93,9 @@ struct AuthExtractor: View {
                     }
                 })
                 .padding()
+                .textContentType(.emailAddress)     
+                .disableAutocorrection(true)          
+                .textInputAutocapitalization(.never)
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
                 .overlay(
