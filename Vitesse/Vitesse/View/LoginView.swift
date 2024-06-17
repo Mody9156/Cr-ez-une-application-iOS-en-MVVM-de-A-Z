@@ -115,7 +115,7 @@ struct AuthExtractor: View {
                 }
             } else {
                 SecureField(textField, text: $loginViewModel.password) {
-                    // On commit, validate password
+                    
                     self.isPasswordValid = loginViewModel.textFieldValidatorPassword(self.loginViewModel.password)
                     if !self.isPasswordValid {
                         self.loginViewModel.password = ""
@@ -159,11 +159,7 @@ struct AuthButton: View {
                 Task { @MainActor in
                     try? await loginViewModel.authenticateUserAndProceed()
                 }
-                if loginViewModel.isLoggedIn {
-                    showingAlert = false
-                } else {
-                    showingAlert = true
-                }
+               
                 
             } else {
                 register = true

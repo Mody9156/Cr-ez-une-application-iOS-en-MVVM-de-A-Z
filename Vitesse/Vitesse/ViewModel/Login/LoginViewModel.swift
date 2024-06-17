@@ -17,11 +17,8 @@ class LoginViewModel: ObservableObject {
     }
     
     func textFieldValidatorPassword(_ string: String) -> Bool {
-      
-        if string.count >= 8 {
-            return true
-        }
-        return false
+        
+        return string.count >= 8
     }
     
     func textFieldValidatorEmail(_ string: String) -> Bool {
@@ -41,18 +38,18 @@ class LoginViewModel: ObservableObject {
     func authenticateUserAndProceed() async throws -> JSONResponseDecodingModel {
         
         if username.isEmpty && password.isEmpty {
-               message = "Please enter both an email/username and a valid password"
-           } else if username.isEmpty {
-               message = "Please check the email or username"
-           } else if password.isEmpty {
-               message = "Please enter a valid password"
-           } else {
-               message = ""
-           }
+            message = "Please enter both an email/username and a valid password"
+        } else if username.isEmpty {
+            message = "Please check the email or username"
+        } else if password.isEmpty {
+            message = "Please enter a valid password"
+        } else {
+            message = ""
+        }
         
         guard !username.isEmpty && !password.isEmpty else {
-                throw AuthViewModelFailure.usernameAndPasswordInvalid
-            }
+            throw AuthViewModelFailure.usernameAndPasswordInvalid
+        }
         
         do {
             // Authenticate user with username and password
