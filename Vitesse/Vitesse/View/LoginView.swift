@@ -8,6 +8,8 @@ struct LoginView: View {
     @State private var showingAlert = false
     @State private var isEmailValid: Bool = true
     @State private var alertMessage = ""
+    @State private var isPasswordValid: Bool = true
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -34,10 +36,10 @@ struct LoginView: View {
                         .padding(.bottom, 20)
                     
                     VStack(alignment: .leading) {
-                        AuthExtractor(loginViewModel: loginViewModel, textField: "Entrez un Email ou Username valide", textName: "Email/Username", isEmailValid: $isEmailValid)
+                        AuthExtractor(loginViewModel: loginViewModel, textField: "Entrez un Email ou Username valide", textName: "Email/Username", isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid)
                             .padding(.bottom, 20)
                         
-                        AuthExtractor(loginViewModel: loginViewModel, textField: "Veuillez entrez un mot de passe valide", textName: "Password", isEmailValid: $isEmailValid)
+                        AuthExtractor(loginViewModel: loginViewModel, textField: "Veuillez entrez un mot de passe valide", textName: "Password", isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid)
                             .padding(.bottom, 20)
                     }
                     
@@ -75,7 +77,7 @@ struct AuthExtractor: View {
     var textField: String = ""
     var textName: String = ""
     @Binding var isEmailValid: Bool
-    @State private var isPasswordValid: Bool = true
+    @Binding  var isPasswordValid: Bool
     
     var body: some View {
         VStack {
