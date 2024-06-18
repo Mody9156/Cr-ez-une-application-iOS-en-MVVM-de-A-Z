@@ -58,8 +58,8 @@ class LoginViewModel: ObservableObject {
             // Update login status and call success callback
             self.isLoggedIn = true
             
-            if  !authenticationResult.isAdmin && (username.isEmpty && password.isEmpty){
-                message = "Please enter both an email/username and a valid password"
+            if (!authenticationResult.isAdmin && (username.isEmpty || password.isEmpty)) {
+                message = "Please enter both a username and a password";
             }
             
             onLoginSucceed()
@@ -69,5 +69,6 @@ class LoginViewModel: ObservableObject {
             // Handle authentication error
             throw AuthViewModelFailure.tokenInvalid
         }
+        
     }
 }
