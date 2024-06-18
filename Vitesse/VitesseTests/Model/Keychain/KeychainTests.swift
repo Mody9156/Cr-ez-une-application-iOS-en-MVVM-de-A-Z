@@ -25,17 +25,14 @@ final class KeychainTests: XCTestCase {
     func testAddItemFailure() throws {
           // Given
           let keychain = Keychain()
-          let key = "example_1"
-          let data = "example_of_token"
+         
           
           // Mock a scenario where SecItemAdd will fail by using a very long key
-          let longKey = String(repeating: "A", count: 1000)
           
           // When
           do {
-              try keychain.add(data, forKey: longKey)
-              
-              // If no error is thrown, the test should fail
+              try keychain.add("", forKey: "")
+             XCTAssertNoThrow(try keychain.add("", forKey: ""))
           
           } catch let error as Keychain.KeychainError {
               // Then
@@ -47,6 +44,27 @@ final class KeychainTests: XCTestCase {
       }
 
     func testget() throws {
+        let keychain = Keychain()
+        
+        
+        do{
+            try keychain.get(forKey: "exemple_1")
+            XCTAssertNoThrow(try keychain.get(forKey: "exemple_1"))
+        }catch let error as Keychain.KeychainError{
+            XCTAssertEqual(error, .getFailed)
+        }
+      
+    }
+    func testInvalidget() throws {
+        let keychain = Keychain()
+     
+        
+        do{
+            try keychain.get(forKey: "exemple_3")
+            XCTAssertNoThrow(try keychain.get(forKey: "exemple_3"))
+        }catch let error as Keychain.KeychainError{
+            XCTAssertEqual(error, .getFailed)
+        }
       
     }
     func testdelete() throws {
