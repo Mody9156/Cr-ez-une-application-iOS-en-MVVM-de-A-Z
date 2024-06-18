@@ -148,9 +148,10 @@ final class CandidateListViewModelTests: XCTestCase {
       let mockCandidateDataManager = MockCandidateDataManager(httpService: mockHTTPServicee)
         
         do{
-            
+            let removeCandidate =  try await candidateListViewModel.removeCandidate(at: IndexSet())
+              XCTAssertNoThrow(removeCandidate)
         }catch{
-            try await candidateListViewModel.deleteCandidate(at: IndexSet())
+         XCTFail("erreru")
         }
         
     }

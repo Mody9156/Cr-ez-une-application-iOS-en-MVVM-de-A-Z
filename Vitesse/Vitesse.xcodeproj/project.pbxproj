@@ -24,6 +24,7 @@
 		23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE862BF74CB700F3FA1E /* TokenStore.swift */; };
 		23D1FE8B2BF7BDAD00F3FA1E /* CandidateInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */; };
 		23D3BAE22C2199F7007C58A7 /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D3BAE12C2199F7007C58A7 /* KeychainTests.swift */; };
+		23D3BAE42C222B1C007C58A7 /* CandidateDetailsManagerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D3BAE32C222B1C007C58A7 /* CandidateDetailsManagerViewModelTests.swift */; };
 		23D88E4A2C1A0C4C00DD73E7 /* RegisterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D88E492C1A0C4C00DD73E7 /* RegisterViewModelTests.swift */; };
 		23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */; };
 		23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2982BF509B1006FC31E /* RegistrationView.swift */; };
@@ -73,6 +74,7 @@
 		23D1FE862BF74CB700F3FA1E /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
 		23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateInformation.swift; sourceTree = "<group>"; };
 		23D3BAE12C2199F7007C58A7 /* KeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTests.swift; sourceTree = "<group>"; };
+		23D3BAE32C222B1C007C58A7 /* CandidateDetailsManagerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDetailsManagerViewModelTests.swift; sourceTree = "<group>"; };
 		23D88E492C1A0C4C00DD73E7 /* RegisterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModelTests.swift; sourceTree = "<group>"; };
 		23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONAuthentification.swift; sourceTree = "<group>"; };
 		23D8A2982BF509B1006FC31E /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				238F3B822C1A2D70000269ED /* CandidateListViewModelTests.swift */,
+				23D3BAE32C222B1C007C58A7 /* CandidateDetailsManagerViewModelTests.swift */,
 			);
 			path = Candidate;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 			files = (
 				233AB8892C19EF6E005DEC2B /* LoginViewModelTests.swift in Sources */,
 				23E8F3362C18796200008C9E /* CandidateDataManagerTests.swift in Sources */,
+				23D3BAE42C222B1C007C58A7 /* CandidateDetailsManagerViewModelTests.swift in Sources */,
 				23E8F3312C1855A600008C9E /* RegistreTests.swift in Sources */,
 				23D88E4A2C1A0C4C00DD73E7 /* RegisterViewModelTests.swift in Sources */,
 				233AB8862C19CB1C005DEC2B /* CandidateManagementTests.swift in Sources */,
