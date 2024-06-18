@@ -9,41 +9,52 @@ import XCTest
 @testable import Vitesse
 final class KeychainTests: XCTestCase {
 
-    func testKeychain() throws {
+    func testAdd() throws {
         //Given
        let keychain = Keychain()
         //When
         do{
-     try keychain.add("exemple_of_token", forKey: "exemple_1")
+            let add =  try keychain.add("exemple_of_token", forKey: "exemple_1")
          
         //Then
-            XCTAssertNoThrow( try keychain.add("exemple_of_token", forKey: "exemple_1"))
-        }catch  {
-            XCTFail("Unexpected error: \(error)")        }
-       
+            XCTAssertNoThrow(add)
+        } catch let error as Keychain.KeychainError {
+            // Ensure the correct error is thrown
+            XCTAssertEqual(error, .insertFailed, "Expected to receive an insertFailed error.")
+        } catch {
+            // If any other error is thrown, the test should fail
+            XCTFail("Unexpected error: \(error)")
+        }
     }
-    func testAddItemFailure() throws {
-          // Given
-          let keychain = Keychain()
-         
-          // When
-          do {
-              try keychain.add("gger", forKey: "k")
-              XCTFail("Expected to receive a deleteFailed error.")
-
-          } catch let error as Keychain.KeychainError {
-              // Then
-              XCTAssertEqual(error, .insertFailed)
-          } 
-      }
+   
+    func testAddDuplicateItem() throws {
+           // Given
+           let keychain = Keychain()
+           let token = "example_of_token"
+           let key = ""
+           
+           do {
+               // When
+              let add = try keychain.add(token, forKey: key)
+               XCTAssertNoThrow(add)
+               // Then
+           } catch let error as Keychain.KeychainError {
+               // Ensure the correct error is thrown
+               XCTAssertEqual(error, .insertFailed, "Expected to receive an insertFailed error.")
+           } catch {
+               // If any other error is thrown, the test should fail
+               XCTFail("Unexpected error: \(error)")
+           }
+       }// a revoir pas d'erreur
 
     func testget() throws {
         let keychain = Keychain()
         
         
         do{
-            try keychain.get(forKey: "exemple_1")
-            XCTAssertNoThrow(try keychain.get(forKey: "exemple_1"))
+            try keychain.add("kjnezrgzer", forKey: "exemple_1")
+           let get =  try keychain.get(forKey: "exemple_1")
+            XCTAssertNoThrow(get)
         }catch let error as Keychain.KeychainError{
             XCTAssertEqual(error, .getFailed)
         }
@@ -53,8 +64,8 @@ final class KeychainTests: XCTestCase {
         let keychain = Keychain()
         
         do{
-            try keychain.get(forKey: "exemple_3")
-            XCTAssertNoThrow(try keychain.get(forKey: "exemple_3"))
+           let get =  try keychain.get(forKey: "exemple_3")
+            XCTAssertNoThrow(get)
         }catch let error as Keychain.KeychainError{
             XCTAssertEqual(error, .getFailed)
         }
