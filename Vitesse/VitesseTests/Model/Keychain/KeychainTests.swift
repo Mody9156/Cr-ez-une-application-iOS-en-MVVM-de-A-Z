@@ -60,9 +60,23 @@ final class KeychainTests: XCTestCase {
         }
       
     }
+    
     func test_delete() throws {
         let keychain = Keychain()
-        let token = String(repeating: "Mf", count: 15)
+        let token = String(repeating: "Mffzef", count: 15)
+        
+        do{
+            try keychain.add(token, forKey: "exemple_20")
+             try keychain.delete(forKey: "exemple_50")
+            XCTFail("Expected to receive a deleteFailed error.")
+
+        }catch let error as Keychain.KeychainError{
+            XCTAssertEqual(error, .deleteFailed)
+        }
+    }
+    
+    func test_Invalid_delete() throws {
+        let keychain = Keychain()
         
         do{
              try keychain.delete(forKey: "exemple_50")
