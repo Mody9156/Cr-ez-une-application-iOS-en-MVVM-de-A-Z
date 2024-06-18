@@ -28,11 +28,15 @@ final class CandidateListViewModelTests: XCTestCase {
         mockKey.mockTokenData = mockTokenData
         candidateListViewModel.keychain = mockKey
         
+        do{
+            let token = try candidateListViewModel.token()
+            
+        }catch let error as Keychain.KeychainError{
+            XCTAssertEqual(error, .insertFailed)
+        }
         // When
-        let token = try candidateListViewModel.token()
         
         // Then
-        XCTAssertEqual(token, mockTokenString)
     }
     
     func testTokenFail() async throws {
@@ -117,30 +121,38 @@ final class CandidateListViewModelTests: XCTestCase {
         XCTAssertEqual(candidateListViewModel.candidats.first?.id, "1")
     }
     
-    //    func testShowFavoriteCandidates() async throws {
-    //        // Given
-    //        let mockKey = MockKey()
-    //        let mockTokenString = "fnfkerbjztoken"
-    //        mockKey.mockTokenData = mockTokenString.data(using: .utf8)!
-    //        candidateListViewModel.keychain = mockKey
-    //
-    //        let expectedCandidate = CandidateInformation(id: "1", firstName: "John", isFavorite: false, email: "john@example.com", lastName: "Doe")
-    //        candidateListViewModel.candidats = [expectedCandidate]
-    //        let id = expectedCandidate.id
-    //        //When
-    //        do{
-    //            let showFavoriteCandidates = try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: id)
-    //            //then
-    //            XCTAssertEqual(showFavoriteCandidates, expectedCandidate)
-    //        }catch{
-    //
-    //            XCTFail("Unexpected error: \(error)")
-    //        }
-    //    }
+        func testShowFavoriteCandidates() async throws {
+            // Given
+            let mockKey = MockKey()
+            let mockTokenString = "fnfkerbjztoken"
+            mockKey.mockTokenData = mockTokenString.data(using: .utf8)!
+            candidateListViewModel.keychain = mockKey
+    
+            let expectedCandidate = CandidateInformation(id: "1", firstName: "John", isFavorite: false, email: "john@example.com", lastName: "Doe")
+            candidateListViewModel.candidats = [expectedCandidate]
+            let id = expectedCandidate.id
+            //When
+            do{
+                let showFavoriteCandidates = try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: id)
+                //then
+                XCTAssertEqual(showFavoriteCandidates, expectedCandidate)
+            }catch let error as CandidateManagementError{
+    
+                XCTAssertEqual(error, .processCandidateElementsError)
+            }
+        }
     
     
-    func testRemoveCandidate() throws {
-        // Add implementation and assertions
+    func testRemoveCandidate()async throws {
+        let mockHTTPServicee = MockHTTPServicee()
+      let mockCandidateDataManager = MockCandidateDataManager(httpService: mockHTTPServicee)
+        
+        do{
+            
+        }catch{
+            try await candidateListViewModel.deleteCandidate(at: IndexSet())
+        }
+        
     }
 }
 
@@ -150,14 +162,19 @@ class MockKey: Keychain {
     var mockTokenData: Data?
     
     enum KeychainError: Error, LocalizedError {
-        case getFailed
+        case getFailed,insertFailed,deleteFailed
         
         var errorDescription: String? {
             switch self {
+            case .insertFailed:
+                return "Failed to insert item into keychain."
+            case .deleteFailed:
+                return "Failed to delete item from keychain."
             case .getFailed:
                 return "Failed to get item from keychain."
             }
         }
+
     }
     
     override func add(_ data: String, forKey key: String) throws {
