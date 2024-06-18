@@ -14,7 +14,7 @@ final class KeychainTests: XCTestCase {
        let keychain = Keychain()
         //When
         do{
-      let add =  try keychain.add("exemple_of_token", forKey: "exemple_1")
+     try keychain.add("exemple_of_token", forKey: "exemple_1")
          
         //Then
             XCTAssertNoThrow( try keychain.add("exemple_of_token", forKey: "exemple_1"))
@@ -26,14 +26,13 @@ final class KeychainTests: XCTestCase {
           // Given
           let keychain = Keychain()
          
-          
-          // Mock a scenario where SecItemAdd will fail by using a very long key
-          
           // When
           do {
-              try keychain.add("", forKey: "")
-             XCTAssertNoThrow(try keychain.add("", forKey: ""))
-          
+              try keychain.add("exemple_of_token", forKey: "exemple_1")
+              try keychain.add("exemple_of_token", forKey: "exemple_1")
+                 
+                 // This point should not be reached, if it is, the test should fail
+              XCTAssertNoThrow(try keychain.add("exemple_of_token", forKey: "exemple_1"))
           } catch let error as Keychain.KeychainError {
               // Then
               XCTAssertEqual(error, .insertFailed, "Expected to receive an insertFailed error.")
@@ -55,9 +54,8 @@ final class KeychainTests: XCTestCase {
         }
       
     }
-    func testInvalidget() throws {
+    func testInvalidGet() throws {
         let keychain = Keychain()
-     
         
         do{
             try keychain.get(forKey: "exemple_3")
@@ -67,8 +65,17 @@ final class KeychainTests: XCTestCase {
         }
       
     }
-    func testdelete() throws {
-      
+    func test_delete() throws {
+        let keychain = Keychain()
+        let token = String(repeating: "Mf", count: 15)
+        
+        do{
+            try keychain.add(token, forKey: "exemple_50")
+             try keychain.delete(forKey: "exemple_50")
+            
+        }catch let error as Keychain.KeychainError{
+            XCTAssertEqual(error, .deleteFailed)
+        }
     }
 
 }
