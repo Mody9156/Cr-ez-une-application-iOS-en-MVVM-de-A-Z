@@ -28,18 +28,13 @@ final class KeychainTests: XCTestCase {
          
           // When
           do {
-              try keychain.add("exemple_of_token", forKey: "exemple_1")
-              try keychain.add("exemple_of_token", forKey: "exemple_1")
-                 
-                 // This point should not be reached, if it is, the test should fail
-              XCTAssertNoThrow(try keychain.add("exemple_of_token", forKey: "exemple_1"))
+              try keychain.add("gger", forKey: "k")
+              XCTFail("Expected to receive a deleteFailed error.")
+
           } catch let error as Keychain.KeychainError {
               // Then
-              XCTAssertEqual(error, .insertFailed, "Expected to receive an insertFailed error.")
-          } catch {
-              // If any other error is thrown, the test should fail
-              XCTFail("Unexpected error: \(error)")
-          }
+              XCTAssertEqual(error, .insertFailed)
+          } 
       }
 
     func testget() throws {
@@ -70,9 +65,9 @@ final class KeychainTests: XCTestCase {
         let token = String(repeating: "Mf", count: 15)
         
         do{
-            try keychain.add(token, forKey: "exemple_50")
              try keychain.delete(forKey: "exemple_50")
-            
+            XCTFail("Expected to receive a deleteFailed error.")
+
         }catch let error as Keychain.KeychainError{
             XCTAssertEqual(error, .deleteFailed)
         }
