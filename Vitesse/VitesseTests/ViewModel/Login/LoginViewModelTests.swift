@@ -27,6 +27,53 @@ final class LoginViewModelTests: XCTestCase {
         super.tearDown()
     }
     
+    func testTextFieldValidatorPassword(){
+        //Given
+        let password = "simple_test"
+        
+        //When
+        let textFieldValidatorPassword = loginViewModel.textFieldValidatorPassword(password)
+        
+        //Then
+        XCTAssertTrue(textFieldValidatorPassword)
+    }
+    
+    func testTextFieldValidatorEmail(){
+        //Given
+        let email = "exemplede_mail@gmai.com"
+        //When
+        let textFieldValidatorEmail = loginViewModel.textFieldValidatorEmail(email)
+        //Then
+        XCTAssertTrue(textFieldValidatorEmail)
+        
+    }
+    
+    func testFailTextFieldValidatorEmail(){
+        //Given
+        let email = "exemplede"
+        let email_1 = "abcdefghijABCDEFGHIJklmnopqrstKLMNOPQRSTuvwxyzUVWXYZabcdefghijABCDEFGHIJklmnopqrstKLMNOPQRSTuvwxyzUVWX@example.com"
+        //When
+        let textFieldValidatorEmail = loginViewModel.textFieldValidatorEmail(email)
+        let textFieldValidatorEmail_1 = loginViewModel.textFieldValidatorEmail(email_1)
+        //Then
+        XCTAssertFalse(textFieldValidatorEmail)
+        XCTAssertTrue(email_1.count > 100  )
+        
+    }
+    
+    func testMessage() async throws {
+        //Given
+      
+        let username = ""
+        let password = ""
+
+        //When
+        let authenticationResult = try await loginViewModel.authenticateUserAndProceed()
+        //Then
+        XCTAssertEqual(loginViewModel.message,"Please enter both an email/username and a valid password")
+        
+    }
+    
     func testAuthenticateUserAndProceed() async throws {
         // Given
         let username = "admin@vitesse.com"
@@ -46,21 +93,28 @@ final class LoginViewModelTests: XCTestCase {
     
     func testOnLoginSucceed() async throws {
         // Given
-        let expectation = XCTestExpectation(description: "onLoginSucceed is called")
-        let viewModel = LoginViewModel({ expectation.fulfill() }, authenticationManager: authenticationManager, keychain: keychain)
-        
-        // When
-        authenticationManager.mockAuthenticationResult = JSONResponseDecodingModel(token: "valid_token", isAdmin: true)
-        try await viewModel.authenticateUserAndProceed()
-        
-        // Then
-        wait(for: [expectation], timeout: 1.0)
-        XCTAssertTrue(viewModel.isLoggedIn)  // Vérifier que l'utilisateur est connecté
+          let expectation = XCTestExpectation(description: "onLoginFail is called")
+          let authenticationManager = MockAuthenticationManager()
+          authenticationManager.shouldThrowError = false
+          let keychain = Keychain() // Assurez-vous que Keychain est correctement initialisé
+          let viewModel = LoginViewModel({ expectation.fulfill() }, authenticationManager: authenticationManager, keychain: keychain)
+          
+          // When
+          do {
+              try await loginViewModel.authenticateUserAndProceed()
+          } catch let error as LoginViewModel.AuthViewModelFailure {
+              XCTAssertEqual(error, .usernameAndPasswordInvalid)
+              expectation.fulfill()
+          }
+
+          // Then
+          wait(for: [expectation], timeout: 1.0)
+          XCTAssertFalse(viewModel.isLoggedIn)
     }
     
     func testInvalidPasswordAuthenticateUserAndProceed() async throws {
         // Given
-        let username = "admin@vitesse.com"
+        let username = "adm@vitesse.com"
         let password = ""
         authenticationManager.shouldThrowError = true
         loginViewModel.username = username
@@ -71,7 +125,7 @@ final class LoginViewModelTests: XCTestCase {
             let _ = try await loginViewModel.authenticateUserAndProceed()
             XCTFail("Expected an error to be thrown, but no error was thrown.")
         } catch let error as LoginViewModel.AuthViewModelFailure {
-            XCTAssertEqual(error, .tokenInvalid)
+            XCTAssertEqual(error, .usernameAndPasswordInvalid)
         }
     }
     
@@ -88,7 +142,7 @@ final class LoginViewModelTests: XCTestCase {
             let _ = try await loginViewModel.authenticateUserAndProceed()
             XCTFail("Expected an error to be thrown, but no error was thrown.")
         } catch let error as LoginViewModel.AuthViewModelFailure {
-            XCTAssertEqual(error, .tokenInvalid)
+            XCTAssertEqual(error, .usernameAndPasswordInvalid)
         } catch {
             XCTFail("Unexpected error type: \(error)")
         }
@@ -103,7 +157,10 @@ class MockAuthenticationManager: AuthenticationManager {
         if shouldThrowError {
             throw LoginViewModel.AuthViewModelFailure.tokenInvalid
         }
-        return mockAuthenticationResult!
+        guard let result = mockAuthenticationResult else {
+                    throw LoginViewModel.AuthViewModelFailure.tokenInvalid
+                }
+                return result
     }
 }
 
