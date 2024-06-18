@@ -9,38 +9,47 @@ import XCTest
 @testable import Vitesse
 final class KeychainTests: XCTestCase {
 
-    func testkeychain() throws {
+    func testKeychain() throws {
         //Given
        let keychain = Keychain()
         //When
         do{
-       try keychain.add("exemple_of_token", forKey: "exemple_1")
+      let add =  try keychain.add("exemple_of_token", forKey: "exemple_1")
          
         //Then
             XCTAssertNoThrow( try keychain.add("exemple_of_token", forKey: "exemple_1"))
-            
         }catch  {
             XCTFail("Unexpected error: \(error)")        }
        
     }
-//    func testInvalid_keychain() throws {
-//        //Given
-//       let keychain = Keychain()
-//        //When
-//        do{
-//         let add =  try keychain.add("exemple_of_token", forKey: "")
-//         let get =  try keychain.get(forKey: "exemple_1")
-//            guard let encodingToken = String(data: get, encoding: .utf8) else {
-//                throw CandidateManagementError.fetchTokenError
-//            }
-//
-//            XCTAsserttrue(encodingToken.isEmpty)
-//        }catch let error as Keychain.KeychainError {
-//            XCTAssertEqual(error, .insertFailed,"Failed to insert item into keychain.")
-//        }
-//
-//    }
-    func testPerformanceExample() throws {
+    func testAddItemFailure() throws {
+          // Given
+          let keychain = Keychain()
+          let key = "example_1"
+          let data = "example_of_token"
+          
+          // Mock a scenario where SecItemAdd will fail by using a very long key
+          let longKey = String(repeating: "A", count: 1000)
+          
+          // When
+          do {
+              try keychain.add(data, forKey: longKey)
+              
+              // If no error is thrown, the test should fail
+          
+          } catch let error as Keychain.KeychainError {
+              // Then
+              XCTAssertEqual(error, .insertFailed, "Expected to receive an insertFailed error.")
+          } catch {
+              // If any other error is thrown, the test should fail
+              XCTFail("Unexpected error: \(error)")
+          }
+      }
+
+    func testget() throws {
+      
+    }
+    func testdelete() throws {
       
     }
 
