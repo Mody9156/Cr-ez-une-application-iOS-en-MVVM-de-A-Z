@@ -16,6 +16,9 @@ class LoginViewModel: ObservableObject {
         self.authenticationManager = authenticationManager
         self.keychain = keychain
     }
+    enum AuthViewModelFailure: Error {
+        case tokenInvalid,usernameAndPasswordInvalid
+    }
     
     func textFieldValidatorPassword(_ string: String) -> Bool {
         
@@ -34,9 +37,7 @@ class LoginViewModel: ObservableObject {
         return emailPredicate.evaluate(with: string)
     }
     
-    enum AuthViewModelFailure: Error {
-        case tokenInvalid,usernameAndPasswordInvalid
-    }
+    
     // Authenticate user and proceed
     @MainActor
     func authenticateUserAndProceed() async throws -> JSONResponseDecodingModel {

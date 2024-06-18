@@ -71,7 +71,7 @@ final class LoginViewModelTests: XCTestCase {
             let _ = try await loginViewModel.authenticateUserAndProceed()
             XCTFail("Expected an error to be thrown, but no error was thrown.")
         } catch let error as LoginViewModel.AuthViewModelFailure {
-            XCTAssertEqual(error, .tokenInvalide)
+            XCTAssertEqual(error, .tokenInvalid)
         }
     }
     
@@ -88,7 +88,7 @@ final class LoginViewModelTests: XCTestCase {
             let _ = try await loginViewModel.authenticateUserAndProceed()
             XCTFail("Expected an error to be thrown, but no error was thrown.")
         } catch let error as LoginViewModel.AuthViewModelFailure {
-            XCTAssertEqual(error, .tokenInvalide)
+            XCTAssertEqual(error, .tokenInvalid)
         } catch {
             XCTFail("Unexpected error type: \(error)")
         }
@@ -101,7 +101,7 @@ class MockAuthenticationManager: AuthenticationManager {
     
     override func authenticate(username: String, password: String) async throws -> JSONResponseDecodingModel {
         if shouldThrowError {
-            throw LoginViewModel.AuthViewModelFailure.tokenInvalide
+            throw LoginViewModel.AuthViewModelFailure.tokenInvalid
         }
         return mockAuthenticationResult!
     }
