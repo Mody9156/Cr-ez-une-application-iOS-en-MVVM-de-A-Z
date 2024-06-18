@@ -23,6 +23,7 @@
 		23D1FE852BF74C2500F3FA1E /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE842BF74C2500F3FA1E /* Keychain.swift */; };
 		23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE862BF74CB700F3FA1E /* TokenStore.swift */; };
 		23D1FE8B2BF7BDAD00F3FA1E /* CandidateInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */; };
+		23D3BAE22C2199F7007C58A7 /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D3BAE12C2199F7007C58A7 /* KeychainTests.swift */; };
 		23D88E4A2C1A0C4C00DD73E7 /* RegisterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D88E492C1A0C4C00DD73E7 /* RegisterViewModelTests.swift */; };
 		23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */; };
 		23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2982BF509B1006FC31E /* RegistrationView.swift */; };
@@ -71,6 +72,7 @@
 		23D1FE842BF74C2500F3FA1E /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		23D1FE862BF74CB700F3FA1E /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
 		23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateInformation.swift; sourceTree = "<group>"; };
+		23D3BAE12C2199F7007C58A7 /* KeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTests.swift; sourceTree = "<group>"; };
 		23D88E492C1A0C4C00DD73E7 /* RegisterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModelTests.swift; sourceTree = "<group>"; };
 		23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONAuthentification.swift; sourceTree = "<group>"; };
 		23D8A2982BF509B1006FC31E /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 		239640BD2C17301900F123E6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				23D3BAE02C2199CE007C58A7 /* Keychain */,
 				23E8F3342C18793C00008C9E /* Login */,
 				23E8F3332C18793300008C9E /* Registre */,
 				23E8F3322C18792A00008C9E /* Candidate */,
@@ -196,6 +199,14 @@
 			children = (
 				23D1FE842BF74C2500F3FA1E /* Keychain.swift */,
 				23D1FE862BF74CB700F3FA1E /* TokenStore.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		23D3BAE02C2199CE007C58A7 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				23D3BAE12C2199F7007C58A7 /* KeychainTests.swift */,
 			);
 			path = Keychain;
 			sourceTree = "<group>";
@@ -467,6 +478,7 @@
 				23E8F3312C1855A600008C9E /* RegistreTests.swift in Sources */,
 				23D88E4A2C1A0C4C00DD73E7 /* RegisterViewModelTests.swift in Sources */,
 				233AB8862C19CB1C005DEC2B /* CandidateManagementTests.swift in Sources */,
+				23D3BAE22C2199F7007C58A7 /* KeychainTests.swift in Sources */,
 				239640B72C172FDE00F123E6 /* LoginTests.swift in Sources */,
 				238F3B832C1A2D70000269ED /* CandidateListViewModelTests.swift in Sources */,
 			);
