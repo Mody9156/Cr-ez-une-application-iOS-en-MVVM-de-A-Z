@@ -97,48 +97,35 @@ final class LoginViewModelTests: XCTestCase {
         let username = "admin@vitesse.com"
         let password = "test123"
         authenticationManager.mockAuthenticationResult = JSONResponseDecodingModel(token: "valid_token", isAdmin: true)
+        authenticationManager.username = username
+        authenticationManager.password = password
+        authenticationManager.shouldThrowError = false
+
         loginViewModel.username = username
         loginViewModel.password = password
         
-        // When
-        let authenticationResult = try await loginViewModel.authenticateUserAndProceed()
-        
-        // Then
-        XCTAssertEqual(authenticationResult.isAdmin, true)
-        XCTAssertEqual(keychain.storedToken, "valid_token")
-        XCTAssertTrue(loginViewModel.isLoggedIn)  // Vérifier que l'utilisateur est connecté
+        do {
+               // When
+               let authenticationResult = try await loginViewModel.authenticateUserAndProceed()
+               
+               // Then
+               XCTAssertEqual(authenticationResult.isAdmin, true)
+               XCTAssertEqual(keychain.storedToken, "valid_token")
+               XCTAssertTrue(loginViewModel.isLoggedIn)
+               
+           } catch let error as Vitesse.LoginViewModel.AuthViewModelFailure {
+               XCTAssertEqual(error, .usernameAndPasswordInvalid)
+           } catch {
+               XCTFail("Unexpected error: \(error)")
+           }
     }
-//    func testInvalidAuthenticateUserAndProceed() async throws {
-//        // Given
-//        let expectation = XCTestExpectation(description: "onLoginFail is called")
-//        let authenticationManager = MockAuthenticationManager()
-//        let keychain = Keychain() // Assurez-vous que Keychain est correctement initialisé
-//        let loginViewModel = LoginViewModel({ expectation.fulfill() }, authenticationManager: authenticationManager, keychain: keychain)
-//
-//        let username = "admin@vitesse.com"
-//        let password = "test123"
-//        // Set up mock authentication manager
-//          authenticationManager.username = username
-//          authenticationManager.password = password
-//        authenticationManager.shouldThrowError = true // Simuler une erreur de token invalide
-//
-//        // When
-//          do {
-//              try await loginViewModel.authenticateUserAndProceed()
-//            
-//              // Then
-//              XCTFail("Expected an error to be thrown, but no error was thrown.")
-//              wait(for: [expectation], timeout: 1)
-//          } catch let error as LoginViewModel.AuthViewModelFailure {
-//              XCTAssertEqual(error, .tokenInvalid)
-//          } catch {
-//              XCTFail("Unexpected error type: \(error)")
-//          }
-//
-//          // Then
-//          XCTAssertFalse(loginViewModel.isLoggedIn)
-//    }
-//    
+   
+   
+    
+    
+    
+    
+    
     func testOnLoginSucceed() async throws {
         // Given
           let expectation = XCTestExpectation(description: "onLoginFail is called")

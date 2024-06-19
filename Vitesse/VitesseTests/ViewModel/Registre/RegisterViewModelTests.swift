@@ -66,7 +66,33 @@ final class RegisterViewModelTests: XCTestCase {
             
         }
     }
+    
+    func testTextFieldValidatorPassword(){
+        //Given
+        let password = "simple_test"
+        
+        //When
+        let textFieldValidatorPassword = registerViewModel.textFieldValidatorPassword(password)
+        
+        //Then
+        XCTAssertTrue(textFieldValidatorPassword)
+    }
+    
+    
+    func testFailTextFieldValidatorEmail()async throws{
+        //Given
+        let email = "exemplede"
+        let email_1 = "abcdefghijABCDEFGHIJklmnopqrstKLMNOPQRSTuvwxyzUVWXYZabcdefghijABCDEFGHIJklmnopqrstKLMNOPQRSTuvwxyzUVWX@example.com"
+        //When
+        let textFieldValidatorEmail = registerViewModel.textFieldValidatorEmail(email)
+        let textFieldValidatorEmail_1 = registerViewModel.textFieldValidatorEmail(email_1)
+        //Then
+        XCTAssertFalse(textFieldValidatorEmail)
+        XCTAssertTrue(email_1.count > 100  )
+        
+    }
 }
+
 
 class MockRegistrationRequestBuilder: RegistrationRequestBuilder {
     struct MockError: Error {}

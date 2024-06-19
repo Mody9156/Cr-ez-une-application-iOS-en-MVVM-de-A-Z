@@ -37,18 +37,18 @@ class LoginViewModel: ObservableObject {
         return emailPredicate.evaluate(with: string)
     }
     
+  
     
     // Authenticate user and proceed
     @MainActor
     func authenticateUserAndProceed() async throws -> JSONResponseDecodingModel {
-        
-      
-        
-        guard !username.isEmpty && !password.isEmpty else {
-            throw AuthViewModelFailure.usernameAndPasswordInvalid
-        }
-        
+                
+       
         do {
+            if !username.isEmpty && !password.isEmpty {
+                 throw AuthViewModelFailure.usernameAndPasswordInvalid
+             }
+            
             // Authenticate user with username and password
             let authenticationResult = try await authenticationManager.authenticate(username: username, password: password)
             
@@ -58,16 +58,15 @@ class LoginViewModel: ObservableObject {
             // Update login status and call success callback
             self.isLoggedIn = true
             
-            if (!authenticationResult.isAdmin && (username.isEmpty || password.isEmpty)) {
-                message = "Please enter both a username and a password";
-            }
+           
             
             onLoginSucceed()
             
             return authenticationResult
         } catch {
+            
             // Handle authentication error
-            throw AuthViewModelFailure.tokenInvalid
+            throw AuthViewModelFailure.usernameAndPasswordInvalid
         }
         
     }
