@@ -77,7 +77,7 @@ struct LabeledTextField: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.black, lineWidth: 2)
-                )
+                ).autocorrectionDisabled(false)
         }
     }
 }
