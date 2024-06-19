@@ -151,7 +151,7 @@ struct PasswordInputField: View {
                 )
             
             Text("Confirmer le mot de passe").foregroundColor(.orange)
-            SecureField(textField, text: $registerViewModel.confirme_password)
+            SecureField( "Enter your password", text: $registerViewModel.confirme_password)
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
@@ -172,8 +172,9 @@ struct PasswordInputField: View {
                     .font(.callout)
                     .foregroundColor(Color.red)
                     .padding(.top, 5)
-            }
-                
+            }//simpleexempleformodibo@gmail.com
+                //Test123
+            //titimepetter_2@gmail.com
         }
     }
 }

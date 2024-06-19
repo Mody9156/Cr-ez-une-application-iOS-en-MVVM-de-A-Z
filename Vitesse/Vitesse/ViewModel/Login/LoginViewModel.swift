@@ -2,7 +2,7 @@ import Foundation
 
 class LoginViewModel: ObservableObject {
     @Published var username: String = "admin@vitesse.com"
-    @Published var password: String = ""
+    @Published var password: String = "test123"
     @Published var isLoggedIn: Bool = false
     @Published var message: String = ""
 
@@ -42,12 +42,13 @@ class LoginViewModel: ObservableObject {
     // Authenticate user and proceed
     @MainActor
     func authenticateUserAndProceed() async throws -> JSONResponseDecodingModel {
-                
+        
+        if !username.isEmpty && !password.isEmpty {
+             throw AuthViewModelFailure.usernameAndPasswordInvalid
+         }
        
         do {
-            if !username.isEmpty && !password.isEmpty {
-                 throw AuthViewModelFailure.usernameAndPasswordInvalid
-             }
+           
             
             // Authenticate user with username and password
             let authenticationResult = try await authenticationManager.authenticate(username: username, password: password)
@@ -57,8 +58,6 @@ class LoginViewModel: ObservableObject {
             
             // Update login status and call success callback
             self.isLoggedIn = true
-            
-           
             
             onLoginSucceed()
             

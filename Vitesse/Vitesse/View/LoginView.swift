@@ -43,13 +43,13 @@ struct LoginView: View {
                             .padding(.bottom, 20)
                     }
                     
-                    AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert)
+                    AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert, alertMessage: $alertMessage,isPasswordValid: $isPasswordValid, isEmailValid: $isEmailValid)
                         .alert(isPresented: $showingAlert) {
                             Alert(title: Text("Erreur"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                         }
                         .padding(.bottom, 10)
                     
-                    AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert)
+                    AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert, alertMessage: .constant(""),isPasswordValid: $isPasswordValid, isEmailValid: $isEmailValid)
                         .sheet(isPresented: $register) {
                             RegistrationView(
                                 registerViewModel: vitesseViewModel.registerViewModel,
@@ -119,14 +119,7 @@ struct AuthExtractor: View {
                         .padding(.top, 5)
                 }
             } else {
-                SecureField(textField, text: $loginViewModel.password) {
-                    // On commit, validate password
-                    self.isPasswordValid = loginViewModel.textFieldValidatorPassword(self.loginViewModel.password)
-                    if !self.isPasswordValid {
-                        self.loginViewModel.password = ""
-                        loginViewModel.message = "Please enter a valid password"
-                    }
-                }
+                SecureField(textField, text: $loginViewModel.password)
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
@@ -159,19 +152,35 @@ struct AuthButton: View {
     @ObservedObject var loginViewModel: LoginViewModel
     @Binding var register: Bool
     @Binding var showingAlert: Bool
-    
+    @Binding var alertMessage: String
+    @Binding var isPasswordValid: Bool
+    @Binding var isEmailValid: Bool
     var body: some View {
         Button(title) {
             if title == "Sign in" {
-                Task { @MainActor in
-                    try? await loginViewModel.authenticateUserAndProceed()
-                }
-                if loginViewModel.isLoggedIn {
-                    showingAlert = false
+                // Validate fields before attempting to authenticate
+                self.isEmailValid = loginViewModel.textFieldValidatorEmail(loginViewModel.username)
+                self.isPasswordValid = loginViewModel.textFieldValidatorPassword(loginViewModel.password)
+                
+                if self.isEmailValid && self.isPasswordValid {
+                    Task { @MainActor in
+                        do {
+                            try await loginViewModel.authenticateUserAndProceed()
+                            if loginViewModel.isLoggedIn {
+                                showingAlert = false
+                            } else {
+                                alertMessage = "Authentication failed. Please try again."
+                                showingAlert = true
+                            }
+                        } catch {
+                            alertMessage = error.localizedDescription
+                            showingAlert = true
+                        }
+                    }
                 } else {
+                    alertMessage = "Please check the email and password fields."
                     showingAlert = true
                 }
-                
             } else {
                 register = true
             }

@@ -1,11 +1,11 @@
 import Foundation
 
 class RegisterViewModel: ObservableObject {
-    @Published var email: String = ""
-    @Published var password: String = ""
-    @Published var confirme_password: String = ""
-    @Published var firstName: String = ""
-    @Published var lastName: String = ""
+    @Published var email: String = "gegergerg@gmail.com"
+    @Published var password: String = "Test123"
+    @Published var confirme_password: String = "Test123"
+    @Published var firstName: String = "Peter"
+    @Published var lastName: String = "PetitGros"
     let loginViewModel: LoginViewModel
     let registrationRequestBuilder: RegistrationRequestBuilder
     
@@ -30,13 +30,13 @@ class RegisterViewModel: ObservableObject {
     }
     func handleRegistrationViewModel() async throws {
         do {
-            if password == confirme_password {
+         
                 let buildRegistrationRequest = try await registrationRequestBuilder.buildRegistrationRequest(
                     email: email,
                     password: password,
                     firstName: firstName,
                     lastName: lastName)
-            }
+            
           
         } catch {
             throw error
