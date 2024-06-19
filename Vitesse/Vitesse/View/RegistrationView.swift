@@ -5,7 +5,13 @@ struct RegistrationView: View {
     @State private var registre: Bool = false
     @StateObject var loginViewModel: LoginViewModel
     @State private var showingAlert = false
-
+    @State private var alertMessage = ""
+    @State private var isEmailValid: Bool = true
+    @State private var isPasswordValid: Bool = true
+    @State private var isFirstNameValid: Bool = true
+    @State private var isLastNameValid: Bool = true
+    @State private var doPasswordsMatch: Bool = true
+    
     var body: some View {
         ZStack {
             Color.orange.opacity(0.2) // Light orange background
@@ -21,34 +27,51 @@ struct RegistrationView: View {
                     LabeledTextField(
                         textNames: "First Name",
                         text: $registerViewModel.firstName,
-                        textField: "Enter your first name"
+                        textField: "Enter your first name",
+                        isValid: $isFirstNameValid
                     )
                     LabeledTextField(
                         textNames: "Last Name",
                         text: $registerViewModel.lastName,
-                        textField: "Enter your last name"
+                        textField: "Enter your last name",
+                        isValid: $isLastNameValid
                     )
                     
                     Email(
                         textNames: "Email",
                         textField: "Use a valid Email",
-                        registerViewModel: registerViewModel
+                        registerViewModel: registerViewModel,
+                        isEmailValid: $isEmailValid
                     ).keyboardType(.emailAddress)
                     
                     PasswordInputField(
                         textField: "Enter your password",
                         text: $registerViewModel.password,
-                        textNames: "Password", registerViewModel: registerViewModel
+                        textNames: "Password",
+                        isPasswordValid: isPasswordValid, registerViewModel: registerViewModel,
+                        doPasswordsMatch: $doPasswordsMatch
                     )
                 }
                 .padding()
                 
                 Button("Create") {
                     Task {
-                        do {
-                            try await registerViewModel.handleRegistrationViewModel()
-                        } catch {
-                            print("Error while creating the account: \(error)")
+                        isFirstNameValid = !registerViewModel.firstName.isEmpty
+                        isLastNameValid = !registerViewModel.lastName.isEmpty
+                        isEmailValid = registerViewModel.textFieldValidatorEmail(registerViewModel.email)
+                        isPasswordValid = registerViewModel.textFieldValidatorPassword(registerViewModel.password)
+                        doPasswordsMatch = registerViewModel.password == registerViewModel.confirme_password
+                        
+                        if isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid && doPasswordsMatch {
+                            do {
+                                try await registerViewModel.handleRegistrationViewModel()
+                            } catch {
+                                alertMessage = "Error while creating the account: \(error.localizedDescription)"
+                                showingAlert = true
+                            }
+                        } else {
+                            alertMessage = "Please verify that all fields are correctly filled and passwords match."
+                            showingAlert = true
                         }
                     }
                 }
@@ -70,18 +93,40 @@ struct LabeledTextField: View {
     var textNames: String
     @Binding var text: String
     var textField: String
+    @Binding var isValid: Bool
     
     var body: some View {
         Group {
             Text(textNames).foregroundColor(.orange)
-            TextField(textField, text: $text)
-                .padding()
-                .cornerRadius(5.0)
-                .foregroundColor(.black)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.black, lineWidth: 2)
-                ).autocorrectionDisabled(false)
+            TextField(textField, text: $text, onEditingChanged: { (isChanged) in
+                if !isChanged {
+                    self.isValid = !self.text.isEmpty
+                    if !self.isValid {
+                        self.text = ""
+                    }
+                }
+            })
+            .padding()
+            .cornerRadius(5.0)
+            .foregroundColor(.black)
+            .overlay(
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(Color.black, lineWidth: 2)
+            )
+            .overlay(
+                Image(systemName: "exclamationmark.circle.fill")
+                    .foregroundColor(.red)
+                    .padding(.trailing, 8)
+                    .opacity(self.isValid ? 0 : 1)
+                    .animation(.default)
+                , alignment: .trailing
+            )
+            if !self.isValid && !self.text.isEmpty {
+                Text("\(textNames) is required")
+                    .font(.callout)
+                    .foregroundColor(Color.red)
+                    .padding(.top, 5)
+            }
         }
     }
 }
@@ -90,7 +135,7 @@ struct Email: View {
     var textNames: String
     var textField: String
     @ObservedObject var registerViewModel: RegisterViewModel
-    @State var isEmailValid: Bool = true
+    @Binding var isEmailValid: Bool
     
     var body: some View {
         Group {
@@ -132,8 +177,9 @@ struct PasswordInputField: View {
     var textField: String
     @Binding var text: String
     var textNames: String
-    @State var  isPasswordValid : Bool = true
+    @State var isPasswordValid: Bool = true
     @ObservedObject var registerViewModel: RegisterViewModel
+    @Binding var doPasswordsMatch: Bool
 
     var body: some View {
         Group {
@@ -155,7 +201,7 @@ struct PasswordInputField: View {
                 )
             
             Text("Confirmer le mot de passe").foregroundColor(.orange)
-            SecureField( "Enter your password", text: $registerViewModel.confirme_password)
+            SecureField("Enter your password", text: $registerViewModel.confirme_password)
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
@@ -166,7 +212,7 @@ struct PasswordInputField: View {
                     Image(systemName: "exclamationmark.circle.fill")
                         .foregroundColor(.red)
                         .padding(.trailing, 8)
-                        .opacity(self.isPasswordValid ? 0 : 1)
+                        .opacity(self.doPasswordsMatch ? 0 : 1)
                         .animation(.default)
                     , alignment: .trailing
                 )
@@ -176,9 +222,14 @@ struct PasswordInputField: View {
                     .font(.callout)
                     .foregroundColor(Color.red)
                     .padding(.top, 5)
-            }//simpleexempleformodibo@gmail.com
-                //Test123
-            //titimepetter_2@gmail.com
+            }
+            
+            if !self.doPasswordsMatch && !self.registerViewModel.confirme_password.isEmpty {
+                Text("Passwords do not match")
+                    .font(.callout)
+                    .foregroundColor(Color.red)
+                    .padding(.top, 5)
+            }
         }
     }
 }
