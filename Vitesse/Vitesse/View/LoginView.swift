@@ -43,13 +43,13 @@ struct LoginView: View {
                             .padding(.bottom, 20)
                     }
                     
-                    AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert, alertMessage: $alertMessage,isPasswordValid: $isPasswordValid, isEmailValid: $isEmailValid)
+                    AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert, alertMessage: $alertMessage, isPasswordValid: $isPasswordValid, isEmailValid: $isEmailValid)
                         .alert(isPresented: $showingAlert) {
                             Alert(title: Text("Erreur"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                         }
                         .padding(.bottom, 10)
                     
-                    AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert, alertMessage: .constant(""),isPasswordValid: $isPasswordValid, isEmailValid: $isEmailValid)
+                    AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert, alertMessage: .constant(""), isPasswordValid: $isPasswordValid, isEmailValid: $isEmailValid)
                         .sheet(isPresented: $register) {
                             RegistrationView(
                                 registerViewModel: vitesseViewModel.registerViewModel,
@@ -137,7 +137,7 @@ struct AuthExtractor: View {
                 )
                 
                 if !self.isPasswordValid && !self.loginViewModel.password.isEmpty {
-                    Text("Password must be at least 8 characters long")
+                    Text("Password must be at least 6 characters long")
                         .font(.callout)
                         .foregroundColor(Color.red)
                         .padding(.top, 5)
@@ -155,6 +155,7 @@ struct AuthButton: View {
     @Binding var alertMessage: String
     @Binding var isPasswordValid: Bool
     @Binding var isEmailValid: Bool
+    
     var body: some View {
         Button(title) {
             if title == "Sign in" {
@@ -173,12 +174,19 @@ struct AuthButton: View {
                                 showingAlert = true
                             }
                         } catch {
-                            alertMessage = error.localizedDescription
+                            alertMessage = "Please check the email/username and password fields."
                             showingAlert = true
                         }
                     }
                 } else {
-                    alertMessage = "Please check the email and password fields."
+                    // Update the alert message based on which fields are invalid
+                    if !self.isEmailValid && !self.isPasswordValid {
+                        alertMessage = "Please check the email/username and password fields."
+                    } else if !self.isEmailValid {
+                        alertMessage = "Please check the email/username field."
+                    } else if !self.isPasswordValid {
+                        alertMessage = "Please check the password field."
+                    }
                     showingAlert = true
                 }
             } else {

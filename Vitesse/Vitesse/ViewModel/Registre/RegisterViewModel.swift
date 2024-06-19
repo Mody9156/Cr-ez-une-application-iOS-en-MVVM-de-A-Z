@@ -17,7 +17,7 @@ class RegisterViewModel: ObservableObject {
     //Harry.Simpson@gmail.com
     func textFieldValidatorPassword(_ string: String) -> Bool {
         
-        return string.count >= 8
+        return string.count >= 6
     }
 
     func textFieldValidatorEmail(_ string: String) -> Bool {
