@@ -26,7 +26,7 @@ class VitesseViewModel: ObservableObject {
     // Create and return a new instance of CandidateDetailsManagerViewModel
     var candidateDetailsManager: CandidateDetailsManagerViewModel {
         let candidateListVM = candidateListViewModel
-        return CandidateDetailsManagerViewModel(retrieveCandidateData: candidateListVM.retrieveCandidateData, candidats: candidateListVM.candidats)
+        return CandidateDetailsManagerViewModel(retrieveCandidateData: candidateListVM.retrieveCandidateData, keychain: Keychain())
     }
     
     // Create and return a new instance of CandidateListViewModel

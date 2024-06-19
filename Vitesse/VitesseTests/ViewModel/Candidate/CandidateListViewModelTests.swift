@@ -34,9 +34,7 @@ final class CandidateListViewModelTests: XCTestCase {
         }catch let error as Keychain.KeychainError{
             XCTAssertEqual(error, .insertFailed)
         }
-        // When
-        
-        // Then
+       
     }
     
     func testTokenFail() async throws {

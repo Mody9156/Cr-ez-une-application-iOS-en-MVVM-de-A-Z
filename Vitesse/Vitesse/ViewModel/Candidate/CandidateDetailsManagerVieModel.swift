@@ -1,13 +1,13 @@
 import Foundation
 
 class CandidateDetailsManagerViewModel: ObservableObject {
-    @Published var candidats: [CandidateInformation]
+    @Published var candidats: [CandidateInformation] = []
     @Published var retrieveCandidateData: CandidateDataManager
     @Published var selectedCandidateId: String?
-    
-    init(retrieveCandidateData: CandidateDataManager, candidats: [CandidateInformation]) {
+    var keychain : Keychain
+    init(retrieveCandidateData: CandidateDataManager,keychain : Keychain) {
         self.retrieveCandidateData = retrieveCandidateData
-        self.candidats = candidats
+        self.keychain = keychain
     }
     
     enum CandidateManagementError: Error, LocalizedError {
@@ -15,8 +15,8 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     }
     
     // Get token
-    private func token() throws -> String {
-        let keychain = try Keychain().get(forKey: "token")
+     func token() throws -> String {
+        let keychain = try keychain.get(forKey: "token")
         guard let encodingToken = String(data: keychain, encoding: .utf8) else {
             throw CandidateManagementError.fetchTokenError
         }
