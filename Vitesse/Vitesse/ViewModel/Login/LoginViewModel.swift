@@ -65,7 +65,7 @@ class LoginViewModel: ObservableObject {
         } catch {
             
             // Handle authentication error
-            throw AuthViewModelFailure.usernameAndPasswordInvalid
+            throw AuthViewModelFailure.tokenInvalid
         }
         
     }
