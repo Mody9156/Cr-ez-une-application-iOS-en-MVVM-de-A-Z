@@ -26,6 +26,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     @MainActor
     @discardableResult
     func displayCandidateDetails() async throws -> CandidateInformation {
+        
         guard let selectedCandidateId = selectedCandidateId else {
             throw CandidateManagementError.displayCandidateDetailsError
         }
