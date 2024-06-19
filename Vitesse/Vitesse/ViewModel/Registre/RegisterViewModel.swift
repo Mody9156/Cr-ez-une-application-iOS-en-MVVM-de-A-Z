@@ -1,7 +1,7 @@
 import Foundation
 
 class RegisterViewModel: ObservableObject {
-    @Published var email: String = "gegergerg@gmail.com"
+    @Published var email: String = ""
     @Published var password: String = "Test123"
     @Published var confirme_password: String = "Test123"
     @Published var firstName: String = "Peter"
@@ -14,7 +14,7 @@ class RegisterViewModel: ObservableObject {
         self.loginViewModel = loginViewModel
     }
     
-    
+    //Harry.Simpson@gmail.com
     func textFieldValidatorPassword(_ string: String) -> Bool {
         
         return string.count >= 8

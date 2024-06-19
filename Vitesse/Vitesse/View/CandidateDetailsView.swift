@@ -11,6 +11,8 @@ struct CandidateDetailView: View {
     @State private var editedEmail: String = ""
     @State private var editedLinkedIn: String?
     @State var candidateInformation: CandidateInformation
+    @State private var showAlert = false
+      @State private var alertMessage = ""
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     
@@ -34,16 +36,24 @@ struct CandidateDetailView: View {
                         Spacer()
                         
                         Button {
-                            Task {
-                                try await  candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                                try await  loadCandidateProfile()
-                                initialiseEditingFields()
+                                Task {
+                                    do {
+                                        try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                        try await loadCandidateProfile()
+                                        initialiseEditingFields()
+                                    } catch {
+                                        showAlert = true
+                                        alertMessage = "Seuls les comptes administrateurs sont autorisés à accéder à cette fonctionnalité."
+                                    }
+                                }
+                            } label: {
+                                Image(systemName: candidateInformation.isFavorite ? "star.fill" : "star")
+                                    .foregroundColor(candidateInformation.isFavorite ? .yellow : .black)
+                                    .font(.title2)
                             }
-                        } label: {
-                            Image(systemName: candidateInformation.isFavorite ? "star.fill":"star")
-                                .foregroundColor(candidateInformation.isFavorite ? .yellow : .black)
-                                .font(.title2)
-                        }
+                            .alert(isPresented: $showAlert) {
+                                Alert(title: Text("Accès Refusé"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                            }
                         
                         
                         
