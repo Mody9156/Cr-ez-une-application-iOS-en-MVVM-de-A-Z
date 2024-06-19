@@ -38,9 +38,42 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
             XCTAssertEqual(error, .insertFailed)
         }
     }
-
+    
+    func testTokenFail() async throws {
+        // Given
+        let mockKey = MockToken()
+        mockKey.mockTokenData = Data([0xFF, 0xFE]) // Invalid UTF-8
+        candidateDetailsManagerViewModel.keychain = mockKey
+        
+        // When && Then
+        do {
+            _ = try candidateDetailsManagerViewModel.token()
+        } catch let error as CandidateDetailsManagerViewModel.CandidateManagementError {
+            XCTAssertEqual(error, .fetchTokenError)
+        } catch {
+            XCTFail("Unexpected error: \(error)")
+        }
+    }
+    
+    func testTokenFail_missingTokenData() async throws {
+        // Given
+        let mockKey = MockToken()
+        mockKey.mockTokenData = nil
+        candidateDetailsManagerViewModel.keychain = mockKey
+        
+        // When && Then
+        do {
+            _ = try candidateDetailsManagerViewModel.token()
+        } catch let error as CandidateDetailsManagerViewModel.CandidateManagementError {
+            XCTAssertEqual(error, .fetchTokenError)
+        } catch {
+            XCTFail("Unexpected error: \(error)")
+        }
+    }
+    
     func test_displayCandidateDetails() throws {
-       
+        // Given
+        let expectedCandidates = [CandidateInformation(id: "vbzfbzvbzh", firstName: "Joe", isFavorite: true, email: "Joe_LastManeOfEarth@gmail.com", lastName: "Washington")]
     }
 
     func test_candidateUpdater() throws {
@@ -51,6 +84,23 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
     }
 }
 
+class MockCandidatesDataManager: CandidateDataManager {
+    var mockCandidates: CandidateInformation?
+    var mockResponse: HTTPURLResponse?
+    var shouldThrowError: Bool = false
+    var errorToThrow: CandidateFetchError?
+    
+    override func fetchCandidateDetail(request: URLRequest) async throws   -> CandidateInformation {
+        if shouldThrowError {
+            throw errorToThrow ?? CandidateFetchError.fetchCandidateDetailError
+            }
+        
+        guard let candidate = mockCandidates else {
+            CandidateFetchError.fetchCandidateDetailError
+        }
+        return candidate
+    
+}
 
 class MockToken: Keychain {
     var mockTokenData: Data?
