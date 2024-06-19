@@ -127,7 +127,6 @@ struct Email: View {
 struct PasswordInputField: View {
     var textField: String
     @Binding var text: String
-    @State var confirmPasseword : String = ""
     var textNames: String
     @State var  isPasswordValid : Bool = true
     @ObservedObject var registerViewModel: RegisterViewModel
@@ -152,7 +151,7 @@ struct PasswordInputField: View {
                 )
             
             Text("Confirmer le mot de passe").foregroundColor(.orange)
-            SecureField(textField, text: $confirmPasseword)
+            SecureField(textField, text: $registerViewModel.confirme_password)
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
