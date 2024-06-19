@@ -4,7 +4,8 @@ struct RegistrationView: View {
     @StateObject var registerViewModel: RegisterViewModel
     @State private var registre: Bool = false
     @StateObject var loginViewModel: LoginViewModel
-    
+    @State private var showingAlert = false
+
     var body: some View {
         ZStack {
             Color.orange.opacity(0.2) // Light orange background
@@ -56,6 +57,9 @@ struct RegistrationView: View {
                 .padding()
                 .background(Color.orange)
                 .cornerRadius(10)
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Erreur"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                }
             }
             .padding()
         }
