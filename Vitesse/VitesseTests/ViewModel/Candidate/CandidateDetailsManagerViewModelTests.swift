@@ -126,48 +126,80 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
             XCTAssertEqual(displayCandidateDetails, expectedCandidates)
         }catch let error as CandidateDetailsManagerViewModel.CandidateManagementError{
             XCTAssertEqual(error, .candidateUpdaterError)
+        }catch {
+            XCTFail("Unexpected error: \(error)")
         }
     }
     
     
     
     
-    func test_updateCandidateInformation() async throws {
+    func test_updateCandidate() async throws {
         // Given
-        let expectedCandidates = CandidateInformation(
-            phone: "",
-            note: "",
-            id: "", firstName: "",
-            linkedinURL: "",
-            isFavorite: true,
-            email: "",
-            lastName: ""
-        )
-        let mockCandidatesDataManager = MockCandidatesDataManager(httpService: MockHTTPpServicee())
-        mockCandidatesDataManager.mockCandidates = expectedCandidates
-        candidateDetailsManagerViewModel.retrieveCandidateData = mockCandidatesDataManager
-        candidateDetailsManagerViewModel.selectedCandidateId = expectedCandidates.id
-        
+          let mockCandidatesDataManager = MockCandidatesDataManager(httpService: MockHTTPService())
+          candidateDetailsManagerViewModel.retrieveCandidateData = mockCandidatesDataManager
+
+          // Simuler une erreur
+          mockCandidatesDataManager.shouldThrowError = true
+          mockCandidatesDataManager.errorToThrow = .fetchCandidateDetailError
         do{
-            //When
-            let displayCandidateDetails = try await   candidateDetailsManagerViewModel.candidateUpdater(
-                phone: "",
-                note: "",
-                firstName: "",
-                linkedinURL: "",
-                isFavorite: false,
-                email: "",
-                lastName: "",
-                id: ""
-            )
-            //then
-            XCTAssertNil(displayCandidateDetails)
+            // When
+                   _ = try await candidateDetailsManagerViewModel.candidateUpdater(
+                       phone: "123-456-7890",
+                       note: "Mise à jour réussie",
+                       firstName: "John",
+                       linkedinURL: "https://www.linkedin.com/in/johndoe",
+                       isFavorite: true,
+                       email: "john.doe@example.com",
+                       lastName: "Doe",
+                       id: "12345"
+                   )
+                   XCTFail("Expected to throw an error, but did not throw")            //then
            
         }catch let error as CandidateDetailsManagerViewModel.CandidateManagementError{
             XCTAssertEqual(error, .candidateUpdaterError)
+        }catch {
+            XCTFail("Unexpected error: \(error)")
         }
     }
     
+    func testupdateCandidateInformation()async throws{
+        // Given
+            let initialCandidate = CandidateInformation(
+                phone: "123-456-7890",
+                note: "Initial Note",
+                id: "12345", firstName: "John",
+                linkedinURL: "https://www.linkedin.com/in/johndoe",
+                isFavorite: true,
+                email: "john.doe@example.com",
+                lastName: "Doe"
+            )
+            
+            let updatedCandidate = CandidateInformation(
+                phone: "987-654-3210",
+                note: "Updated Note",
+                id: "12345", firstName: "John Updated",
+                linkedinURL: "https://www.linkedin.com/in/johndoe-updated",
+                isFavorite: false,
+                email: "john.updated@example.com",
+                lastName: "Doe Updated"
+            )
+          let viewModel = CandidateDetailsManagerViewModel(retrieveCandidateData: MockCandidatesDataManager(httpService: MockHTTPpServicee()), keychain: MockToken())
+            viewModel.candidats = [initialCandidate]
+
+        viewModel.updateCandidateInformation(with: updatedCandidate)
+       
+        //Then
+        XCTAssertNotNil(viewModel)
+        XCTAssertEqual(viewModel.candidats.count,1 )
+        XCTAssertEqual(viewModel.candidats.first?.phone, updatedCandidate.phone)
+        XCTAssertEqual(viewModel.candidats.first?.note, updatedCandidate.note)
+        XCTAssertEqual(viewModel.candidats.first?.firstName, updatedCandidate.firstName)
+        XCTAssertEqual(viewModel.candidats.first?.linkedinURL, updatedCandidate.linkedinURL)
+        XCTAssertEqual(viewModel.candidats.first?.isFavorite, updatedCandidate.isFavorite)
+        XCTAssertEqual(viewModel.candidats.first?.email, updatedCandidate.email)
+        XCTAssertEqual(viewModel.candidats.first?.lastName, updatedCandidate.lastName)
+    }
     
     class MockCandidatesDataManager: CandidateDataManager {
         var mockCandidates: CandidateInformation?
