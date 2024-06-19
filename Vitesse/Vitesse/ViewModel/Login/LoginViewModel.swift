@@ -43,10 +43,6 @@ class LoginViewModel: ObservableObject {
     @MainActor
     func authenticateUserAndProceed() async throws -> JSONResponseDecodingModel {
         
-        if !username.isEmpty && !password.isEmpty {
-             throw AuthViewModelFailure.usernameAndPasswordInvalid
-         }
-       
         do {
            
             
@@ -65,7 +61,7 @@ class LoginViewModel: ObservableObject {
         } catch {
             
             // Handle authentication error
-            throw AuthViewModelFailure.tokenInvalid
+            throw AuthViewModelFailure.usernameAndPasswordInvalid
         }
         
     }

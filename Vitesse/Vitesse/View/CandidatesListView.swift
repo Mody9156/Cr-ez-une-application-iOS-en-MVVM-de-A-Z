@@ -61,12 +61,14 @@ struct CandidatesListView: View {
         } else {
             return candidateListViewModel.candidats.filter { candidate in
                 let fullName = "\(candidate.firstName) \(candidate.lastName)"
+                let fullName_two = " \(candidate.lastName) \(candidate.firstName)"
                 let lowercaseSearch = search.lowercased()
                 let lowercaseFullName = fullName.lowercased()
+                let lowercaseFullName_two = fullName_two.lowercased()
                 
                 return (lowercaseFullName.contains(lowercaseSearch) ||
                         candidate.firstName.lowercased().contains(lowercaseSearch) ||
-                        candidate.lastName.lowercased().contains(lowercaseSearch)) &&
+                        candidate.lastName.lowercased().contains(lowercaseSearch)) || lowercaseFullName_two.contains(lowercaseSearch) &&
                 (!showFavorites || candidate.isFavorite)
             }
         }
