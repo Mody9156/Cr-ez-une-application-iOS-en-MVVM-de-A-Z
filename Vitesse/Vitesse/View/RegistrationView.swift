@@ -127,6 +127,7 @@ struct Email: View {
 struct PasswordInputField: View {
     var textField: String
     @Binding var text: String
+    @State var confirmPasseword : String = ""
     var textNames: String
     @State var  isPasswordValid : Bool = true
     @ObservedObject var registerViewModel: RegisterViewModel
@@ -135,6 +136,23 @@ struct PasswordInputField: View {
         Group {
             Text(textNames).foregroundColor(.orange)
             SecureField(textField, text: $text)
+                .padding()
+                .cornerRadius(5.0)
+                .foregroundColor(.black)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.black, lineWidth: 2)
+                ).overlay(
+                    Image(systemName: "exclamationmark.circle.fill")
+                        .foregroundColor(.red)
+                        .padding(.trailing, 8)
+                        .opacity(self.isPasswordValid ? 0 : 1)
+                        .animation(.default)
+                    , alignment: .trailing
+                )
+            
+            Text("Confirmer le mot de passe").foregroundColor(.orange)
+            SecureField(textField, text: $confirmPasseword)
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
