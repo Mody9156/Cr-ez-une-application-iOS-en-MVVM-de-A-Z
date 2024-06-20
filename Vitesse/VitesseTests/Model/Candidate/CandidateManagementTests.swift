@@ -10,11 +10,11 @@ import XCTest
 
 final class CandidateManagementTests: XCTestCase {
     
-    var candidateManagement : CandidateManagement!
+    var candidateManagement : URLCandidManager!
     
     override func setUp() {
         super.setUp()
-        candidateManagement = CandidateManagement()
+        candidateManagement = URLCandidManager()
     }
     
     override func tearDown() {
@@ -30,7 +30,7 @@ final class CandidateManagementTests: XCTestCase {
         let id = "123456"
         
         //When
-        let createURLRequest = try CandidateManagement.createURLRequest(url: url, method: method, token: token, id: id)
+        let createURLRequest = try URLCandidManager.createURLRequest(url: url, method: method, token: token, id: id)
         
         //Then
         XCTAssertEqual(createURLRequest.httpMethod, "POST")
@@ -47,7 +47,7 @@ final class CandidateManagementTests: XCTestCase {
         let id = "123456"
         
         //When
-        XCTAssertThrowsError(try CandidateManagement.createURLRequest(url: url, method: method, token: token, id: id)){ error in
+        XCTAssertThrowsError(try URLCandidManager.createURLRequest(url: url, method: method, token: token, id: id)){ error in
             //Then
             XCTAssertEqual((error as Error)._code, URLError.badURL.rawValue)
         }
@@ -62,7 +62,7 @@ final class CandidateManagementTests: XCTestCase {
         _ = "123456"
         
         //When
-        let loadCandidatesFromURL = try CandidateManagement.loadCandidatesFromURL(url: url, method: method, token: token)
+        let loadCandidatesFromURL = try URLCandidManager.loadCandidatesFromURL(url: url, method: method, token: token)
         
         //Then
         XCTAssertEqual(loadCandidatesFromURL.httpMethod, "POST")
@@ -79,7 +79,7 @@ final class CandidateManagementTests: XCTestCase {
         _ = "123456"
         
         //When
-        XCTAssertThrowsError(try CandidateManagement.loadCandidatesFromURL(url: url, method: method, token: token)){ error in //!
+        XCTAssertThrowsError(try URLCandidManager.loadCandidatesFromURL(url: url, method: method, token: token)){ error in //!
             //Then
             XCTAssertEqual((error as Error)._code, URLError.badURL.rawValue)
         }
@@ -94,7 +94,7 @@ final class CandidateManagementTests: XCTestCase {
         let id = "342526245"
         
         // When
-        let loadCandidatesFromURL = try CandidateManagement.createNewCandidateRequest(
+        let loadCandidatesFromURL = try URLCandidManager.UpdateCandiRequest(
             url: url,
             method: method,
             token: token,
@@ -123,7 +123,7 @@ final class CandidateManagementTests: XCTestCase {
         let id = "123456"
         
         //When
-        XCTAssertThrowsError( try CandidateManagement.createNewCandidateRequest(
+        XCTAssertThrowsError( try URLCandidManager.UpdateCandiRequest(
             url: url,
             method: method,
             token:token,

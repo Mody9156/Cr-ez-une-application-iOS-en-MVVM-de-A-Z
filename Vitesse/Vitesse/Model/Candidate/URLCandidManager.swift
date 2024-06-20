@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CandidateManagement {
+struct URLCandidManager {
     
     static func createURLRequest(url: String, method: String, token: String, id: String) throws -> URLRequest {
         guard let url = URL(string: url) else {
@@ -35,7 +35,7 @@ struct CandidateManagement {
         return request
     }
     
-    static func createNewCandidateRequest(url: String, method: String, token: String, id: String, phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String) throws -> URLRequest {
+    static func UpdateCandiRequest(url: String, method: String, token: String, id: String, phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String) throws -> URLRequest {
         guard let url = URL(string: url) else {
             throw URLError(.badURL)
         }

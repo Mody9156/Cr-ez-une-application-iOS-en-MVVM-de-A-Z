@@ -35,7 +35,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         
         do {
             let token = try retrieveToken()
-            let request = try CandidateManagement.createURLRequest(
+            let request = try URLCandidManager.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(selectedCandidateId)",
                 method: "GET",
                 token: token,
@@ -64,7 +64,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         do {
             let token = try retrieveToken()
             
-            let request = try CandidateManagement.createNewCandidateRequest(
+            let request = try URLCandidManager.UpdateCandiRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)",
                 method: "PUT",
                 token: token,

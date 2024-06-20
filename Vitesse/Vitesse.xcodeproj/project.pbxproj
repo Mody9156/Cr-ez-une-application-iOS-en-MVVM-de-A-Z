@@ -16,7 +16,7 @@
 		234BDF902BEFEC8500C96E42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */; };
 		238F3B832C1A2D70000269ED /* CandidateListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238F3B822C1A2D70000269ED /* CandidateListViewModelTests.swift */; };
 		239640B72C172FDE00F123E6 /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239640B62C172FDE00F123E6 /* LoginTests.swift */; };
-		23C0FC022BFF785F004A5D9C /* CandidateManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */; };
+		23C0FC022BFF785F004A5D9C /* URLCandidManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC012BFF785F004A5D9C /* URLCandidManager.swift */; };
 		23C0FC042BFF7E98004A5D9C /* CandidateDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC032BFF7E98004A5D9C /* CandidateDataManager.swift */; };
 		23C0FC062BFF87D7004A5D9C /* CandidateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */; };
 		23C0FC082BFF98CE004A5D9C /* CandidateDetailsManagerVieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC072BFF98CE004A5D9C /* CandidateDetailsManagerVieModel.swift */; };
@@ -66,7 +66,7 @@
 		238F3B822C1A2D70000269ED /* CandidateListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateListViewModelTests.swift; sourceTree = "<group>"; };
 		239640B42C172FDE00F123E6 /* VitesseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		239640B62C172FDE00F123E6 /* LoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
-		23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateManagement.swift; sourceTree = "<group>"; };
+		23C0FC012BFF785F004A5D9C /* URLCandidManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLCandidManager.swift; sourceTree = "<group>"; };
 		23C0FC032BFF7E98004A5D9C /* CandidateDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDataManager.swift; sourceTree = "<group>"; };
 		23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateListViewModel.swift; sourceTree = "<group>"; };
 		23C0FC072BFF98CE004A5D9C /* CandidateDetailsManagerVieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDetailsManagerVieModel.swift; sourceTree = "<group>"; };
@@ -340,7 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				23D1FE8A2BF7BDAD00F3FA1E /* CandidateInformation.swift */,
-				23C0FC012BFF785F004A5D9C /* CandidateManagement.swift */,
+				23C0FC012BFF785F004A5D9C /* URLCandidManager.swift */,
 				23C0FC032BFF7E98004A5D9C /* CandidateDataManager.swift */,
 			);
 			path = Candidate;
@@ -459,7 +459,7 @@
 				23E9EB962BFDFD09004B0366 /* CandidateDetailsView.swift in Sources */,
 				23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */,
 				234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */,
-				23C0FC022BFF785F004A5D9C /* CandidateManagement.swift in Sources */,
+				23C0FC022BFF785F004A5D9C /* URLCandidManager.swift in Sources */,
 				23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */,
 				23ED07522BF61E85006FECD3 /* RegistrationRequestBody.swift in Sources */,
 				23ED07502BF61C61006FECD3 /* RegistrationRequestBuilder.swift in Sources */,

@@ -30,7 +30,7 @@ class CandidateListViewModel: ObservableObject {
         do {
             let token = try retrieveToken()
             
-            let request = try CandidateManagement.loadCandidatesFromURL(
+            let request = try URLCandidManager.loadCandidatesFromURL(
                 url: "http://127.0.0.1:8080/candidate",
                 method: "GET",
                 token: token
@@ -59,7 +59,7 @@ class CandidateListViewModel: ObservableObject {
                 id = candidate[offset].id
             }
             
-            let request = try CandidateManagement.createURLRequest(
+            let request = try URLCandidManager.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)",
                 method: "DELETE",
                 token: token,
@@ -86,7 +86,7 @@ class CandidateListViewModel: ObservableObject {
         do {
             let token = try retrieveToken()
             
-            let request = try CandidateManagement.createURLRequest(
+            let request = try URLCandidManager.createURLRequest(
                 url:"http://127.0.0.1:8080/candidate/\(selectedCandidateId)/favorite",
                 method: "PUT",
                 token: token,
