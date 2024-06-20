@@ -44,9 +44,7 @@ struct LoginView: View {
                     }
                     
                     AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert, alertMessage: $alertMessage, isPasswordValid: $isPasswordValid, isEmailValid: $isEmailValid)
-                        .alert(isPresented: $showingAlert) {
-                            Alert(title: Text("Erreur"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-                        }
+                        
                         .padding(.bottom, 10)
                     
                     AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert, alertMessage: .constant(""), isPasswordValid: $isPasswordValid, isEmailValid: $isEmailValid)
