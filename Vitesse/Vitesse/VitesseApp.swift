@@ -20,8 +20,7 @@ struct VitesseApp: App {
                     }
                 } else {
                     LoginView(
-                        loginViewModel: vitesseViewModelManager.loginViewModel,
-                        vitesseViewModel: VitesseViewModelManager())
+                        vitesseViewModel: VitesseViewModelManager(), loginViewModel: vitesseViewModelManager.loginViewModel)
                 }
             }
         }

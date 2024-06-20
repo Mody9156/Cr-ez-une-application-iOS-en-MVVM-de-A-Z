@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct LoginView: View {
+    var vitesseViewModel: VitesseViewModelManager
     @State var register: Bool = false
     @StateObject var loginViewModel: LoginViewModel
     @State private var rotationAngle: Double = 0
-    var vitesseViewModel: VitesseViewModelManager
     @State private var showingAlert = false
     @State private var isEmailValid: Bool = true
     @State private var alertMessage = ""
@@ -108,7 +108,11 @@ struct extraireIdentifiantsUtilisateurs: View {
                         .foregroundColor(.red)
                         .padding(.trailing, 8)
                         .opacity(self.isEmailValid ? 0 : 1)
-                        .animation(.default)
+                        .onAppear {
+                            
+                            withAnimation(Animation.linear(duration:2)){}
+                            
+                        }
                     , alignment: .trailing
                 )
                 
@@ -132,7 +136,11 @@ struct extraireIdentifiantsUtilisateurs: View {
                             .foregroundColor(.red)
                             .padding(.trailing, 8)
                             .opacity(self.isPasswordValid ? 0 : 1)
-                            .animation(.default)
+                            .onAppear {
+                                
+                                withAnimation(Animation.linear(duration:2)){}
+                                
+                            }
                         , alignment: .trailing
                     )
                 

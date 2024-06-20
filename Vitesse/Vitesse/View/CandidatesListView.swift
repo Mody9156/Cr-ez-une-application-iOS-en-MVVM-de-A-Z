@@ -15,8 +15,7 @@ struct CandidatesListView: View {
                         NavigationLink(
                             // Détails du candidat
                             destination: CandidateDetailView(
-                                candidateDetailsManagerViewModel: candidateDetailsManagerViewModel,
-                                candidateListViewModel: candidateListViewModel, // Utilisez le même ViewModel
+                                candidateListViewModel: candidateListViewModel, candidateDetailsManagerViewModel: candidateDetailsManagerViewModel, // Utilisez le même ViewModel
                                 candidateInformation: candidate
                             )
                         ) {

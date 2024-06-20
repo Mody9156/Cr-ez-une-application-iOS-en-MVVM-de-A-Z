@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct CandidateDetailView: View {
-    @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
     var candidateListViewModel: CandidateListViewModel
+    @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
     @State private var isEditing = false
     @State private var editedNote: String?
     @State private var editedFirstName: String = ""
@@ -15,7 +15,6 @@ struct CandidateDetailView: View {
     @State private var alertMessage = ""
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    
     var body: some View {
         VStack(alignment: .leading) {
             Section {
@@ -23,8 +22,8 @@ struct CandidateDetailView: View {
                     if isEditing {
                         TextFieldManager(textField: "First Name", text: $editedFirstName)
                         TextFieldManager(textField: "Last Name", text: $editedLastName)
-                        Spacer()
                         
+                        Spacer()
                         
                     } else {
                         Text(candidateInformation.firstName)
@@ -33,6 +32,7 @@ struct CandidateDetailView: View {
                         Text(candidateInformation.lastName)
                             .font(.largeTitle)
                             .fontWeight(.bold)
+                        
                         Spacer()
                         
                         Button {
@@ -54,9 +54,6 @@ struct CandidateDetailView: View {
                         .alert(isPresented: $showAlert) {
                             Alert(title: Text("Accès Refusé"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                         }
-                        
-                        
-                        
                     }
                 }
                 .padding()
@@ -218,7 +215,6 @@ extension CandidateDetailView {
         try await  candidateDetailsManagerViewModel.displayCandidateDetails()
         updateView(with: loadedCandidate)
         try await candidateListViewModel.displayCandidatesList()
-        
         
     }
     
