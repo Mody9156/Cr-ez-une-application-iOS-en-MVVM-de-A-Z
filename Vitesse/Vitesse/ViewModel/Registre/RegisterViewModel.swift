@@ -1,7 +1,7 @@
 import Foundation
 
 class RegisterViewModel: ObservableObject {
-    @Published var email: String = ""
+    @Published var email: String = "PetitGros@gmail.com"
     @Published var password: String = "Test123"
     @Published var confirm_password: String = "Test123"
     @Published var firstName: String = "Peter"
