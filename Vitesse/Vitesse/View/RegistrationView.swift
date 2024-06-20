@@ -58,8 +58,11 @@ struct RegistrationView: View {
                     Task {
                         isFirstNameValid = !registerViewModel.firstName.isEmpty
                         isLastNameValid = !registerViewModel.lastName.isEmpty
-                        isEmailValid = registerViewModel.textFieldValidatorEmail(registerViewModel.email)
-                        isPasswordValid = registerViewModel.textFieldValidatorPassword(registerViewModel.password)
+                        isEmailValid =
+                        ValidatorType.email.textFieldValidatorEmail(registerViewModel.email)
+                        isPasswordValid =
+                        ValidatorType.password.textFieldValidatorPassword(registerViewModel.password)
+                        
                         doPasswordsMatch = registerViewModel.password == registerViewModel.confirm_password
                         
                         if isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid && doPasswordsMatch {
@@ -138,7 +141,8 @@ struct Email: View {
             Text(textNames).foregroundColor(.orange)
             TextField(textField, text: $registerViewModel.email, onEditingChanged: { (isChanged) in
                 if !isChanged {
-                    self.isEmailValid = registerViewModel.textFieldValidatorEmail(self.registerViewModel.email)
+                    self.isEmailValid = 
+                    ValidatorType.email.textFieldValidatorEmail(self.registerViewModel.email)
                     if !self.isEmailValid {
                         self.registerViewModel.email = ""
                     }

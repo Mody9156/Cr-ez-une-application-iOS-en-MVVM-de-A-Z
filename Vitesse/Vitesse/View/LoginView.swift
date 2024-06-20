@@ -162,9 +162,12 @@ struct AuthButton: View {
         Button(title) {
             if title == "Sign in" {
                 // Validate fields before attempting to authenticate
-                self.isEmailValid = loginViewModel.textFieldValidatorEmail(loginViewModel.username)
-                self.isPasswordValid = loginViewModel.textFieldValidatorPassword(loginViewModel.password)
-                
+                self.isEmailValid =
+                ValidatorType.email.textFieldValidatorEmail(loginViewModel.username)
+
+                self.isPasswordValid = 
+                ValidatorType.password.textFieldValidatorPassword(loginViewModel.password)
+
                 if self.isEmailValid && self.isPasswordValid {
                     Task { @MainActor in
                         do {
