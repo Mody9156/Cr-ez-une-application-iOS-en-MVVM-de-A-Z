@@ -16,6 +16,7 @@
 		234BDF902BEFEC8500C96E42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 234BDF8F2BEFEC8500C96E42 /* Preview Assets.xcassets */; };
 		238F3B832C1A2D70000269ED /* CandidateListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238F3B822C1A2D70000269ED /* CandidateListViewModelTests.swift */; };
 		239640B72C172FDE00F123E6 /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239640B62C172FDE00F123E6 /* LoginTests.swift */; };
+		23C0A1F72C24821100BC096E /* ValidatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0A1F62C24821000BC096E /* ValidatorType.swift */; };
 		23C0FC022BFF785F004A5D9C /* URLCandidManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC012BFF785F004A5D9C /* URLCandidManager.swift */; };
 		23C0FC042BFF7E98004A5D9C /* CandidateDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC032BFF7E98004A5D9C /* CandidateDataManager.swift */; };
 		23C0FC062BFF87D7004A5D9C /* CandidateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */; };
@@ -66,6 +67,7 @@
 		238F3B822C1A2D70000269ED /* CandidateListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateListViewModelTests.swift; sourceTree = "<group>"; };
 		239640B42C172FDE00F123E6 /* VitesseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		239640B62C172FDE00F123E6 /* LoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
+		23C0A1F62C24821000BC096E /* ValidatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorType.swift; sourceTree = "<group>"; };
 		23C0FC012BFF785F004A5D9C /* URLCandidManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLCandidManager.swift; sourceTree = "<group>"; };
 		23C0FC032BFF7E98004A5D9C /* CandidateDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDataManager.swift; sourceTree = "<group>"; };
 		23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateListViewModel.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				23E9EBA02BFE4007004B0366 /* Login */,
 				23E9EB9B2BFE3569004B0366 /* Candidate */,
 				23E2DD0F2BF3A8D100C28A1F /* VitesseViewModelManager.swift */,
+				23C0A1F62C24821000BC096E /* ValidatorType.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				23C0FC082BFF98CE004A5D9C /* CandidateDetailsManagerVieModel.swift in Sources */,
 				234BDF8B2BEFEC7E00C96E42 /* LoginView.swift in Sources */,
 				23E2DD1D2BF3CB1900C28A1F /* URLRequestEncodingModel.swift in Sources */,
+				23C0A1F72C24821100BC096E /* ValidatorType.swift in Sources */,
 				23E2DD142BF3B7A300C28A1F /* HTTPService.swift in Sources */,
 				23E9EB962BFDFD09004B0366 /* CandidateDetailsView.swift in Sources */,
 				23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */,

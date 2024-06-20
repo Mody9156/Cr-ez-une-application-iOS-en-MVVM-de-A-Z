@@ -79,7 +79,8 @@ struct extraireIdentifiantsUtilisateurs: View {
             if textName == "Email/Username" {
                 TextField(textField, text: $loginViewModel.username, onEditingChanged: { (isChanged) in
                     if !isChanged {
-                        self.isEmailValid = loginViewModel.textFieldValidatorEmail(self.loginViewModel.username)
+                        self.isEmailValid = 
+                        ValidatorType.email.textFieldValidatorEmail(self.loginViewModel.username)
                         if !self.isEmailValid {
                             self.loginViewModel.username = ""
                             loginViewModel.message = "Please check the email or username"

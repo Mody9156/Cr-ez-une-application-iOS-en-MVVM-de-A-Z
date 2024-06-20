@@ -11,9 +11,8 @@ struct CandidateDetailView: View {
     @State private var editedEmail: String = ""
     @State private var editedLinkedIn: String?
     @State var candidateInformation: CandidateInformation
-    @State private var alertMessage = ""
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    @State private var showFavoris : Bool = false
     var body: some View {
         VStack(alignment: .leading) {
             Section {
@@ -33,19 +32,17 @@ struct CandidateDetailView: View {
                             .fontWeight(.bold)
                         
                         Spacer()
+                       
                         
                         Button {
                             Task {
-                                do {
+                       
                                     try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
                                     try await loadCandidateProfile()
                                     initialiseEditingFields()
-                                } catch {
-                                    showAlert = true
-                                    alertMessage = "Seuls les comptes administrateurs sont autorisés à accéder à cette fonctionnalité."
-                                }
                             }
                         } label: {
+                          
                             Image(systemName: candidateInformation.isFavorite ? "star.fill" : "star")
                                 .foregroundColor(candidateInformation.isFavorite ? .yellow : .black)
                                 .font(.title2)
@@ -138,6 +135,7 @@ struct CandidateDetailView: View {
             do {
                 try await loadCandidateProfile()
                 initialiseEditingFields()
+              
             } catch {
                 NotificationCenter.default.post(name: Notification.Name("LoadCandidateProfileError"), object: error)
             }
