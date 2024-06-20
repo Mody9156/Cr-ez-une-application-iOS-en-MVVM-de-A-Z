@@ -36,10 +36,10 @@ struct LoginView: View {
                         .padding(.bottom, 20)
                     
                     VStack(alignment: .leading) {
-                        AuthExtractor(loginViewModel: loginViewModel, textField: "Entrez un Email ou Username valide", textName: "Email/Username", isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid)
+                        extraireIdentifiantsUtilisateurs(loginViewModel: loginViewModel, textField: "Entrez un Email ou Username valide", textName: "Email/Username", isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid)
                             .padding(.bottom, 20)
                         
-                        AuthExtractor(loginViewModel: loginViewModel, textField: "Veuillez entrez un mot de passe valide", textName: "Password", isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid)
+                        extraireIdentifiantsUtilisateurs(loginViewModel: loginViewModel, textField: "Veuillez entrez un mot de passe valide", textName: "Password", isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid)
                             .padding(.bottom, 20)
                     }
                     
@@ -71,7 +71,7 @@ struct LoginView: View {
     }
 }
 
-struct AuthExtractor: View {
+struct extraireIdentifiantsUtilisateurs: View {
     @ObservedObject var loginViewModel: LoginViewModel
     var textField: String = ""
     var textName: String = ""
@@ -120,21 +120,21 @@ struct AuthExtractor: View {
                 }
             } else {
                 SecureField(textField, text: $loginViewModel.password)
-                .padding()
-                .cornerRadius(5.0)
-                .foregroundColor(.black)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.black, lineWidth: 2)
-                )
-                .overlay(
-                    Image(systemName: "exclamationmark.circle.fill")
-                        .foregroundColor(.red)
-                        .padding(.trailing, 8)
-                        .opacity(self.isPasswordValid ? 0 : 1)
-                        .animation(.default)
-                    , alignment: .trailing
-                )
+                    .padding()
+                    .cornerRadius(5.0)
+                    .foregroundColor(.black)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.black, lineWidth: 2)
+                    )
+                    .overlay(
+                        Image(systemName: "exclamationmark.circle.fill")
+                            .foregroundColor(.red)
+                            .padding(.trailing, 8)
+                            .opacity(self.isPasswordValid ? 0 : 1)
+                            .animation(.default)
+                        , alignment: .trailing
+                    )
                 
                 if !self.isPasswordValid && !self.loginViewModel.password.isEmpty {
                     Text("Password must be at least 6 characters long")

@@ -12,7 +12,7 @@ struct CandidateDetailView: View {
     @State private var editedLinkedIn: String?
     @State var candidateInformation: CandidateInformation
     @State private var showAlert = false
-      @State private var alertMessage = ""
+    @State private var alertMessage = ""
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     
@@ -36,24 +36,24 @@ struct CandidateDetailView: View {
                         Spacer()
                         
                         Button {
-                                Task {
-                                    do {
-                                        try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
-                                        try await loadCandidateProfile()
-                                        initialiseEditingFields()
-                                    } catch {
-                                        showAlert = true
-                                        alertMessage = "Seuls les comptes administrateurs sont autorisés à accéder à cette fonctionnalité."
-                                    }
+                            Task {
+                                do {
+                                    try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
+                                    try await loadCandidateProfile()
+                                    initialiseEditingFields()
+                                } catch {
+                                    showAlert = true
+                                    alertMessage = "Seuls les comptes administrateurs sont autorisés à accéder à cette fonctionnalité."
                                 }
-                            } label: {
-                                Image(systemName: candidateInformation.isFavorite ? "star.fill" : "star")
-                                    .foregroundColor(candidateInformation.isFavorite ? .yellow : .black)
-                                    .font(.title2)
                             }
-                            .alert(isPresented: $showAlert) {
-                                Alert(title: Text("Accès Refusé"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-                            }
+                        } label: {
+                            Image(systemName: candidateInformation.isFavorite ? "star.fill" : "star")
+                                .foregroundColor(candidateInformation.isFavorite ? .yellow : .black)
+                                .font(.title2)
+                        }
+                        .alert(isPresented: $showAlert) {
+                            Alert(title: Text("Accès Refusé"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                        }
                         
                         
                         
@@ -215,7 +215,7 @@ extension CandidateDetailView {
         
         candidateDetailsManagerViewModel.selectedCandidateId = candidateInformation.id
         let loadedCandidate = try await candidateDetailsManagerViewModel.displayCandidateDetails()
-       try await  candidateDetailsManagerViewModel.displayCandidateDetails()
+        try await  candidateDetailsManagerViewModel.displayCandidateDetails()
         updateView(with: loadedCandidate)
         try await candidateListViewModel.displayCandidatesList()
         

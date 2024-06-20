@@ -60,7 +60,7 @@ struct RegistrationView: View {
                         isLastNameValid = !registerViewModel.lastName.isEmpty
                         isEmailValid = registerViewModel.textFieldValidatorEmail(registerViewModel.email)
                         isPasswordValid = registerViewModel.textFieldValidatorPassword(registerViewModel.password)
-                        doPasswordsMatch = registerViewModel.password == registerViewModel.confirme_password
+                        doPasswordsMatch = registerViewModel.password == registerViewModel.confirm_password
                         
                         if isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid && doPasswordsMatch {
                             do {
@@ -180,7 +180,7 @@ struct PasswordInputField: View {
     @State var isPasswordValid: Bool = true
     @ObservedObject var registerViewModel: RegisterViewModel
     @Binding var doPasswordsMatch: Bool
-
+    
     var body: some View {
         Group {
             Text(textNames).foregroundColor(.orange)
@@ -201,7 +201,7 @@ struct PasswordInputField: View {
                 )
             
             Text("Confirmer le mot de passe").foregroundColor(.orange)
-            SecureField("Enter your password", text: $registerViewModel.confirme_password)
+            SecureField("Enter your password", text: $registerViewModel.confirm_password)
                 .padding()
                 .cornerRadius(5.0)
                 .foregroundColor(.black)
@@ -224,7 +224,7 @@ struct PasswordInputField: View {
                     .padding(.top, 5)
             }
             
-            if !self.doPasswordsMatch && !self.registerViewModel.confirme_password.isEmpty {
+            if !self.doPasswordsMatch && !self.registerViewModel.confirm_password.isEmpty {
                 Text("Passwords do not match")
                     .font(.callout)
                     .foregroundColor(Color.red)

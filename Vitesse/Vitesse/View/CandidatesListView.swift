@@ -5,7 +5,7 @@ struct CandidatesListView: View {
     @State private var search = ""
     @State private var showFavorites: Bool = false
     @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
-
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -51,7 +51,7 @@ struct CandidatesListView: View {
             }
         }
     }
-
+    
     // Résultats de la recherche
     var searchResult: [CandidateInformation] {
         if search.isEmpty {
@@ -73,19 +73,19 @@ struct CandidatesListView: View {
             }
         }
     }
-
+    
     // Charger les candidats
     func loadCandidates() async {
         if let candidates = try? await candidateListViewModel.displayCandidatesList() {
             candidateListViewModel.candidate = candidates
         }
     }
-
+    
     // Basculer l'affichage des favoris
     func toggleShowFavorites() {
         showFavorites.toggle()
     }
-
+    
     // Contenu de la barre d'outils
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
