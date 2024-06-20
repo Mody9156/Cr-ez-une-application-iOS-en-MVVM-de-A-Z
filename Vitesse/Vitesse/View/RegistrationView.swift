@@ -48,7 +48,7 @@ struct RegistrationView: View {
                         textField: "Enter your password",
                         text: $registerViewModel.password,
                         textNames: "Password",
-                        isPasswordValid: isPasswordValid, registerViewModel: registerViewModel,
+                        isPasswordValid: $isPasswordValid, registerViewModel: registerViewModel,
                         doPasswordsMatch: $doPasswordsMatch
                     )
                 }
@@ -173,7 +173,7 @@ struct PasswordInputField: View {
     var textField: String
     @Binding var text: String
     var textNames: String
-    @State var isPasswordValid: Bool = true
+    @Binding var isPasswordValid: Bool 
     @ObservedObject var registerViewModel: RegisterViewModel
     @Binding var doPasswordsMatch: Bool
     
@@ -192,7 +192,11 @@ struct PasswordInputField: View {
                         .foregroundColor(.red)
                         .padding(.trailing, 8)
                         .opacity(self.isPasswordValid ? 0 : 1)
-                        .animation(.default)
+                        .onAppear {
+                            
+                            withAnimation(Animation.linear(duration:2)){}
+                            
+                        }
                     , alignment: .trailing
                 )
             
