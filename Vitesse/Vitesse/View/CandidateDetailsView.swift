@@ -11,7 +11,6 @@ struct CandidateDetailView: View {
     @State private var editedEmail: String = ""
     @State private var editedLinkedIn: String?
     @State var candidateInformation: CandidateInformation
-    @State private var showAlert = false
     @State private var alertMessage = ""
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -51,9 +50,7 @@ struct CandidateDetailView: View {
                                 .foregroundColor(candidateInformation.isFavorite ? .yellow : .black)
                                 .font(.title2)
                         }
-                        .alert(isPresented: $showAlert) {
-                            Alert(title: Text("Accès Refusé"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-                        }
+                        
                     }
                 }
                 .padding()
