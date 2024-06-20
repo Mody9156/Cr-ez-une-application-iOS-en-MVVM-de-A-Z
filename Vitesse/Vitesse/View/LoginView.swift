@@ -7,8 +7,9 @@ struct LoginView: View {
     @State private var rotationAngle: Double = 0
     @State private var showingAlert = false
     @State private var isEmailValid: Bool = true
-    @State private var alertMessage = ""
     @State private var isPasswordValid: Bool = true
+    @State private var alertMessage : String = ""
+    @State private var alertMessage_all : String = ""
     
     var body: some View {
         NavigationStack {
@@ -43,11 +44,12 @@ struct LoginView: View {
                             .padding(.bottom, 20)
                     }
                     
-                    AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert, alertMessage: $alertMessage, isPasswordValid: $isPasswordValid, isEmailValid: $isEmailValid)
-                        
+                    Text(alertMessage_all).foregroundColor(.red)
+                    
+                    AuthButton(title: "Sign in", loginViewModel: loginViewModel, register: $register, alertMessage: $alertMessage, isPasswordValid: $isPasswordValid, isEmailValid: $isEmailValid, alertMessage_all: $alertMessage_all)
                         .padding(.bottom, 10)
                     
-                    AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register, showingAlert: $showingAlert, alertMessage: .constant(""), isPasswordValid: $isPasswordValid, isEmailValid: $isEmailValid)
+                    AuthButton(title: "Register", loginViewModel: loginViewModel, register: $register, alertMessage: .constant(""), isPasswordValid: $isPasswordValid, isEmailValid: $isEmailValid, alertMessage_all: $alertMessage_all)
                         .sheet(isPresented: $register) {
                             RegistrationView(
                                 registerViewModel: vitesseViewModel.registerViewModel,
@@ -57,13 +59,6 @@ struct LoginView: View {
                         .padding(.bottom, 10)
                 }
                 .padding()
-            }
-        }.onReceive(loginViewModel.$message) { message in
-            if message.isEmpty {
-                showingAlert = false
-            } else {
-                alertMessage = message
-                showingAlert = true
             }
         }
     }
@@ -157,10 +152,10 @@ struct AuthButton: View {
     var title: String = ""
     @ObservedObject var loginViewModel: LoginViewModel
     @Binding var register: Bool
-    @Binding var showingAlert: Bool
     @Binding var alertMessage: String
     @Binding var isPasswordValid: Bool
     @Binding var isEmailValid: Bool
+    @Binding var alertMessage_all : String
     
     var body: some View {
         Button(title) {
@@ -174,14 +169,13 @@ struct AuthButton: View {
                         do {
                             try await loginViewModel.authenticateUserAndProceed()
                             if loginViewModel.isLoggedIn {
-                                showingAlert = false
+                                
                             } else {
                                 alertMessage = "Authentication failed. Please try again."
-                                showingAlert = true
                             }
+                            
                         } catch {
-                            alertMessage = "Please check the email/username and password fields."
-                            showingAlert = true
+                            alertMessage_all = "Please check the email/username and password fields."
                         }
                     }
                 } else {
@@ -193,7 +187,6 @@ struct AuthButton: View {
                     } else if !self.isPasswordValid {
                         alertMessage = "Please check the password field."
                     }
-                    showingAlert = true
                 }
             } else {
                 register = true

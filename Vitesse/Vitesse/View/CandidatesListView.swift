@@ -86,7 +86,7 @@ struct CandidatesListView: View {
     }
     
     // Contenu de la barre d'outils
-    @ToolbarContentBuilder
+    @ToolbarContentBuilder // une manière pratique et structurée d'ajouter des éléments de barre d'outils à vos vues.
     var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
             EditButton()

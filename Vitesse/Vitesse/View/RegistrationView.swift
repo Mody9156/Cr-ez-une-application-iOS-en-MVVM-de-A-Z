@@ -4,14 +4,14 @@ struct RegistrationView: View {
     @StateObject var registerViewModel: RegisterViewModel
     @State private var registre: Bool = false
     @StateObject var loginViewModel: LoginViewModel
-    @State private var showingAlert = false
     @State private var alertMessage = ""
     @State private var isEmailValid: Bool = true
     @State private var isPasswordValid: Bool = true
     @State private var isFirstNameValid: Bool = true
     @State private var isLastNameValid: Bool = true
     @State private var doPasswordsMatch: Bool = true
-    
+    @State private var alertMessage_all : String = ""
+
     var body: some View {
         ZStack {
             Color.orange.opacity(0.2) // Light orange background
@@ -53,7 +53,7 @@ struct RegistrationView: View {
                     )
                 }
                 .padding()
-                
+                Text(alertMessage_all).foregroundColor(.red)
                 Button("Create") {
                     Task {
                         isFirstNameValid = !registerViewModel.firstName.isEmpty
@@ -67,11 +67,9 @@ struct RegistrationView: View {
                                 try await registerViewModel.handleRegistrationViewModel()
                             } catch {
                                 alertMessage = "Error while creating the account: \(error.localizedDescription)"
-                                showingAlert = true
                             }
                         } else {
-                            alertMessage = "Please verify that all fields are correctly filled and passwords match."
-                            showingAlert = true
+                            alertMessage_all = "Please verify that all fields are correctly filled and passwords match."
                         }
                     }
                 }
@@ -80,9 +78,7 @@ struct RegistrationView: View {
                 .padding()
                 .background(Color.orange)
                 .cornerRadius(10)
-                .alert(isPresented: $showingAlert) {
-                    Alert(title: Text("Erreur"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-                }
+                
             }
             .padding()
         }

@@ -39,6 +39,7 @@ class LoginViewModel: ObservableObject {
     }
     
     // Authenticate user and proceed
+    @discardableResult
     @MainActor
     func authenticateUserAndProceed() async throws -> JSONResponseDecodingModel {
         
