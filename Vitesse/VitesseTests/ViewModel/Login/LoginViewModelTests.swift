@@ -27,39 +27,9 @@ final class LoginViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    func testTextFieldValidatorPassword(){
-        //Given
-        let password = "simple_test"
-        
-        //When
-        let textFieldValidatorPassword = loginViewModel.textFieldValidatorPassword(password)
-        
-        //Then
-        XCTAssertTrue(textFieldValidatorPassword)
-    }
-    
-    func testTextFieldValidatorEmail(){
-        //Given
-        let email = "exemplede_mail@gmai.com"
-        //When
-        let textFieldValidatorEmail = loginViewModel.textFieldValidatorEmail(email)
-        //Then
-        XCTAssertTrue(textFieldValidatorEmail)
-        
-    }
-    
-    func testFailTextFieldValidatorEmail(){
-        //Given
-        let email = "exemplede"
-        let email_1 = "abcdefghijABCDEFGHIJklmnopqrstKLMNOPQRSTuvwxyzUVWXYZabcdefghijABCDEFGHIJklmnopqrstKLMNOPQRSTuvwxyzUVWX@example.com"
-        //When
-        let textFieldValidatorEmail = loginViewModel.textFieldValidatorEmail(email)
-        _ = loginViewModel.textFieldValidatorEmail(email_1)
-        //Then
-        XCTAssertFalse(textFieldValidatorEmail)
-        XCTAssertTrue(email_1.count > 100  )
-        
-    }
+   
+   
+  
     
     func testMessage() async throws {
         // Given

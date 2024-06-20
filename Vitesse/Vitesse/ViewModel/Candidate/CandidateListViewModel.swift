@@ -101,12 +101,13 @@ class CandidateListViewModel: ObservableObject {
             throw CandidateManagementError.processCandidateElementsError
         }
     }
-    
+    @MainActor
+  
     // Remove candidate
-    func removeCandidate(at offsets: IndexSet) {
-        Task {
+    func removeCandidate(at offsets: IndexSet)   {
+        Task{
             do {
-                let result = try await deleteCandidate(at: offsets)
+                try  await deleteCandidate(at: offsets)
                 
             } catch {
                 print("Error deleting candidate: \(error)")
