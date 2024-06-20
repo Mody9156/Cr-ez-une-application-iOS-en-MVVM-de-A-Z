@@ -6,17 +6,16 @@ enum CandidateManagementError: Error, LocalizedError {
 }
 
 class CandidateListViewModel: ObservableObject {
-    @Published var candidats: [CandidateInformation] = []
-    @Published  var retrieveCandidateData: CandidateDataManager
+    @Published var candidate: [CandidateInformation] = []
+    @Published var retrieveCandidateData: CandidateDataManager
     var keychain : Keychain
     init(retrieveCandidateData: CandidateDataManager,keychain : Keychain )  {
         self.retrieveCandidateData = retrieveCandidateData
         self.keychain = keychain
     }
     
-    
     // Get token
-    func token() throws -> String {
+    func retrieveToken() throws -> String {
         let keychain = try Keychain().get(forKey: "token")
         guard let encodingToken = String(data: keychain, encoding: .utf8) else {
             throw CandidateManagementError.fetchTokenError
@@ -29,7 +28,7 @@ class CandidateListViewModel: ObservableObject {
     @discardableResult
     func displayCandidatesList() async throws -> [CandidateInformation] {
         do {
-            let token = try token()
+            let token = try retrieveToken()
             
             let request = try CandidateManagement.loadCandidatesFromURL(
                 url: "http://127.0.0.1:8080/candidate",
@@ -40,7 +39,7 @@ class CandidateListViewModel: ObservableObject {
             let fetchCandidateData = try await retrieveCandidateData.fetchCandidateData(request: request)
             
             DispatchQueue.main.async {
-                self.candidats = fetchCandidateData
+                self.candidate = fetchCandidateData
             }
             
             return fetchCandidateData
@@ -53,11 +52,11 @@ class CandidateListViewModel: ObservableObject {
     // Delete candidate
     func deleteCandidate(at offsets: IndexSet) async throws -> HTTPURLResponse {
         do {
-            let token = try token()
+            let token = try retrieveToken()
             
             var id = ""
             for offset in offsets {
-                id = candidats[offset].id
+                id = candidate[offset].id
             }
             
             let request = try CandidateManagement.createURLRequest(
@@ -71,7 +70,7 @@ class CandidateListViewModel: ObservableObject {
             
             // Update the published property on the main thread
             DispatchQueue.main.async {
-                self.candidats.remove(atOffsets: offsets)
+                self.candidate.remove(atOffsets: offsets)
             }
             
             return response
@@ -85,23 +84,20 @@ class CandidateListViewModel: ObservableObject {
     @discardableResult//
     func showFavoriteCandidates(selectedCandidateId: String) async throws -> CandidateInformation {
         do {
-            let token = try token()
-            
+            let token = try retrieveToken()
             
             let request = try CandidateManagement.createURLRequest(
-                url: "http://127.0.0.1:8080/candidate/\(selectedCandidateId)/favorite",
+                url:"http://127.0.0.1:8080/candidate/\(selectedCandidateId)/favorite",
                 method: "PUT",
                 token: token,
                 id: selectedCandidateId
             )
             
             let response = try await retrieveCandidateData.fetchCandidateDetail(request: request)
-            print("Favorite status update for the candidate was successful: \(String(describing: response))")
             
             
             return response
         } catch {
-            print("There are errors in function showFavoriteCandidates()")
             throw CandidateManagementError.processCandidateElementsError
         }
     }
@@ -110,8 +106,8 @@ class CandidateListViewModel: ObservableObject {
     func removeCandidate(at offsets: IndexSet) {
         Task {
             do {
-                let response = try await deleteCandidate(at: offsets)
-                print("\(response)")
+                let result = try await deleteCandidate(at: offsets)
+                
             } catch {
                 print("Error deleting candidate: \(error)")
             }

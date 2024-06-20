@@ -4,7 +4,7 @@ struct LoginView: View {
     @State var register: Bool = false
     @StateObject var loginViewModel: LoginViewModel
     @State private var rotationAngle: Double = 0
-    var vitesseViewModel: VitesseViewModel
+    var vitesseViewModel: VitesseViewModelManager
     @State private var showingAlert = false
     @State private var isEmailValid: Bool = true
     @State private var alertMessage = ""

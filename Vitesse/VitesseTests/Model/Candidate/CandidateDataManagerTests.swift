@@ -43,13 +43,6 @@ final class CandidateDataManagerTests: XCTestCase {
                 }]
                 """.data(using: .utf8)!
         
-        struct CandidateEncode: Identifiable, Decodable, Hashable {
-            var phone, note: String?
-            var id, firstName: String
-            var linkedinURL: String?
-            var isFavorite: Bool
-            var email, lastName: String
-        }
         
         let expectedCandidates = try JSONDecoder().decode([CandidateEncode].self, from: candidateJSON)
         let expectedCandidate = expectedCandidates.first
@@ -97,7 +90,7 @@ final class CandidateDataManagerTests: XCTestCase {
         
         // When
         do {
-            let candidates = try await candidateDataManager.fetchCandidateData(request: request)
+            _ = try await candidateDataManager.fetchCandidateData(request: request)
             
         } catch let error as CandidateDataManager.CandidateFetchError {
             // Then
@@ -184,7 +177,7 @@ final class CandidateDataManagerTests: XCTestCase {
         
         // When
         do {
-            let candidates = try await candidateDataManager.fetchCandidateDetail(request: request)
+            _ = try await candidateDataManager.fetchCandidateDetail(request: request)
             
             // Then
         } catch let error as CandidateDataManager.CandidateFetchError {
@@ -221,8 +214,10 @@ final class CandidateDataManagerTests: XCTestCase {
         let data = Data()
         let result : (Data,HTTPURLResponse) = (data,validateHTTPResponse)
         (candidateDataManager.httpService as! MockHTTPService).mockResult = result
-        //When
+        
+        
         do{
+            //When
             _ = try await  candidateDataManager.validateHTTPResponse(request: request)
             
         } catch let error as CandidateDataManager.CandidateFetchError {
@@ -234,9 +229,8 @@ final class CandidateDataManagerTests: XCTestCase {
         
         
     }
-    func testfetchCandidateInformation() async throws {
+    func testFetchCandidateInformation() async throws {
         // Given
-        
         let candidateJSON = """
         {
             "id": "fzeklrngzergzerg",
@@ -253,13 +247,15 @@ final class CandidateDataManagerTests: XCTestCase {
         let url = URL(string: "https://exemple.com")!
         let request = URLRequest(url: url)
         
-        let expectedCandidate = try JSONDecoder().decode(CandidateEncode.self, from: candidateJSON)
+        let mockResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
         
+        let response: (Data, HTTPURLResponse) = (Data(), mockResponse)
+        (candidateDataManager.httpService as! MockHTTPService).mockResult = response
+        let expectedCandidate = try JSONDecoder().decode(CandidateEncode.self, from: candidateJSON)
         
         // When
         let token = "jknalekrjvnzor43245345é"
-        do{
-            
+        do {
             let fetchedCandidate = try await candidateDataManager.fetchCandidateInformation(
                 token: token,
                 id: "fzeklrngzergzerg",
@@ -284,11 +280,13 @@ final class CandidateDataManagerTests: XCTestCase {
             XCTAssertEqual(fetchedCandidate.email, expectedCandidate.email)
             XCTAssertEqual(fetchedCandidate.lastName, expectedCandidate.lastName)
             
-            
-        }catch {
-            print("error")//fail
+        } catch let error as CandidateDataManager.CandidateFetchError {
+            XCTAssertEqual(error, .fetchCandidateInformationError)
+        } catch {
+            XCTFail("Unexpected error: \(error)")
         }
     }
+    
     
     func testInvalidFetchCandidateInformation() async throws {
         // Given
@@ -299,10 +297,10 @@ final class CandidateDataManagerTests: XCTestCase {
         let response: (Data, HTTPURLResponse) = (Data(), mockResponse)
         (candidateDataManager.httpService as! MockHTTPService).mockResult = response
         let token = "jknalekrjvnzor43245345é"
-        // When
+        
         do {
-            
-            let candidates = try await candidateDataManager.fetchCandidateInformation(
+            // When
+            _ = try await candidateDataManager.fetchCandidateInformation(
                 token: token,
                 id: "fzeklrngzergzerg",
                 phone: "0767890034",

@@ -6,8 +6,6 @@
 
 import Foundation
 
-
-
 class AuthenticationManager {
     
     let httpService: HTTPService
@@ -15,7 +13,6 @@ class AuthenticationManager {
     init(httpService: HTTPService = URLSessionHTTPClient()) {
         self.httpService = httpService
     }
-    
     
     
     func buildAuthenticationRequest(username: String, password: String) throws -> URLRequest {

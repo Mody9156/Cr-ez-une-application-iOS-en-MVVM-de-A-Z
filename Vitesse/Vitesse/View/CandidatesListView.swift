@@ -55,11 +55,11 @@ struct CandidatesListView: View {
     // Résultats de la recherche
     var searchResult: [CandidateInformation] {
         if search.isEmpty {
-            return candidateListViewModel.candidats.filter { candidate in
+            return candidateListViewModel.candidate.filter { candidate in
                 !showFavorites || candidate.isFavorite
             }
         } else {
-            return candidateListViewModel.candidats.filter { candidate in
+            return candidateListViewModel.candidate.filter { candidate in
                 let fullName = "\(candidate.firstName) \(candidate.lastName)"
                 let fullName_two = "\(candidate.lastName) \(candidate.firstName)"
                 let lowercaseSearch = search.trimmingCharacters(in: .whitespaces).lowercased()
@@ -77,7 +77,7 @@ struct CandidatesListView: View {
     // Charger les candidats
     func loadCandidates() async {
         if let candidates = try? await candidateListViewModel.displayCandidatesList() {
-            candidateListViewModel.candidats = candidates
+            candidateListViewModel.candidate = candidates
         }
     }
 

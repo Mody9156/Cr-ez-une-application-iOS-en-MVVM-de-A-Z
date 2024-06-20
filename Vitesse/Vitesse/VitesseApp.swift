@@ -2,25 +2,26 @@ import SwiftUI
 
 @main
 struct VitesseApp: App {
-    @StateObject var vitesseViewModel = VitesseViewModel()
+    @StateObject var vitesseViewModelManager = VitesseViewModelManager()
     
     var body: some Scene {
         WindowGroup {
             Group {
-                if vitesseViewModel.onLoginSucceed {
+                if vitesseViewModelManager.onLoginSucceed {
                     TabView {
                         CandidatesListView(
-                            candidateListViewModel: vitesseViewModel.candidateListViewModel,
-                            candidateDetailsManagerViewModel: vitesseViewModel.candidateDetailsManager)
+                            candidateListViewModel: vitesseViewModelManager.candidateListViewModel,
+                            candidateDetailsManagerViewModel: vitesseViewModelManager.candidateDetailsManager)
                     }
                     .onAppear {
-                        // Créer un nouveau candidat
-                        // Exemple : vitesseViewModel.createNewCandidate()
+                        // Create a new candidate
+                        // Example: vitesseViewModel.createNewCandidate()
+
                     }
                 } else {
                     LoginView(
-                        loginViewModel: vitesseViewModel.loginViewModel,
-                        vitesseViewModel: VitesseViewModel())
+                        loginViewModel: vitesseViewModelManager.loginViewModel,
+                        vitesseViewModel: VitesseViewModelManager())
                 }
             }
         }

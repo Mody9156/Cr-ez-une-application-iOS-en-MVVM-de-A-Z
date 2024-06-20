@@ -1,6 +1,6 @@
 import Foundation
 
-class VitesseViewModel: ObservableObject {
+class VitesseViewModelManager: ObservableObject {
     @Published var onLoginSucceed: Bool
     
     init() {

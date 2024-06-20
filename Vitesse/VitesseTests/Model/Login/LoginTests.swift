@@ -7,7 +7,6 @@ final class LoginTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Given
         // Initialisation de votre AuthConnector avec un HTTPService fictif pour les tests
         authenticationManager = AuthenticationManager(httpService: MockHTTPService())
     }
@@ -19,8 +18,8 @@ final class LoginTests: XCTestCase {
     }
     
     func test_buildAuthenticationRequest_Success() throws {
-        // Given
         
+        // Given
         struct EncodingLogin :Encodable {
             var email: String
             var password: String
@@ -49,7 +48,6 @@ final class LoginTests: XCTestCase {
     }
     
     
-    
     func test_authenticate() async throws {
         // Given
         let name = "Paul"
@@ -73,9 +71,9 @@ final class LoginTests: XCTestCase {
         
         let decode = try JSONDecoder().decode(AuthenticationResponse.self, from: JSONResponse)
         
-        // When
-        // Assuming authenticationManager.authenticate returns an AuthenticationResponse
         do{
+            
+            // When
             let buildAuthenticationRequest = try await authenticationManager.authenticate(username: name, password: password)
             
             // Then

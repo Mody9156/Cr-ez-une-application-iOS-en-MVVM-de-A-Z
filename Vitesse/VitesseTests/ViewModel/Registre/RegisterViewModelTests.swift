@@ -4,10 +4,9 @@ import XCTest
 final class RegisterViewModelTests: XCTestCase {
     var registerViewModel: RegisterViewModel!
     var registrationRequestBuilder: RegistrationRequestBuilder!
-    var loginViewModel: MockLoginViewModel!
+    
     override func setUp() {
         registrationRequestBuilder = MockRegistrationRequestBuilder()
-        loginViewModel = MockLoginViewModel({})
         registerViewModel = RegisterViewModel(registrationRequestBuilder: RegistrationRequestBuilder(), loginViewModel: LoginViewModel({}))
         super.setUp()
     }
@@ -15,7 +14,6 @@ final class RegisterViewModelTests: XCTestCase {
     override func tearDown() {
         registerViewModel = nil
         registrationRequestBuilder = nil
-        loginViewModel = nil
         super.tearDown()
     }
     
@@ -109,9 +107,7 @@ class MockRegistrationRequestBuilder: RegistrationRequestBuilder {
     }
 }
 
-class MockLoginViewModel: LoginViewModel {
-    // Mock implementation if needed
-}
+
 // Mock HTTPService utilisé pour simuler les réponses HTTP
 class MockHTTPService: HTTPService {
     

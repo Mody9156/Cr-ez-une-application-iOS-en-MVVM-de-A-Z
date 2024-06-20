@@ -4,7 +4,9 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     @Published var candidats: [CandidateInformation] = []
     @Published var retrieveCandidateData: CandidateDataManager
     @Published var selectedCandidateId: String?
+    
     var keychain : Keychain
+    
     init(retrieveCandidateData: CandidateDataManager,keychain : Keychain) {
         self.retrieveCandidateData = retrieveCandidateData
         self.keychain = keychain
@@ -15,7 +17,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
     }
     
     // Get token
-     func token() throws -> String {
+    func retrieveToken() throws -> String {
         let keychain = try keychain.get(forKey: "token")
         guard let encodingToken = String(data: keychain, encoding: .utf8) else {
             throw CandidateManagementError.fetchTokenError
@@ -32,7 +34,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         }
         
         do {
-            let token = try token()
+            let token = try retrieveToken()
             let request = try CandidateManagement.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(selectedCandidateId)",
                 method: "GET",
@@ -60,7 +62,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         id: String
     ) async throws -> CandidateInformation {
         do {
-            let token = try token()
+            let token = try retrieveToken()
             
             let request = try CandidateManagement.createNewCandidateRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)",

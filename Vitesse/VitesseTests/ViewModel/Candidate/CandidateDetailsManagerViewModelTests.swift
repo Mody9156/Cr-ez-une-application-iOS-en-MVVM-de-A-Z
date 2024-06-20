@@ -14,7 +14,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
     
     
     override func setUp() {
-        candidateDetailsManagerViewModel = CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(httpService: MockHTTPpServicee()), keychain: MockToken())
+        candidateDetailsManagerViewModel = CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(httpService: MockHTTPpServicesDetails()), keychain: MockToken())
         super.setUp()
     }
     
@@ -32,7 +32,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
         candidateDetailsManagerViewModel.keychain = mockKey
         
         do{
-            let token = try candidateDetailsManagerViewModel.token()
+            _ = try candidateDetailsManagerViewModel.retrieveToken()
             
         }catch let error as Keychain.KeychainError{
             XCTAssertEqual(error, .insertFailed)
@@ -47,7 +47,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
         
         // When && Then
         do {
-            _ = try candidateDetailsManagerViewModel.token()
+            _ = try candidateDetailsManagerViewModel.retrieveToken()
         } catch let error as CandidateDetailsManagerViewModel.CandidateManagementError {
             XCTAssertEqual(error, .fetchTokenError)
         } catch {
@@ -61,7 +61,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
         // Given
         let expectedCandidates = CandidateInformation(id: "vbzfbzvbzh", firstName: "Joe", isFavorite: true, email: "Joe_LastManeOfEarth@gmail.com", lastName: "Washington")
         
-        let mockCandidatesDataManager = MockCandidatesDataManager(httpService: MockHTTPpServicee())
+        let mockCandidatesDataManager = MockCandidatesDataManager(httpService: MockHTTPpServicesDetails())
         
         mockCandidatesDataManager.mockCandidates = expectedCandidates
         candidateDetailsManagerViewModel.retrieveCandidateData = mockCandidatesDataManager
@@ -80,8 +80,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
         
     }
     
-    func testselectedCandidateId()async throws{
-        
+    func testSelectedCandidateId()async throws{
         
         do{
             let displayCandidateDetails =  try await candidateDetailsManagerViewModel.displayCandidateDetails()
@@ -102,7 +101,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
             email: "john.doe@example.com",
             lastName: "Doe"
         )
-        let mockCandidatesDataManager = MockCandidatesDataManager(httpService: MockHTTPpServicee())
+        let mockCandidatesDataManager = MockCandidatesDataManager(httpService: MockHTTPpServicesDetails())
         mockCandidatesDataManager.mockCandidates = expectedCandidates
         candidateDetailsManagerViewModel.retrieveCandidateData = mockCandidatesDataManager
         candidateDetailsManagerViewModel.selectedCandidateId = expectedCandidates.id
@@ -131,31 +130,29 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
         }
     }
     
-    
-    
-    
     func test_updateCandidate() async throws {
         // Given
-          let mockCandidatesDataManager = MockCandidatesDataManager(httpService: MockHTTPService())
-          candidateDetailsManagerViewModel.retrieveCandidateData = mockCandidatesDataManager
-
-          // Simuler une erreur
-          mockCandidatesDataManager.shouldThrowError = true
-          mockCandidatesDataManager.errorToThrow = .fetchCandidateDetailError
+        let mockCandidatesDataManager = MockCandidatesDataManager(httpService: MockHTTPService())
+        candidateDetailsManagerViewModel.retrieveCandidateData = mockCandidatesDataManager
+        
+        // Simuler une erreur
+        mockCandidatesDataManager.shouldThrowError = true
+        mockCandidatesDataManager.errorToThrow = .fetchCandidateDetailError
+        
         do{
             // When
-                   _ = try await candidateDetailsManagerViewModel.candidateUpdater(
-                       phone: "123-456-7890",
-                       note: "Mise à jour réussie",
-                       firstName: "John",
-                       linkedinURL: "https://www.linkedin.com/in/johndoe",
-                       isFavorite: true,
-                       email: "john.doe@example.com",
-                       lastName: "Doe",
-                       id: "12345"
-                   )
-                   XCTFail("Expected to throw an error, but did not throw")            //then
-           
+            _ = try await candidateDetailsManagerViewModel.candidateUpdater(
+                phone: "123-456-7890",
+                note: "Mise à jour réussie",
+                firstName: "John",
+                linkedinURL: "https://www.linkedin.com/in/johndoe",
+                isFavorite: true,
+                email: "john.doe@example.com",
+                lastName: "Doe",
+                id: "12345"
+            )
+            XCTFail("Expected to throw an error, but did not throw")            //then
+            
         }catch let error as CandidateDetailsManagerViewModel.CandidateManagementError{
             XCTAssertEqual(error, .candidateUpdaterError)
         }catch {
@@ -163,32 +160,34 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
         }
     }
     
-    func testupdateCandidateInformation()async throws{
+    
+    func testUpdateCandidateInformation()async throws{
         // Given
-            let initialCandidate = CandidateInformation(
-                phone: "123-456-7890",
-                note: "Initial Note",
-                id: "12345", firstName: "John",
-                linkedinURL: "https://www.linkedin.com/in/johndoe",
-                isFavorite: true,
-                email: "john.doe@example.com",
-                lastName: "Doe"
-            )
-            
-            let updatedCandidate = CandidateInformation(
-                phone: "987-654-3210",
-                note: "Updated Note",
-                id: "12345", firstName: "John Updated",
-                linkedinURL: "https://www.linkedin.com/in/johndoe-updated",
-                isFavorite: false,
-                email: "john.updated@example.com",
-                lastName: "Doe Updated"
-            )
-          let viewModel = CandidateDetailsManagerViewModel(retrieveCandidateData: MockCandidatesDataManager(httpService: MockHTTPpServicee()), keychain: MockToken())
-            viewModel.candidats = [initialCandidate]
-
+        let initialCandidate = CandidateInformation(
+            phone: "123-456-7890",
+            note: "Initial Note",
+            id: "12345", firstName: "John",
+            linkedinURL: "https://www.linkedin.com/in/johndoe",
+            isFavorite: true,
+            email: "john.doe@example.com",
+            lastName: "Doe"
+        )
+        
+        let updatedCandidate = CandidateInformation(
+            phone: "987-654-3210",
+            note: "Updated Note",
+            id: "12345", firstName: "John Updated",
+            linkedinURL: "https://www.linkedin.com/in/johndoe-updated",
+            isFavorite: false,
+            email: "john.updated@example.com",
+            lastName: "Doe Updated"
+        )
+        
+        let viewModel = CandidateDetailsManagerViewModel(retrieveCandidateData: MockCandidatesDataManager(httpService: MockHTTPpServicesDetails()), keychain: MockToken())
+        viewModel.candidats = [initialCandidate]
+        
         viewModel.updateCandidateInformation(with: updatedCandidate)
-       
+        
         //Then
         XCTAssertNotNil(viewModel)
         XCTAssertEqual(viewModel.candidats.count,1 )
@@ -218,34 +217,35 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
             
             return candidate
             
-            
-            
-            func fetchCandidateInformation(token: String, id: String, phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String, request: URLRequest) async throws -> CandidateInformation {
-                if shouldThrowError {
-                    throw errorToThrow ?? CandidateFetchError.fetchCandidateInformationError
-                }
-                guard let candidate =  mockCandidates else {
-                    throw CandidateFetchError.fetchCandidateDetailError
-                    
-                }
-                return candidate
+        }
+        
+        
+        override func fetchCandidateInformation(token: String, id: String, phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String, request: URLRequest) async throws -> CandidateInformation {
+            if shouldThrowError {
+                throw errorToThrow ?? CandidateFetchError.fetchCandidateInformationError
+            }
+            guard let candidate =  mockCandidates else {
+                throw CandidateFetchError.fetchCandidateDetailError
                 
             }
+            return candidate
             
         }
+        
     }
     
     class MockToken: Keychain {
         var mockTokenData: Data?
         
         enum KeychainError: Error, LocalizedError {
-            case getFailed,insertFailed,deleteFailed
+            case getFailed,insertFailure,
+                 deleteFailure
             
             var errorDescription: String? {
                 switch self {
-                case .insertFailed:
+                case .insertFailure:
                     return "Failed to insert item into keychain."
-                case .deleteFailed:
+                case .deleteFailure:
                     return "Failed to delete item from keychain."
                 case .getFailed:
                     return "Failed to get item from keychain."
@@ -274,7 +274,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
     }
     
     
-    class MockHTTPpServicee: HTTPService {
+    class MockHTTPpServicesDetails: HTTPService {
         var mockResult: (Data, HTTPURLResponse)?
         var mockError: Error?
         

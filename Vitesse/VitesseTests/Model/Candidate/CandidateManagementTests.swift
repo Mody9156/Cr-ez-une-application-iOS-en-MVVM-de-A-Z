@@ -54,7 +54,7 @@ final class CandidateManagementTests: XCTestCase {
     }
     
     
-    func testloadCandidatesFromURL() throws {
+    func testLoadCandidatesFromURL() throws {
         //Given
         let url = "https://example.com/createCandidate"
         let method = "POST"
@@ -71,7 +71,7 @@ final class CandidateManagementTests: XCTestCase {
         XCTAssertEqual(loadCandidatesFromURL.allHTTPHeaderFields?["Content-Type"], "application/json")
     }
     
-    func testInvalidloadCandidatesFromURL() throws {
+    func testInvalidCandidatesLoadFromURL() throws {
         //Given
         let url = ""
         let method = "POST"
@@ -135,6 +135,7 @@ final class CandidateManagementTests: XCTestCase {
             isFavorite: true,
             email: "alice@example.com",
             lastName: "Doe")){ error in
+                
                 //Then
                 XCTAssertEqual((error as Error)._code, URLError.badURL.rawValue)
             }

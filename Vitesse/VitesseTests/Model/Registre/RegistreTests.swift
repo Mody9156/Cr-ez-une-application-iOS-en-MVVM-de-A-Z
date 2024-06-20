@@ -13,7 +13,6 @@ final class RegistreTests: XCTestCase {
     
     override func setUp()  {
         super.setUp()
-        // Given
         // Initialisation de votre AuthConnector avec un HTTPService fictif pour les tests
         registrationRequestBuilder = RegistrationRequestBuilder(httpService: MockHTTPService())
     }
@@ -24,7 +23,9 @@ final class RegistreTests: XCTestCase {
         super.tearDown()
     }
     
+    
     func testBuildRegistrationURLRequest() throws {
+        
         // Given
         struct EncodingLogin :Encodable {
             var email: String
@@ -32,6 +33,7 @@ final class RegistreTests: XCTestCase {
             var firstName: String
             var lastName: String
         }
+        
         let email = "Paul.Pierce@gmail.com"
         let password = "test"
         let firstName = "Paul"
@@ -55,6 +57,7 @@ final class RegistreTests: XCTestCase {
         XCTAssertNotNil(buildRegistrationURLRequest.allHTTPHeaderFields)
     }
     
+    
     func testSuccessfulBuildRegistrationRequest() async throws {
         //Given
         
@@ -77,9 +80,9 @@ final class RegistreTests: XCTestCase {
             throw error
             //fail
         }
-        
-        
     }
+    
+    
     func testInvalidBuildRegistrationRequest() async throws {
         // Given
         let email = "Paul.Pierce@gmail.com"
@@ -102,6 +105,7 @@ final class RegistreTests: XCTestCase {
             XCTFail("Unexpected error: \(error)")
         }
     }
+    
     func testHTTPResponseErrorEquality() {
         // Créer deux erreurs invalides avec le même code d'état
         let invalidResponse1 = RegistrationRequestBuilder.HTTPResponseError.invalidResponse(statusCode: 404)
@@ -124,6 +128,7 @@ final class RegistreTests: XCTestCase {
         XCTAssertTrue(networkError1 == networkError2)
         
     }
+    
     // Mock HTTPService utilisé pour simuler les réponses HTTP
     class MockHTTPService: HTTPService {
         
