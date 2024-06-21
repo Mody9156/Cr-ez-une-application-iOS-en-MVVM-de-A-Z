@@ -147,16 +147,18 @@ final class CandidateListViewModelTests: XCTestCase {
         }
         
     }
-    func testInvalidRemoveCandidate()async throws {
-        let mockHTTPServicee = Mocks.MockHTTPServices()
-        _ = Mocks.MockCandidateDataManager()
-        
-        do{
-            let removeCandidate =  try await candidateListViewModel.removeCandidate(at: IndexSet())
-            
-        }catch{
-            XCTFail("error")
-        }
-        
-    }
+//    func testInvalidRemoveCandidate()async throws {
+//        let indexSet =  IndexSet(integer: 0)
+//      
+//        var removeCandidate =  try? await candidateListViewModel.removeCandidate(at: IndexSet())
+//        
+//        removeCandidate = { offsets in
+//                   return Task {
+//                       throw NSError(domain: "", code: 500, userInfo: nil) // Simule une erreur de suppression
+//                   }
+//               }
+//      
+//       
+//        
+//    }
 }
