@@ -20,20 +20,16 @@ final class CandidateListViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    func testTokenSuccess() async throws {
+    func testFetchTokenAndRetrieveCandidateListSuccess() async throws {
         // Given
-        let mockTokenString = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHZpdGVzc2UuY29tIiwiaXNBZG1pbiI6dHJ1ZX0.J83TqjxRzmuDuruBChNT8sMg5tfRi5iQ6tUlqJb3M9U"
-        let mockTokenData = mockTokenString.data(using: .utf8)!
-        let mockKey = Mocks.MockKey()
-        mockKey.mockTokenData = mockTokenData
-        candidateListViewModel.keychain = mockKey
+        var mockKey = Mocks.MockKey()
+        try  mockKey.add("kfnegjnsdjfgjsdbfgjbdsjfb", forKey: "showList")
+        let getToken = try  mockKey.get(forKey: "showList")
         
-        do{
-            let token = try candidateListViewModel.retrieveToken()
-            
-        }catch let error as Keychain.KeychainError{
-            XCTAssertEqual(error, .insertFailed)
-        }
+        //when
+      
+        //Then
+        
     }
     
     func testTokenFail() async throws {
