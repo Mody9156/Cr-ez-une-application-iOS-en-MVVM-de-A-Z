@@ -11,7 +11,7 @@ final class CandidateListViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         mockCandidateDataManager = Mocks.MockCandidateDataManager(httpService: Mocks.MockHTTPServices())
-        candidateListViewModel = CandidateListViewModel(retrieveCandidateData: mockCandidateDataManager, keychain:  Keychain())
+        candidateListViewModel = CandidateListViewModel(retrieveCandidateData: mockCandidateDataManager, keychain:  Mocks.MockKeychain())
     }
     
     override func tearDown() {
@@ -147,6 +147,16 @@ final class CandidateListViewModelTests: XCTestCase {
         }
         
     }
+    func testInvalidRemoveCandidate()async throws {
+        let mockHTTPServicee = Mocks.MockHTTPServices()
+        _ = Mocks.MockCandidateDataManager()
+        
+        do{
+            let removeCandidate =  try await candidateListViewModel.removeCandidate(at: IndexSet())
+            
+        }catch{
+            XCTFail("error")
+        }
+        
+    }
 }
-
-// Mock classes
