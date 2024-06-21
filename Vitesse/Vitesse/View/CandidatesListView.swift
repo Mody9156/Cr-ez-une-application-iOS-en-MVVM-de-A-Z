@@ -33,12 +33,7 @@ struct CandidatesListView: View {
                         .listRowBackground(Color.clear)
                         .listSectionSeparatorTint(.orange)
                     }
-                    .onDelete(perform:
-                              
-                        
-                          candidateListViewModel.removeCandidate
-                  
-                    )
+                    .onDelete(perform: candidateListViewModel.removeCandidate)
                 }
                 .searchable(text: $search)
                 .listStyle(PlainListStyle())

@@ -102,17 +102,17 @@ class CandidateListViewModel: ObservableObject {
         }
     }
     @MainActor
-  
+    
     // Remove candidate
-    func removeCandidate(at offsets: IndexSet) async   {
-        
+    func removeCandidate(at offsets: IndexSet)   {
+        Task{
             do {
-                try  await _ = deleteCandidate(at: offsets)
+                try await _ = deleteCandidate(at: offsets)
                 
             } catch {
                 print("Error deleting candidate: \(error)")
             }
-      
+        }
     }
 }
 

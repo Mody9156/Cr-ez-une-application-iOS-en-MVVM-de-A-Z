@@ -6,11 +6,11 @@ import XCTest
 
 final class CandidateListViewModelTests: XCTestCase {
     var candidateListViewModel: CandidateListViewModel!
-    var mockCandidateDataManager: MockCandidateDataManager!
-    
+    var mockCandidateDataManager: Mocks.MockCandidateDataManager!
+    var mocks : Mocks!
     override func setUp() {
         super.setUp()
-        mockCandidateDataManager = MockCandidateDataManager(httpService: MockHTTPServices())
+        mockCandidateDataManager = Mocks.MockCandidateDataManager(httpService: Mocks.MockHTTPServices())
         candidateListViewModel = CandidateListViewModel(retrieveCandidateData: mockCandidateDataManager, keychain: MockKey())
     }
     
@@ -144,8 +144,8 @@ final class CandidateListViewModelTests: XCTestCase {
     
     
     func testRemoveCandidate()async throws {
-        let mockHTTPServicee = MockHTTPServices()
-        _ = MockCandidateDataManager(httpService: mockHTTPServicee)
+        let mockHTTPServicee = Mocks.MockHTTPServices()
+        _ = Mocks.MockCandidateDataManager()
         
         do{
             let removeCandidate =  try await candidateListViewModel.removeCandidate(at: IndexSet())
@@ -194,44 +194,5 @@ class MockKey: Keychain {
     override func delete(forKey key: String) throws {
         mockTokenData = nil
         print("Mock: Password deleted from Keychain successfully.")
-    }
-}
-
-class MockCandidateDataManager: CandidateDataManager {
-    var mockCandidates: [CandidateInformation] = []
-    var mockResponse: HTTPURLResponse?
-    var shouldThrowError: Bool = false
-    var errorToThrow: CandidateFetchError?
-    
-    override func fetchCandidateData(request: URLRequest) async throws -> [CandidateInformation] {
-        if shouldThrowError {
-            throw errorToThrow ?? CandidateFetchError.fetchCandidateDataError
-        }
-        return mockCandidates
-    }
-    
-    override func validateHTTPResponse(request: URLRequest) async throws -> HTTPURLResponse {
-        if shouldThrowError {
-            throw errorToThrow ?? CandidateFetchError.httpResponseInvalid(statusCode: mockResponse?.statusCode ?? 500)
-        }
-        guard let response = mockResponse, response.statusCode == 200 else {
-            throw CandidateFetchError.httpResponseInvalid(statusCode: mockResponse?.statusCode ?? 500)
-        }
-        return response
-    }
-}
-
-class MockHTTPServices: HTTPService {
-    var mockResult: (Data, HTTPURLResponse)?
-    var mockError: Error?
-    
-    func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        if let error = mockError {
-            throw error
-        }
-        guard let result = mockResult else {
-            throw NSError(domain: "", code: 0, userInfo: nil)
-        }
-        return result
     }
 }
