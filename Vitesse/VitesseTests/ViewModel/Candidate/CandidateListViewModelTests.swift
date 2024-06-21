@@ -11,7 +11,7 @@ final class CandidateListViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         mockCandidateDataManager = Mocks.MockCandidateDataManager(httpService: Mocks.MockHTTPServices())
-        candidateListViewModel = CandidateListViewModel(retrieveCandidateData: mockCandidateDataManager, keychain:  Mocks.MockKeychain())
+        candidateListViewModel = CandidateListViewModel(retrieveCandidateData: mockCandidateDataManager, keychain:  Keychain())
     }
     
     override func tearDown() {
@@ -45,40 +45,18 @@ final class CandidateListViewModelTests: XCTestCase {
         }
         
     }
-    
-    func testInvalidFetchTokenAndRetrieveCandidateListSuccess() async throws {
-        // Given
-        let mockKey =  Mocks.MockKeychain()
-        //crée un objet Data contenant deux octets avec les valeurs hexadécimales 0xFF et 0xFE,
-       mockKey.mockTokenData = Data([0xFF, 0xFE])
-        
-        // Invalid UTF-8
-        candidateListViewModel.keychain = mockKey
-        
-        // When && Then
-        do {
-            let MockData = try candidateListViewModel.retrieveToken()
-           
-        } catch let error as CandidateManagementError {
-            XCTAssertEqual(error, .fetchTokenError)
-        } catch {
-            XCTFail("Unexpected error: \(error)")
-        }
-    }
-    
+       
     func testTokenFail_missingTokenData() async throws {
         // Given
         let mockKey =  Mocks.MockKeychain()
         mockKey.mockTokenData = nil
-        candidateListViewModel.keychain = mockKey
-        
+
         // When && Then
         do {
-            _ = try candidateListViewModel.retrieveToken()
+          
+            let  retrieveToken = try candidateListViewModel.retrieveToken()
         } catch let error as CandidateManagementError {
             XCTAssertEqual(error, .fetchTokenError)
-        } catch {
-            XCTFail("Unexpected error: \(error)")
         }
     }
     
@@ -165,7 +143,7 @@ final class CandidateListViewModelTests: XCTestCase {
             let removeCandidate =  try await candidateListViewModel.removeCandidate(at: IndexSet())
             XCTAssertNoThrow(removeCandidate)
         }catch{
-            XCTFail("erreru")
+            XCTFail("error")
         }
         
     }

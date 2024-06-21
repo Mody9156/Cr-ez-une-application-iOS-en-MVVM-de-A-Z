@@ -99,21 +99,17 @@ enum Mocks {
         
         override func add(_ data: String, forKey key: String) throws {
             mockTokenData = data.data(using: .utf8)
-            
-            print("Mock: Password added to Keychain successfully.")
         }
         
         override func get(forKey key: String) throws -> Data {
             guard let data = mockTokenData else {
                 throw KeychainError.getFailed
             }
-            print("Mock: Password retrieved from Keychain successfully.")
             return data
         }
         
         override func delete(forKey key: String) throws {
             mockTokenData = nil
-            print("Mock: Password deleted from Keychain successfully.")
         }
     }
    
