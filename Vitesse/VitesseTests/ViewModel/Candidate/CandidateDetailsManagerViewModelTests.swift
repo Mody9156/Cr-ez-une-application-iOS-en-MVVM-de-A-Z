@@ -14,7 +14,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
     
     
     override func setUp() {
-        candidateDetailsManagerViewModel = CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(httpService: Mocks.MockHTTPServices()), keychain: Mocks.MockKey())
+        candidateDetailsManagerViewModel = CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(httpService: Mocks.MockHTTPServices()), keychain: Mocks.MockKeychain())
         super.setUp()
     }
     
@@ -27,7 +27,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
         // Given
         let mockTokenString = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHZpdGVzc2UuY29tIiwiaXNBZG1pbiI6dHJ1ZX0.J83TqjxRzmuDuruBChNT8sMg5tfRi5iQ6tUlqJb3M9U"
         let mockTokenData = mockTokenString.data(using: .utf8)!
-        let mockKey = Mocks.MockKey()
+        let mockKey = Mocks.MockKeychain()
         mockKey.mockTokenData = mockTokenData
         candidateDetailsManagerViewModel.keychain = mockKey
         
@@ -41,7 +41,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
     
     func testTokenFail() async throws {
         // Given
-        let mockKey = Mocks.MockKey()
+        let mockKey = Mocks.MockKeychain()
         mockKey.mockTokenData = Data([0xFF, 0xFE]) // Invalid UTF-8
         candidateDetailsManagerViewModel.keychain = mockKey
         
@@ -61,7 +61,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
         // Given
         let expectedCandidates = CandidateInformation(id: "vbzfbzvbzh", firstName: "Joe", isFavorite: true, email: "Joe_LastManeOfEarth@gmail.com", lastName: "Washington")
         
-        let mockCandidatesDataManager = Mocks.MockCandidatesDataManager(httpService: Mocks.MockHTTPServices())
+        let mockCandidatesDataManager = Mocks.MockCandidateDataManager(httpService: Mocks.MockHTTPServices())
         
         mockCandidatesDataManager.mockCandidates = expectedCandidates
         candidateDetailsManagerViewModel.retrieveCandidateData = mockCandidatesDataManager
@@ -101,7 +101,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
             email: "john.doe@example.com",
             lastName: "Doe"
         )
-        let mockCandidatesDataManager = Mocks.MockCandidatesDataManager(httpService: Mocks.MockHTTPServices())
+        let mockCandidatesDataManager = Mocks.MockCandidateDataManager(httpService: Mocks.MockHTTPServices())
         mockCandidatesDataManager.mockCandidates = expectedCandidates
         candidateDetailsManagerViewModel.retrieveCandidateData = mockCandidatesDataManager
         candidateDetailsManagerViewModel.selectedCandidateId = expectedCandidates.id
@@ -132,7 +132,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
     
     func test_updateCandidate() async throws {
         // Given
-        let mockCandidatesDataManager = Mocks.MockCandidatesDataManager(httpService: MockHTTPService())
+        let mockCandidatesDataManager = Mocks.MockCandidateDataManager(httpService: MockHTTPService())
         candidateDetailsManagerViewModel.retrieveCandidateData = mockCandidatesDataManager
         
         // Simuler une erreur
@@ -183,7 +183,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
             lastName: "Doe Updated"
         )
         
-        let viewModel = CandidateDetailsManagerViewModel(retrieveCandidateData: Mocks.MockCandidatesDataManager(httpService: Mocks.MockHTTPServices()), keychain: Mocks.MockKey())
+        let viewModel = CandidateDetailsManagerViewModel(retrieveCandidateData: Mocks.MockCandidateDataManager(httpService: Mocks.MockHTTPServices()), keychain: Mocks.MockKeychain())
         viewModel.candidats = [initialCandidate]
         
         viewModel.updateCandidateInformation(with: updatedCandidate)
