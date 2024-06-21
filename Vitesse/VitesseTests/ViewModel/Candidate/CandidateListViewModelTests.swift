@@ -11,7 +11,7 @@ final class CandidateListViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         mockCandidateDataManager = Mocks.MockCandidateDataManager(httpService: Mocks.MockHTTPServices())
-        candidateListViewModel = CandidateListViewModel(retrieveCandidateData: mockCandidateDataManager, keychain: MockKey())
+        candidateListViewModel = CandidateListViewModel(retrieveCandidateData: mockCandidateDataManager, keychain:  Mocks.MockKey())
     }
     
     override func tearDown() {
@@ -24,7 +24,7 @@ final class CandidateListViewModelTests: XCTestCase {
         // Given
         let mockTokenString = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHZpdGVzc2UuY29tIiwiaXNBZG1pbiI6dHJ1ZX0.J83TqjxRzmuDuruBChNT8sMg5tfRi5iQ6tUlqJb3M9U"
         let mockTokenData = mockTokenString.data(using: .utf8)!
-        let mockKey = MockKey()
+        let mockKey = Mocks.MockKey()
         mockKey.mockTokenData = mockTokenData
         candidateListViewModel.keychain = mockKey
         
@@ -38,7 +38,7 @@ final class CandidateListViewModelTests: XCTestCase {
     
     func testTokenFail() async throws {
         // Given
-        let mockKey = MockKey()
+        let mockKey =  Mocks.MockKey()
         mockKey.mockTokenData = Data([0xFF, 0xFE]) // Invalid UTF-8
         candidateListViewModel.keychain = mockKey
         
@@ -54,7 +54,7 @@ final class CandidateListViewModelTests: XCTestCase {
     
     func testTokenFail_missingTokenData() async throws {
         // Given
-        let mockKey = MockKey()
+        let mockKey =  Mocks.MockKey()
         mockKey.mockTokenData = nil
         candidateListViewModel.keychain = mockKey
         
@@ -104,7 +104,7 @@ final class CandidateListViewModelTests: XCTestCase {
         
         candidateListViewModel.candidate = expectedCandidates
         
-        let mockKey = MockKey()
+        let mockKey =  Mocks.MockKey()
         let mockTokenString = "fkzerjzehrighze3434"
         mockKey.mockTokenData = mockTokenString.data(using: .utf8)!
         candidateListViewModel.keychain = mockKey
@@ -122,7 +122,7 @@ final class CandidateListViewModelTests: XCTestCase {
     
     func testShowFavoriteCandidates() async throws {
         // Given
-        let mockKey = MockKey()
+        let mockKey =  Mocks.MockKey()
         let mockTokenString = "fnfkerbjztoken"
         mockKey.mockTokenData = mockTokenString.data(using: .utf8)!
         candidateListViewModel.keychain = mockKey
@@ -158,41 +158,3 @@ final class CandidateListViewModelTests: XCTestCase {
 }
 
 // Mock classes
-
-class MockKey: Keychain {
-    var mockTokenData: Data?
-    
-    enum KeychainError: Error, LocalizedError {
-        case getFailed,insertError,deleteError
-        
-        var errorDescription: String? {
-            switch self {
-            case .insertError:
-                return "Failed to insert item into keychain."
-            case .deleteError:
-                return "Failed to delete item from keychain."
-            case .getFailed:
-                return "Failed to get item from keychain."
-            }
-        }
-        
-    }
-    
-    override func add(_ data: String, forKey key: String) throws {
-        mockTokenData = data.data(using: .utf8)
-        print("Mock: Password added to Keychain successfully.")
-    }
-    
-    override func get(forKey key: String) throws -> Data {
-        guard let data = mockTokenData else {
-            throw KeychainError.getFailed
-        }
-        print("Mock: Password retrieved from Keychain successfully.")
-        return data
-    }
-    
-    override func delete(forKey key: String) throws {
-        mockTokenData = nil
-        print("Mock: Password deleted from Keychain successfully.")
-    }
-}

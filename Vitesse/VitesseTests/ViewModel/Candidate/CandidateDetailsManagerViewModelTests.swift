@@ -14,7 +14,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
     
     
     override func setUp() {
-        candidateDetailsManagerViewModel = CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(httpService: MockHTTPpServicesDetails()), keychain: MockToken())
+        candidateDetailsManagerViewModel = CandidateDetailsManagerViewModel(retrieveCandidateData: CandidateDataManager(httpService: Mocks.MockHTTPServices()), keychain: Mocks.MockKey())
         super.setUp()
     }
     
@@ -27,7 +27,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
         // Given
         let mockTokenString = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHZpdGVzc2UuY29tIiwiaXNBZG1pbiI6dHJ1ZX0.J83TqjxRzmuDuruBChNT8sMg5tfRi5iQ6tUlqJb3M9U"
         let mockTokenData = mockTokenString.data(using: .utf8)!
-        let mockKey = MockToken()
+        let mockKey = Mocks.MockKey()
         mockKey.mockTokenData = mockTokenData
         candidateDetailsManagerViewModel.keychain = mockKey
         
@@ -41,7 +41,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
     
     func testTokenFail() async throws {
         // Given
-        let mockKey = MockToken()
+        let mockKey = Mocks.MockKey()
         mockKey.mockTokenData = Data([0xFF, 0xFE]) // Invalid UTF-8
         candidateDetailsManagerViewModel.keychain = mockKey
         
@@ -61,7 +61,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
         // Given
         let expectedCandidates = CandidateInformation(id: "vbzfbzvbzh", firstName: "Joe", isFavorite: true, email: "Joe_LastManeOfEarth@gmail.com", lastName: "Washington")
         
-        let mockCandidatesDataManager = MockCandidatesDataManager(httpService: MockHTTPpServicesDetails())
+        let mockCandidatesDataManager = Mocks.MockCandidatesDataManager(httpService: Mocks.MockHTTPServices())
         
         mockCandidatesDataManager.mockCandidates = expectedCandidates
         candidateDetailsManagerViewModel.retrieveCandidateData = mockCandidatesDataManager
@@ -101,7 +101,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
             email: "john.doe@example.com",
             lastName: "Doe"
         )
-        let mockCandidatesDataManager = MockCandidatesDataManager(httpService: MockHTTPpServicesDetails())
+        let mockCandidatesDataManager = Mocks.MockCandidatesDataManager(httpService: Mocks.MockHTTPServices())
         mockCandidatesDataManager.mockCandidates = expectedCandidates
         candidateDetailsManagerViewModel.retrieveCandidateData = mockCandidatesDataManager
         candidateDetailsManagerViewModel.selectedCandidateId = expectedCandidates.id
@@ -132,7 +132,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
     
     func test_updateCandidate() async throws {
         // Given
-        let mockCandidatesDataManager = MockCandidatesDataManager(httpService: MockHTTPService())
+        let mockCandidatesDataManager = Mocks.MockCandidatesDataManager(httpService: MockHTTPService())
         candidateDetailsManagerViewModel.retrieveCandidateData = mockCandidatesDataManager
         
         // Simuler une erreur
@@ -183,7 +183,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
             lastName: "Doe Updated"
         )
         
-        let viewModel = CandidateDetailsManagerViewModel(retrieveCandidateData: MockCandidatesDataManager(httpService: MockHTTPpServicesDetails()), keychain: MockToken())
+        let viewModel = CandidateDetailsManagerViewModel(retrieveCandidateData: Mocks.MockCandidatesDataManager(httpService: Mocks.MockHTTPServices()), keychain: Mocks.MockKey())
         viewModel.candidats = [initialCandidate]
         
         viewModel.updateCandidateInformation(with: updatedCandidate)
@@ -199,94 +199,5 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.candidats.first?.email, updatedCandidate.email)
         XCTAssertEqual(viewModel.candidats.first?.lastName, updatedCandidate.lastName)
     }
-    
-    class MockCandidatesDataManager: CandidateDataManager {
-        var mockCandidates: CandidateInformation?
-        var mockResponse: HTTPURLResponse?
-        var shouldThrowError: Bool = false
-        var errorToThrow: CandidateFetchError?
-        
-        override func fetchCandidateDetail(request: URLRequest) async throws   -> CandidateInformation {
-            if shouldThrowError {
-                throw errorToThrow ?? CandidateFetchError.fetchCandidateDetailError
-            }
-            
-            guard let candidate = mockCandidates else {
-                throw CandidateFetchError.fetchCandidateDetailError
-            }
-            
-            return candidate
-            
-        }
-        
-        
-        override func fetchCandidateInformation(token: String, id: String, phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String, request: URLRequest) async throws -> CandidateInformation {
-            if shouldThrowError {
-                throw errorToThrow ?? CandidateFetchError.fetchCandidateInformationError
-            }
-            guard let candidate =  mockCandidates else {
-                throw CandidateFetchError.fetchCandidateDetailError
-                
-            }
-            return candidate
-            
-        }
-        
-    }
-    
-    class MockToken: Keychain {
-        var mockTokenData: Data?
-        
-        enum KeychainError: Error, LocalizedError {
-            case getFailed,insertFailure,
-                 deleteFailure
-            
-            var errorDescription: String? {
-                switch self {
-                case .insertFailure:
-                    return "Failed to insert item into keychain."
-                case .deleteFailure:
-                    return "Failed to delete item from keychain."
-                case .getFailed:
-                    return "Failed to get item from keychain."
-                }
-            }
-            
-        }
-        
-        override func add(_ data: String, forKey key: String) throws {
-            mockTokenData = data.data(using: .utf8)
-            print("Mock: Password added to Keychain successfully.")
-        }
-        
-        override func get(forKey key: String) throws -> Data {
-            guard let data = mockTokenData else {
-                throw KeychainError.getFailed
-            }
-            print("Mock: Password retrieved from Keychain successfully.")
-            return data
-        }
-        
-        override func delete(forKey key: String) throws {
-            mockTokenData = nil
-            print("Mock: Password deleted from Keychain successfully.")
-        }
-    }
-    
-    
-    class MockHTTPpServicesDetails: HTTPService {
-        var mockResult: (Data, HTTPURLResponse)?
-        var mockError: Error?
-        
-        func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-            if let error = mockError {
-                throw error
-            }
-            guard let result = mockResult else {
-                throw NSError(domain: "", code: 0, userInfo: nil)
-            }
-            return result
-        }
-    }
-    
 }
+    
