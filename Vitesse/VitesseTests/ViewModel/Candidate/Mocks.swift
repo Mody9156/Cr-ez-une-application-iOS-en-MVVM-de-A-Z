@@ -25,43 +25,7 @@ enum Mocks {
             }
         }
     
-    class MockCandidatesDataManager: CandidateDataManager {
-        var mockCandidates: CandidateInformation?
-        var mockResponse: HTTPURLResponse?
-        var shouldThrowError: Bool = false
-        var errorToThrow: CandidateFetchError?
-        
-        override func fetchCandidateDetail(request: URLRequest) async throws   -> CandidateInformation {
-            if shouldThrowError {
-                throw errorToThrow ?? CandidateFetchError.fetchCandidateDetailError
-            }
-            
-            guard let candidate = mockCandidates else {
-                throw CandidateFetchError.fetchCandidateDetailError
-            }
-            
-            return candidate
-            
-        }
-        
-        
-        override func fetchCandidateInformation(token: String, id: String, phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String, request: URLRequest) async throws -> CandidateInformation {
-            if shouldThrowError {
-                throw errorToThrow ?? CandidateFetchError.fetchCandidateInformationError
-            }
-            guard let candidate =  mockCandidates else {
-                throw CandidateFetchError.fetchCandidateDetailError
-                
-            }
-            return candidate
-            
-        }
-        
-    }
-
     
-  
-
     class MockCandidateDataManager: CandidateDataManager {
         var mockCandidates: [CandidateInformation] = []
         var mockResponse: HTTPURLResponse?
@@ -85,45 +49,80 @@ enum Mocks {
             return response
         }
     }
-
-
-    class MockKey: Keychain {
-        var mockTokenData: Data?
-        
-        enum KeychainError: Error, LocalizedError {
-            case getFailed,insertError,deleteError
-            
-            var errorDescription: String? {
-                switch self {
-                case .insertError:
-                    return "Failed to insert item into keychain."
-                case .deleteError:
-                    return "Failed to delete item from keychain."
-                case .getFailed:
-                    return "Failed to get item from keychain."
-                }
-            }
-            
-        }
-        
-        override func add(_ data: String, forKey key: String) throws {
-            mockTokenData = data.data(using: .utf8)
-            print("Mock: Password added to Keychain successfully.")
-        }
-        
-        override func get(forKey key: String) throws -> Data {
-            guard let data = mockTokenData else {
-                throw KeychainError.getFailed
-            }
-            print("Mock: Password retrieved from Keychain successfully.")
-            return data
-        }
-        
-        override func delete(forKey key: String) throws {
-            mockTokenData = nil
-            print("Mock: Password deleted from Keychain successfully.")
-        }
-    }
-
     
+       class MockKey: Keychain {
+           var mockTokenData: Data?
+           
+           enum KeychainError: Error, LocalizedError {
+               case getFailed,insertFailure,
+                    deleteFailure
+               
+               var errorDescription: String? {
+                   switch self {
+                   case .insertFailure:
+                       return "Failed to insert item into keychain."
+                   case .deleteFailure:
+                       return "Failed to delete item from keychain."
+                   case .getFailed:
+                       return "Failed to get item from keychain."
+                   }
+               }
+               
+           }
+           
+           override func add(_ data: String, forKey key: String) throws {
+               mockTokenData = data.data(using: .utf8)
+             
+               print("Mock: Password added to Keychain successfully.")
+           }
+           
+           override func get(forKey key: String) throws -> Data {
+               guard let data = mockTokenData else {
+                   throw KeychainError.getFailed
+               }
+               print("Mock: Password retrieved from Keychain successfully.")
+               return data
+           }
+           
+           override func delete(forKey key: String) throws {
+               mockTokenData = nil
+               print("Mock: Password deleted from Keychain successfully.")
+           }
+       }
+    
+    class MockCandidatesDataManager: CandidateDataManager {
+           var mockCandidates: CandidateInformation?
+           var mockResponse: HTTPURLResponse?
+           var shouldThrowError: Bool = false
+           var errorToThrow: CandidateFetchError?
+           
+           override func fetchCandidateDetail(request: URLRequest) async throws   -> CandidateInformation {
+               if shouldThrowError {
+                   throw errorToThrow ?? CandidateFetchError.fetchCandidateDetailError
+               }
+               
+               guard let candidate = mockCandidates else {
+                   throw CandidateFetchError.fetchCandidateDetailError
+               }
+               
+               return candidate
+               
+           }
+           
+           
+           override func fetchCandidateInformation(token: String, id: String, phone: String?, note: String?, firstName: String, linkedinURL: String?, isFavorite: Bool, email: String, lastName: String, request: URLRequest) async throws -> CandidateInformation {
+               if shouldThrowError {
+                   throw errorToThrow ?? CandidateFetchError.fetchCandidateInformationError
+               }
+               guard let candidate =  mockCandidates else {
+                   throw CandidateFetchError.fetchCandidateDetailError
+                   
+               }
+               return candidate
+               
+           }
+           
+       }
+   
+ 
 }

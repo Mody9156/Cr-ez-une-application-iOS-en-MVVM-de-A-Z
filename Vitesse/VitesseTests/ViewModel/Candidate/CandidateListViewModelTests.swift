@@ -23,12 +23,26 @@ final class CandidateListViewModelTests: XCTestCase {
     func testFetchTokenAndRetrieveCandidateListSuccess() async throws {
         // Given
         var mockKey = Mocks.MockKey()
-        try  mockKey.add("kfnegjnsdjfgjsdbfgjbdsjfb", forKey: "showList")
-        let getToken = try  mockKey.get(forKey: "showList")
         
-        //when
-      
-        //Then
+        try mockKey.add("9tIiwiaXNBZG1pbiI6dHJ1ZX0.J83TqjxRzmuDuruBChNT8Mg5tfRi5iQ6tUlqJb3M9U", forKey: "showList")
+        
+        do{
+            //when
+            let getToken = try mockKey.get(forKey: "showList")
+            
+            guard let encoding = String(data: getToken, encoding: .utf8) else {
+                XCTFail("Failed to encode token")
+                return
+            }
+            
+            let retrieveToken = try candidateListViewModel.retrieveToken()
+            //Then
+            XCTAssertNoThrow(retrieveToken)
+            
+        }catch {
+            XCTFail("Failed to get item from keychain: \(error.localizedDescription)")
+            
+        }
         
     }
     
