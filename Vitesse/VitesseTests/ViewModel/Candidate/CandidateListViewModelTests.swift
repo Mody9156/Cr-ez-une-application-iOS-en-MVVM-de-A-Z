@@ -151,7 +151,7 @@ final class CandidateListViewModelTests: XCTestCase {
         let indexSet =  IndexSet(integer: 0)
       
         do{
-            var removeCandidate =  try? await candidateListViewModel.removeCandidate(at: IndexSet())
+            _ =   await candidateListViewModel.removeCandidate(at: indexSet)
           
         }catch let error as  CandidateManagementError {
             XCTAssertEqual(error, .deleteCandidateError)

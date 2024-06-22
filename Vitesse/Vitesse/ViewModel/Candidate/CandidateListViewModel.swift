@@ -111,16 +111,14 @@ class CandidateListViewModel: ObservableObject {
                 
                 
             } catch {
-                HTTPURLResponse(
+              let response =  HTTPURLResponse(
                     url: URL(string: "http://localhost")!,
                     statusCode: 500,
                     httpVersion: nil,
                     headerFields: nil
-                )!
+                )
             }
 
-            
-            
         }
         }
  
