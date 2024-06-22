@@ -79,7 +79,9 @@ enum Mocks {
     
     class MockKeychain: Keychain {
         var mockTokenData: Data?
-        
+        var shouldThrowError: Bool = false
+        var errorToThrow: CandidateManagementError?
+
         enum KeychainError: Error, LocalizedError {
             case getFailed,insertFailure,
                  deleteFailure
@@ -96,23 +98,33 @@ enum Mocks {
             }
             
         }
+      
         
         override func add(_ data: String, forKey key: String) throws {
             mockTokenData = data.data(using: .utf8)
+            if shouldThrowError {
+                throw errorToThrow ?? CandidateManagementError .fetchTokenError
+            }
         }
         
         override func get(forKey key: String) throws -> Data {
+            if shouldThrowError {
+                throw errorToThrow ?? CandidateManagementError .fetchTokenError
+            }
             guard let data = mockTokenData else {
-                throw KeychainError.getFailed
+                throw errorToThrow ?? CandidateManagementError .fetchTokenError
             }
             return data
         }
         
         override func delete(forKey key: String) throws {
+            if shouldThrowError {
+                throw errorToThrow ?? CandidateManagementError .fetchTokenError
+            }
             mockTokenData = nil
         }
     }
    
-     
+ 
     
 }

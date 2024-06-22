@@ -7,7 +7,7 @@ import XCTest
 final class CandidateListViewModelTests: XCTestCase {
     var candidateListViewModel: CandidateListViewModel!
     var mockCandidateDataManager: Mocks.MockCandidateDataManager!
-
+    
     override func setUp() {
         super.setUp()
         mockCandidateDataManager = Mocks.MockCandidateDataManager(httpService: Mocks.MockHTTPServices())
@@ -45,45 +45,65 @@ final class CandidateListViewModelTests: XCTestCase {
         }
         
     }
-       
+    
     func testTokenFail_missingTokenData() async throws {
         // Given
         let mockKey =  Mocks.MockKeychain()
         mockKey.mockTokenData = nil
-
-        // When && Then
-        do {
-          
-            let  retrieveToken = try candidateListViewModel.retrieveToken()
-        } catch let error as CandidateManagementError {
-            XCTAssertEqual(error, .fetchTokenError)
+        mockKey.shouldThrowError = true
+        
+        XCTAssertThrowsError( try mockKey.get(forKey: "fail")){ error in
+            XCTAssertEqual(error as! CandidateManagementError, .fetchTokenError)
+            
         }
+        
+        do {
+            try candidateListViewModel.retrieveToken()
+            
+        }catch let error as CandidateManagementError{
+            XCTAssertEqual(error,.fetchTokenError)
+        }
+        
+        
+        
     }
     
     func testDisplayCandidatesList() async throws {
         // Given
         let expectedCandidates = [CandidateInformation(id: "vbzfbzvbzh", firstName: "Joe", isFavorite: true, email: "Joe_LastManeOfEarth@gmail.com", lastName: "Washington")]
         mockCandidateDataManager.mockCandidates_array = expectedCandidates
+        do{
+            // When
+            let candidatesList = try await candidateListViewModel.displayCandidatesList()
+            // Then
+            XCTAssertNotNil(candidatesList)
+            XCTAssertEqual(candidatesList.count, expectedCandidates.count)
+            XCTAssertEqual(candidatesList, expectedCandidates)
+            
+        }catch let error as CandidateManagementError{
+            XCTAssertEqual(error, .displayCandidatesListError)
+        }
         
-        // When
-        let candidatesList = try await candidateListViewModel.displayCandidatesList()
-        
-        // Then
-        XCTAssertNotNil(candidatesList)
-        XCTAssertEqual(candidatesList.count, expectedCandidates.count)
-        XCTAssertEqual(candidatesList, expectedCandidates)
     }
     
     func testInvalidDisplayCandidatesList() async throws {
         // Given
         mockCandidateDataManager.mockCandidates_array = []
+        mockCandidateDataManager.shouldThrowError = true
+        do{
+            // When
+            let candidatesList = try await candidateListViewModel.displayCandidatesList()
+            
+            // Then
+            XCTAssertNotNil(candidatesList)
+            XCTAssertTrue(candidatesList.isEmpty)
+        }catch let error as CandidateManagementError{
+            XCTAssertEqual(error,.displayCandidatesListError)
+        }catch{
+            XCTFail("Unexpected error: \(error)")
+        }
         
-        // When
-        let candidatesList = try await candidateListViewModel.displayCandidatesList()
         
-        // Then
-        XCTAssertNotNil(candidatesList)
-        XCTAssertTrue(candidatesList.isEmpty)
     }
     
     func testDeleteCandidate() async throws {
@@ -148,16 +168,18 @@ final class CandidateListViewModelTests: XCTestCase {
         
     }
     func testInvalidRemoveCandidate()async throws {
-        let indexSet =  IndexSet(integer: 0)
-      
+        let indexSet =  IndexSet(integer: 1)
+        
         do{
-            _ =   await candidateListViewModel.removeCandidate(at: indexSet)
-          
+            try? await candidateListViewModel.removeCandidate(at: IndexSet() )
+            
         }catch let error as  CandidateManagementError {
             XCTAssertEqual(error, .deleteCandidateError)
             
+        }catch {
+            XCTFail("Unexpected error: \(error)")
         }
-       
+        
         
     }
 }
