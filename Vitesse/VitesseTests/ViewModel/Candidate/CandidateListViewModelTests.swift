@@ -147,18 +147,17 @@ final class CandidateListViewModelTests: XCTestCase {
         }
         
     }
-//    func testInvalidRemoveCandidate()async throws {
-//        let indexSet =  IndexSet(integer: 0)
-//      
-//        var removeCandidate =  try? await candidateListViewModel.removeCandidate(at: IndexSet())
-//        
-//        removeCandidate = { offsets in
-//                   return Task {
-//                       throw NSError(domain: "", code: 500, userInfo: nil) // Simule une erreur de suppression
-//                   }
-//               }
-//      
-//       
-//        
-//    }
+    func testInvalidRemoveCandidate()async throws {
+        let indexSet =  IndexSet(integer: 0)
+      
+        do{
+            var removeCandidate =  try? await candidateListViewModel.removeCandidate(at: IndexSet())
+          
+        }catch let error as  CandidateManagementError {
+            XCTAssertEqual(error, .deleteCandidateError)
+            
+        }
+       
+        
+    }
 }
