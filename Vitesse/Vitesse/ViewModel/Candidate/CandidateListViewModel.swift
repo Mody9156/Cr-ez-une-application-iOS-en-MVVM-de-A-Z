@@ -17,10 +17,14 @@ class CandidateListViewModel: ObservableObject {
     // Get token
     func retrieveToken() throws -> String {
         let keychain = try Keychain().get(forKey: "token")
-        if let encodingToken = String(data: keychain, encoding: .utf8) else {
+        if let encodingToken = String(data: keychain, encoding: .utf8)  {
+            
+            return encodingToken
+            
+        }else{
             throw CandidateManagementError.fetchTokenError
         }
-        return encodingToken
+        
     }
     
     // Fetch candidates list
@@ -48,7 +52,7 @@ class CandidateListViewModel: ObservableObject {
             throw CandidateManagementError.displayCandidatesListError
         }
     }
-    
+    @MainActor
     // Delete candidate
     func deleteCandidate(at offsets: IndexSet) async throws -> HTTPURLResponse {
         do {
@@ -104,23 +108,19 @@ class CandidateListViewModel: ObservableObject {
     @MainActor
     
     // Remove candidate
-    func removeCandidate(at offsets: IndexSet)   {
+    func removeCandidate(at offsets: IndexSet)    {
         Task{
-            do {
-                _ = try await deleteCandidate(at: offsets)
-                
-                
-            } catch {
-              let response =  HTTPURLResponse(
-                    url: URL(string: "http://localhost")!,
-                    statusCode: 500,
-                    httpVersion: nil,
-                    headerFields: nil
-                )!
-            }
-
+        if let delete =  try? await deleteCandidate(at: offsets),delete.statusCode == 200{
+            let _ = HTTPURLResponse(
+                url: URL(string: "http://localhost")!,
+                statusCode: 500,
+                httpVersion: nil,
+                headerFields: nil
+            )!
         }
-        }
+        
+    }
+}
  
 }
 

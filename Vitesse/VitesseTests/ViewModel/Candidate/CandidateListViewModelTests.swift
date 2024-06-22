@@ -51,6 +51,9 @@ final class CandidateListViewModelTests: XCTestCase {
         let mockKey =  Mocks.MockKeychain()
         mockKey.mockTokenData = nil
         mockKey.shouldThrowError = true
+        let viewModel = CandidateListViewModel(retrieveCandidateData: mockCandidateDataManager, keychain: mockKey)
+
+        
         
         XCTAssertThrowsError( try mockKey.get(forKey: "fail")){ error in
             XCTAssertEqual(error as! CandidateManagementError, .fetchTokenError)
@@ -169,12 +172,18 @@ final class CandidateListViewModelTests: XCTestCase {
     }
     func testInvalidRemoveCandidate()async throws {
         let indexSet =  IndexSet(integer: 1)
-        
+        let response =  HTTPURLResponse(
+             url: URL(string: "http://localhost")!,
+             statusCode: 500,
+             httpVersion: nil,
+             headerFields: nil
+         )!
         do{
-            try? await candidateListViewModel.removeCandidate(at: IndexSet() )
-            
+           let removeCandidate =  try? await candidateListViewModel.removeCandidate(at: IndexSet() )
+           
         }catch let error as  CandidateManagementError {
             XCTAssertEqual(error, .deleteCandidateError)
+                           
             
         }catch {
             XCTFail("Unexpected error: \(error)")
