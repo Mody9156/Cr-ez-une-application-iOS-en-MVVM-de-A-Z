@@ -171,16 +171,11 @@ final class CandidateListViewModelTests: XCTestCase {
         
     }
     func testInvalidRemoveCandidate()async throws {
-        let indexSet =  IndexSet(integer: 1)
-        let response =  HTTPURLResponse(
-             url: URL(string: "http://localhost")!,
-             statusCode: 500,
-             httpVersion: nil,
-             headerFields: nil
-         )!
+      
         do{
-           let removeCandidate =  try? await candidateListViewModel.removeCandidate(at: IndexSet() )
-           
+            let removeCandidate =  try? await candidateListViewModel.removeCandidate(at: IndexSet())
+            XCTAssertThrowsError(removeCandidate)
+            
         }catch let error as  CandidateManagementError {
             XCTAssertEqual(error, .deleteCandidateError)
                            
