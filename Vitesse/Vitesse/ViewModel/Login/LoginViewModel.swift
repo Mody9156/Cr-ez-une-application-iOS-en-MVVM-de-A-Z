@@ -20,7 +20,6 @@ class LoginViewModel: ObservableObject {
         case tokenInvalid,usernameAndPasswordInvalid
     }
   
-    
     // Authenticate user and proceed
     @discardableResult
     @MainActor

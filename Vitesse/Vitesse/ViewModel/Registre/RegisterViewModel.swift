@@ -15,27 +15,31 @@ class RegisterViewModel: ObservableObject {
         self.loginViewModel = loginViewModel
     }
     
-    enum RegisterViewModelError :Error{
+    enum RegisterViewModelError: Error {
         case invalidHandleRegistrationViewModel
+        case emailInvalid
+        case invalidPassword
+        case invalidFirstName
+        case invalidLastName
     }
-   
+        
     
     func handleRegistrationViewModel() async throws -> RegistrationResponse{
+        guard   !email.isEmpty else {
+            throw RegisterViewModelError.emailInvalid
+        }
+        guard  !password.isEmpty else {
+            throw RegisterViewModelError.invalidPassword
+        }
+        guard  !firstName.isEmpty else {
+            throw RegisterViewModelError.invalidFirstName
+        }
+        guard  !lastName.isEmpty else {
+            throw RegisterViewModelError.invalidLastName
+        }
+        
         do {
-                guard   !email.isEmpty else {
-                      throw RegisterViewModelError.invalidHandleRegistrationViewModel
-                  }
-                  guard  !password.isEmpty else {
-                      throw RegisterViewModelError.invalidHandleRegistrationViewModel
-                  }
-                  guard  !firstName.isEmpty else {
-                      throw RegisterViewModelError.invalidHandleRegistrationViewModel
-                  }
-                  guard  !lastName.isEmpty else {
-                      throw RegisterViewModelError.invalidHandleRegistrationViewModel
-                  }
-            
-            
+                        
             _ = try await registrationRequestBuilder.buildRegistrationRequest(
                 email: email,
                 password: password,

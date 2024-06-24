@@ -17,6 +17,35 @@ final class RegisterViewModelTests: XCTestCase {
         super.tearDown()
     }
     
+    func testInvalidEmail() async throws {
+        // Given
+        let email = ""
+        let password = "securePassword1"
+        let firstName = "John"
+        let lastName = "Doe"
+        
+        registerViewModel.email = email
+        registerViewModel.password = password
+        registerViewModel.firstName = firstName
+        registerViewModel.lastName = lastName
+        
+        
+        // When
+        do {
+            let _ = try await registerViewModel.handleRegistrationViewModel()
+            XCTFail("Expected error not thrown")
+        } catch let error as RegisterViewModel.RegisterViewModelError {
+            // Then
+            XCTAssertEqual(error, .emailInvalid)
+            
+        } catch {
+            XCTFail("Unexpected error: \(error)")
+        }
+        
+        
+        
+    }
+    
     func testHandleRegistrationViewModel() async throws {
         // Given
         let email = "test@example.com"
@@ -43,7 +72,7 @@ final class RegisterViewModelTests: XCTestCase {
         }
     }
     
-    func testInvalidHandleRegistrationViewModel() async throws {
+    func testInvalidFirstName() async throws {
         // Given
         let email = "test@example.com"
         let password = "securePassword123"
@@ -62,7 +91,52 @@ final class RegisterViewModelTests: XCTestCase {
             XCTFail("Expected invalid response error")
             
         }catch let error as RegisterViewModel.RegisterViewModelError{
-            XCTAssertEqual(error, .invalidHandleRegistrationViewModel)
+            XCTAssertEqual(error, .invalidFirstName)
+        }
+    }
+    func testInvalidLastName() async throws {
+        // Given
+        let email = "test@example.com"
+        let password = "securePassword123"
+        let firstName = "John"
+        let lastName = ""
+        
+        registerViewModel.email = email
+        registerViewModel.password = password
+        registerViewModel.firstName = firstName
+        registerViewModel.lastName = lastName
+        
+        
+        // When & Then
+        do{
+            let _ = try await registerViewModel.handleRegistrationViewModel()
+            XCTFail("Expected invalid response error")
+            
+        }catch let error as RegisterViewModel.RegisterViewModelError{
+            XCTAssertEqual(error, .invalidLastName)
+        }
+    }
+    
+    func testInvalidpassword() async throws {
+        // Given
+        let email = "test@example.com"
+        let password = ""
+        let firstName = "John"
+        let lastName = "Doe"
+        
+        registerViewModel.email = email
+        registerViewModel.password = password
+        registerViewModel.firstName = firstName
+        registerViewModel.lastName = lastName
+        
+        
+        // When & Then
+        do{
+            let _ = try await registerViewModel.handleRegistrationViewModel()
+            XCTFail("Expected invalid response error")
+            
+        }catch let error as RegisterViewModel.RegisterViewModelError{
+            XCTAssertEqual(error, .invalidPassword)
         }
     }
     

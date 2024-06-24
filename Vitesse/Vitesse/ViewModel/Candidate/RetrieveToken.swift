@@ -8,9 +8,13 @@
 import Foundation
 
 struct RetrieveToken  : TokenRetrievable{
-    
-   static func retrieveToken() throws -> String {
-        let keychain = try Keychain().get(forKey: "token")
+        
+    static func retrieveToken(_ token : String) throws -> String {
+        guard !token.isEmpty else {
+            throw CandidateManagementError.fetchTokenError
+        }
+        let keychain = try Keychain().get(forKey: token)
+        
         if let encodingToken = String(data: keychain, encoding: .utf8)  {
             
             return encodingToken

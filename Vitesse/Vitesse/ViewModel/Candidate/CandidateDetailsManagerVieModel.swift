@@ -27,7 +27,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         }
         
         do {
-            let token = try RetrieveToken.retrieveToken()
+            let token = try RetrieveToken.retrieveToken("token")
             let request = try URLCandidManager.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(selectedCandidateId)",
                 method: "GET",
@@ -55,7 +55,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         id: String
     ) async throws -> CandidateInformation {
         do {
-            let token = try RetrieveToken.retrieveToken()
+            let token = try RetrieveToken.retrieveToken("token")
             
             let request = try URLCandidManager.UpdateCandiRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)",

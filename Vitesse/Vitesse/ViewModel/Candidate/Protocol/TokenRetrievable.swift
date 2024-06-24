@@ -8,5 +8,5 @@
 import Foundation
 
 protocol TokenRetrievable {
-    static func retrieveToken() throws -> String
+    static func retrieveToken(_ token : String) throws -> String
 }

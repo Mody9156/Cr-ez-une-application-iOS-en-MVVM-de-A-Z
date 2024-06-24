@@ -14,15 +14,16 @@ final class RetrieveTokenTests: XCTestCase {
     func testRetrieveToken() async throws{
         
         // Given
+        let key = Keychain()
         MocksRetrieveToken.mockToken = "mockTokenValue"
         MocksRetrieveToken.shouldThrowError = false
-        
+        try key.add("exemple", forKey: "fake_key")
         // When
-        let retrievedToken = try MocksRetrieveToken.retrieveToken()
+        let retrievedToken = try MocksRetrieveToken.retrieveToken("fake_key")
         
         // Then
         XCTAssertEqual(retrievedToken, "mockTokenValue")
-        XCTAssertNoThrow(try MocksRetrieveToken.retrieveToken())
+        XCTAssertNoThrow(try MocksRetrieveToken.retrieveToken("fake_key"))
     }
     
     func testInvalidRetrieveToken() async throws{
@@ -31,10 +32,21 @@ final class RetrieveTokenTests: XCTestCase {
         MocksRetrieveToken.shouldThrowError = true
         
         // When & Then
-        XCTAssertThrowsError(try MocksRetrieveToken.retrieveToken()) { error in
+        XCTAssertThrowsError(try MocksRetrieveToken.retrieveToken("fake_key")) { error in
             XCTAssertEqual(error as? CandidateManagementError, .fetchTokenError)
         }
         
+        
+    }
+  
+    
+    func testFetchTokenError() async throws{
+        
+        //When
+        XCTAssertThrowsError(try RetrieveToken.retrieveToken("")) { error in
+            XCTAssertEqual(error as? CandidateManagementError, .fetchTokenError)
+        }
+        //Then
         
     }
 }
@@ -43,7 +55,7 @@ class MocksRetrieveToken: TokenRetrievable {
     static var mockToken: String?
     static var shouldThrowError: Bool = false
     
-    static func retrieveToken() throws -> String {
+    static func retrieveToken(_ token : String) throws -> String {
         if shouldThrowError {
             throw CandidateManagementError.fetchTokenError
         }

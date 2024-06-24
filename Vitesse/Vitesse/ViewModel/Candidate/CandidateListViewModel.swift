@@ -22,7 +22,7 @@ class CandidateListViewModel: ObservableObject {
     func displayCandidatesList() async throws -> [CandidateInformation] {
 
         do {
-            let token = try RetrieveToken.retrieveToken()
+            let token = try RetrieveToken.retrieveToken("token")
             
             let request = try URLCandidManager.loadCandidatesFromURL(
                 url: "http://127.0.0.1:8080/candidate",
@@ -46,7 +46,7 @@ class CandidateListViewModel: ObservableObject {
     // Delete candidate
     func deleteCandidate(at offsets: IndexSet) async throws -> HTTPURLResponse {
         do {
-            let token = try RetrieveToken.retrieveToken()
+            let token = try RetrieveToken.retrieveToken("token")
             
             var id = ""
             for offset in offsets {
@@ -78,7 +78,7 @@ class CandidateListViewModel: ObservableObject {
     @discardableResult//
     func showFavoriteCandidates(selectedCandidateId: String) async throws -> CandidateInformation {
         do {
-            let token = try RetrieveToken.retrieveToken()
+            let token = try RetrieveToken.retrieveToken("token")
             
             let request = try URLCandidManager.createURLRequest(
                 url:"http://127.0.0.1:8080/candidate/\(selectedCandidateId)/favorite",
