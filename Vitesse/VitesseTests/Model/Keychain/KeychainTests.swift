@@ -33,6 +33,16 @@ final class KeychainTests: XCTestCase {
         
     }
     
+    func testInvalidAddNewKeyChain() throws {
+        
+        //When & Then
+      
+        XCTAssertThrowsError(try keychain.add("", forKey: "")){ error in
+            XCTAssertEqual(error as? Keychain.KeychainError,.getFailed )
+        }
+        
+    }
+    
     func testGetNewKeyChain() throws {
         //Given
         
