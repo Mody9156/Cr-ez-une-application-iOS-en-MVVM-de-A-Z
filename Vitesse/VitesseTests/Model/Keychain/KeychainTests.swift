@@ -38,7 +38,7 @@ final class KeychainTests: XCTestCase {
         //When & Then
       
         XCTAssertThrowsError(try keychain.add("", forKey: "")){ error in
-            XCTAssertEqual(error as? Keychain.KeychainError,.getFailed )
+            XCTAssertEqual(error as? Keychain.KeychainError,.insertFailed )
         }
         
     }
