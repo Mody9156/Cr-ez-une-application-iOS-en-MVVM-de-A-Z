@@ -14,25 +14,15 @@ class CandidateListViewModel: ObservableObject {
         self.keychain = keychain
     }
     
-    // Get token
-    func retrieveToken() throws -> String {
-        let keychain = try Keychain().get(forKey: "token")
-        if let encodingToken = String(data: keychain, encoding: .utf8)  {
-            
-            return encodingToken
-            
-        }else{
-            throw CandidateManagementError.fetchTokenError
-        }
-        
-    }
+  
     
     // Fetch candidates list
     @MainActor
     @discardableResult
     func displayCandidatesList() async throws -> [CandidateInformation] {
+
         do {
-            let token = try retrieveToken()
+            let token = try RetrieveToken.retrieveToken()
             
             let request = try URLCandidManager.loadCandidatesFromURL(
                 url: "http://127.0.0.1:8080/candidate",
@@ -56,7 +46,7 @@ class CandidateListViewModel: ObservableObject {
     // Delete candidate
     func deleteCandidate(at offsets: IndexSet) async throws -> HTTPURLResponse {
         do {
-            let token = try retrieveToken()
+            let token = try RetrieveToken.retrieveToken()
             
             var id = ""
             for offset in offsets {
@@ -88,7 +78,7 @@ class CandidateListViewModel: ObservableObject {
     @discardableResult//
     func showFavoriteCandidates(selectedCandidateId: String) async throws -> CandidateInformation {
         do {
-            let token = try retrieveToken()
+            let token = try RetrieveToken.retrieveToken()
             
             let request = try URLCandidManager.createURLRequest(
                 url:"http://127.0.0.1:8080/candidate/\(selectedCandidateId)/favorite",

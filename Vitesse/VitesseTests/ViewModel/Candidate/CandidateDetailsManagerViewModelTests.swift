@@ -23,38 +23,6 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
         super.setUp()
     }
     
-    func test_token() throws {
-        // Given
-        let mockTokenString = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHZpdGVzc2UuY29tIiwiaXNBZG1pbiI6dHJ1ZX0.J83TqjxRzmuDuruBChNT8sMg5tfRi5iQ6tUlqJb3M9U"
-        let mockTokenData = mockTokenString.data(using: .utf8)!
-        let mockKey = Mocks.MockKeychain()
-        mockKey.mockTokenData = mockTokenData
-        candidateDetailsManagerViewModel.keychain = mockKey
-        
-        do{
-            _ = try candidateDetailsManagerViewModel.retrieveToken()
-            
-        }catch let error as Keychain.KeychainError{
-            XCTAssertEqual(error, .insertFailed)
-        }
-    }
-    
-    func testTokenFail() async throws {
-        // Given
-        let mockKey = Mocks.MockKeychain()
-        mockKey.mockTokenData = Data([0xFF, 0xFE]) // Invalid UTF-8
-        candidateDetailsManagerViewModel.keychain = mockKey
-        
-        // When && Then
-        do {
-            _ = try candidateDetailsManagerViewModel.retrieveToken()
-        } catch let error as CandidateDetailsManagerViewModel.CandidateManagementError {
-            XCTAssertEqual(error, .fetchTokenError)
-        } catch {
-            XCTFail("Unexpected error: \(error)")
-        }
-    }
-    
     
     
     func test_displayCandidateDetails() async throws {
