@@ -16,14 +16,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         case displayCandidateDetailsError, fetchTokenError, candidateUpdaterError
     }
     
-    // Get token
-    func retrieveToken() throws -> String {
-        let keychain = try keychain.get(forKey: "token")
-        guard let encodingToken = String(data: keychain, encoding: .utf8) else {
-            throw CandidateManagementError.fetchTokenError
-        }
-        return encodingToken
-    }
+   
     
     @MainActor
     @discardableResult
@@ -34,7 +27,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         }
         
         do {
-            let token = try retrieveToken()
+            let token = try RetrieveToken.retrieveToken("token")
             let request = try URLCandidManager.createURLRequest(
                 url: "http://127.0.0.1:8080/candidate/\(selectedCandidateId)",
                 method: "GET",
@@ -62,7 +55,7 @@ class CandidateDetailsManagerViewModel: ObservableObject {
         id: String
     ) async throws -> CandidateInformation {
         do {
-            let token = try retrieveToken()
+            let token = try RetrieveToken.retrieveToken("token")
             
             let request = try URLCandidManager.UpdateCandiRequest(
                 url: "http://127.0.0.1:8080/candidate/\(id)",

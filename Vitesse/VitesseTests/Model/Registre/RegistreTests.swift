@@ -70,7 +70,7 @@ final class RegistreTests: XCTestCase {
         let result : (Data,HTTPURLResponse) = (Data(),response)
         (registrationRequestBuilder.httpService as! Mocks.MockHTTPServices ).mockResult = result
         
-       
+        
         do{
             //When
             let buildRegistrationRequest =  try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
@@ -107,7 +107,7 @@ final class RegistreTests: XCTestCase {
     }
     
     func testHTTPResponseErrorEquality() {
-        // Créer deux erreurs invalides avec le même code d'état
+        //Given
         let invalidResponse1 = RegistrationRequestBuilder.HTTPResponseError.invalidResponse(statusCode: 404)
         let invalidResponse2 = RegistrationRequestBuilder.HTTPResponseError.invalidResponse(statusCode: 404)
         
@@ -116,17 +116,16 @@ final class RegistreTests: XCTestCase {
         
         let networkError1 = RegistrationRequestBuilder.HTTPResponseError.networkError(error1)
         let networkError2 = RegistrationRequestBuilder.HTTPResponseError.networkError(error2)
-        // Créer une erreur réseau
-        _ = RegistrationRequestBuilder.HTTPResponseError.networkError(NSError(domain: "Test", code: 500, userInfo: nil))
         
-        // Test d'égalité pour les erreurs invalides
+        //When
+        _ = RegistrationRequestBuilder.HTTPResponseError.networkError(NSError(domain: "Test", code: 500, userInfo: nil))
+        //Then
         XCTAssertTrue(invalidResponse1 == invalidResponse2, "Les erreurs invalides avec le même code d'état doivent être égales")
         
-        // Test d'inégalité entre une erreur invalide et une erreur réseau
         XCTAssertFalse(invalidResponse1 == networkError1, "Les erreurs invalides et les erreurs réseau ne doivent pas être égales")
         
         XCTAssertTrue(networkError1 == networkError2)
         
     }
-  
+    
 }
