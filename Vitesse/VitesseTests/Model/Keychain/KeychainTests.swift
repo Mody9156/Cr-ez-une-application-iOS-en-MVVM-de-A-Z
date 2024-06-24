@@ -33,7 +33,6 @@ final class KeychainTests: XCTestCase {
     func testInvalidAddNewKeyChain() throws {
         
         //When & Then
-        
         XCTAssertThrowsError(try keychain.add("", forKey: "")){ error in
             XCTAssertEqual(error as? Keychain.KeychainError,.insertFailed )
         }
@@ -41,25 +40,21 @@ final class KeychainTests: XCTestCase {
     }
     
     func testGetNewKeyChain() throws {
-        //Given
         
         //When
         let _ =  try keychain.add("exemple_of_token", forKey: "exemple_30")
-       
+        
         //Then
         XCTAssertNoThrow(try keychain.get(forKey: "exemple_30"))
     }
     
     func testInvalidGetNewKeyChain() throws {
-        //Given
         
         //When & Then
         XCTAssertThrowsError(try keychain.get(forKey: "badGetToken")){ error in
             
             XCTAssertEqual(error as? Keychain.KeychainError,.getFailed)
-            
         }
-        
     }
     
     func testDeleteNewKeyChain() throws {
@@ -79,8 +74,6 @@ final class KeychainTests: XCTestCase {
             XCTAssertEqual(error as? Keychain.KeychainError,.deleteFailed)
             
         }
-        
     }
-    
 }
 

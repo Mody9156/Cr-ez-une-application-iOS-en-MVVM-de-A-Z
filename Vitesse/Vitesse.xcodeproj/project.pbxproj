@@ -185,7 +185,6 @@
 			isa = PBXGroup;
 			children = (
 				23D9E22F2C29A740002F8862 /* Mocks */,
-				23DF32302C2572240013D8A1 /* Mocks.swift */,
 				23E8F3272C18511200008C9E /* ViewModel */,
 				239640BD2C17301900F123E6 /* Model */,
 			);
@@ -223,6 +222,7 @@
 		23D9E22F2C29A740002F8862 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				23DF32302C2572240013D8A1 /* Mocks.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";

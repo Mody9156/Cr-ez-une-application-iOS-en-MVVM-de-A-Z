@@ -10,13 +10,13 @@ import XCTest
 
 final class LoginViewModelTests: XCTestCase {
     var loginViewModel: LoginViewModel!
-    var keychain: MockKeychain!
+    var keychain: Mocks.MockKeychain!
     var authenticationManager: MockAuthenticationManager!
     
     override func setUp() {
         super.setUp()
         authenticationManager = MockAuthenticationManager()
-        keychain = MockKeychain()
+        keychain = Mocks.MockKeychain()
         loginViewModel = LoginViewModel({ }, authenticationManager: authenticationManager, keychain: keychain)
     }
     
@@ -26,8 +26,6 @@ final class LoginViewModelTests: XCTestCase {
         authenticationManager = nil
         super.tearDown()
     }
-    
-   
    
   
     
