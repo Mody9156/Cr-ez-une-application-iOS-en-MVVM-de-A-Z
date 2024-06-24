@@ -20,56 +20,32 @@ final class CandidateListViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-//    func testFetchTokenAndRetrieveCandidateListSuccess() async throws {
-//        // Given
-//        var mockKey = Mocks.MockKeychain()
-//        
-//        try mockKey.add("9tIiwiaXNBZG1pbiI6dHJ1ZX0.J83TqjxRzmuDuruBChNT8Mg5tfRi5iQ6tUlqJb3M9U", forKey: "showList")
-//        
-//        do{
-//            //when
-//            let getToken = try mockKey.get(forKey: "showList")
-//            
-//            guard String(data: getToken, encoding: .utf8) != nil else {
-//                XCTFail("Failed to encode token")
-//                return
-//            }
-//            
-//            let retrieveToken = try candidateListViewModel.retrieveToken()
-//            //Then
-//            XCTAssertNoThrow(retrieveToken)
-//            
-//        }catch {
-//            XCTFail("Failed to get item from keychain: \(error.localizedDescription)")
-//            
-//        }
-//        
-//    }
-    
-    func testTokenFail_missingTokenData() async throws {
+    func testFetchTokenAndRetrieveCandidateListSuccess() async throws {
         // Given
-        let mockKey =  Mocks.MockKeychain()
-        mockKey.mockTokenData = nil
-        mockKey.shouldThrowError = true
-        let _ = CandidateListViewModel(retrieveCandidateData: mockCandidateDataManager, keychain: mockKey)
-
+        var mockKey = Mocks.MockKeychain()
         
+        try mockKey.add("9tIiwiaXNBZG1pbiI6dHJ1ZX0.J83TqjxRzmuDuruBChNT8Mg5tfRi5iQ6tUlqJb3M9U", forKey: "showList")
         
-        XCTAssertThrowsError( try mockKey.get(forKey: "fail")){ error in
-            XCTAssertEqual(error as! CandidateManagementError, .fetchTokenError)
+        do{
+            //when
+            let getToken = try mockKey.get(forKey: "showList")
+            
+            guard String(data: getToken, encoding: .utf8) != nil else {
+                XCTFail("Failed to encode token")
+                return
+            }
+            
+            let retrieveToken = try candidateListViewModel.retrieveToken()
+            //Then
+            XCTAssertNoThrow(retrieveToken)
+            
+        }catch {
+            XCTFail("Failed to get item from keychain: \(error.localizedDescription)")
             
         }
-        
-        do {
-            try candidateListViewModel.retrieveToken()
-            
-        }catch let error as CandidateManagementError{
-            XCTAssertEqual(error,.fetchTokenError)
-        }
-        
-        
         
     }
+    
     
     func testDisplayCandidatesList() async throws {
         // Given

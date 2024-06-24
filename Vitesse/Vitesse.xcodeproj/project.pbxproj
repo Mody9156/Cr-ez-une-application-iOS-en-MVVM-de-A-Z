@@ -29,6 +29,7 @@
 		23D88E4A2C1A0C4C00DD73E7 /* RegisterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D88E492C1A0C4C00DD73E7 /* RegisterViewModelTests.swift */; };
 		23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */; };
 		23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2982BF509B1006FC31E /* RegistrationView.swift */; };
+		23D9E2312C29DA9D002F8862 /* RetrieveToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D9E2302C29DA9D002F8862 /* RetrieveToken.swift */; };
 		23DF32312C2572240013D8A1 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DF32302C2572240013D8A1 /* Mocks.swift */; };
 		23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */; };
 		23E2DD102BF3A8D200C28A1F /* VitesseViewModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0F2BF3A8D100C28A1F /* VitesseViewModelManager.swift */; };
@@ -81,6 +82,7 @@
 		23D88E492C1A0C4C00DD73E7 /* RegisterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModelTests.swift; sourceTree = "<group>"; };
 		23D8A2962BF4DAF9006FC31E /* JSONAuthentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONAuthentification.swift; sourceTree = "<group>"; };
 		23D8A2982BF509B1006FC31E /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		23D9E2302C29DA9D002F8862 /* RetrieveToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrieveToken.swift; sourceTree = "<group>"; };
 		23DF32302C2572240013D8A1 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		23E2DD0F2BF3A8D100C28A1F /* VitesseViewModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseViewModelManager.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			children = (
 				238F3B822C1A2D70000269ED /* CandidateListViewModelTests.swift */,
 				23D3BAE32C222B1C007C58A7 /* CandidateDetailsManagerViewModelTests.swift */,
+				23D9E2302C29DA9D002F8862 /* RetrieveToken.swift */,
 			);
 			path = Candidate;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 				23D88E4A2C1A0C4C00DD73E7 /* RegisterViewModelTests.swift in Sources */,
 				233AB8862C19CB1C005DEC2B /* URLCandidManagerTests.swift in Sources */,
 				23D3BAE22C2199F7007C58A7 /* KeychainTests.swift in Sources */,
+				23D9E2312C29DA9D002F8862 /* RetrieveToken.swift in Sources */,
 				239640B72C172FDE00F123E6 /* LoginTests.swift in Sources */,
 				238F3B832C1A2D70000269ED /* CandidateListViewModelTests.swift in Sources */,
 				23DF32312C2572240013D8A1 /* Mocks.swift in Sources */,

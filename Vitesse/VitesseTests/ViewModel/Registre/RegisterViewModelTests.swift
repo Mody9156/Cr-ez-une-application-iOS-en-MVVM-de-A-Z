@@ -68,7 +68,6 @@ final class RegisterViewModelTests: XCTestCase {
     
     func testTextFieldValidatorPassword(){
         //Given
-        
         let password = "simple_test"
         
         //When
@@ -87,7 +86,7 @@ final class RegisterViewModelTests: XCTestCase {
         //When
         let textFieldValidatorEmail =
         ValidatorType.email.textFieldValidatorEmail(email)
-        let textFieldValidatorEmail_1 =
+        let _ =
         ValidatorType.email.textFieldValidatorEmail(email_1)
         //Then
         XCTAssertFalse(textFieldValidatorEmail)
