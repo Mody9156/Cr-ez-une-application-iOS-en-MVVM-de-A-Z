@@ -8,7 +8,7 @@ final class LoginTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Initialisation de votre AuthConnector avec un HTTPService fictif pour les tests
-        authenticationManager = AuthenticationManager(httpService: MockHTTPService())
+        authenticationManager = AuthenticationManager(httpService: Mocks.MockHTTPServices())
     }
     
     override func tearDown() {
@@ -67,7 +67,7 @@ final class LoginTests: XCTestCase {
         
         let mockResponse = HTTPURLResponse(url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
         let mockResult: (Data, HTTPURLResponse) = (JSONResponse, mockResponse)
-        (authenticationManager.httpService as! MockHTTPService).mockResult = mockResult
+        (authenticationManager.httpService as! Mocks.MockHTTPServices).mockResult = mockResult
         
         let decode = try JSONDecoder().decode(AuthenticationResponse.self, from: JSONResponse)
         
@@ -85,18 +85,6 @@ final class LoginTests: XCTestCase {
             XCTFail("Erreur inattendue: \(error)")
         }
     }
-    
-    // Mock HTTPService utilisé pour simuler les réponses HTTP
-    class MockHTTPService: HTTPService {
-        
-        var mockResult: (Data, HTTPURLResponse)?
-        
-        func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-            guard let result = mockResult else {
-                throw NSError(domain: "", code: 0, userInfo: nil)
-            }
-            return result
-        }
-    }
+  
 }
 
