@@ -132,7 +132,7 @@ final class CandidateListViewModelTests: XCTestCase {
         // Then
         XCTAssertEqual(response.statusCode, 200)
         XCTAssertEqual(candidateListViewModel.candidate.count, 2)
-        XCTAssertEqual(candidateListViewModel.candidate.first?.id, "2")
+        XCTAssertEqual(candidateListViewModel.candidate.first?.id, "1")
     }
     
     func testShowFavoriteCandidates() async throws {

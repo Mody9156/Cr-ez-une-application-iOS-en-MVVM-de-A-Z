@@ -3,6 +3,11 @@ import XCTest
 
 final class LoginTests: XCTestCase {
     
+    struct EncodingLogin :Encodable {
+        var email: String
+        var password: String
+    }
+    
     var authenticationManager : AuthenticationManager!
     
     override func setUp() {
@@ -19,10 +24,6 @@ final class LoginTests: XCTestCase {
     
     func test_buildAuthenticationRequest_Success() throws {
         // Given
-        struct EncodingLogin :Encodable {
-            var email: String
-            var password: String
-        }
         
         let name = "Paul"
         let password = "test"
@@ -46,6 +47,7 @@ final class LoginTests: XCTestCase {
         
     }
     
+ 
     
     func test_authenticate() async throws {
         // Given

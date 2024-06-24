@@ -14,10 +14,11 @@ class AuthenticationManager {
         self.httpService = httpService
     }
     
+   
     
     func buildAuthenticationRequest(username: String, password: String) throws -> URLRequest {
         
-        let url = URL(string: "http://127.0.0.1:8080/user/auth")!
+         let url = URL(string: "http://127.0.0.1:8080/user/auth")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         let authentificationModel = URLRequestEncodingModel(email: username, password: password)
