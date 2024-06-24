@@ -10,13 +10,13 @@ import XCTest
 
 final class LoginViewModelTests: XCTestCase {
     var loginViewModel: LoginViewModel!
-    var keychain: Mocks.MockKeychain!
+    var keychain: MockKeychain!
     var authenticationManager: MockAuthenticationManager!
     
     override func setUp() {
         super.setUp()
         authenticationManager = MockAuthenticationManager()
-        keychain = Mocks.MockKeychain()
+        keychain = MockKeychain()
         loginViewModel = LoginViewModel({ }, authenticationManager: authenticationManager, keychain: keychain)
     }
     
@@ -26,17 +26,17 @@ final class LoginViewModelTests: XCTestCase {
         authenticationManager = nil
         super.tearDown()
     }
-   
-  
     
-    func testMessage() async throws {
+   
+    
+    func testInvalidMessage() async throws {
         // Given
         let expectation = XCTestExpectation(description: "onLoginFail is called")
         let authenticationManager = MockAuthenticationManager()
-        let keychain = Keychain() // Assurez-vous que Keychain est correctement initialisé
+        let keychain = Keychain()
+        
         let loginViewModel = LoginViewModel({ expectation.fulfill() }, authenticationManager: authenticationManager, keychain: keychain)
         
-        // Configuration des valeurs d'authentification pour le test
         let username = "Paul"
         let password = ""
         
@@ -92,7 +92,7 @@ final class LoginViewModelTests: XCTestCase {
     
     func testOnLoginSucceed() async throws {
         // Given
-        let expectation = XCTestExpectation(description: "onLoginFail is called")
+        let expectation = XCTestExpectation(description: "onLogin is called")
         let authenticationManager = MockAuthenticationManager()
         authenticationManager.shouldThrowError = false
         let keychain = Keychain() // Assurez-vous que Keychain est correctement initialisé
@@ -100,7 +100,8 @@ final class LoginViewModelTests: XCTestCase {
         
         // When
         do {
-           _ = try await loginViewModel.authenticateUserAndProceed()
+           let authenticateUserAndProceed = try await loginViewModel.authenticateUserAndProceed()
+            XCTAssertNoThrow(authenticateUserAndProceed)
         } catch let error as LoginViewModel.AuthViewModelFailure {
             XCTAssertEqual(error, .usernameAndPasswordInvalid)
             expectation.fulfill()
