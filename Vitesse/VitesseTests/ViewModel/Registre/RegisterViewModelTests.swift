@@ -23,7 +23,7 @@ final class RegisterViewModelTests: XCTestCase {
         let password = "securePassword1"
         let firstName = "John"
         let lastName = "Doe"
-
+        
         registerViewModel.email = email
         registerViewModel.password = password
         registerViewModel.firstName = firstName
@@ -36,13 +36,13 @@ final class RegisterViewModelTests: XCTestCase {
             
             // Then
             XCTAssertEqual(buildRegistrationResponse.statusCode, 200)
-                  XCTAssertEqual(buildRegistrationResponse.message, "Registration successful")
+            XCTAssertEqual(buildRegistrationResponse.message, "Registration successful")
             // Compare other properties of the response as needed
         } catch let error as RegisterViewModel.RegisterViewModelError {
             XCTAssertEqual(error, .invalidHandleRegistrationViewModel)
         }
     }
-
+    
     func testInvalidHandleRegistrationViewModel() async throws {
         // Given
         let email = "test@example.com"
@@ -58,7 +58,7 @@ final class RegisterViewModelTests: XCTestCase {
         
         // When & Then
         do{
-            let _: () = try await registerViewModel.handleRegistrationViewModel()
+            let _ = try await registerViewModel.handleRegistrationViewModel()
             XCTFail("Expected invalid response error")
             
         }catch let error as RegisterViewModel.RegisterViewModelError{
@@ -80,23 +80,23 @@ final class RegisterViewModelTests: XCTestCase {
     }
     
     
-        func testFailTextFieldValidatorEmail()async throws{
-            //Given
-            let email = "exemplede"
-            let email_1 = "abcdefghijABCDEFGHIJklmnopqrstKLMNOPQRSTuvwxyzUVWXYZabcdefghijABCDEFGHIJklmnopqrstKLMNOPQRSTuvwxyzUVWX@example.com"
-            //When
-            let textFieldValidatorEmail =
-            ValidatorType.email.textFieldValidatorEmail(email)
-            let textFieldValidatorEmail_1 =
-            ValidatorType.email.textFieldValidatorEmail(email_1)
-            //Then
-            XCTAssertFalse(textFieldValidatorEmail)
-            XCTAssertTrue(email_1.count > 100  )
-    
-        }
+    func testFailTextFieldValidatorEmail()async throws{
+        //Given
+        let email = "exemplede"
+        let email_1 = "abcdefghijABCDEFGHIJklmnopqrstKLMNOPQRSTuvwxyzUVWXYZabcdefghijABCDEFGHIJklmnopqrstKLMNOPQRSTuvwxyzUVWX@example.com"
+        //When
+        let textFieldValidatorEmail =
+        ValidatorType.email.textFieldValidatorEmail(email)
+        let textFieldValidatorEmail_1 =
+        ValidatorType.email.textFieldValidatorEmail(email_1)
+        //Then
+        XCTAssertFalse(textFieldValidatorEmail)
+        XCTAssertTrue(email_1.count > 100  )
+        
+    }
     
 }
-    
+
 class MockRegistrationRequestBuilder: RegistrationRequestBuilder {
     struct MockError: Error {}
     var shouldThrowError = false

@@ -1,11 +1,11 @@
 import Foundation
 
 class RegisterViewModel: ObservableObject {
-    @Published var email: String? = "PetitGros@gmail.com"
-    @Published var password: String? = "Test123"
-    @Published var confirm_password: String? = "Test123"
-    @Published var firstName: String? = "Peter"
-    @Published var lastName: String? = "PetitGros"
+    @Published var email: String = "PetitGros@gmail.com"
+    @Published var password: String = "Test123"
+    @Published var confirm_password: String = "Test123"
+    @Published var firstName: String = "Peter"
+    @Published var lastName: String = "PetitGros"
     
     let loginViewModel: LoginViewModel
     var registrationRequestBuilder: RegistrationRequestBuilder
@@ -22,16 +22,16 @@ class RegisterViewModel: ObservableObject {
     
     func handleRegistrationViewModel() async throws -> RegistrationResponse{
         do {
-            guard let email = email, !email.isEmpty else {
+                guard   !email.isEmpty else {
                       throw RegisterViewModelError.invalidHandleRegistrationViewModel
                   }
-                  guard let password = password, !password.isEmpty else {
+                  guard  !password.isEmpty else {
                       throw RegisterViewModelError.invalidHandleRegistrationViewModel
                   }
-                  guard let firstName = firstName, !firstName.isEmpty else {
+                  guard  !firstName.isEmpty else {
                       throw RegisterViewModelError.invalidHandleRegistrationViewModel
                   }
-                  guard let lastName = lastName, !lastName.isEmpty else {
+                  guard  !lastName.isEmpty else {
                       throw RegisterViewModelError.invalidHandleRegistrationViewModel
                   }
             
