@@ -24,7 +24,6 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
     }
     
     
-    
     func test_displayCandidateDetails() async throws {
         // Given
         let expectedCandidates = CandidateInformation(id: "vbzfbzvbzh", firstName: "Joe", isFavorite: true, email: "Joe_LastManeOfEarth@gmail.com", lastName: "Washington")
@@ -69,6 +68,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
             email: "john.doe@example.com",
             lastName: "Doe"
         )
+        
         let mockCandidatesDataManager = Mocks.MockCandidateDataManager(httpService: Mocks.MockHTTPServices())
         mockCandidatesDataManager.mockCandidates = expectedCandidates
         candidateDetailsManagerViewModel.retrieveCandidateData = mockCandidatesDataManager
@@ -86,6 +86,7 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
                 lastName: "Doe",
                 id: "12345"
             )
+            
             //then
             XCTAssertNotNil(displayCandidateDetails)
             XCTAssertEqual(displayCandidateDetails.email, expectedCandidates.email)
@@ -168,4 +169,4 @@ final class CandidateDetailsManagerViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.candidats.first?.lastName, updatedCandidate.lastName)
     }
 }
-    
+

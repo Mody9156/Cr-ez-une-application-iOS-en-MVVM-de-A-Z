@@ -7,7 +7,8 @@
 
 import Foundation
 
-enum RetrieveToken {
+struct RetrieveToken  : TokenRetrievable{
+    
    static func retrieveToken() throws -> String {
         let keychain = try Keychain().get(forKey: "token")
         if let encodingToken = String(data: keychain, encoding: .utf8)  {

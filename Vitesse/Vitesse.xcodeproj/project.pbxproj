@@ -31,6 +31,7 @@
 		23D8A2992BF509B1006FC31E /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8A2982BF509B1006FC31E /* RegistrationView.swift */; };
 		23D9E2332C29DD34002F8862 /* RetrieveTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D9E2322C29DD34002F8862 /* RetrieveTokenTests.swift */; };
 		23D9E2352C29DD83002F8862 /* RetrieveToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D9E2342C29DD83002F8862 /* RetrieveToken.swift */; };
+		23D9E2382C29E477002F8862 /* TokenRetrievable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D9E2372C29E477002F8862 /* TokenRetrievable.swift */; };
 		23DF32312C2572240013D8A1 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DF32302C2572240013D8A1 /* Mocks.swift */; };
 		23E2DD0E2BF3A49900C28A1F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */; };
 		23E2DD102BF3A8D200C28A1F /* VitesseViewModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2DD0F2BF3A8D100C28A1F /* VitesseViewModelManager.swift */; };
@@ -85,6 +86,7 @@
 		23D8A2982BF509B1006FC31E /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		23D9E2322C29DD34002F8862 /* RetrieveTokenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrieveTokenTests.swift; sourceTree = "<group>"; };
 		23D9E2342C29DD83002F8862 /* RetrieveToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrieveToken.swift; sourceTree = "<group>"; };
+		23D9E2372C29E477002F8862 /* TokenRetrievable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRetrievable.swift; sourceTree = "<group>"; };
 		23DF32302C2572240013D8A1 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		23E2DD0D2BF3A49900C28A1F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		23E2DD0F2BF3A8D100C28A1F /* VitesseViewModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseViewModelManager.swift; sourceTree = "<group>"; };
@@ -232,6 +234,14 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		23D9E2362C29E45C002F8862 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				23D9E2372C29E477002F8862 /* TokenRetrievable.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		23E2DD092BF3603900C28A1F /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +334,7 @@
 		23E9EB9B2BFE3569004B0366 /* Candidate */ = {
 			isa = PBXGroup;
 			children = (
+				23D9E2362C29E45C002F8862 /* Protocol */,
 				23C0FC052BFF87D6004A5D9C /* CandidateListViewModel.swift */,
 				23C0FC072BFF98CE004A5D9C /* CandidateDetailsManagerVieModel.swift */,
 				23D9E2342C29DD83002F8862 /* RetrieveToken.swift */,
@@ -480,6 +491,7 @@
 				23E9EB962BFDFD09004B0366 /* CandidateDetailsView.swift in Sources */,
 				23D8A2972BF4DAF9006FC31E /* JSONAuthentification.swift in Sources */,
 				234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */,
+				23D9E2382C29E477002F8862 /* TokenRetrievable.swift in Sources */,
 				23D9E2352C29DD83002F8862 /* RetrieveToken.swift in Sources */,
 				23C0FC022BFF785F004A5D9C /* URLCandidManager.swift in Sources */,
 				23D1FE872BF74CB700F3FA1E /* TokenStore.swift in Sources */,
