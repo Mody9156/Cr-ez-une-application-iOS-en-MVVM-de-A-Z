@@ -27,7 +27,7 @@ final class LoginViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-   
+    
     
     func testInvalidMessage() async throws {
         // Given
@@ -100,7 +100,7 @@ final class LoginViewModelTests: XCTestCase {
         
         // When
         do {
-           let authenticateUserAndProceed = try await loginViewModel.authenticateUserAndProceed()
+            let authenticateUserAndProceed = try await loginViewModel.authenticateUserAndProceed()
             XCTAssertNoThrow(authenticateUserAndProceed)
         } catch let error as LoginViewModel.AuthViewModelFailure {
             XCTAssertEqual(error, .usernameAndPasswordInvalid)
