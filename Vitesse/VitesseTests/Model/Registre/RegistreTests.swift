@@ -14,7 +14,7 @@ final class RegistreTests: XCTestCase {
     override func setUp()  {
         super.setUp()
         // Initialisation de votre AuthConnector avec un HTTPService fictif pour les tests
-        registrationRequestBuilder = RegistrationRequestBuilder(httpService: MockHTTPService())
+        registrationRequestBuilder = RegistrationRequestBuilder(httpService: Mocks.MockHTTPServices())
     }
     
     override func tearDown()  {
@@ -68,11 +68,11 @@ final class RegistreTests: XCTestCase {
         
         let response = HTTPURLResponse(url: URL(string:"https//exempledelien.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)!
         let result : (Data,HTTPURLResponse) = (Data(),response)
-        (registrationRequestBuilder.httpService as! MockHTTPService ).mockResult = result
+        (registrationRequestBuilder.httpService as! Mocks.MockHTTPServices ).mockResult = result
         
-        //When
+       
         do{
-            
+            //When
             let buildRegistrationRequest =  try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
             //Then
             XCTAssertEqual(buildRegistrationRequest.statusCode, 201)
@@ -92,7 +92,7 @@ final class RegistreTests: XCTestCase {
         
         let response = HTTPURLResponse(url: URL(string: "https://exempledelien.com")!, statusCode: 404, httpVersion: nil, headerFields: nil)!
         let result: (Data, HTTPURLResponse) = (Data(), response)
-        (registrationRequestBuilder.httpService as! MockHTTPService).mockResult = result
+        (registrationRequestBuilder.httpService as! Mocks.MockHTTPServices).mockResult = result
         
         // When
         do {
@@ -128,20 +128,5 @@ final class RegistreTests: XCTestCase {
         XCTAssertTrue(networkError1 == networkError2)
         
     }
-    
-    // Mock HTTPService utilisé pour simuler les réponses HTTP
-    class MockHTTPService: HTTPService {
-        
-        var mockResult: (Data, HTTPURLResponse)?
-        var mockError: Error?
-        func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-            if let error = mockError {
-                throw error
-            }
-            guard let result = mockResult else {
-                throw NSError(domain: "", code: 0, userInfo: nil)
-            }
-            return result
-        }
-    }
+  
 }

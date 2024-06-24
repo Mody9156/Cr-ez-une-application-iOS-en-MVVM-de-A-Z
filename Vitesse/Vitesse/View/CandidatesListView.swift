@@ -33,12 +33,7 @@ struct CandidatesListView: View {
                         .listRowBackground(Color.clear)
                         .listSectionSeparatorTint(.orange)
                     }
-                    .onDelete(perform:
-                              
-                        
-                          candidateListViewModel.removeCandidate
-                  
-                    )
+                    .onDelete(perform:  removeCandidate)
                 }
                 .searchable(text: $search)
                 .listStyle(PlainListStyle())
@@ -90,6 +85,14 @@ struct CandidatesListView: View {
         showFavorites.toggle()
     }
     
+    // Remove candidate
+    func removeCandidate(at offsets: IndexSet)  {
+        Task {
+            try await candidateListViewModel.deleteCandidate(at: offsets)
+        }
+         
+}
+
     // Contenu de la barre d'outils
     @ToolbarContentBuilder // une manière pratique et structurée d'ajouter des éléments de barre d'outils à vos vues.
     var toolbarContent: some ToolbarContent {
