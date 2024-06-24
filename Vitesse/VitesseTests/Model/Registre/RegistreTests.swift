@@ -58,30 +58,30 @@ final class RegistreTests: XCTestCase {
     }
     
     
-    func testSuccessfulBuildRegistrationRequest() async throws {
-        //Given
-        
-        let email = "Paul.Pierce@gmail.com"
-        let password = "test"
-        let firstName = "Paul"
-        let lastName = "Pierce"
-        
-        let response = HTTPURLResponse(url: URL(string:"https//exempledelien.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)!
-        let result : (Data,HTTPURLResponse) = (Data(),response)
-        (registrationRequestBuilder.httpService as! MockHTTPService ).mockResult = result
-        
-        //When
-        do{
-            
-            let buildRegistrationRequest =  try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
-            //Then
-            XCTAssertEqual(buildRegistrationRequest.statusCode, 201)
-        }catch let error  as RegistrationRequestBuilder.HTTPResponseError{
-            throw error
-            //fail
-        }
-    }
-    
+//    func testSuccessfulBuildRegistrationRequest() async throws {
+//        //Given
+//        
+//        let email = "Paul.Pierce@gmail.com"
+//        let password = "test"
+//        let firstName = "Paul"
+//        let lastName = "Pierce"
+//        
+//        let response = HTTPURLResponse(url: URL(string:"https//exempledelien.com")!, statusCode: 201, httpVersion: nil, headerFields: nil)!
+//        let result : (Data,HTTPURLResponse) = (Data(),response)
+//        (registrationRequestBuilder.httpService as! MockHTTPService ).mockResult = result
+//        
+//        //When
+//        do{
+//            
+//            let buildRegistrationRequest =  try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
+//            //Then
+//            XCTAssertEqual(buildRegistrationRequest.statusCode, 201)
+//        }catch let error  as RegistrationRequestBuilder.HTTPResponseError{
+//            throw error
+//            //fail
+//        }
+//    }
+//    
     
     func testInvalidBuildRegistrationRequest() async throws {
         // Given

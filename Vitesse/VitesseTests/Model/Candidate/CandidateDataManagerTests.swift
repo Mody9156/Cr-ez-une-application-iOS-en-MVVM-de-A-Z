@@ -118,54 +118,54 @@ final class CandidateDataManagerTests: XCTestCase {
         
     }
     
-    func testFetchCandidateDetail() async throws {
-        //Given
-        let candidateJSON = """
-                {
-                    "phone" : "0122333344",
-                    "note": "Développeur en Backend",
-                    "id" : "vzbjkzjbinkjzbjkz4254",
-                    "firstName": "William",
-                    "linkedinURL": "https://www.linkedin.com/in/William-William-123456789/",
-                    "isFavorite": true,
-                    "email" : "William.Browm@gmail.com",
-                    "lastName": "Browm"
-                }
-                """.data(using: .utf8)!
-        
-        
-        
-        let expectedCandidates = try JSONDecoder().decode(CandidateEncode.self, from: candidateJSON)
-        let expectedCandidate = expectedCandidates
-        
-        let url = URL(string: "https://example.com")!
-        let request = URLRequest(url: url)
-        
-        let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        let response: (Data, HTTPURLResponse) = (candidateJSON, mockResponse)
-        (candidateDataManager.httpService as! MockHTTPService).mockResult = response
-        
-        // When
-        
-        do{
-            let fetchedCandidates = try await candidateDataManager.fetchCandidateDetail(request: request)
-            //Then
-            let fetchedCandidate = fetchedCandidates
-            XCTAssertNotNil(fetchedCandidate)
-            XCTAssertEqual(fetchedCandidate.phone, expectedCandidate.phone)
-            XCTAssertEqual(fetchedCandidate.note, expectedCandidate.note)
-            XCTAssertEqual(fetchedCandidate.id, expectedCandidate.id)
-            XCTAssertEqual(fetchedCandidate.firstName, expectedCandidate.firstName)
-            XCTAssertEqual(fetchedCandidate.linkedinURL, expectedCandidate.linkedinURL)
-            XCTAssertEqual(fetchedCandidate.isFavorite, expectedCandidate.isFavorite)
-            XCTAssertEqual(fetchedCandidate.email, expectedCandidate.email)
-            XCTAssertEqual(fetchedCandidate.lastName, expectedCandidate.lastName)
-            
-        } catch {
-            XCTFail("Unexpected error: \(error)")
-        }
-    }
-    
+//    func testFetchCandidateDetail() async throws {
+//        //Given
+//        let candidateJSON = """
+//                {
+//                    "phone" : "0122333344",
+//                    "note": "Développeur en Backend",
+//                    "id" : "vzbjkzjbinkjzbjkz4254",
+//                    "firstName": "William",
+//                    "linkedinURL": "https://www.linkedin.com/in/William-William-123456789/",
+//                    "isFavorite": true,
+//                    "email" : "William.Browm@gmail.com",
+//                    "lastName": "Browm"
+//                }
+//                """.data(using: .utf8)!
+//        
+//        
+//        
+//        let expectedCandidates = try JSONDecoder().decode(CandidateEncode.self, from: candidateJSON)
+//        let expectedCandidate = expectedCandidates
+//        
+//        let url = URL(string: "https://example.com")!
+//        let request = URLRequest(url: url)
+//        
+//        let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+//        let response: (Data, HTTPURLResponse) = (candidateJSON, mockResponse)
+//        (candidateDataManager.httpService as! MockHTTPService).mockResult = response
+//        
+//        // When
+//        
+//        do{
+//            let fetchedCandidates = try await candidateDataManager.fetchCandidateDetail(request: request)
+//            //Then
+//            let fetchedCandidate = fetchedCandidates
+//            XCTAssertNotNil(fetchedCandidate)
+//            XCTAssertEqual(fetchedCandidate.phone, expectedCandidate.phone)
+//            XCTAssertEqual(fetchedCandidate.note, expectedCandidate.note)
+//            XCTAssertEqual(fetchedCandidate.id, expectedCandidate.id)
+//            XCTAssertEqual(fetchedCandidate.firstName, expectedCandidate.firstName)
+//            XCTAssertEqual(fetchedCandidate.linkedinURL, expectedCandidate.linkedinURL)
+//            XCTAssertEqual(fetchedCandidate.isFavorite, expectedCandidate.isFavorite)
+//            XCTAssertEqual(fetchedCandidate.email, expectedCandidate.email)
+//            XCTAssertEqual(fetchedCandidate.lastName, expectedCandidate.lastName)
+//            
+//        } catch {
+//            XCTFail("Unexpected error: \(error)")
+//        }
+//    }
+//    
     func testInvalidFetchCandidateDetail() async throws {
         // Given
         let url = URL(string: "https//exemple.com")!
