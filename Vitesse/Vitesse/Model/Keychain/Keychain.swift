@@ -18,9 +18,7 @@ class Keychain: TokenStore {
     
     func add(_ data: String, forKey key: String) throws {
         
-        guard !data.isEmpty, !key.isEmpty else{
-            throw KeychainError.insertFailed
-        }
+      
         
         let fetchData = data.data(using: .utf8)!
         
@@ -34,7 +32,7 @@ class Keychain: TokenStore {
         
         let status = SecItemAdd(array as CFDictionary, nil)
         
-        guard status == errSecSuccess else {
+        guard !data.isEmpty, !key.isEmpty,status == errSecSuccess else {
             throw KeychainError.insertFailed
         }
         
