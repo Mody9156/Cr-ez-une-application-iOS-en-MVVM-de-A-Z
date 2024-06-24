@@ -18,7 +18,6 @@ final class LoginTests: XCTestCase {
     }
     
     func test_buildAuthenticationRequest_Success() throws {
-        
         // Given
         struct EncodingLogin :Encodable {
             var email: String
@@ -85,6 +84,6 @@ final class LoginTests: XCTestCase {
             XCTFail("Erreur inattendue: \(error)")
         }
     }
-  
+    
 }
 

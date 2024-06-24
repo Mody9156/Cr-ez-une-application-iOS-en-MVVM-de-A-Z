@@ -70,7 +70,7 @@ final class RegistreTests: XCTestCase {
         let result : (Data,HTTPURLResponse) = (Data(),response)
         (registrationRequestBuilder.httpService as! Mocks.MockHTTPServices ).mockResult = result
         
-       
+        
         do{
             //When
             let buildRegistrationRequest =  try await registrationRequestBuilder.buildRegistrationRequest(email: email, password: password, firstName: firstName, lastName: lastName)
@@ -116,7 +116,7 @@ final class RegistreTests: XCTestCase {
         
         let networkError1 = RegistrationRequestBuilder.HTTPResponseError.networkError(error1)
         let networkError2 = RegistrationRequestBuilder.HTTPResponseError.networkError(error2)
-
+        
         //When
         _ = RegistrationRequestBuilder.HTTPResponseError.networkError(NSError(domain: "Test", code: 500, userInfo: nil))
         //Then
@@ -127,5 +127,5 @@ final class RegistreTests: XCTestCase {
         XCTAssertTrue(networkError1 == networkError2)
         
     }
-  
+    
 }
