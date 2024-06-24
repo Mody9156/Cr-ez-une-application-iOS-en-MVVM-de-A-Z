@@ -8,18 +8,18 @@
 import XCTest
 @testable import Vitesse
 
-final class CandidateManagementTests: XCTestCase {
+final class URLCandidManagerTests: XCTestCase {
     
-    var candidateManagement : URLCandidManager!
+    var urlCandidManager : URLCandidManager!
     
     override func setUp() {
         super.setUp()
-        candidateManagement = URLCandidManager()
+        urlCandidManager = URLCandidManager()
     }
     
     override func tearDown() {
         super.tearDown()
-        candidateManagement = nil
+        urlCandidManager = nil
     }
     
     func testCreateURLRequest() throws {

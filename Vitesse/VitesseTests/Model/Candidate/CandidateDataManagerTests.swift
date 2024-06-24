@@ -18,9 +18,10 @@ final class CandidateDataManagerTests: XCTestCase {
         var isFavorite: Bool
         var email, lastName: String
     }
+    
     override func setUp()  {
         super.setUp()
-        candidateDataManager = CandidateDataManager(httpService: MockHTTPService())
+        candidateDataManager = CandidateDataManager(httpService: Mocks.MockHTTPServices())
     }
     
     override func tearDown()  {
@@ -52,7 +53,7 @@ final class CandidateDataManagerTests: XCTestCase {
         
         let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
         let response: (Data, HTTPURLResponse) = (candidateJSON, mockResponse)
-        (candidateDataManager.httpService as! MockHTTPService).mockResult = response
+        (candidateDataManager.httpService as! Mocks.MockHTTPServices).mockResult = response
         
         // When
         _ = try await candidateDataManager.fetchCandidateData(request: request)
@@ -79,6 +80,7 @@ final class CandidateDataManagerTests: XCTestCase {
         }
     }
     
+    
     func testInvalidFetchCandidateData() async throws {
         // Given
         let url = URL(string: "https//exemple.com")!
@@ -86,12 +88,12 @@ final class CandidateDataManagerTests: XCTestCase {
         
         let mockResponse = HTTPURLResponse(url: url, statusCode: 404, httpVersion: nil, headerFields: nil)!
         let response: (Data, HTTPURLResponse) = (Data(), mockResponse)
-        (candidateDataManager.httpService as! MockHTTPService).mockResult = response
+        (candidateDataManager.httpService as! Mocks.MockHTTPServices).mockResult = response
         
         // When
         do {
-            _ = try await candidateDataManager.fetchCandidateData(request: request)
-            
+            let fetchCandidateData = try await candidateDataManager.fetchCandidateData(request: request)
+            XCTAssertThrowsError(fetchCandidateData)
         } catch let error as CandidateDataManager.CandidateFetchError {
             // Then
             XCTAssertEqual(error, .fetchCandidateDataError, "L'erreur retournée n'est pas celle attendue")
@@ -99,6 +101,7 @@ final class CandidateDataManagerTests: XCTestCase {
             XCTFail("Unexpected error: \(error)")
         }
     }
+    
     
     func testHTTPResponseErrorEquality() {
         // Given
@@ -118,54 +121,56 @@ final class CandidateDataManagerTests: XCTestCase {
         
     }
     
-//    func testFetchCandidateDetail() async throws {
-//        //Given
-//        let candidateJSON = """
-//                {
-//                    "phone" : "0122333344",
-//                    "note": "Développeur en Backend",
-//                    "id" : "vzbjkzjbinkjzbjkz4254",
-//                    "firstName": "William",
-//                    "linkedinURL": "https://www.linkedin.com/in/William-William-123456789/",
-//                    "isFavorite": true,
-//                    "email" : "William.Browm@gmail.com",
-//                    "lastName": "Browm"
-//                }
-//                """.data(using: .utf8)!
-//        
-//        
-//        
-//        let expectedCandidates = try JSONDecoder().decode(CandidateEncode.self, from: candidateJSON)
-//        let expectedCandidate = expectedCandidates
-//        
-//        let url = URL(string: "https://example.com")!
-//        let request = URLRequest(url: url)
-//        
-//        let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-//        let response: (Data, HTTPURLResponse) = (candidateJSON, mockResponse)
-//        (candidateDataManager.httpService as! MockHTTPService).mockResult = response
-//        
-//        // When
-//        
-//        do{
-//            let fetchedCandidates = try await candidateDataManager.fetchCandidateDetail(request: request)
-//            //Then
-//            let fetchedCandidate = fetchedCandidates
-//            XCTAssertNotNil(fetchedCandidate)
-//            XCTAssertEqual(fetchedCandidate.phone, expectedCandidate.phone)
-//            XCTAssertEqual(fetchedCandidate.note, expectedCandidate.note)
-//            XCTAssertEqual(fetchedCandidate.id, expectedCandidate.id)
-//            XCTAssertEqual(fetchedCandidate.firstName, expectedCandidate.firstName)
-//            XCTAssertEqual(fetchedCandidate.linkedinURL, expectedCandidate.linkedinURL)
-//            XCTAssertEqual(fetchedCandidate.isFavorite, expectedCandidate.isFavorite)
-//            XCTAssertEqual(fetchedCandidate.email, expectedCandidate.email)
-//            XCTAssertEqual(fetchedCandidate.lastName, expectedCandidate.lastName)
-//            
-//        } catch {
-//            XCTFail("Unexpected error: \(error)")
-//        }
-//    }
-//    
+    
+    func testFetchCandidateDetail() async throws {
+        //Given
+        let candidateJSON = """
+                {
+                    "phone" : "0122333344",
+                    "note": "Développeur en Backend",
+                    "id" : "vzbjkzjbinkjzbjkz4254",
+                    "firstName": "William",
+                    "linkedinURL": "https://www.linkedin.com/in/William-William-123456789/",
+                    "isFavorite": true,
+                    "email" : "William.Browm@gmail.com",
+                    "lastName": "Browm"
+                }
+                """.data(using: .utf8)!
+        
+        
+        
+        let expectedCandidates = try JSONDecoder().decode(CandidateEncode.self, from: candidateJSON)
+        let expectedCandidate = expectedCandidates
+        
+        let url = URL(string: "https://example.com")!
+        let request = URLRequest(url: url)
+        
+        let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        let response: (Data, HTTPURLResponse) = (candidateJSON, mockResponse)
+        (candidateDataManager.httpService as! Mocks.MockHTTPServices).mockResult = response
+        
+        // When
+        
+        do{
+            let fetchedCandidates = try await candidateDataManager.fetchCandidateDetail(request: request)
+            //Then
+            let fetchedCandidate = fetchedCandidates
+            XCTAssertNotNil(fetchedCandidate)
+            XCTAssertEqual(fetchedCandidate.phone, expectedCandidate.phone)
+            XCTAssertEqual(fetchedCandidate.note, expectedCandidate.note)
+            XCTAssertEqual(fetchedCandidate.id, expectedCandidate.id)
+            XCTAssertEqual(fetchedCandidate.firstName, expectedCandidate.firstName)
+            XCTAssertEqual(fetchedCandidate.linkedinURL, expectedCandidate.linkedinURL)
+            XCTAssertEqual(fetchedCandidate.isFavorite, expectedCandidate.isFavorite)
+            XCTAssertEqual(fetchedCandidate.email, expectedCandidate.email)
+            XCTAssertEqual(fetchedCandidate.lastName, expectedCandidate.lastName)
+            
+        } catch {
+            XCTFail("Unexpected error: \(error)")
+        }
+    }
+    
+    
     func testInvalidFetchCandidateDetail() async throws {
         // Given
         let url = URL(string: "https//exemple.com")!
@@ -173,7 +178,7 @@ final class CandidateDataManagerTests: XCTestCase {
         
         let mockResponse = HTTPURLResponse(url: url, statusCode: 404, httpVersion: nil, headerFields: nil)!
         let response: (Data, HTTPURLResponse) = (Data(), mockResponse)
-        (candidateDataManager.httpService as! MockHTTPService).mockResult = response
+        (candidateDataManager.httpService as! Mocks.MockHTTPServices).mockResult = response
         
         // When
         do {
@@ -196,7 +201,7 @@ final class CandidateDataManagerTests: XCTestCase {
         let validateHTTPResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
         let data = Data()
         let result : (Data,HTTPURLResponse) = (data,validateHTTPResponse)
-        (candidateDataManager.httpService as! MockHTTPService).mockResult = result
+        (candidateDataManager.httpService as! Mocks.MockHTTPServices).mockResult = result
         //When
         let validateResponse = try await  candidateDataManager.validateHTTPResponse(request: request)
         
@@ -205,6 +210,8 @@ final class CandidateDataManagerTests: XCTestCase {
         XCTAssertEqual(validateResponse.statusCode, 200)
         
     }
+    
+    
     func testInvalidHTTPResponse() async throws {
         //Given
         let url = URL(string: "https//exemple.com")!
@@ -213,11 +220,11 @@ final class CandidateDataManagerTests: XCTestCase {
         let validateHTTPResponse = HTTPURLResponse(url: url, statusCode: 404, httpVersion: nil, headerFields: nil)!
         let data = Data()
         let result : (Data,HTTPURLResponse) = (data,validateHTTPResponse)
-        (candidateDataManager.httpService as! MockHTTPService).mockResult = result
+        (candidateDataManager.httpService as! Mocks.MockHTTPServices).mockResult = result
         
         
         do{
-            //When
+            //When & Then
             _ = try await  candidateDataManager.validateHTTPResponse(request: request)
             
         } catch let error as CandidateDataManager.CandidateFetchError {
@@ -229,6 +236,8 @@ final class CandidateDataManagerTests: XCTestCase {
         
         
     }
+    
+    
     func testFetchCandidateInformation() async throws {
         // Given
         let candidateJSON = """
@@ -250,7 +259,7 @@ final class CandidateDataManagerTests: XCTestCase {
         let mockResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
         
         let response: (Data, HTTPURLResponse) = (Data(), mockResponse)
-        (candidateDataManager.httpService as! MockHTTPService).mockResult = response
+        (candidateDataManager.httpService as! Mocks.MockHTTPServices).mockResult = response
         let expectedCandidate = try JSONDecoder().decode(CandidateEncode.self, from: candidateJSON)
         
         // When
@@ -295,7 +304,7 @@ final class CandidateDataManagerTests: XCTestCase {
         
         let mockResponse = HTTPURLResponse(url: url, statusCode: 404, httpVersion: nil, headerFields: nil)!
         let response: (Data, HTTPURLResponse) = (Data(), mockResponse)
-        (candidateDataManager.httpService as! MockHTTPService).mockResult = response
+        (candidateDataManager.httpService as! Mocks.MockHTTPServices).mockResult = response
         let token = "jknalekrjvnzor43245345é"
         
         do {
@@ -319,17 +328,5 @@ final class CandidateDataManagerTests: XCTestCase {
             XCTFail("Unexpected error: \(error)")
         }
     }
-    
-    // Mock HTTPService utilisé pour simuler les réponses HTTP
-    class MockHTTPService: HTTPService {
-        
-        var mockResult: (Data, HTTPURLResponse)?
-        
-        func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-            guard let result = mockResult else {
-                throw NSError(domain: "", code: 0, userInfo: nil)
-            }
-            return result
-        }
-    }
+   
 }

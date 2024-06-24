@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2333A3F22C0633F1006DD812 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2333A3F12C0633F1006DD812 /* Storyboard.storyboard */; };
-		233AB8862C19CB1C005DEC2B /* CandidateManagementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233AB8852C19CB1C005DEC2B /* CandidateManagementTests.swift */; };
+		233AB8862C19CB1C005DEC2B /* URLCandidManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233AB8852C19CB1C005DEC2B /* URLCandidManagerTests.swift */; };
 		233AB8892C19EF6E005DEC2B /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233AB8882C19EF6E005DEC2B /* LoginViewModelTests.swift */; };
 		234BDF892BEFEC7E00C96E42 /* VitesseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF882BEFEC7E00C96E42 /* VitesseApp.swift */; };
 		234BDF8B2BEFEC7E00C96E42 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234BDF8A2BEFEC7E00C96E42 /* LoginView.swift */; };
@@ -58,7 +58,7 @@
 /* Begin PBXFileReference section */
 		2333A3F02C06326C006DD812 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2333A3F12C0633F1006DD812 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
-		233AB8852C19CB1C005DEC2B /* CandidateManagementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateManagementTests.swift; sourceTree = "<group>"; };
+		233AB8852C19CB1C005DEC2B /* URLCandidManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLCandidManagerTests.swift; sourceTree = "<group>"; };
 		233AB8882C19EF6E005DEC2B /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		234BDF852BEFEC7E00C96E42 /* Vitesse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vitesse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		234BDF882BEFEC7E00C96E42 /* VitesseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseApp.swift; sourceTree = "<group>"; };
@@ -136,7 +136,6 @@
 			children = (
 				238F3B822C1A2D70000269ED /* CandidateListViewModelTests.swift */,
 				23D3BAE32C222B1C007C58A7 /* CandidateDetailsManagerViewModelTests.swift */,
-				23DF32302C2572240013D8A1 /* Mocks.swift */,
 			);
 			path = Candidate;
 			sourceTree = "<group>";
@@ -185,6 +184,8 @@
 		239640B52C172FDE00F123E6 /* VitesseTests */ = {
 			isa = PBXGroup;
 			children = (
+				23D9E22F2C29A740002F8862 /* Mocks */,
+				23DF32302C2572240013D8A1 /* Mocks.swift */,
 				23E8F3272C18511200008C9E /* ViewModel */,
 				239640BD2C17301900F123E6 /* Model */,
 			);
@@ -217,6 +218,13 @@
 				23D3BAE12C2199F7007C58A7 /* KeychainTests.swift */,
 			);
 			path = Keychain;
+			sourceTree = "<group>";
+		};
+		23D9E22F2C29A740002F8862 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		23E2DD092BF3603900C28A1F /* Model */ = {
@@ -287,7 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				23E8F3352C18796200008C9E /* CandidateDataManagerTests.swift */,
-				233AB8852C19CB1C005DEC2B /* CandidateManagementTests.swift */,
+				233AB8852C19CB1C005DEC2B /* URLCandidManagerTests.swift */,
 			);
 			path = Candidate;
 			sourceTree = "<group>";
@@ -488,7 +496,7 @@
 				23D3BAE42C222B1C007C58A7 /* CandidateDetailsManagerViewModelTests.swift in Sources */,
 				23E8F3312C1855A600008C9E /* RegistreTests.swift in Sources */,
 				23D88E4A2C1A0C4C00DD73E7 /* RegisterViewModelTests.swift in Sources */,
-				233AB8862C19CB1C005DEC2B /* CandidateManagementTests.swift in Sources */,
+				233AB8862C19CB1C005DEC2B /* URLCandidManagerTests.swift in Sources */,
 				23D3BAE22C2199F7007C58A7 /* KeychainTests.swift in Sources */,
 				239640B72C172FDE00F123E6 /* LoginTests.swift in Sources */,
 				238F3B832C1A2D70000269ED /* CandidateListViewModelTests.swift in Sources */,

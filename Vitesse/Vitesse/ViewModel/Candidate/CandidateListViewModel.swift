@@ -105,22 +105,9 @@ class CandidateListViewModel: ObservableObject {
             throw CandidateManagementError.processCandidateElementsError
         }
     }
-    @MainActor
     
-    // Remove candidate
-    func removeCandidate(at offsets: IndexSet)    {
-        var add : HTTPURLResponse?
-        Task{
-            if let delete =  try? await deleteCandidate(at: offsets),delete.statusCode == 200  {
-               let add = delete
-            }else {
-                add = HTTPURLResponse(url: URL(string: "")!, statusCode: 500, httpVersion: nil, headerFields: nil)!
-            }
-            return add
-          
-        }
-        
-    }
- 
+    
 }
+
+
 
