@@ -17,10 +17,18 @@ struct RegistrationView: View {
     var body: some View {
         ZStack {
             if showPictureTrue {
-                Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.green).frame(width: 100,height: 100).opacity(showPictureTrue ? 1 : 0)
+                Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.green).frame(width: 100,height: 100).opacity(showPictureTrue ? 1 : 0).onAppear {
+                    
+                    withAnimation(Animation.linear(duration:2)){}
+                    
+                }
             }
             if showPictureFalse{
-                Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.red).frame(width: 100,height: 100).opacity(showPictureFalse ? 1 : 0)
+                Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.red).frame(width: 100,height: 100).opacity(showPictureFalse ? 1 : 0).onAppear {
+                    
+                    withAnimation(Animation.linear(duration:2)){}
+                    
+                }
             }
             Color.orange.opacity(0.2) // Light orange background
                 .ignoresSafeArea()
