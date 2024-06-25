@@ -14,7 +14,7 @@ struct RegistrationView: View {
 
     var body: some View {
         ZStack {
-            Image(systemName: "checkmark.shield.fill").foregroundColor(.green)
+            Image(systemName: "checkmark.shield.fill").foregroundColor(.green).frame(width: 100,height: 100)
             Color.orange.opacity(0.2) // Light orange background
                 .ignoresSafeArea()
             VStack {
