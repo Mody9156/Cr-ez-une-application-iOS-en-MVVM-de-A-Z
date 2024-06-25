@@ -13,9 +13,47 @@ struct CandidateDetailView: View {
     @State var candidateInformation: CandidateInformation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var showFavoris : Bool = false
+    @State private var update : Bool = false
+    
     var body: some View {
+        
         VStack(alignment: .leading) {
+            
             Section {
+                if update {
+                    ZStack {
+                        Rectangle().frame(maxWidth: .infinity).foregroundColor(update ? .green : .red)
+                        Text(update ? "Successfully updated." : "Update failed. Please try again.").foregroundColor(.white)  .multilineTextAlignment(.center) // Alignement du texte au centre
+                            .padding()
+                    }.onAppear {
+                        
+                        withAnimation(Animation.linear(duration: 0.5)) {}
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            withAnimation(Animation.linear(duration: 0.5)) {
+                                update = false
+                            }
+                        }
+                    }
+                }
+                
+                if showFavoris {
+                    ZStack {
+                        Rectangle().frame(maxWidth: .infinity).foregroundColor(candidateInformation.isFavorite ? .green : .red)
+                        Text(candidateInformation.isFavorite ? "Successfully added to favorites.": "Adding to favorites unsuccessful. Please check your connection.").foregroundColor(.white)  .multilineTextAlignment(.center) // Alignement du texte au centre
+                            .padding()
+                    }.onAppear {
+                        
+                        withAnimation(Animation.linear(duration: 0.5)) {}
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            withAnimation(Animation.linear(duration: 0.5)) {
+                                showFavoris = false
+                            }
+                        }
+                    }
+                }
+                
                 HStack {
                     if isEditing {
                         TextFieldManager(textField: "First Name", text: $editedFirstName)
@@ -32,17 +70,23 @@ struct CandidateDetailView: View {
                             .fontWeight(.bold)
                         
                         Spacer()
-                       
+                        
                         
                         Button {
                             Task {
-                       
+                                do{
                                     try await candidateListViewModel.showFavoriteCandidates(selectedCandidateId: candidateInformation.id)
                                     try await loadCandidateProfile()
                                     initialiseEditingFields()
+                                    showFavoris = true
+                                }catch{
+                                    showFavoris = false
+                                }
+                                
+                                
                             }
                         } label: {
-                          
+                            
                             Image(systemName: candidateInformation.isFavorite ? "star.fill" : "star")
                                 .foregroundColor(candidateInformation.isFavorite ? .yellow : .black)
                                 .font(.title2)
@@ -135,7 +179,7 @@ struct CandidateDetailView: View {
             do {
                 try await loadCandidateProfile()
                 initialiseEditingFields()
-              
+                
             } catch {
                 NotificationCenter.default.post(name: Notification.Name("LoadCandidateProfileError"), object: error)
             }
@@ -173,9 +217,15 @@ struct CandidateDetailView: View {
             if isEditing {
                 Button("Done") {
                     Task {
-                        try await saveCandidate()
-                        try await loadCandidateProfile()
-                        initialiseEditingFields()
+                        do{
+                            try await saveCandidate()
+                            try await loadCandidateProfile()
+                            initialiseEditingFields()
+                            update = true
+                        }catch{
+                            update = false
+                        }
+                        
                     }
                 }
                 .foregroundColor(.orange)

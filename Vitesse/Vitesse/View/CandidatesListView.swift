@@ -5,15 +5,29 @@ struct CandidatesListView: View {
     @State private var search = ""
     @State private var showFavorites: Bool = false
     @StateObject var candidateDetailsManagerViewModel: CandidateDetailsManagerViewModel
+    @State private var delete : Bool = false
     
     var body: some View {
         NavigationStack {
             VStack {
                 
-                ZStack {
-                    Rectangle().frame(width:500, height:20).foregroundColor(.green)
-                    Text("Deletion successful.").foregroundColor(.white)
+                if delete {
+                    ZStack {
+                        Rectangle().frame(width: 250, height: 40).foregroundColor(delete ? .green : .red)
+                        Text(delete ? "Deletion successful.": "Failed to delete item. Please try again..").foregroundColor(.white)
+                    }.onAppear {
+                        
+                        withAnimation(Animation.linear(duration: 0.5)) {}
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            withAnimation(Animation.linear(duration: 0.5)) {
+                                delete = false
+                            }
+                        }
+                    }
+                    
                 }
+                
                 // Liste des candidats
                 List {
                     ForEach(searchResult, id: \.id) { candidate in
@@ -24,7 +38,7 @@ struct CandidatesListView: View {
                                 candidateInformation: candidate
                             )
                         ) {
-                          
+                            
                             HStack {
                                 Text(candidate.firstName)
                                     .foregroundColor(.orange)
@@ -94,11 +108,17 @@ struct CandidatesListView: View {
     // Remove candidate
     func removeCandidate(at offsets: IndexSet)  {
         Task {
-            try await candidateListViewModel.deleteCandidate(at: offsets)
+            do{
+                let _ =  try await candidateListViewModel.deleteCandidate(at: offsets)
+                delete = true
+            }catch{
+                delete = false
+            }
+            
         }
-         
-}
-
+        
+    }
+    
     // Contenu de la barre d'outils
     @ToolbarContentBuilder // une manière pratique et structurée d'ajouter des éléments de barre d'outils à vos vues.
     var toolbarContent: some ToolbarContent {
