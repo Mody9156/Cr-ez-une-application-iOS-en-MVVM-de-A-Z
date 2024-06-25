@@ -17,6 +17,8 @@ struct RegistrationView: View {
         ZStack {
             if showPicture {
                 Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.green).frame(width: 100,height: 100).opacity(showPicture ? 1 : 0)
+            }else {
+                Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.red).frame(width: 100,height: 100).opacity(showPicture ? 1 : 0)
             }
             Color.orange.opacity(0.2) // Light orange background
                 .ignoresSafeArea()
