@@ -92,6 +92,7 @@ struct RegistrationView: View {
                             do {
                                 let _ = try await registerViewModel.handleRegistrationViewModel()
                                 showPictureTrue = true
+                                alertMessageAll = "Account created successfully. All entered information is valid."
                             } catch {
                                 alertMessageAll = "Error while creating the account. Please verify the entered information."
                                 showPictureFalse = true
