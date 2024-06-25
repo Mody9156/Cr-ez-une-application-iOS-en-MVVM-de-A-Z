@@ -11,10 +11,13 @@ struct RegistrationView: View {
     @State private var isLastNameValid: Bool = true
     @State private var doPasswordsMatch: Bool = true
     @State private var alertMessage_all : String = ""
-
+    @State private var showPicture : Bool = false
+    
     var body: some View {
         ZStack {
-            Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.green).frame(width: 100,height: 100)
+            if showPicture {
+                Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.green).frame(width: 100,height: 100).opacity(showPicture ? 1 : 0)
+            }
             Color.orange.opacity(0.2) // Light orange background
                 .ignoresSafeArea()
             VStack {
@@ -69,6 +72,7 @@ struct RegistrationView: View {
                         if isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid && doPasswordsMatch {
                             do {
                                 try await registerViewModel.handleRegistrationViewModel()
+                                showPicture = true
                             } catch {
                                 alertMessage = "Error while creating the account: \(error.localizedDescription)"
                             }
