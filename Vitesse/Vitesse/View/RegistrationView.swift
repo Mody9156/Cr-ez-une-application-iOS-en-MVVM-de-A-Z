@@ -25,7 +25,7 @@ struct RegistrationView: View {
                         withAnimation(Animation.linear(duration:0.5)){
                             showPictureTrue = false
                         }
-
+                        
                     })
                     
                 }
@@ -39,7 +39,7 @@ struct RegistrationView: View {
                         withAnimation(Animation.linear(duration:0.5)){
                             showPictureFalse = false
                         }
-
+                        
                     })
                 }
             }
@@ -172,7 +172,7 @@ struct Email: View {
             Text(textNames).foregroundColor(.orange)
             TextField(textField, text: $registerViewModel.email, onEditingChanged: { (isChanged) in
                 if !isChanged {
-                    self.isEmailValid = 
+                    self.isEmailValid =
                     ValidatorType.email.textFieldValidatorEmail(self.registerViewModel.email)
                     if !self.isEmailValid {
                         self.registerViewModel.email = ""
@@ -191,7 +191,11 @@ struct Email: View {
                     .foregroundColor(.red)
                     .padding(.trailing, 8)
                     .opacity(self.isEmailValid ? 0 : 1)
-                    .animation(.default)
+                    .onAppear {
+                        
+                        withAnimation(Animation.linear(duration:0.5)){}
+                        
+                    }
                 , alignment: .trailing
             )
             if !self.isEmailValid && !self.registerViewModel.email.isEmpty {
@@ -208,7 +212,7 @@ struct PasswordInputField: View {
     var textField: String
     @Binding var text: String
     var textNames: String
-    @Binding var isPasswordValid: Bool 
+    @Binding var isPasswordValid: Bool
     @ObservedObject var registerViewModel: RegisterViewModel
     @Binding var doPasswordsMatch: Bool
     
@@ -229,7 +233,7 @@ struct PasswordInputField: View {
                         .opacity(self.isPasswordValid ? 0 : 1)
                         .onAppear {
                             
-                            withAnimation(Animation.linear(duration:2)){}
+                            withAnimation(Animation.linear(duration:0.5)){}
                             
                         }
                     , alignment: .trailing
@@ -248,7 +252,11 @@ struct PasswordInputField: View {
                         .foregroundColor(.red)
                         .padding(.trailing, 8)
                         .opacity(self.doPasswordsMatch ? 0 : 1)
-                        .animation(.default)
+                        .onAppear {
+                            
+                            withAnimation(Animation.linear(duration:0.5)){}
+                            
+                        }
                     , alignment: .trailing
                 )
             
@@ -260,11 +268,20 @@ struct PasswordInputField: View {
             }
             
             if !self.doPasswordsMatch && !self.registerViewModel.confirm_password.isEmpty {
+                Text("Password must be at least 8 characters long")
+                    .font(.callout)
+                    .foregroundColor(Color.red)
+                    .padding(.top, 5)
+            }
+            
+            if self.registerViewModel.confirm_password === self.registerViewModel.password {
                 Text("Passwords do not match")
                     .font(.callout)
                     .foregroundColor(Color.red)
                     .padding(.top, 5)
             }
+            
+          
         }
     }
 }
