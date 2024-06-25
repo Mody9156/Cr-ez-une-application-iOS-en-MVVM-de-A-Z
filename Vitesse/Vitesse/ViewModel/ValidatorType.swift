@@ -23,7 +23,8 @@ enum ValidatorType {
     
     func textFieldValidatorPassword(_ string: String) -> Bool {
         
-        return string.count >= 6
+        return string.count >= 6 
+        
     }
     
     
