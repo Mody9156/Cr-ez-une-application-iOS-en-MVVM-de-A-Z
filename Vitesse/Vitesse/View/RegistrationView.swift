@@ -11,14 +11,16 @@ struct RegistrationView: View {
     @State private var isLastNameValid: Bool = true
     @State private var doPasswordsMatch: Bool = true
     @State private var alertMessage_all : String = ""
-    @State private var showPicture : Bool = false
+    @State private var showPictureTrue : Bool = false
+    @State private var showPictureFalse : Bool = false
     
     var body: some View {
         ZStack {
-            if showPicture {
-                Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.green).frame(width: 100,height: 100).opacity(showPicture ? 1 : 0)
-            }else {
-                Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.red).frame(width: 100,height: 100).opacity(showPicture ? 1 : 0)
+            if showPictureTrue {
+                Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.green).frame(width: 100,height: 100).opacity(showPictureTrue ? 1 : 0)
+            }
+            if showPictureFalse{
+                Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.red).frame(width: 100,height: 100).opacity(showPictureFalse ? 1 : 0)
             }
             Color.orange.opacity(0.2) // Light orange background
                 .ignoresSafeArea()
@@ -74,9 +76,10 @@ struct RegistrationView: View {
                         if isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid && doPasswordsMatch {
                             do {
                                 try await registerViewModel.handleRegistrationViewModel()
-                                showPicture = true
+                                showPictureTrue = true
                             } catch {
                                 alertMessage = "Error while creating the account: \(error.localizedDescription)"
+                                showPictureFalse = true
                             }
                         } else {
                             alertMessage_all = "Please verify that all fields are correctly filled and passwords match."
