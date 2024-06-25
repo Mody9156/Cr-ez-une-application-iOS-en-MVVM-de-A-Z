@@ -19,15 +19,23 @@ struct RegistrationView: View {
             if showPictureTrue {
                 Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.green).frame(width: 100,height: 100).opacity(showPictureTrue ? 1 : 0).onAppear {
                     
-                    withAnimation(Animation.linear(duration:2)){}
+                    withAnimation(Animation.linear(duration:1)){
+                        
+                    }
                     
                 }
             }
             if showPictureFalse{
                 Image(systemName: "checkmark.shield.fill").resizable().foregroundColor(.red).frame(width: 100,height: 100).opacity(showPictureFalse ? 1 : 0).onAppear {
                     
-                    withAnimation(Animation.linear(duration:2)){}
+                    withAnimation(Animation.linear(duration:0.5)){}
                     
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                        withAnimation(Animation.linear(duration:0.5)){
+                            showPictureFalse = false
+                        }
+
+                    })
                 }
             }
             Color.orange.opacity(0.2) // Light orange background
