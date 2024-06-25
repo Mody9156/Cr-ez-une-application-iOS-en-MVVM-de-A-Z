@@ -96,7 +96,7 @@ struct RegistrationView: View {
                         
                         if isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid && doPasswordsMatch {
                             do {
-                                try await registerViewModel.handleRegistrationViewModel()
+                               let _ = try await registerViewModel.handleRegistrationViewModel()
                                 showPictureTrue = true
                             } catch {
                                 alertMessage = "Error while creating the account: \(error.localizedDescription)"
@@ -148,7 +148,11 @@ struct LabeledTextField: View {
                     .foregroundColor(.red)
                     .padding(.trailing, 8)
                     .opacity(self.isValid ? 0 : 1)
-                    .animation(.default)
+                    .onAppear {
+                        
+                        withAnimation(Animation.linear(duration:0.5)){}
+                        
+                    }
                 , alignment: .trailing
             )
             if !self.isValid && !self.text.isEmpty {
