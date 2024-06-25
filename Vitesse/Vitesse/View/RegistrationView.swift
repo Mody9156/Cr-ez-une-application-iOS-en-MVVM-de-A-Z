@@ -79,7 +79,7 @@ struct RegistrationView: View {
                     )
                 }
                 .padding()
-                Text(alertMessageAll).foregroundColor(.red)
+                Text(alertMessageAll).foregroundColor(showPictureFalse ? .green : .red)
                 Button("Create") {
                     Task {
                         isFirstNameValid = !registerViewModel.firstName.isEmpty
