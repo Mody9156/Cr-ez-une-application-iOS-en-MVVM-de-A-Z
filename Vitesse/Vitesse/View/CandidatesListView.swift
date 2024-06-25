@@ -9,6 +9,11 @@ struct CandidatesListView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                
+                ZStack {
+                    Rectangle().frame(width:500, height:20).foregroundColor(.green)
+                    Text("Deletion successful.").foregroundColor(.white)
+                }
                 // Liste des candidats
                 List {
                     ForEach(searchResult, id: \.id) { candidate in
@@ -19,6 +24,7 @@ struct CandidatesListView: View {
                                 candidateInformation: candidate
                             )
                         ) {
+                          
                             HStack {
                                 Text(candidate.firstName)
                                     .foregroundColor(.orange)

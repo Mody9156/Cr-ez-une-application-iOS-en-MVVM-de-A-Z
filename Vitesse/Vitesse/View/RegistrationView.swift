@@ -12,6 +12,7 @@ struct RegistrationView: View {
     @State private var showPictureFalse: Bool = false
     @State var doPasswordsMatch: Bool = true
     @State var isPasswordValid: Bool = true
+    @State var isValid: Bool = false
     
     var body: some View {
         ZStack {
@@ -79,7 +80,18 @@ struct RegistrationView: View {
                     )
                 }
                 .padding()
-                Text(alertMessageAll).foregroundColor(showPictureFalse ? .green : .red)
+                
+                Text(alertMessageAll).foregroundColor(isValid ? .green : .red).onAppear {
+                    
+                    withAnimation(Animation.linear(duration: 0.5)) {}
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        withAnimation(Animation.linear(duration: 0.5)) {
+                            isValid = false
+                        }
+                    }
+                }
+                
                 Button("Create") {
                     Task {
                         isFirstNameValid = !registerViewModel.firstName.isEmpty
@@ -93,9 +105,11 @@ struct RegistrationView: View {
                                 let _ = try await registerViewModel.handleRegistrationViewModel()
                                 showPictureTrue = true
                                 alertMessageAll = "Account created successfully. All entered information is valid."
+                                isValid = true
                             } catch {
                                 alertMessageAll = "Error while creating the account. Please verify the entered information."
                                 showPictureFalse = true
+                                isValid = false
                             }
                         }
                     }
