@@ -14,6 +14,7 @@ struct CandidateDetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var showFavoris : Bool = false
     @State private var update : Bool = false
+    @State private var alert : Bool = false
     
     var body: some View {
         
@@ -81,6 +82,7 @@ struct CandidateDetailView: View {
                                     showFavoris = true
                                 }catch{
                                     showFavoris = false
+                                    alert = true
                                 }
                                 
                                 
@@ -90,7 +92,12 @@ struct CandidateDetailView: View {
                             Image(systemName: candidateInformation.isFavorite ? "star.fill" : "star")
                                 .foregroundColor(candidateInformation.isFavorite ? .yellow : .black)
                                 .font(.title2)
+                        }.alert("Accès Refusé", isPresented: $alert) {
+                            Button("OK", role: .cancel) { }
+                        } message: {
+                            Text("Vous n'êtes pas administrateur et ne pouvez donc pas accéder à cette fonctionnalité.")
                         }
+
                         
                     }
                 }
