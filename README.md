@@ -1,3 +1,6 @@
+<p align="center"> <img src="Screenshots/icone.png" img width="100" > </p>
+
+
 # Complete Mobile Application in MVVM
 
 ## Description
@@ -6,7 +9,9 @@ This project involves the development of an iOS application using the skills acq
 
 ## Screenshots
 
-Please include screenshots of the different pages of your app here to give a visual overview of its user interface.
+<!--| <p align="center"><img src="Screenshots/List.png" width="200" alt="SwiftUI Interface"></p> | <p align="center"><img src="Screenshots/Detailed.png" width="200" alt="SwiftUI/UIKIT Interface"></p> | <p align="center"><img src="Screenshots/Map.png" width="200" alt="MapKit Interface"></p> |-->
+<!--|:--:|:--:|:--:|-->
+<!--| **List** | **Detailed** | **Map** -->
 
 ## Technologies Used
 
